@@ -1,0 +1,9 @@
+launchers:
+  Node:
+    command: node_modules/.bin/mocha -R tap
+    protocol: tap
+launch_in_dev:
+- Node
+src_files:
+  - "test/**/*.spec.js"
+  - "index.js"

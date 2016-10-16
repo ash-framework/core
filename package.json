@@ -1,0 +1,97 @@
+{
+  "name": "ash",
+  "description": "Node.js web framework",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ash-project/ash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ash-project/ash/issues"
+  },
+  "homepage": "https://github.com/ash-project/ash",
+  "author": "Richard Walker <digitalsadhu@gmail.com> (http://ash-project.com)",
+  "engines": {
+    "node": ">=6.7.0"
+  },
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "pretest": "npm run lint",
+    "test:ci": "mocha -R spec test",
+    "test:dev": "testem .",
+    "test": "npm run test:ci",
+    "build": "babel src --presets babel-preset-es2015 --out-dir dist",
+    "prepublish": "npm test && npm prune && npm run build",
+    "preversion:patch": "npm run test",
+    "version:patch": "xyz -i patch",
+    "preversion:minor": "npm run test",
+    "version:minor": "xyz -i minor",
+    "preversion:major": "npm run test",
+    "version:major": "xyz -i major",
+    "readme": "projectz compile"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "keywords": [
+    "ash",
+    "web",
+    "framework"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-preset-es2015": "^6.16.0",
+    "chai": "^3.5.0",
+    "github": "^5.2.2",
+    "mocha": "^3.1.2",
+    "projectz": "^1.2.0",
+    "snazzy": "^5.0.0",
+    "standard": "^8.4.0",
+    "testem": "^1.12.0",
+    "xyz": "^1.0.1"
+  },
+  "peerDependencies": {},
+  "maintainers": [
+    "Richard Walker digitalsadhu@gmail.com"
+  ],
+  "contributors": [],
+  "badges": {
+    "list": [
+      [
+        "badge",
+        {
+          "image": "https://mediasuite.co.nz/ms-badge.png",
+          "url": "https://mediasuite.co.nz",
+          "title": "The Media Suite",
+          "alt": "The Media Suite"
+        }
+      ],
+      "---",
+      [
+        "badge",
+        {
+          "image": "https://nodei.co/npm/ash.png?downloads=true&stars=true",
+          "url": "https://nodei.co/npm/ash"
+        }
+      ],
+      "---",
+      "travisci",
+      "npmversion",
+      "npmdownloads",
+      "daviddm",
+      "daviddmdev"
+    ]
+  },
+  "sponsors": [
+    "The Media Suite (http://mediasuite.co.nz)"
+  ],
+  "standard": {
+    "ignore": [
+      "/dist/"
+    ]
+  }
+}
