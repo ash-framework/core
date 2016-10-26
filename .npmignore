@@ -2,4 +2,3 @@ LICENSE
 .gitignore
 test/**/*
 test
-src
