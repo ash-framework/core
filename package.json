@@ -40,7 +40,7 @@
     "framework"
   ],
   "dependencies": {
-    "@ash-framework/classes": "^0.0.1",
+    "@ash-framework/classes": "^0.0.2",
     "@ash-framework/log": "^1.0.0",
     "@ash-framework/middleware": "^1.0.0",
     "@ash-framework/router": "^0.0.2"

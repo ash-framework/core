@@ -4,13 +4,7 @@
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@ash-framework/argument-error/-/argument-error-1.0.3.tgz#f4e418892c2707f6945e8007fe9107ad28d155b1"
 
-"@ash-framework/classes":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ash-framework/classes/-/classes-0.0.1.tgz#c661c988405ebee4b141183559545bffe3ce2829"
-  dependencies:
-    "@ash-framework/log" "^1.0.0"
-
-"@ash-framework/classes@^0.0.2":
+"@ash-framework/classes", "@ash-framework/classes@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@ash-framework/classes/-/classes-0.0.2.tgz#871343f3936a3828a0bd169f4954f32716d790e6"
   dependencies:
