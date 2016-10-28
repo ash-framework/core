@@ -10,6 +10,12 @@
   dependencies:
     "@ash-framework/log" "^1.0.0"
 
+"@ash-framework/classes@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@ash-framework/classes/-/classes-0.0.2.tgz#871343f3936a3828a0bd169f4954f32716d790e6"
+  dependencies:
+    "@ash-framework/log" "^1.0.0"
+
 "@ash-framework/file-not-found-error@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@ash-framework/file-not-found-error/-/file-not-found-error-1.0.0.tgz#4fee32050c3f84ffea72e7e7866309ee0127542f"
@@ -38,10 +44,11 @@
     supertest-as-promised "^4.0.0"
 
 "@ash-framework/router":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ash-framework/router/-/router-0.0.1.tgz#60e60c16ee8ee5ae403bd352b77cfbd88c5bfcfb"
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@ash-framework/router/-/router-0.0.2.tgz#823c372380f207f4f9f0bae37b442539c94f4b0d"
   dependencies:
     "@ash-framework/argument-error" "^1.0.3"
+    "@ash-framework/classes" "^0.0.2"
     "@ash-framework/file-not-found-error" "^1.0.0"
     "@ash-framework/http-context" "^1.0.0"
     ember-route-objects "^1.0.0"

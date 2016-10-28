@@ -5,30 +5,28 @@ const loadMiddleware = require('@ash-framework/middleware')
 const express = require('express')
 const path = require('path')
 
-const config = require(path.join(process.cwd(), 'config/environment.js'))
-const MiddlewareRouter = require(path.join(process.cwd(), 'app/middleware.js'))
-const Router = require(path.join(process.cwd(), 'app/router.js'))
-
 const _app = new WeakMap()
 
 module.exports = class Application extends Base {
-  start () {
+  static start () {
+    const config = require(path.join(process.cwd(), 'config/environment.js'))(process.env.NODE_ENV)
+    const MiddlewareRouter = require(path.join(process.cwd(), 'app/middleware.js'))
+    const Router = require(path.join(process.cwd(), 'app/router.js'))
+
     const app = express()
     _app.set(this, app)
 
     const log = new Log()
 
     log.info('Ash server loading middleware')
-    const middlewareRouter = new MiddlewareRouter()
     const middlewareDir = path.join(process.cwd(), 'app/middleware')
-    loadMiddleware(middlewareRouter.definition, app, middlewareDir)
+    loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
 
     log.info('Ash server loading routes')
-    const router = new Router()
-    const routeDir = path.join(process.cwd(), 'app/routes')
-    app.use(createRoutes(router.definition, routeDir))
+    const options = {routesDir: path.join(process.cwd(), 'app/routes')}
+    app.use(createRoutes(Router.definition, options))
 
-    app.start(config.port, function () {
+    app.listen(config.port, function () {
       log.info(`Ash server started on port ${config.port}`)
     })
   }
