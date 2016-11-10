@@ -14,7 +14,7 @@
   "homepage": "https://github.com/ash-project/ash",
   "author": "Richard Walker <digitalsadhu@gmail.com> (http://ash-project.com)",
   "engines": {
-    "node": ">=6.7.0"
+    "node": ">=7.1.0"
   },
   "scripts": {
     "lint": "standard --verbose | snazzy",
