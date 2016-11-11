@@ -38,8 +38,8 @@
     supertest-as-promised "^4.0.0"
 
 "@ash-framework/router":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@ash-framework/router/-/router-0.0.2.tgz#823c372380f207f4f9f0bae37b442539c94f4b0d"
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@ash-framework/router/-/router-0.0.3.tgz#2311833791402dcf1b742268c8b031fa08b45fb1"
   dependencies:
     "@ash-framework/argument-error" "^1.0.3"
     "@ash-framework/classes" "^0.0.2"
@@ -1602,9 +1602,13 @@ lodash@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.15.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.3.0:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
+
+lodash@^4.15.0:
+  version "4.16.6"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
 lru-cache@^4.0.1:
   version "4.0.1"
