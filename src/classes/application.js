@@ -40,6 +40,29 @@ module.exports = class Application extends Base {
       }
     }
 
+    log.trace('Ash server registering 404 handler')
+    app.use(function (req, res, next) {
+      log.warn(`${req.method} ${req.originalUrl} 404 Not found`)
+      res.status(404)
+      if (req.accepts().indexOf('application/json') !== -1) {
+        res.send({status: 404, error: 'Not found'})
+      } else {
+        res.send('Not found')
+      }
+    })
+
+    log.trace('Ash server registering error handler')
+    app.use(function (err, req, res, next) {
+      log.error(err.stack)
+      const status = err.status || 500
+      res.status(status)
+      if (req.accepts().indexOf('application/json') !== -1) {
+        res.send({status, error: err.message})
+      } else {
+        res.send(err.message)
+      }
+    })
+
     app.listen(config.port, function () {
       log.trace(`Ash server started on port ${config.port}`)
     })
