@@ -10,6 +10,7 @@ const {
 } = require('@ash-framework/classes')
 
 const Log = require('@ash-framework/log')
+const HttpError = require('@ash-framework/http-error')
 
 const Application = require('./classes/application')
 
@@ -21,7 +22,8 @@ const Ash = {
   log: new Log(),
   Application,
   Mixin,
-  Initializer
+  Initializer,
+  HttpError
 }
 
 module.exports = Ash
