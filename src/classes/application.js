@@ -53,6 +53,9 @@ module.exports = class Application extends Base {
 
     log.trace('Ash server registering error handler')
     app.use(function (err, req, res, next) {
+      if (!err.stack) {
+        err = new Error(err)
+      }
       log.error(err.stack)
       const status = err.status || 500
       res.status(status)
