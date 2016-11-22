@@ -1,6 +1,7 @@
-const {Base} = require('@ash-framework/classes')
+const {Base, ErrorHandler} = require('@ash-framework/classes')
 const createRoutes = require('@ash-framework/router')
 const Log = require('@ash-framework/log')
+const HttpError = require('@ash-framework/http-error')
 const loadMiddleware = require('@ash-framework/middleware')
 const express = require('express')
 const path = require('path')
@@ -41,29 +42,30 @@ module.exports = class Application extends Base {
     }
 
     log.trace('Ash server registering 404 handler')
-    app.use(function (req, res, next) {
-      log.warn(`${req.method} ${req.originalUrl} 404 Not found`)
-      res.status(404)
-      if (req.accepts().indexOf('application/json') !== -1) {
-        res.send({status: 404, error: 'Not found'})
-      } else {
-        res.send('Not found')
-      }
+    app.use(function (request, response, next) {
+      next(new HttpError(404))
     })
 
     log.trace('Ash server registering error handler')
-    app.use(function (err, req, res, next) {
+    app.use(function (err, request, response, next) {
       if (!err.stack) {
-        err = new Error(err)
+        err = new HttpError(err)
       }
-      log.error(err.stack)
-      const status = err.status || 500
-      res.status(status)
-      if (req.accepts().indexOf('application/json') !== -1) {
-        res.send({status, error: err.message})
+      if (err.status === 404) {
+        log.warn(`${request.method} ${request.originalUrl} 404 ${err.message}`)
       } else {
-        res.send(err.message)
+        log.error(err.stack)
       }
+      let errorHandler
+      const customErrorHandler = path.join(process.cwd(), 'app') + '/error-handler.js'
+      console.log(customErrorHandler)
+      if (fs.existsSync(customErrorHandler)) {
+        const ErrorHandler = require(customErrorHandler)
+        errorHandler = new ErrorHandler({request, response})
+      } else {
+        errorHandler = new ErrorHandler({request, response})
+      }
+      errorHandler.error(err)
     })
 
     app.listen(config.port, function () {

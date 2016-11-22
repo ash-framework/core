@@ -6,7 +6,9 @@ const {
   Middleware,
   MiddlewareRouter,
   Mixin,
-  Initializer
+  Initializer,
+  ErrorHandler,
+  Service
 } = require('@ash-framework/classes')
 
 const Log = require('@ash-framework/log')
@@ -23,7 +25,9 @@ const Ash = {
   Application,
   Mixin,
   Initializer,
-  HttpError
+  HttpError,
+  ErrorHandler,
+  Service
 }
 
 module.exports = Ash
