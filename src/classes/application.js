@@ -1,4 +1,7 @@
-const {Base, ErrorHandler} = require('@ash-framework/classes')
+'use strict'
+
+const Base = require('./base')
+const ErrorHandler = require('./error-handler')
 const createRoutes = require('@ash-framework/router')
 const Log = require('@ash-framework/log')
 const HttpError = require('@ash-framework/http-error')
@@ -58,7 +61,6 @@ module.exports = class Application extends Base {
       }
       let errorHandler
       const customErrorHandler = path.join(process.cwd(), 'app') + '/error-handler.js'
-      console.log(customErrorHandler)
       if (fs.existsSync(customErrorHandler)) {
         const ErrorHandler = require(customErrorHandler)
         errorHandler = new ErrorHandler({request, response})
