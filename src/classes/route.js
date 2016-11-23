@@ -39,9 +39,10 @@ module.exports = class Route extends Http {
   /**
    * @method middleware
    * @static
+   * @param {Function} register
    */
-  middleware () {
-
+  static middleware (register) {
+    // register('middleware-name')
   }
 
   /**

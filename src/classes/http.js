@@ -66,8 +66,8 @@ module.exports = class Http extends Base {
    * @method services
    * @static
    */
-  static services () {
-
+  static services (register) {
+    // register('service-name')
   }
 
   /**
