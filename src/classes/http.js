@@ -57,15 +57,16 @@ module.exports = class Http extends Base {
     this.request = request
     this.response = response
 
-    this.services(service => {
+    this.constructor.services(service => {
       Inject.service(this, service)
     })
   }
 
   /**
    * @method services
+   * @static
    */
-  services () {
+  static services () {
 
   }
 
