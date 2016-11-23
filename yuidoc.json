@@ -1,8 +1,8 @@
 {
   "name": "Ash Framework",
-  "description": "The Foo API: a library for doing X, Y, and Z",
+  "description": "API documentation for Ash framework",
   "version": "0.0.1",
-  "url": "http://example.com/",
+  "url": "https://ash-framework.github.io/ash",
   "options": {
     "outdir": "./docs",
     "paths": "src/classes",
