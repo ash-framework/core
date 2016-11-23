@@ -12,8 +12,8 @@ module.exports = class Route extends Http {
   /**
    * @method constructor
    */
-  constructor (...args) {
-    super(...args)
+  constructor () {
+    super()
 
     const mw = []
     this.constructor.middleware(middleware => mw.push(middleware))
