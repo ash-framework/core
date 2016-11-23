@@ -3,7 +3,17 @@
 const services = new Map()
 const path = require('path')
 
+/**
+ * @class Inject
+ * @private
+ */
 module.exports = class Inject {
+  /**
+   * @method service
+   * @static
+   * @param {Object} context
+   * @param {String} serviceName
+   */
   static service (context, serviceName) {
     const {request} = context
     if (!services.has(serviceName)) {

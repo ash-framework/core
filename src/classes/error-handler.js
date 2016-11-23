@@ -2,7 +2,15 @@
 
 const Http = require('./http')
 
+/**
+ * @class ErrorHandler
+ * @extends Http
+ */
 module.exports = class ErrorHandler extends Http {
+  /**
+   * @method error
+   * @param {Object} err
+   */
   error (err) {
     const status = err.status || 500
     this.response.status(status)

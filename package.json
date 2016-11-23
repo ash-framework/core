@@ -53,7 +53,8 @@
     "snazzy": "^5.0.0",
     "standard": "^8.4.0",
     "testem": "^1.12.0",
-    "xyz": "^1.0.1"
+    "xyz": "^1.0.1",
+    "yuidoc-ember-theme": "^1.2.1"
   },
   "peerDependencies": {},
   "maintainers": [

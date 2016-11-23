@@ -1,0 +1,12 @@
+{
+  "name": "Ash Framework",
+  "description": "The Foo API: a library for doing X, Y, and Z",
+  "version": "0.0.1",
+  "url": "http://example.com/",
+  "options": {
+    "outdir": "./docs",
+    "paths": "src/classes",
+    "themedir" : "node_modules/yuidoc-ember-theme",
+    "helpers" : ["node_modules/yuidoc-ember-theme/helpers/helpers.js"]
+  }
+}

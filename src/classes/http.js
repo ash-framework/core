@@ -3,7 +3,45 @@
 const Base = require('./base')
 const Inject = require('./inject')
 
+/**
+ * Extends Base to add Http request and response properties
+ *
+ * @class Http
+ * @extends Base
+ */
 module.exports = class Http extends Base {
+  /**
+   * @property request
+   */
+
+  /**
+   * @property response
+   */
+
+  /**
+   * @property body
+   */
+
+  /**
+   * @property params
+   */
+
+  /**
+   * @property query
+   */
+
+  /**
+   * @property headers
+   */
+
+  /**
+   * @property method
+   */
+
+  /**
+   * @method constructor
+   * @constructor
+   */
   constructor (...args) {
     super(...args)
 
@@ -24,14 +62,23 @@ module.exports = class Http extends Base {
     })
   }
 
+  /**
+   * @method services
+   */
   services () {
 
   }
 
+  /**
+   * @method accepts
+   */
   accepts (types) {
     return this.request.accepts(types)
   }
 
+  /**
+   * @method is
+   */
   is (type) {
     return this.request.is(type)
   }
