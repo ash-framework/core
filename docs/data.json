@@ -3,7 +3,7 @@
         "name": "Ash Framework",
         "description": "API documentation for Ash framework",
         "version": "0.0.1",
-        "url": "https://ash-framework.github.io/ash"
+        "url": "https://github.com/ash-framework/ash"
     },
     "files": {
         "src/classes/application.js": {
