@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Route - Ash Framework</title>
+    <meta name="description" content="The Foo API: a library for doing X, Y, and Z">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img src="../assets/img/ember-logo.png" alt="">
+            <span>Ash Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://example.com/" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="http://example.com//commits/1" target="_blank">
+                                  Tag: 0.0.1
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+
+
+<div class="page-header">
+    <h1> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Route Class
+            <a class="pull-right file-edit" href="http://example.com//tree/1/src/classes/route.js#L7" target="_blank">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+    </h1>
+</div>
+
+
+<div class="content-meta">
+
+        <div class="extends">
+            Extends: <a href="../classes/Http.html" class="crosslink">Http</a>
+        </div>
+
+
+
+        <div class="foundat">
+            Defined In: <a href="http://example.com//tree/1/src/classes/route.js#L7">src/classes/route.js:7</a>
+        </div>
+</div>
+
+
+
+
+<div>
+    <div class="page-section">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#tab_index" aria-controls="tab_index" role="tab" data-toggle="tab">Index</a></li>
+            <li role="presentation"><a href="#tab_methods" aria-controls="tab_methods" role="tab" data-toggle="tab">Methods</a></li>
+
+            <li role="presentation"><a href="#tab_properties" aria-controls="tab_properties" role="tab" data-toggle="tab">Properties</a></li>
+
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+              <form id="options-form" class="form-inline">
+                  Show:
+                  <label for="api-show-inherited" class="checkbox">
+                      <input type="checkbox" id="api-show-inherited" checked>
+                      Inherited
+                  </label>
+          
+                  <label for="api-show-protected" class="checkbox">
+                      <input type="checkbox" id="api-show-protected">
+                      Protected
+                  </label>
+          
+                  <label for="api-show-private" class="checkbox">
+                      <input type="checkbox" id="api-show-private">
+                      Private
+                  </label>
+                  <label for="api-show-deprecated" class="checkbox">
+                      <input type="checkbox" id="api-show-deprecated">
+                      Deprecated
+                  </label>
+          
+              </form>
+
+          <div id="tab_index" role="tabpanel" class="tab-pane active" >
+                  <div class="index-section methods">
+                      <h3>Methods</h3>
+
+                      <ul class="index-list methods extends">
+                              <li class="index-item method inherited">
+                                  <a href="#method_accepts">accepts</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_afterModel">afterModel</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_beforeModel">beforeModel</a>
+
+                              </li>
+                              <li class="index-item method inherited">
+                                  <a href="#method_constructor">constructor</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_deserialize">deserialize</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_error">error</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_hasMiddleware">hasMiddleware</a>
+
+                              </li>
+                              <li class="index-item method inherited">
+                                  <a href="#method_is">is</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_middleware">middleware</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_model">model</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_registeredMiddleware">registeredMiddleware</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_serialize">serialize</a>
+
+                              </li>
+                              <li class="index-item method inherited">
+                                  <a href="#method_services">services</a>
+
+                              </li>
+                      </ul>
+                  </div>
+
+                  <div class="index-section properties">
+                      <h3>Properties</h3>
+
+                      <ul class="index-list properties extends">
+                              <li class="index-item property inherited">
+                                  <a href="#property_body">body</a>
+
+                              </li>
+                              <li class="index-item property inherited">
+                                  <a href="#property_headers">headers</a>
+
+                              </li>
+                              <li class="index-item property inherited">
+                                  <a href="#property_method">method</a>
+
+                              </li>
+                              <li class="index-item property inherited">
+                                  <a href="#property_params">params</a>
+
+                              </li>
+                              <li class="index-item property inherited">
+                                  <a href="#property_query">query</a>
+
+                              </li>
+                              <li class="index-item property inherited">
+                                  <a href="#property_request">request</a>
+
+                              </li>
+                              <li class="index-item property inherited">
+                                  <a href="#property_response">response</a>
+
+                              </li>
+                      </ul>
+                  </div>
+
+
+          </div>
+
+              <div id="tab_methods" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="method_accepts" class="method item inherited">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_accepts"></a>
+  		accepts
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>Inherited from
+  				<a href="../classes/Http.html#method_accepts">Http</a>:
+  		<a href="http://example.com//tree/1/src/classes/http.js#L72">src/classes/http.js:72</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_afterModel" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_afterModel"></a>
+  		afterModel
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L67">src/classes/route.js:67</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_beforeModel" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_beforeModel"></a>
+  		beforeModel
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L53">src/classes/route.js:53</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_constructor" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_constructor"></a>
+  		constructor
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  			<p>Inherited from
+  			<a href="../classes/Base.html#method_constructor">
+  				Base
+  			</a>
+  			but overwritten in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L12">src/classes/route.js:12</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_deserialize" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_deserialize"></a>
+  		deserialize
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L46">src/classes/route.js:46</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_error" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_error"></a>
+  		error
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L81">src/classes/route.js:81</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_hasMiddleware" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_hasMiddleware"></a>
+  		hasMiddleware
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L23">src/classes/route.js:23</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_is" class="method item inherited">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_is"></a>
+  		is
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>Inherited from
+  				<a href="../classes/Http.html#method_is">Http</a>:
+  		<a href="http://example.com//tree/1/src/classes/http.js#L79">src/classes/http.js:79</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_middleware" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_middleware"></a>
+  		middleware
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L39">src/classes/route.js:39</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_model" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_model"></a>
+  		model
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L60">src/classes/route.js:60</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_registeredMiddleware" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_registeredMiddleware"></a>
+  		registeredMiddleware
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L31">src/classes/route.js:31</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_serialize" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_serialize"></a>
+  		serialize
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="http://example.com//tree/1/src/classes/route.js#L74">src/classes/route.js:74</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+  <div id="method_services" class="method item inherited">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_services"></a>
+  		services
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>Inherited from
+  				<a href="../classes/Http.html#method_services">Http</a>:
+  		<a href="http://example.com//tree/1/src/classes/http.js#L65">src/classes/http.js:65</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  
+  </div>
+                  </div>
+              </div>
+
+              <div id="tab_properties" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="property_body" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_body"></a>
+          body
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_body">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L21">src/classes/http.js:21</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_headers" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_headers"></a>
+          headers
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_headers">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L33">src/classes/http.js:33</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_method" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_method"></a>
+          method
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_method">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L37">src/classes/http.js:37</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_params" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_params"></a>
+          params
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_params">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L25">src/classes/http.js:25</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_query" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_query"></a>
+          query
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_query">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L29">src/classes/http.js:29</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_request" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_request"></a>
+          request
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_request">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L13">src/classes/http.js:13</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_response" class="property item inherited">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_response"></a>
+          response
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>Inherited from
+                  <a href="../classes/Http.html#property_response">Http</a>:
+          <a href="http://example.com//tree/1/src/classes/http.js#L17">src/classes/http.js:17</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+                  </div>
+              </div>
+
+
+      </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>
