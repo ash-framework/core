@@ -4,6 +4,26 @@ const Http = require('./http')
 const middleware = new WeakMap()
 
 /**
+ * The Ash route class extends the @see Http class and so has access
+ * to request and response properties.
+ *
+ * Routes execute via a series of hooks in the following order
+ *
+ * 1. deserialize
+ * 2. beforeModel
+ * 3. model
+ * 4. afterModel
+ * 5. serialize
+ *
+ * If a hook returns a promise, the subsequent hook will not execute until the promise has resolved.
+ *
+ * All hooks are optional except for `model` and amything returned from the `model` hook will be returned
+ * to the client.
+ *
+ * Routes support the following:
+ * - mixins (@see Mixin)
+ * - services (@see Service)
+ * - middleware (@see Middleware)
  *
  * @class Route
  * @extends Http
@@ -11,6 +31,7 @@ const middleware = new WeakMap()
  */
 module.exports = class Route extends Http {
   /**
+   *
    * @method constructor
    */
   constructor (context) {
@@ -58,7 +79,7 @@ module.exports = class Route extends Http {
    *
    * module.exports = class MyRoute extends Ash.Route {
    *   static middleware (register) {
-   *     register('')
+   *     register('my-middleware')
    *   }
    * }
    * ```
@@ -68,11 +89,16 @@ module.exports = class Route extends Http {
    * @param {Function} register
    */
   static middleware (register) {
-    // register('middleware-name')
+
   }
 
   /**
-   * @method deserialize
+   * The first hook to be executed during the lifecycle of a route.
+   * This hook should generally be used to perform operations on an incoming
+   * request body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs
+   * rather than GETs and DELETEs.
+   *
+   * @method {Function} deserialize
    */
   deserialize () {
 
@@ -94,6 +120,7 @@ module.exports = class Route extends Http {
 
   /**
    * @method afterModel
+   * @param {Object} model
    */
   afterModel (model) {
 
@@ -101,6 +128,7 @@ module.exports = class Route extends Http {
 
   /**
    * @method serialize
+   * @param {Object} model
    */
   serialize (model) {
 
@@ -108,8 +136,31 @@ module.exports = class Route extends Http {
 
   /**
    * @method error
+   * @param {Object} error
    */
-  error (err) {
-    return err
+  error (error) {
+    return error
   }
+
+  /**
+   * The model for the route as returned from the model hook.
+   * Provided for access in later hooks such as `afterModel` or `serialize`
+   *
+   * Example:
+   * ```
+   *
+   * afterModel () {
+   *   this.currentModel.color = 'red'
+   * }
+   * ```
+   *
+   * @property {Mixed} currentModel
+   */
+
+  /**
+   * The name of the route. This is the same as the name of the route js file (without the .js)
+   * and not the name of the exported class. For the name of the class use `this.name`
+   *
+   * @property {String} routeName
+   */
 }
