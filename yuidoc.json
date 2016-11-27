@@ -5,7 +5,7 @@
   "url": "http://example.com/",
   "options": {
     "outdir": "./docs",
-    "paths": "src/classes",
+    "paths": "src",
     "themedir" : "node_modules/yuidoc-ember-theme",
     "helpers" : ["node_modules/yuidoc-ember-theme/helpers/helpers.js"]
   }

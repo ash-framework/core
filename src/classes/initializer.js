@@ -3,8 +3,10 @@
 const Base = require('./base')
 
 /**
+ *
  * @class Initializer
  * @extends Base
+ * @constructor
  */
 module.exports = class Initializer extends Base {
   /**

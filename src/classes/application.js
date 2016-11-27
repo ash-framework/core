@@ -18,6 +18,7 @@ const _app = new WeakMap()
  *
  * @class Application
  * @extends Base
+ * @constructor
  */
 module.exports = class Application extends Base {
   /**

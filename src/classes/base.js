@@ -31,6 +31,7 @@ function mixinClasses (context) {
 * child classes.
 *
 * @class Base
+* @constructor
 */
 module.exports = class Base {
   /**
@@ -39,7 +40,6 @@ module.exports = class Base {
    * When overriding the constructor, remember to call `super()`
    *
    * @method constructor
-   * @constructor
    */
   constructor () {
     mixinClasses(this)

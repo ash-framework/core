@@ -4,7 +4,9 @@ const services = new Map()
 const path = require('path')
 
 /**
+ *
  * @class Inject
+ * @constructor
  * @private
  */
 module.exports = class Inject {

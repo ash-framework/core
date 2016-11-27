@@ -3,8 +3,10 @@
 const Base = require('./base')
 
 /**
+ *
  * @class Router
  * @extends Base
+ * @constructor
  */
 module.exports = class Router extends Base {
   /**
