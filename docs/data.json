@@ -1,0 +1,856 @@
+{
+    "project": {
+        "name": "Ash Framework",
+        "description": "The Foo API: a library for doing X, Y, and Z",
+        "version": "0.0.1",
+        "url": "http://example.com/"
+    },
+    "files": {
+        "src/classes/application.js": {
+            "name": "src/classes/application.js",
+            "modules": {},
+            "classes": {
+                "Application": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/base.js": {
+            "name": "src/classes/base.js",
+            "modules": {},
+            "classes": {
+                "Base": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/error-handler.js": {
+            "name": "src/classes/error-handler.js",
+            "modules": {},
+            "classes": {
+                "ErrorHandler": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/http.js": {
+            "name": "src/classes/http.js",
+            "modules": {},
+            "classes": {
+                "Http": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/initializer.js": {
+            "name": "src/classes/initializer.js",
+            "modules": {},
+            "classes": {
+                "Initializer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/inject.js": {
+            "name": "src/classes/inject.js",
+            "modules": {},
+            "classes": {
+                "Inject": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/middleware-router.js": {
+            "name": "src/classes/middleware-router.js",
+            "modules": {},
+            "classes": {
+                "MiddlewareRouter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/middleware.js": {
+            "name": "src/classes/middleware.js",
+            "modules": {},
+            "classes": {
+                "Middleware": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/mixin.js": {
+            "name": "src/classes/mixin.js",
+            "modules": {},
+            "classes": {
+                "Mixin": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/route.js": {
+            "name": "src/classes/route.js",
+            "modules": {},
+            "classes": {
+                "Route": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/router.js": {
+            "name": "src/classes/router.js",
+            "modules": {},
+            "classes": {
+                "Router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/service.js": {
+            "name": "src/classes/service.js",
+            "modules": {},
+            "classes": {
+                "Service": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/index.js": {
+            "name": "src/index.js",
+            "modules": {
+                "Ash": 1
+            },
+            "classes": {
+                "Ash": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Ash": {
+            "name": "Ash",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Application": 1,
+                "Base": 1,
+                "ErrorHandler": 1,
+                "Http": 1,
+                "Initializer": 1,
+                "Inject": 1,
+                "MiddlewareRouter": 1,
+                "Middleware": 1,
+                "Mixin": 1,
+                "Route": 1,
+                "Router": 1,
+                "Service": 1,
+                "Ash": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/index.js",
+            "line": 22,
+            "description": "Provides the Ash application framework",
+            "itemtype": "main"
+        }
+    },
+    "classes": {
+        "Application": {
+            "name": "Application",
+            "shortname": "Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/application.js",
+            "line": 15,
+            "description": "Application class used to create a new instance of an Ash application\nvia the static method `start`",
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Base": {
+            "name": "Base",
+            "shortname": "Base",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/base.js",
+            "line": 5,
+            "description": "Ash framework base class.\n\nThis class is the base class for all Ash classes. It adds support for mixins in all\nchild classes.",
+            "is_constructor": 1
+        },
+        "ErrorHandler": {
+            "name": "ErrorHandler",
+            "shortname": "ErrorHandler",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/error-handler.js",
+            "line": 5,
+            "description": "Base error handler for Ash applications. Users can choose to inherit\nfrom this class and override its error method in order to define a\ncustom error handler for their application.\n\n```\n\n// app/error-handler.js\nconst Ash = require('@ash-framework/ash')\n\nclass ErrorHandler extends Ash.ErrorHandler {\n  error (err) {\n    super.error(err)\n    // perform custom operations\n  }\n}\n```",
+            "extends": "Http",
+            "is_constructor": 1
+        },
+        "Http": {
+            "name": "Http",
+            "shortname": "Http",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/http.js",
+            "line": 6,
+            "description": "Extends the `Base` class to add Http `request` and `response` properties.\n\nThe `Http` class is intended to be used as a base class for any subclass that needs\naccess to the http `request` and/or `response`.\n\nThe class gains properties and methods from the request for convenience (effectively proxying them)\nand exposes the response (via `this.response`). The request itself is also available in full as\nneeded via `this.request`",
+            "uses": [
+                "Inject"
+            ],
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Initializer": {
+            "name": "Initializer",
+            "shortname": "Initializer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/initializer.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Inject": {
+            "name": "Inject",
+            "shortname": "Inject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Http"
+            ],
+            "module": "Ash",
+            "file": "src/classes/inject.js",
+            "line": 6,
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": ""
+        },
+        "MiddlewareRouter": {
+            "name": "MiddlewareRouter",
+            "shortname": "MiddlewareRouter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/middleware-router.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Middleware": {
+            "name": "Middleware",
+            "shortname": "Middleware",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/middleware.js",
+            "line": 5,
+            "description": "`Middleware` in Ash is implemented as a class that has access to the request and the response.\nA register method is called by the framework and needs to be implemented for the middleware to run.\n\nSince `Middleware` extends `Http`, it has access to `request` properties such as\n`this.params`, `this.query` and so on directly as well as other properties indirectly through\n`this.request` and `this.response`\n\nMiddleware should be used in conjunction with services to perform useful operations\nbefore the route is executed.",
+            "extends": "Http",
+            "is_constructor": 1
+        },
+        "Mixin": {
+            "name": "Mixin",
+            "shortname": "Mixin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/mixin.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Route": {
+            "name": "Route",
+            "shortname": "Route",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/route.js",
+            "line": 6,
+            "description": "The Ash route class extends the @see Http class and so has access\nto request and response properties.\n\nRoutes execute via a series of hooks in the following order\n\n1. deserialize\n2. beforeModel\n3. model\n4. afterModel\n5. serialize\n\nIf a hook returns a promise, the subsequent hook will not execute until the promise has resolved.\n\nAll hooks are optional except for `model` and amything returned from the `model` hook will be returned\nto the client.\n\nRoutes support the following:\n- mixins (@see Mixin)\n- services (@see Service)\n- middleware (@see Middleware)",
+            "extends": "Http",
+            "is_constructor": 1
+        },
+        "Router": {
+            "name": "Router",
+            "shortname": "Router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/router.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Service": {
+            "name": "Service",
+            "shortname": "Service",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/service.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Ash": {
+            "name": "Ash",
+            "shortname": "Ash",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "namespace": "",
+            "file": "src/index.js",
+            "line": 22,
+            "description": "The top level Ash namespace.\nAll access to Ash classes is through this object"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "src/classes/application.js",
+            "line": 24,
+            "description": "## Starts an Ash application\nStarts application by performing the following operations\n\n### 1. runs initializers\nRuns initializer classes in app/initializers (if any) in alphabetical order.\nInializers can be used to hook into app start up early on and gain access\nto the express app instance in case you need to perform operations\noutside the scope of the Ash framework.\n\n#### Example: adding an initializer\n```\n\n// app/initializers/application.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class Initializer extends Ash.Initializer {\n  init (app) {\n    // app is an unmodified express app instance so you can\n    // do the following.\n    app.get('/animals/mice', function (req, res) {\n      res.send('Success')\n    })\n  }\n}\n```\n\n### 2. loads middleware\nReads app/middleware.js to determine which middleware to run and in what order.\nReads in and runs any middleware specified in app/middleware.js from the app/middleware directory\n\n#### Example: creating middleware\n```\n\n// app/middleware/access.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class AccessMiddleware extends Ash.Middleware {\n  register () {\n\n  }\n}\n```\n\n#### Example: registering middleware\n```\n\n// app/middleware.js\nconst Ash = require('@ash-framework/ash')\n\nclass MiddlewareRouter extends Ash.MiddlewareRouter { }\n\nMiddlewareRouter.map(function () {\n  this.middleware('access')\n})\n\nmodule.exports = MiddlewareRouter\n```\n\n### 3. creates routes\nReads app/router.js to determine which routes to register.\nReads in and registers any routes specified in app/router.js from the app/routes directory\n\n#### Example: creating a route\n```\n\n// app/routes/user.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class UserRoute extends Ash.Route {\n  model () {\n    // return user data\n  }\n}\n```\n\n#### Example: registering route in the router\n```\n\n// app/router.js\nconst Ash = require('@ash-framework/ash')\n\nclass Router extends Ash.Router { }\n\nRouter.map(function () {\n  this.route('user')\n})\n\nmodule.exports = Router\n```\n\n### 4. adds an error handler\nThis error handler catches any errors and specifies how errors should be handled and\ndisplayed to the client.\n\nLooks for a user defined error handler class for the application in app/error-handler.js\nIf not found one is defined in its place.\n\n#### Example: adding a custom error handler\n```\n\n// app/error-handler.js\nconst {ErrorHandler, log} = require('@ash-framework/ash')\n\nmodule.exports = class ApplicationErrorHandler extends ErrorHandler {\n  error (error) {\n    log.error(error)\n    super.error(error)\n  }\n}\n```\n\n### 5. starts the app\nStarts the app on the port described in `config/environment.js`. The default port is 3010.\n\n#### Example: starting an application:\n```\n\nconst Ash = require('@ash-framework/ash')\n\nclass Application extends Ash.Application {\n}\n\nApplication.start()\n```",
+            "static": 1,
+            "itemtype": "method",
+            "name": "start",
+            "class": "Application"
+        },
+        {
+            "file": "src/classes/base.js",
+            "line": 15,
+            "description": "Sets up mixins.\n\nWhen overriding the constructor, remember to call `super()`",
+            "itemtype": "method",
+            "name": "constructor",
+            "class": "Base"
+        },
+        {
+            "file": "src/classes/base.js",
+            "line": 26,
+            "description": "Defines mixins for class.\n\nGets passed a `register` function that\ncan be called to mix mixin class methods in.\n\nCall register multiple times to mixin multiple mixins.\n\n```\nclass MyMixin1 {\n  method1 () {}\n}\n\nclass MyMixin2 {\n  method2 () {}\n}\n\nclass MyClass extends Ash.Base {\n  static mixins(register) {\n    register(MyMixin1)\n    register(MyMixin2)\n  }\n}\n```\n\nInstantiating `MyClass` will result in an object with methods `method1` and `method2` mixed in.",
+            "itemtype": "method",
+            "name": "mixins",
+            "static": 1,
+            "params": [
+                {
+                    "name": "register",
+                    "description": "- mixin registration function. Can be called multiple times to register\nadditional mixins.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Base"
+        },
+        {
+            "file": "src/classes/error-handler.js",
+            "line": 28,
+            "description": "Method called by Ash whenever an error occurs. This includes 404 errors",
+            "itemtype": "method",
+            "name": "error",
+            "params": [
+                {
+                    "name": "err",
+                    "description": "- error object with properties `status` and `message`",
+                    "type": "Object"
+                }
+            ],
+            "class": "ErrorHandler"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 22,
+            "description": "The http request object.\n\nThis is the express request object",
+            "see": [
+                "http://expressjs.com/en/api.html#req"
+            ],
+            "itemtype": "property",
+            "name": "request",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 31,
+            "description": "The http response object.\n\nThis is the express response object",
+            "see": [
+                "http://expressjs.com/en/api.html#res"
+            ],
+            "itemtype": "property",
+            "name": "response",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 40,
+            "description": "The request body\n\nContains key-value pairs of data submitted in the request body",
+            "itemtype": "property",
+            "name": "body",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 47,
+            "description": "Named url parameters\n\nThis property is an object containing properties mapped to named route parameters.\nThis object defaults to {}.\n\nExample: defining parameters\n```\n\n// app/router.js\nRouter.map(function () {\n  this.route('users', {path: '/users/:user_id'})\n})\n```\n\nExample: accessing defined parameters\n```\n\nthis.params.user_id\n```",
+            "itemtype": "property",
+            "name": "params",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 71,
+            "description": "This property is an object containing a property for each query\nstring parameter in the route. If there is no query string, it is\nan empty object\n\nExample:\n```\n\n// /users?age=20&name=bob\n\nthis.query.age // 20\nthis.query.name // bob\n```",
+            "itemtype": "property",
+            "name": "query",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 88,
+            "description": "The request headers object.\nContains Key-value pairs of header names and values. Header names are lower-cased.\n\nDuplicates in raw headers are handled in the following ways, depending on the header name:\n\nDuplicates of age, authorization, content-length, content-type, etag, expires, from, host, if-modified-since, if-unmodified-since, last-modified, location, max-forwards, proxy-authorization, referer, retry-after, or user-agent are discarded.\nset-cookie is always an array. Duplicates are added to the array.\nFor all other headers, the values are joined together with ', '.\n\nExample:\n```\nthis.headers\n// { 'user-agent': 'curl/7.22.0',\n//   host: '127.0.0.1:3010',\n//   accept: '*\\/*' }\n```",
+            "itemtype": "property",
+            "name": "headers",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 109,
+            "description": "Contains a string corresponding to the HTTP method of the\nrequest: GET, POST, PUT, and so on.\n\nExample:\n```\n\nthis.method // GET\n```",
+            "itemtype": "property",
+            "name": "method",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 122,
+            "description": "Constructs a new http object.\nSets up request and response properties and injects services if defined.\n\nSets the following properties on the route:\n- request (express request)\n- response (express response)\n- body (request body)\n- params (request url named parameters)\n- query (request url query parameters)\n- headers (request headers)\n- method (request method)\n\nServices are injected under the defined injection property.\n\nExample:\nGiven the following service definition:\n```\n\nservices(register) {\n  register('authentication')\n}\n```\nThe route will be able to access the service:\n```\n\nthis.authentication\n```",
+            "itemtype": "method",
+            "name": "constructor",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "- object with properties `request` and `response`\nwhich are the express js request and reponse objects respectively",
+                    "type": "Object"
+                }
+            ],
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 176,
+            "description": "Used to define which services should be registered on the class.\n\nCall the `register` function as many times as needed to register services.\nServices are referenced by their name and will be looked up by the framework\nand injected onto the instance.\n\nExample:\n```\n\nclass MyClass extends Http {\n  services (register) {\n    register('authentication')\n    register('user')\n  }\n}\n```\n\nIn the example above, the `authentication` service will be looked up from the `app/services`\ndirectory and injected onto the instance as `this.authentication`. The user service will be\ninjected in the same manor afterwards.",
+            "itemtype": "method",
+            "name": "services",
+            "static": 1,
+            "params": [
+                {
+                    "name": "register",
+                    "description": "- takes a string name of the service to inject as its only argument.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 206,
+            "description": "Checks if the specified content types are acceptable, based on the request’s Accept HTTP header field.\n\nExample:\n```\n\nthis.accepts(['json', 'text']);\n// => \"json\"\n```\n\nNote: This is a proxy of the express js `request.accepts` method.",
+            "itemtype": "method",
+            "name": "accepts",
+            "params": [
+                {
+                    "name": "types",
+                    "description": "- may be a single MIME type string (such as “application/json”),\nan extension name such as “json”, a comma-delimited list, or an array.",
+                    "type": "Mixed"
+                }
+            ],
+            "return": {
+                "description": "Returns the best match, or if none of the specified content types is acceptable,\nreturns false.",
+                "type": "Mixed"
+            },
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 228,
+            "description": "Determines if the incoming request’s “Content-Type” HTTP header field matches\nthe MIME type specified by the type parameter.\n\nNote: This is a proxy of the express js `request.is` method.\n\nExample:\n```\n\n// When Content-Type is application/json\nthis.is('json');\nthis.is('application/json');\nthis.is('application/*');\n// => true\n```",
+            "itemtype": "method",
+            "name": "is",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Returns `true` if the incoming request’s “Content-Type” HTTP header field matches\nthe MIME type specified by the type parameter. Returns `false` otherwise.",
+                "type": "Mixed"
+            },
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/initializer.js",
+            "line": 12,
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "app",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Initializer"
+        },
+        {
+            "file": "src/classes/inject.js",
+            "line": 13,
+            "itemtype": "method",
+            "name": "service",
+            "static": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "serviceName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Inject"
+        },
+        {
+            "file": "src/classes/inject.js",
+            "line": 32,
+            "description": "Registers mixins on a class as defined by that classes static mixins method.",
+            "itemtype": "method",
+            "name": "mixins",
+            "static": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "instantiated object to have mixins to applied to.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Inject"
+        },
+        {
+            "file": "src/classes/middleware-router.js",
+            "line": 12,
+            "itemtype": "method",
+            "name": "map",
+            "static": 1,
+            "params": [
+                {
+                    "name": "definition",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "MiddlewareRouter"
+        },
+        {
+            "file": "src/classes/middleware.js",
+            "line": 21,
+            "description": "Registers code to be executed as middleware.\n\nExample:\n```\nclass Token extends Ash.Middleware {\n  services (register) {\n    register('db')\n    register('current-user')\n  }\n\n  register () {\n    const token = this.query.token\n    return this.db.find('users', {token}).then(user => {\n      this.currentUser.id = user.id\n      this.currentUser.name = user.name\n    })\n  }\n}\n```\nIn the above example we register 2 services, look up a user based on the token\nin the url query string and then set the returned user as the current user.\n\nNote. Returning a promise from the `register` function causes later middleware or\nthe route to wait for the promise to resolve as in the example above.",
+            "itemtype": "method",
+            "name": "register",
+            "class": "Middleware"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 33,
+            "itemtype": "method",
+            "name": "constructor",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 45,
+            "itemtype": "method",
+            "name": "hasMiddleware",
+            "access": "private",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 53,
+            "itemtype": "method",
+            "name": "registeredMiddleware",
+            "access": "private",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 61,
+            "description": "Route middleware\n\nYou can use this to register route specific middleware. ie. middleware specified here\nwill only run for this route. You can register the same piece of middleware in multiple\nroutes but you must do so explicitly by registering it in that routes `middleware` method.\n\nCall `register` with the name of the middleware in the `app/middleware` directory that\nyou want to load. You can call register multiple times to register more than one middleware\nand middleware will be executed in the order registered.\n\nExample\n\nExample: registering middleware on a route\n```\n\n// app/routes/my-route.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class MyRoute extends Ash.Route {\n  static middleware (register) {\n    register('my-middleware')\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "middleware",
+            "static": 1,
+            "params": [
+                {
+                    "name": "register",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 95,
+            "description": "The first hook to be executed during the lifecycle of a route.\nThis hook should generally be used to perform operations on an incoming\nrequest body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs\nrather than GETs and DELETEs.",
+            "itemtype": "method",
+            "name": "deserialize",
+            "type": "Function",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 107,
+            "itemtype": "method",
+            "name": "beforeModel",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 114,
+            "itemtype": "method",
+            "name": "model",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 121,
+            "itemtype": "method",
+            "name": "afterModel",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 129,
+            "itemtype": "method",
+            "name": "serialize",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 137,
+            "itemtype": "method",
+            "name": "error",
+            "params": [
+                {
+                    "name": "error",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 145,
+            "description": "The model for the route as returned from the model hook.\nProvided for access in later hooks such as `afterModel` or `serialize`\n\nExample:\n```\n\nafterModel () {\n  this.currentModel.color = 'red'\n}\n```",
+            "itemtype": "property",
+            "name": "currentModel",
+            "type": "Mixed",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 160,
+            "description": "The name of the route. This is the same as the name of the route js file (without the .js)\nand not the name of the exported class. For the name of the class use `this.name`",
+            "itemtype": "property",
+            "name": "routeName",
+            "type": "String",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/router.js",
+            "line": 12,
+            "itemtype": "method",
+            "name": "map",
+            "static": 1,
+            "params": [
+                {
+                    "name": "definition",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Router"
+        },
+        {
+            "file": "src/index.js",
+            "line": 29,
+            "itemtype": "property",
+            "name": "Route",
+            "type": "Route",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 34,
+            "itemtype": "property",
+            "name": "Router",
+            "type": "Router",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 39,
+            "itemtype": "property",
+            "name": "Middleware",
+            "type": "Middleware",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 44,
+            "itemtype": "property",
+            "name": "MiddlewareRouter",
+            "type": "MiddlewareRouter",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 49,
+            "description": "Instance of the Ash logger. Should be use throughout to log as needed.\n\nHas the following methods:\n- log.error\n- log.info\n- log.trace\n- log.warn\n- log.debug\n- log.fatal",
+            "itemtype": "property",
+            "name": "log",
+            "type": "Object",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 64,
+            "itemtype": "property",
+            "name": "Application",
+            "type": "Application",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 69,
+            "itemtype": "property",
+            "name": "Mixin",
+            "type": "Mixin",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 74,
+            "itemtype": "property",
+            "name": "Initializer",
+            "type": "Initializer",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 79,
+            "description": "This error should be used to throw Http related errors\n\n```\n\nthrow new Ash.HttpError(404)\n```\n\nAn optional message can be given\n\n```\n\nthrow new Ash.HttpError(404, 'Nothing was found, sorry about that.')\n```",
+            "itemtype": "property",
+            "name": "HttpError",
+            "type": "HttpError",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 97,
+            "itemtype": "property",
+            "name": "ErrorHandler",
+            "type": "ErrorHandler",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 102,
+            "itemtype": "property",
+            "name": "Service",
+            "type": "Service",
+            "class": "Ash",
+            "module": "Ash"
+        }
+    ],
+    "warnings": []
+}
