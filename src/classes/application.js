@@ -9,6 +9,7 @@ const loadMiddleware = require('@ash-framework/middleware')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
+const cors = require('cors')
 
 const _app = new WeakMap()
 
@@ -159,6 +160,11 @@ module.exports = class Application extends Base {
     log.trace('Ash server creating express app instance')
     const app = express()
     _app.set(this, app)
+
+    log.trace('Ash server loading cors middleware')
+    if (config.cors !== false) {
+      app.use(cors(Object.assign({}, config.cors)))
+    }
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
