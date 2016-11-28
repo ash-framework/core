@@ -11,6 +11,7 @@ const path = require('path')
 const fs = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
+const bodyparser = require('body-parser')
 
 const _app = new WeakMap()
 
@@ -172,6 +173,21 @@ module.exports = class Application extends Base {
 
     log.trace('Ash server loading security middleware')
     app.use(helmet())
+
+    log.trace('Ash server adding body parsing middleware')
+    const bodyParserOptions = config.bodyParser || {}
+    if (typeof bodyParserOptions.json === 'object') {
+      app.use(bodyparser.json(bodyParserOptions.json))
+    }
+    if (typeof bodyParserOptions.text === 'object') {
+      app.use(bodyparser.text(bodyParserOptions.text))
+    }
+    if (typeof bodyParserOptions.raw === 'object') {
+      app.use(bodyparser.raw(bodyParserOptions.raw))
+    }
+    if (typeof bodyParserOptions.urlencoded === 'object') {
+      app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
+    }
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
