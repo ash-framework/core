@@ -163,6 +163,9 @@ module.exports = class Application extends Base {
 
     log.trace('Ash server loading cors middleware')
     if (config.cors !== false) {
+      if (!config.cors || config.cors.preflight !== false) {
+        app.options('*', cors(Object.assign({}, config.cors)))
+      }
       app.use(cors(Object.assign({}, config.cors)))
     }
 
