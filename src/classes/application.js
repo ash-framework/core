@@ -10,6 +10,7 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs')
 const cors = require('cors')
+const helmet = require('helmet')
 
 const _app = new WeakMap()
 
@@ -168,6 +169,9 @@ module.exports = class Application extends Base {
       }
       app.use(cors(Object.assign({}, config.cors)))
     }
+
+    log.trace('Ash server loading security middleware')
+    app.use(helmet())
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
