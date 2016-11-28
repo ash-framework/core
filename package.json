@@ -43,7 +43,8 @@
     "@ash-framework/http-error": "^1.0.3",
     "@ash-framework/log": "^1.0.0",
     "@ash-framework/middleware": "^1.0.0",
-    "@ash-framework/router": "^0.0.3"
+    "@ash-framework/router": "^0.0.3",
+    "body-parser": "^1.15.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",

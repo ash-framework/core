@@ -9,6 +9,7 @@ const loadMiddleware = require('@ash-framework/middleware')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
+const bodyparser = require('body-parser')
 
 const _app = new WeakMap()
 
@@ -159,6 +160,21 @@ module.exports = class Application extends Base {
     log.trace('Ash server creating express app instance')
     const app = express()
     _app.set(this, app)
+
+    log.trace('Ash server adding body parsing middleware')
+    const bodyParserOptions = config.bodyParser || {}
+    if (bodyParserOptions.json !== false) {
+      app.use(bodyparser.json(Object.assign({extended: false}, bodyParserOptions.json)))
+    }
+    if (bodyParserOptions.text !== false) {
+      app.use(bodyparser.text(Object.assign({extended: false}, bodyParserOptions.text)))
+    }
+    if (bodyParserOptions.raw !== false) {
+      app.use(bodyparser.raw(Object.assign({extended: false}, bodyParserOptions.raw)))
+    }
+    if (bodyParserOptions.urlencoded !== false) {
+      app.use(bodyparser.urlencoded(Object.assign({extended: false}, bodyParserOptions.urlencoded)))
+    }
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
