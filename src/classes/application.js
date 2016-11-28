@@ -9,6 +9,7 @@ const loadMiddleware = require('@ash-framework/middleware')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
+const helmet = require('helmet')
 
 const _app = new WeakMap()
 
@@ -159,6 +160,8 @@ module.exports = class Application extends Base {
     log.trace('Ash server creating express app instance')
     const app = express()
     _app.set(this, app)
+
+    app.use(helmet())
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
