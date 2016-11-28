@@ -163,17 +163,17 @@ module.exports = class Application extends Base {
 
     log.trace('Ash server adding body parsing middleware')
     const bodyParserOptions = config.bodyParser || {}
-    if (bodyParserOptions.json !== false) {
-      app.use(bodyparser.json(Object.assign({extended: false}, bodyParserOptions.json)))
+    if (typeof bodyParserOptions.json === 'object') {
+      app.use(bodyparser.json(bodyParserOptions.json))
     }
-    if (bodyParserOptions.text !== false) {
-      app.use(bodyparser.text(Object.assign({extended: false}, bodyParserOptions.text)))
+    if (typeof bodyParserOptions.text === 'object') {
+      app.use(bodyparser.text(bodyParserOptions.text))
     }
-    if (bodyParserOptions.raw !== false) {
-      app.use(bodyparser.raw(Object.assign({extended: false}, bodyParserOptions.raw)))
+    if (typeof bodyParserOptions.raw === 'object') {
+      app.use(bodyparser.raw(bodyParserOptions.raw))
     }
-    if (bodyParserOptions.urlencoded !== false) {
-      app.use(bodyparser.urlencoded(Object.assign({extended: false}, bodyParserOptions.urlencoded)))
+    if (typeof bodyParserOptions.urlencoded === 'object') {
+      app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
     }
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
