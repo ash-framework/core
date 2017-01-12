@@ -23,7 +23,12 @@ module.exports = class Inject {
     }
     const service = services.get(serviceName)
     if (!service.has(request)) {
-      const Service = require(path.join(process.cwd(), 'app', 'services') + '/' + serviceName)
+      let Service
+      try {
+        Service = require(path.join(process.cwd(), 'app', 'services') + '/' + serviceName)
+      } catch (error) {
+        Service = require(path.join(__dirname, '/', serviceName))
+      }
       service.set(request, new Service())
     }
     context[serviceName] = service.get(request)

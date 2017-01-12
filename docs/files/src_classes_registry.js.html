@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/registry.js - Ash Framework</title>
+    <meta name="description" content="The Foo API: a library for doing X, Y, and Z">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <span>Ash Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://example.com/" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="http://example.com//commits/1" target="_blank">
+                                  Tag: 0.0.1
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/JSONAPISerializer.html">JSONAPISerializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/registry.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+const models = new Map()
+
+module.exports = class Registry {
+  /**
+   * Sets up a given model based on it&#x27;s static definition methods
+   * &#x60;attributes&#x60; and &#x60;relationships&#x60;
+   *
+   * First processes &#x60;attributes&#x60; creating getters and setters for each
+   * defined attribute
+   *
+   * Then process &#x60;relationships&#x60; creating getters and setters for each
+   * defined relationship. Relationship getters return nested relationship
+   * data where available and falls back to calling the appropriate relationship
+   * method to fetch the data if not available.
+   *
+   * @param {Object} Model
+   * @private
+   * @static
+   */
+  static registerModel (Model) {
+    Model.definition = {attributes: {}, relationships: {}}
+
+    Model.attributes(function (name, type) {
+      // create attributes metadata object
+      Model.definition.attributes[name] = type
+
+      // define properties with getters/setters for each attribute
+      Reflect.defineProperty(Model.prototype, name, {
+        get () {
+          return this.attributes[name]
+        },
+        set (value) {
+          // TODO: validate value to ensure it matches type
+          this.attributes[name] = value
+        },
+        enumerable: true,
+        configurable: false
+        // TODO: consider setting value based on type
+        // eg. if its a number set value: 0
+        // if its a Date set value: new Date etc
+      })
+    })
+
+    // setup relationship definition object
+    Model.relationships(function (name, modelName, type) {
+      // create relationship metadata object
+      Model.definition.relationships[name] = type
+
+      // define properties with getters/setters for each attribute
+      Reflect.defineProperty(Model.prototype, name, {
+        get () {
+          // if the data has been fetched with the main record,
+          // just return that wrapped in a promise
+          if (this.attributes[name]) {
+            // TODO: convert data to models before returning
+            // 1. if array, iterate doing 2.
+            // 2. new Model(data)
+            // 3. return the result as a promise below
+            return Promise.resolve(this.attributes[name])
+          }
+          // otherwise use the adapter to fetch the data
+          // returned as a promise
+          const adapter = Model.adapter
+          const store = Model.store
+          const RelatedModel = store.modelFor(modelName)
+
+          if (type === &#x27;hasMany&#x27;) {
+            return adapter.query(store, modelName, {filter: {[&#x60;${Model.modelName}Id&#x60;]: this.attributes.id}})
+              .then(data =&gt; {
+                console.log(&#x27;data:&#x27;, data)
+                // cache the data in the models attributes hash
+                this.attributes[name] = data
+                return data.map(record =&gt; new RelatedModel(record))
+              })
+          } else if (type === &#x27;hasOne&#x27;) {
+            return adapter.queryRecord(store, modelName, {filter: {id: this[&#x60;${type}Id&#x60;]}})
+              .then(data =&gt; {
+                // cache the data in the models attributes hash
+                this.attributes[name] = data
+                return new RelatedModel(data)
+              })
+          }
+        },
+        set (value) {
+          // TODO: assert that value is correct type (array or object)
+          this.attributes[name] = value
+        },
+        enumerable: false,
+        configurable: false
+      })
+    })
+
+    // keep a reference to the model in the model map
+    models.set(Model.modelName, Model)
+  }
+
+  static get models () {
+    return models
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

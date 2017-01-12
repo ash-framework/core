@@ -18,6 +18,10 @@ const Mixin = require('./classes/mixin')
 const Initializer = require('./classes/initializer')
 const ErrorHandler = require('./classes/error-handler')
 const Service = require('./classes/service')
+const Model = require('./classes/model')
+const Adapter = require('./classes/adapter')
+const Serializer = require('./classes/serializer')
+const JSONAPISerializer = require('./classes/jsonapi-serializer')
 
 /**
  * The top level Ash namespace.
@@ -102,7 +106,15 @@ const Ash = {
   /**
    * @property {Service} Service
    */
-  Service
+  Service,
+
+  Model,
+
+  JSONAPISerializer,
+
+  Adapter,
+
+  Serializer
 }
 
 module.exports = Ash

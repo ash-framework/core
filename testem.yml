@@ -1,6 +1,6 @@
 launchers:
   Node:
-    command: node_modules/.bin/mocha -R tap
+    command: node_modules/.bin/jest
     protocol: tap
 launch_in_dev:
 - Node

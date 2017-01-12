@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/adapter.js - Ash Framework</title>
+    <meta name="description" content="The Foo API: a library for doing X, Y, and Z">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <span>Ash Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://example.com/" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="http://example.com//commits/1" target="_blank">
+                                  Tag: 0.0.1
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/JSONAPISerializer.html">JSONAPISerializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/adapter.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+const Base = require(&#x27;./base&#x27;)
+const Knex = require(&#x27;knex&#x27;)
+
+module.exports = class Adapter extends Base {
+  /**
+   * Sets up the knex query builder instance
+   * @constructor
+   */
+  constructor (config) {
+    super()
+    this.config = config
+    this.knex = Knex({
+      client: &#x27;pg&#x27;,
+      connection: config,
+      searchPath: &#x27;knex,public&#x27;
+    })
+  }
+
+  /**
+   * Converts a models attributes hash into an array of column names for use in
+   * an sql query
+   *
+   * @param {Object} attributes - attributes hash of the form
+   * @example {title: &#x27;string&#x27;, createdAt: &#x27;date&#x27;}
+   * @return {Array} - an array of column names
+   */
+  fieldsFromAttributes (attributes) {
+    return Object.keys(attributes)
+  }
+
+  /**
+   * Finds all records for a given model. @see &#x60;query&#x60; when you need more control over
+   * what records are returned.
+   *
+   * @param {Object} Model - object with properties &#x60;tableName&#x60; and an &#x60;attributes&#x60; hash
+   * @return {Array} - array of database records
+   */
+  findAll (Model) {
+    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const tableName = Model.tableName
+    return this.knex.column(attributes).select().from(tableName)
+  }
+
+  /*
+  options should be implemented here to jsonapi spec
+  {
+    include: &#x27;comments, posts, comments.author&#x27;,
+    fields: {
+      articles: &#x27;title, body&#x27;,
+      people: &#x27;name&#x27;
+    },
+    sort: &#x27;age, -name&#x27;,
+    page: {number: 1, size: 20},
+    filter: {}
+  }
+  */
+  query (Model, options) {
+    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const tableName = Model.tableName
+
+    if (typeof options.fields === &#x27;object&#x27;) {
+      const types = Object.keys(options.fields)
+      if (types.indexOf(Model.type) !== -1) {
+        const fields = options.fields[Model.type].split(&#x27;,&#x27;).map(field =&gt; field.trim())
+        for (const attr of attributes) {
+          if (fields.indexOf(attr) === -1) {
+            attributes.splice(attributes.indexOf(attr))
+          }
+        }
+      }
+    }
+
+    let query = this.knex.column(attributes).select().from(tableName)
+
+    if (typeof options.page === &#x27;object&#x27; &amp;&amp; options.page.number &amp;&amp; options.page.size) {
+      query = query
+        .limit(options.page.size)
+        .offset(options.page.number * options.page.size - options.page.size)
+    }
+
+    if (typeof options.sort === &#x27;string&#x27;) {
+      options.sort.split(&#x27;,&#x27;).forEach(column =&gt; {
+        const direction = (column.indexOf(&#x27;-&#x27;) !== -1) ? &#x27;DESC&#x27; : &#x27;ASC&#x27;
+        column = column.replace(&#x27;-&#x27;, &#x27;&#x27;)
+        query = query.orderBy(column.trim(), direction)
+      })
+    }
+
+    return query
+  }
+
+  /**
+   * Retrieves a single record for the given model by given id
+   *
+   * @param {Object} Model - object with properties &#x60;tableName&#x60; and an &#x60;attributes&#x60; hash
+   * @param {number} id - id of record to retrieve
+   * @return {Object} - a single record or null if no record was found
+   */
+  findRecord (Model, id) {
+    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const tableName = Model.tableName
+    return this.knex.column(attributes).first().from(tableName).where({id}).limit(1)
+      .then(result =&gt; result || null)
+  }
+
+  queryRecord (Model, id, options) {
+  }
+
+  createRecord (Model, data) {
+  }
+
+  updateRecord (Model, id, data) {
+  }
+
+  deleteRecord (Model, id) {
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>
