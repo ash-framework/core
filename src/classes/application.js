@@ -171,8 +171,10 @@ module.exports = class Application extends Base {
       app.use(cors(Object.assign({}, config.cors)))
     }
 
-    log.trace('Ash server loading security middleware')
-    app.use(helmet())
+    if (config.helmet !== false)
+      log.trace('Ash server loading security middleware')
+      app.use(helmet())
+    }
 
     log.trace('Ash server adding body parsing middleware')
     const bodyParserOptions = config.bodyParser || {}
