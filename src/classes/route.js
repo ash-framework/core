@@ -143,21 +143,6 @@ module.exports = class Route extends Http {
   }
 
   /**
-   * The model for the route as returned from the model hook.
-   * Provided for access in later hooks such as `afterModel` or `serialize`
-   *
-   * Example:
-   * ```
-   *
-   * afterModel () {
-   *   this.currentModel.color = 'red'
-   * }
-   * ```
-   *
-   * @property {Mixed} currentModel
-   */
-
-  /**
    * The name of the route. This is the same as the name of the route js file (without the .js)
    * and not the name of the exported class. For the name of the class use `this.name`
    *
