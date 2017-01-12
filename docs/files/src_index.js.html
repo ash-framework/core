@@ -19,7 +19,6 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="../" class="navbar-brand">
-            <img src="../assets/img/ember-logo.png" alt="">
             <span>Ash Framework</span>
           </a>
         </div>
@@ -108,6 +107,9 @@
                                         <a href="../classes/Initializer.html">Initializer</a>
                                     </li>
                                     <li>
+                                        <a href="../classes/JSONAPISerializer.html">JSONAPISerializer</a>
+                                    </li>
+                                    <li>
                                         <a href="../classes/Middleware.html">Middleware</a>
                                     </li>
                                     <li>
@@ -121,6 +123,9 @@
                                     </li>
                                     <li>
                                         <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
                                     </li>
                                     <li>
                                         <a href="../classes/Service.html">Service</a>
@@ -160,6 +165,10 @@ const Mixin = require(&#x27;./classes/mixin&#x27;)
 const Initializer = require(&#x27;./classes/initializer&#x27;)
 const ErrorHandler = require(&#x27;./classes/error-handler&#x27;)
 const Service = require(&#x27;./classes/service&#x27;)
+const Model = require(&#x27;./classes/model&#x27;)
+const Adapter = require(&#x27;./classes/adapter&#x27;)
+const Serializer = require(&#x27;./classes/serializer&#x27;)
+const JSONAPISerializer = require(&#x27;./classes/jsonapi-serializer&#x27;)
 
 /**
  * The top level Ash namespace.
@@ -244,7 +253,15 @@ const Ash = {
   /**
    * @property {Service} Service
    */
-  Service
+  Service,
+
+  Model,
+
+  JSONAPISerializer,
+
+  Adapter,
+
+  Serializer
 }
 
 module.exports = Ash

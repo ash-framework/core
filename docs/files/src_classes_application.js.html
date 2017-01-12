@@ -19,7 +19,6 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a href="../" class="navbar-brand">
-            <img src="../assets/img/ember-logo.png" alt="">
             <span>Ash Framework</span>
           </a>
         </div>
@@ -108,6 +107,9 @@
                                         <a href="../classes/Initializer.html">Initializer</a>
                                     </li>
                                     <li>
+                                        <a href="../classes/JSONAPISerializer.html">JSONAPISerializer</a>
+                                    </li>
+                                    <li>
                                         <a href="../classes/Middleware.html">Middleware</a>
                                     </li>
                                     <li>
@@ -121,6 +123,9 @@
                                     </li>
                                     <li>
                                         <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
                                     </li>
                                     <li>
                                         <a href="../classes/Service.html">Service</a>
@@ -151,8 +156,20 @@ const loadMiddleware = require(&#x27;@ash-framework/middleware&#x27;)
 const express = require(&#x27;express&#x27;)
 const path = require(&#x27;path&#x27;)
 const fs = require(&#x27;fs&#x27;)
+const cors = require(&#x27;cors&#x27;)
+const helmet = require(&#x27;helmet&#x27;)
+const bodyparser = require(&#x27;body-parser&#x27;)
+const Registry = require(&#x27;./registry&#x27;)
 
 const _app = new WeakMap()
+
+function loadModels (Registry, modelDir) {
+  const modelFiles = fs.readdirSync(modelDir)
+  modelFiles.forEach(modelFile =&gt; {
+    const Model = require(modelDir + &#x27;/&#x27; + modelFile)
+    Registry.registerModel(Model)
+  })
+}
 
 /**
  * Application class used to create a new instance of an Ash application
@@ -302,6 +319,32 @@ module.exports = class Application extends Base {
     const app = express()
     _app.set(this, app)
 
+    log.trace(&#x27;Ash server loading cors middleware&#x27;)
+    if (typeof config.cors === &#x27;object&#x27;) {
+      if (config.cors.preFlight === true) {
+        app.options(&#x27;*&#x27;, cors(Object.assign({}, config.cors)))
+      }
+      app.use(cors(Object.assign({}, config.cors)))
+    }
+
+    log.trace(&#x27;Ash server loading security middleware&#x27;)
+    app.use(helmet())
+
+    log.trace(&#x27;Ash server adding body parsing middleware&#x27;)
+    const bodyParserOptions = config.bodyParser || {}
+    if (typeof bodyParserOptions.json === &#x27;object&#x27;) {
+      app.use(bodyparser.json(bodyParserOptions.json))
+    }
+    if (typeof bodyParserOptions.text === &#x27;object&#x27;) {
+      app.use(bodyparser.text(bodyParserOptions.text))
+    }
+    if (typeof bodyParserOptions.raw === &#x27;object&#x27;) {
+      app.use(bodyparser.raw(bodyParserOptions.raw))
+    }
+    if (typeof bodyParserOptions.urlencoded === &#x27;object&#x27;) {
+      app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
+    }
+
     const initializerDir = path.join(process.cwd(), &#x27;app/initializers&#x27;)
     if (fs.existsSync(initializerDir)) {
       const initializers = fs.readdirSync(initializerDir)
@@ -314,6 +357,10 @@ module.exports = class Application extends Base {
         })
       }
     }
+
+    log.trace(&#x27;Ash server loading models&#x27;)
+    const modelDir = path.join(process.cwd(), &#x27;app/models&#x27;)
+    loadModels(Registry, modelDir)
 
     log.trace(&#x27;Ash server loading middleware&#x27;)
     const middlewareDir = path.join(process.cwd(), &#x27;app/middleware&#x27;)

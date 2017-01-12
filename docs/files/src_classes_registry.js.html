@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/classes/route.js - Ash Framework</title>
+    <title>src/classes/registry.js - Ash Framework</title>
     <meta name="description" content="The Foo API: a library for doing X, Y, and Z">
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -140,176 +140,110 @@
                     <div id="docs-main">
                         <div class="content">
 <div class="page-header">
-    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/route.js File</h1>
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/registry.js File</h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;
+const models = new Map()
 
-const Http = require(&#x27;./http&#x27;)
-const middleware = new WeakMap()
-
-/**
- * The Ash route class extends the @see Http class and so has access
- * to request and response properties.
- *
- * Routes execute via a series of hooks in the following order
- *
- * 1. deserialize
- * 2. beforeModel
- * 3. model
- * 4. afterModel
- * 5. serialize
- *
- * If a hook returns a promise, the subsequent hook will not execute until the promise has resolved.
- *
- * All hooks are optional except for &#x60;model&#x60; and amything returned from the &#x60;model&#x60; hook will be returned
- * to the client.
- *
- * Routes support the following:
- * - mixins (@see Mixin)
- * - services (@see Service)
- * - middleware (@see Middleware)
- *
- * @class Route
- * @extends Http
- * @constructor
- */
-module.exports = class Route extends Http {
+module.exports = class Registry {
   /**
+   * Sets up a given model based on it&#x27;s static definition methods
+   * &#x60;attributes&#x60; and &#x60;relationships&#x60;
    *
-   * @method constructor
-   */
-  constructor (context) {
-    super(context)
-
-    const mw = []
-    this.constructor.middleware(middleware =&gt; mw.push(middleware))
-    middleware.set(this, mw)
-  }
-
-  /**
-   * @method hasMiddleware
+   * First processes &#x60;attributes&#x60; creating getters and setters for each
+   * defined attribute
+   *
+   * Then process &#x60;relationships&#x60; creating getters and setters for each
+   * defined relationship. Relationship getters return nested relationship
+   * data where available and falls back to calling the appropriate relationship
+   * method to fetch the data if not available.
+   *
+   * @param {Object} Model
    * @private
-   */
-  get hasMiddleware () {
-    return middleware.get(this).length &gt; 0
-  }
-
-  /**
-   * @method registeredMiddleware
-   * @private
-   */
-  get registeredMiddleware () {
-    return middleware.get(this)
-  }
-
-  /**
-   * Route middleware
-   *
-   * You can use this to register route specific middleware. ie. middleware specified here
-   * will only run for this route. You can register the same piece of middleware in multiple
-   * routes but you must do so explicitly by registering it in that routes &#x60;middleware&#x60; method.
-   *
-   * Call &#x60;register&#x60; with the name of the middleware in the &#x60;app/middleware&#x60; directory that
-   * you want to load. You can call register multiple times to register more than one middleware
-   * and middleware will be executed in the order registered.
-   *
-   * Example
-   *
-   * Example: registering middleware on a route
-   * &#x60;&#x60;&#x60;
-   *
-   * // app/routes/my-route.js
-   * const Ash = require(&#x27;@ash-framework/ash&#x27;)
-   *
-   * module.exports = class MyRoute extends Ash.Route {
-   *   static middleware (register) {
-   *     register(&#x27;my-middleware&#x27;)
-   *   }
-   * }
-   * &#x60;&#x60;&#x60;
-   *
-   * @method middleware
    * @static
-   * @param {Function} register
    */
-  static middleware (register) {
+  static registerModel (Model) {
+    Model.definition = {attributes: {}, relationships: {}}
 
+    Model.attributes(function (name, type) {
+      // create attributes metadata object
+      Model.definition.attributes[name] = type
+
+      // define properties with getters/setters for each attribute
+      Reflect.defineProperty(Model.prototype, name, {
+        get () {
+          return this.attributes[name]
+        },
+        set (value) {
+          // TODO: validate value to ensure it matches type
+          this.attributes[name] = value
+        },
+        enumerable: true,
+        configurable: false
+        // TODO: consider setting value based on type
+        // eg. if its a number set value: 0
+        // if its a Date set value: new Date etc
+      })
+    })
+
+    // setup relationship definition object
+    Model.relationships(function (name, modelName, type) {
+      // create relationship metadata object
+      Model.definition.relationships[name] = type
+
+      // define properties with getters/setters for each attribute
+      Reflect.defineProperty(Model.prototype, name, {
+        get () {
+          // if the data has been fetched with the main record,
+          // just return that wrapped in a promise
+          if (this.attributes[name]) {
+            // TODO: convert data to models before returning
+            // 1. if array, iterate doing 2.
+            // 2. new Model(data)
+            // 3. return the result as a promise below
+            return Promise.resolve(this.attributes[name])
+          }
+          // otherwise use the adapter to fetch the data
+          // returned as a promise
+          const adapter = Model.adapter
+          const store = Model.store
+          const RelatedModel = store.modelFor(modelName)
+
+          if (type === &#x27;hasMany&#x27;) {
+            return adapter.query(store, modelName, {filter: {[&#x60;${Model.modelName}Id&#x60;]: this.attributes.id}})
+              .then(data =&gt; {
+                console.log(&#x27;data:&#x27;, data)
+                // cache the data in the models attributes hash
+                this.attributes[name] = data
+                return data.map(record =&gt; new RelatedModel(record))
+              })
+          } else if (type === &#x27;hasOne&#x27;) {
+            return adapter.queryRecord(store, modelName, {filter: {id: this[&#x60;${type}Id&#x60;]}})
+              .then(data =&gt; {
+                // cache the data in the models attributes hash
+                this.attributes[name] = data
+                return new RelatedModel(data)
+              })
+          }
+        },
+        set (value) {
+          // TODO: assert that value is correct type (array or object)
+          this.attributes[name] = value
+        },
+        enumerable: false,
+        configurable: false
+      })
+    })
+
+    // keep a reference to the model in the model map
+    models.set(Model.modelName, Model)
   }
 
-  /**
-   * The first hook to be executed during the lifecycle of a route.
-   * This hook should generally be used to perform operations on an incoming
-   * request body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs
-   * rather than GETs and DELETEs.
-   *
-   * @method {Function} deserialize
-   */
-  deserialize () {
-
+  static get models () {
+    return models
   }
-
-  /**
-   * @method beforeModel
-   */
-  beforeModel () {
-
-  }
-
-  /**
-   * @method model
-   */
-  model () {
-    console.log(&#x60;Route &#x27;${this.name}&#x27; must define a &#x27;model&#x27; method&#x60;)
-  }
-
-  /**
-   * @method afterModel
-   * @param {Object} model
-   */
-  afterModel (model) {
-
-  }
-
-  /**
-   * @method serialize
-   * @param {Object} model
-   */
-  serialize (model) {
-
-  }
-
-  /**
-   * @method error
-   * @param {Object} error
-   */
-  error (error) {
-    return error
-  }
-
-  /**
-   * The model for the route as returned from the model hook.
-   * Provided for access in later hooks such as &#x60;afterModel&#x60; or &#x60;serialize&#x60;
-   *
-   * Example:
-   * &#x60;&#x60;&#x60;
-   *
-   * afterModel () {
-   *   this.currentModel.color = &#x27;red&#x27;
-   * }
-   * &#x60;&#x60;&#x60;
-   *
-   * @property {Mixed} currentModel
-   */
-
-  /**
-   * The name of the route. This is the same as the name of the route js file (without the .js)
-   * and not the name of the exported class. For the name of the class use &#x60;this.name&#x60;
-   *
-   * @property {String} routeName
-   */
 }
 
     </pre>

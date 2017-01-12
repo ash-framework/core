@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/classes/route.js - Ash Framework</title>
+    <title>src/classes/jsonapi-route.js - Ash Framework</title>
     <meta name="description" content="The Foo API: a library for doing X, Y, and Z">
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -140,176 +140,29 @@
                     <div id="docs-main">
                         <div class="content">
 <div class="page-header">
-    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/route.js File</h1>
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/jsonapi-route.js File</h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
 &#x27;use strict&#x27;
 
-const Http = require(&#x27;./http&#x27;)
-const middleware = new WeakMap()
+const Route = require(&#x27;./route&#x27;)
+const Serializer = require(&#x27;./jsonapi-serializer&#x27;)
 
-/**
- * The Ash route class extends the @see Http class and so has access
- * to request and response properties.
- *
- * Routes execute via a series of hooks in the following order
- *
- * 1. deserialize
- * 2. beforeModel
- * 3. model
- * 4. afterModel
- * 5. serialize
- *
- * If a hook returns a promise, the subsequent hook will not execute until the promise has resolved.
- *
- * All hooks are optional except for &#x60;model&#x60; and amything returned from the &#x60;model&#x60; hook will be returned
- * to the client.
- *
- * Routes support the following:
- * - mixins (@see Mixin)
- * - services (@see Service)
- * - middleware (@see Middleware)
- *
- * @class Route
- * @extends Http
- * @constructor
- */
-module.exports = class Route extends Http {
-  /**
-   *
-   * @method constructor
-   */
-  constructor (context) {
-    super(context)
-
-    const mw = []
-    this.constructor.middleware(middleware =&gt; mw.push(middleware))
-    middleware.set(this, mw)
-  }
-
-  /**
-   * @method hasMiddleware
-   * @private
-   */
-  get hasMiddleware () {
-    return middleware.get(this).length &gt; 0
-  }
-
-  /**
-   * @method registeredMiddleware
-   * @private
-   */
-  get registeredMiddleware () {
-    return middleware.get(this)
-  }
-
-  /**
-   * Route middleware
-   *
-   * You can use this to register route specific middleware. ie. middleware specified here
-   * will only run for this route. You can register the same piece of middleware in multiple
-   * routes but you must do so explicitly by registering it in that routes &#x60;middleware&#x60; method.
-   *
-   * Call &#x60;register&#x60; with the name of the middleware in the &#x60;app/middleware&#x60; directory that
-   * you want to load. You can call register multiple times to register more than one middleware
-   * and middleware will be executed in the order registered.
-   *
-   * Example
-   *
-   * Example: registering middleware on a route
-   * &#x60;&#x60;&#x60;
-   *
-   * // app/routes/my-route.js
-   * const Ash = require(&#x27;@ash-framework/ash&#x27;)
-   *
-   * module.exports = class MyRoute extends Ash.Route {
-   *   static middleware (register) {
-   *     register(&#x27;my-middleware&#x27;)
-   *   }
-   * }
-   * &#x60;&#x60;&#x60;
-   *
-   * @method middleware
-   * @static
-   * @param {Function} register
-   */
-  static middleware (register) {
-
-  }
-
-  /**
-   * The first hook to be executed during the lifecycle of a route.
-   * This hook should generally be used to perform operations on an incoming
-   * request body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs
-   * rather than GETs and DELETEs.
-   *
-   * @method {Function} deserialize
-   */
-  deserialize () {
-
-  }
-
-  /**
-   * @method beforeModel
-   */
-  beforeModel () {
-
-  }
-
-  /**
-   * @method model
-   */
-  model () {
-    console.log(&#x60;Route &#x27;${this.name}&#x27; must define a &#x27;model&#x27; method&#x60;)
-  }
-
-  /**
-   * @method afterModel
-   * @param {Object} model
-   */
-  afterModel (model) {
-
-  }
-
+module.exports = class JSONAPIRoute extends Route {
   /**
    * @method serialize
    * @param {Object} model
    */
   serialize (model) {
-
+    // workout from model instance what type of model it is
+    if (model.modelName) {
+      const Model = this.store.modelFor(model.modelName)
+      const serializer = new Serializer()
+      model = serializer.serialize(Model, model)
+    }
   }
-
-  /**
-   * @method error
-   * @param {Object} error
-   */
-  error (error) {
-    return error
-  }
-
-  /**
-   * The model for the route as returned from the model hook.
-   * Provided for access in later hooks such as &#x60;afterModel&#x60; or &#x60;serialize&#x60;
-   *
-   * Example:
-   * &#x60;&#x60;&#x60;
-   *
-   * afterModel () {
-   *   this.currentModel.color = &#x27;red&#x27;
-   * }
-   * &#x60;&#x60;&#x60;
-   *
-   * @property {Mixed} currentModel
-   */
-
-  /**
-   * The name of the route. This is the same as the name of the route js file (without the .js)
-   * and not the name of the exported class. For the name of the class use &#x60;this.name&#x60;
-   *
-   * @property {String} routeName
-   */
 }
 
     </pre>

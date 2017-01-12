@@ -12,8 +12,17 @@ const fs = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
 const bodyparser = require('body-parser')
+const Registry = require('./registry')
 
 const _app = new WeakMap()
+
+function loadModels (Registry, modelDir) {
+  const modelFiles = fs.readdirSync(modelDir)
+  modelFiles.forEach(modelFile => {
+    const Model = require(modelDir + '/' + modelFile)
+    Registry.registerModel(Model)
+  })
+}
 
 /**
  * Application class used to create a new instance of an Ash application
@@ -201,6 +210,10 @@ module.exports = class Application extends Base {
         })
       }
     }
+
+    log.trace('Ash server loading models')
+    const modelDir = path.join(process.cwd(), 'app/models')
+    loadModels(Registry, modelDir)
 
     log.trace('Ash server loading middleware')
     const middlewareDir = path.join(process.cwd(), 'app/middleware')

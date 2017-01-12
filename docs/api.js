@@ -8,11 +8,13 @@ YUI.add("yuidoc-meta", function(Y) {
         "Http",
         "Initializer",
         "Inject",
+        "JSONAPISerializer",
         "Middleware",
         "MiddlewareRouter",
         "Mixin",
         "Route",
         "Router",
+        "Serializer",
         "Service"
     ],
     "modules": [

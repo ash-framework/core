@@ -6,6 +6,13 @@
         "url": "http://example.com/"
     },
     "files": {
+        "src/classes/adapter.js": {
+            "name": "src/classes/adapter.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src/classes/application.js": {
             "name": "src/classes/application.js",
             "modules": {},
@@ -60,6 +67,22 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/classes/jsonapi-route.js": {
+            "name": "src/classes/jsonapi-route.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/jsonapi-serializer.js": {
+            "name": "src/classes/jsonapi-serializer.js",
+            "modules": {},
+            "classes": {
+                "JSONAPISerializer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/classes/middleware-router.js": {
             "name": "src/classes/middleware-router.js",
             "modules": {},
@@ -87,6 +110,20 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/classes/model.js": {
+            "name": "src/classes/model.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/registry.js": {
+            "name": "src/classes/registry.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src/classes/route.js": {
             "name": "src/classes/route.js",
             "modules": {},
@@ -101,6 +138,15 @@
             "modules": {},
             "classes": {
                 "Router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/serializer.js": {
+            "name": "src/classes/serializer.js",
+            "modules": {},
+            "classes": {
+                "Serializer": 1
             },
             "fors": {},
             "namespaces": {}
@@ -138,11 +184,13 @@
                 "Http": 1,
                 "Initializer": 1,
                 "Inject": 1,
+                "JSONAPISerializer": 1,
                 "MiddlewareRouter": 1,
                 "Middleware": 1,
                 "Mixin": 1,
                 "Route": 1,
                 "Router": 1,
+                "Serializer": 1,
                 "Service": 1,
                 "Ash": 1
             },
@@ -150,7 +198,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/index.js",
-            "line": 22,
+            "line": 26,
             "description": "Provides the Ash application framework",
             "itemtype": "main"
         }
@@ -166,7 +214,7 @@
             "extension_for": [],
             "module": "Ash",
             "file": "src/classes/application.js",
-            "line": 15,
+            "line": 27,
             "description": "Application class used to create a new instance of an Ash application\nvia the static method `start`",
             "extends": "Base",
             "is_constructor": 1
@@ -249,6 +297,20 @@
             "access": "private",
             "tagname": ""
         },
+        "JSONAPISerializer": {
+            "name": "JSONAPISerializer",
+            "shortname": "JSONAPISerializer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/jsonapi-serializer.js",
+            "line": 5,
+            "extends": "Serializer",
+            "is_constructor": 1
+        },
         "MiddlewareRouter": {
             "name": "MiddlewareRouter",
             "shortname": "MiddlewareRouter",
@@ -321,6 +383,20 @@
             "extends": "Base",
             "is_constructor": 1
         },
+        "Serializer": {
+            "name": "Serializer",
+            "shortname": "Serializer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/serializer.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
         "Service": {
             "name": "Service",
             "shortname": "Service",
@@ -346,15 +422,81 @@
             "module": "Ash",
             "namespace": "",
             "file": "src/index.js",
-            "line": 22,
+            "line": 26,
             "description": "The top level Ash namespace.\nAll access to Ash classes is through this object"
         }
     },
     "elements": {},
     "classitems": [
         {
+            "file": "src/classes/adapter.js",
+            "line": 5,
+            "description": "Sets up the knex query builder instance",
+            "is_constructor": 1,
+            "class": "Application"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 19,
+            "description": "Converts a models attributes hash into an array of column names for use in\nan sql query",
+            "params": [
+                {
+                    "name": "attributes",
+                    "description": "- attributes hash of the form",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                " {title: 'string', createdAt: 'date'}"
+            ],
+            "return": {
+                "description": "- an array of column names",
+                "type": "Array"
+            },
+            "class": "Application"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 31,
+            "description": "Finds all records for a given model. @see `query` when you need more control over\nwhat records are returned.",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "- object with properties `tableName` and an `attributes` hash",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "- array of database records",
+                "type": "Array"
+            },
+            "class": "Application"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 92,
+            "description": "Retrieves a single record for the given model by given id",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "- object with properties `tableName` and an `attributes` hash",
+                    "type": "Object"
+                },
+                {
+                    "name": "id",
+                    "description": "- id of record to retrieve",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "- a single record or null if no record was found",
+                "type": "Object"
+            },
+            "class": "Application"
+        },
+        {
             "file": "src/classes/application.js",
-            "line": 24,
+            "line": 36,
             "description": "## Starts an Ash application\nStarts application by performing the following operations\n\n### 1. runs initializers\nRuns initializer classes in app/initializers (if any) in alphabetical order.\nInializers can be used to hook into app start up early on and gain access\nto the express app instance in case you need to perform operations\noutside the scope of the Ash framework.\n\n#### Example: adding an initializer\n```\n\n// app/initializers/application.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class Initializer extends Ash.Initializer {\n  init (app) {\n    // app is an unmodified express app instance so you can\n    // do the following.\n    app.get('/animals/mice', function (req, res) {\n      res.send('Success')\n    })\n  }\n}\n```\n\n### 2. loads middleware\nReads app/middleware.js to determine which middleware to run and in what order.\nReads in and runs any middleware specified in app/middleware.js from the app/middleware directory\n\n#### Example: creating middleware\n```\n\n// app/middleware/access.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class AccessMiddleware extends Ash.Middleware {\n  register () {\n\n  }\n}\n```\n\n#### Example: registering middleware\n```\n\n// app/middleware.js\nconst Ash = require('@ash-framework/ash')\n\nclass MiddlewareRouter extends Ash.MiddlewareRouter { }\n\nMiddlewareRouter.map(function () {\n  this.middleware('access')\n})\n\nmodule.exports = MiddlewareRouter\n```\n\n### 3. creates routes\nReads app/router.js to determine which routes to register.\nReads in and registers any routes specified in app/router.js from the app/routes directory\n\n#### Example: creating a route\n```\n\n// app/routes/user.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class UserRoute extends Ash.Route {\n  model () {\n    // return user data\n  }\n}\n```\n\n#### Example: registering route in the router\n```\n\n// app/router.js\nconst Ash = require('@ash-framework/ash')\n\nclass Router extends Ash.Router { }\n\nRouter.map(function () {\n  this.route('user')\n})\n\nmodule.exports = Router\n```\n\n### 4. adds an error handler\nThis error handler catches any errors and specifies how errors should be handled and\ndisplayed to the client.\n\nLooks for a user defined error handler class for the application in app/error-handler.js\nIf not found one is defined in its place.\n\n#### Example: adding a custom error handler\n```\n\n// app/error-handler.js\nconst {ErrorHandler, log} = require('@ash-framework/ash')\n\nmodule.exports = class ApplicationErrorHandler extends ErrorHandler {\n  error (error) {\n    log.error(error)\n    super.error(error)\n  }\n}\n```\n\n### 5. starts the app\nStarts the app on the port described in `config/environment.js`. The default port is 3010.\n\n#### Example: starting an application:\n```\n\nconst Ash = require('@ash-framework/ash')\n\nclass Application extends Ash.Application {\n}\n\nApplication.start()\n```",
             "static": 1,
             "itemtype": "method",
@@ -574,7 +716,7 @@
         },
         {
             "file": "src/classes/inject.js",
-            "line": 32,
+            "line": 37,
             "description": "Registers mixins on a class as defined by that classes static mixins method.",
             "itemtype": "method",
             "name": "mixins",
@@ -587,6 +729,20 @@
                 }
             ],
             "class": "Inject"
+        },
+        {
+            "file": "src/classes/jsonapi-route.js",
+            "line": 7,
+            "itemtype": "method",
+            "name": "serialize",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "JSONAPISerializer"
         },
         {
             "file": "src/classes/middleware-router.js",
@@ -610,6 +766,49 @@
             "itemtype": "method",
             "name": "register",
             "class": "Middleware"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 28,
+            "description": "Save's the model instance",
+            "return": {
+                "description": "Promise"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 36,
+            "description": "Delete the model instance",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 43,
+            "description": "Model attributes definition.\nThis needs to be overridden to define the various\nattributes the model will have.\n\nGets passed a function `attr` which should be called\nmultiple times (once for each attribute)\n`attr` has the following signature\n```\nattr(String name, String type)\n```\nEg.\n```\nattr('title', 'string')\n```",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 63,
+            "description": "Model relationship definition.\nThis should be overriden to define any relationships to\nother models that are needed.\n\nGets passed a function `relation` which should be called multiple\ntimes (once for each relationship)\n`relation` has the following signature\n```\nrelation(String name, String type)\n```\nEg.\n```\nrelation('comments', 'hasMany')\n```",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/registry.js",
+            "line": 4,
+            "description": "Sets up a given model based on it's static definition methods\n`attributes` and `relationships`\n\nFirst processes `attributes` creating getters and setters for each\ndefined attribute\n\nThen process `relationships` creating getters and setters for each\ndefined relationship. Relationship getters return nested relationship\ndata where available and falls back to calling the appropriate relationship\nmethod to fetch the data if not available.",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Route"
         },
         {
             "file": "src/classes/route.js",
@@ -752,7 +951,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 29,
+            "line": 33,
             "itemtype": "property",
             "name": "Route",
             "type": "Route",
@@ -761,7 +960,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 34,
+            "line": 38,
             "itemtype": "property",
             "name": "Router",
             "type": "Router",
@@ -770,7 +969,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 39,
+            "line": 43,
             "itemtype": "property",
             "name": "Middleware",
             "type": "Middleware",
@@ -779,7 +978,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 44,
+            "line": 48,
             "itemtype": "property",
             "name": "MiddlewareRouter",
             "type": "MiddlewareRouter",
@@ -788,7 +987,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 49,
+            "line": 53,
             "description": "Instance of the Ash logger. Should be use throughout to log as needed.\n\nHas the following methods:\n- log.error\n- log.info\n- log.trace\n- log.warn\n- log.debug\n- log.fatal",
             "itemtype": "property",
             "name": "log",
@@ -798,7 +997,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 64,
+            "line": 68,
             "itemtype": "property",
             "name": "Application",
             "type": "Application",
@@ -807,7 +1006,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 69,
+            "line": 73,
             "itemtype": "property",
             "name": "Mixin",
             "type": "Mixin",
@@ -816,7 +1015,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 74,
+            "line": 78,
             "itemtype": "property",
             "name": "Initializer",
             "type": "Initializer",
@@ -825,7 +1024,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 79,
+            "line": 83,
             "description": "This error should be used to throw Http related errors\n\n```\n\nthrow new Ash.HttpError(404)\n```\n\nAn optional message can be given\n\n```\n\nthrow new Ash.HttpError(404, 'Nothing was found, sorry about that.')\n```",
             "itemtype": "property",
             "name": "HttpError",
@@ -835,7 +1034,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 97,
+            "line": 101,
             "itemtype": "property",
             "name": "ErrorHandler",
             "type": "ErrorHandler",
@@ -844,7 +1043,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 102,
+            "line": 106,
             "itemtype": "property",
             "name": "Service",
             "type": "Service",
@@ -852,5 +1051,42 @@
             "module": "Ash"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "Missing item type\nSets up the knex query builder instance",
+            "line": " src/classes/adapter.js:5"
+        },
+        {
+            "message": "Missing item type\nConverts a models attributes hash into an array of column names for use in\nan sql query",
+            "line": " src/classes/adapter.js:19"
+        },
+        {
+            "message": "Missing item type\nFinds all records for a given model. @see `query` when you need more control over\nwhat records are returned.",
+            "line": " src/classes/adapter.js:31"
+        },
+        {
+            "message": "Missing item type\nRetrieves a single record for the given model by given id",
+            "line": " src/classes/adapter.js:92"
+        },
+        {
+            "message": "Missing item type\nSave's the model instance",
+            "line": " src/classes/model.js:28"
+        },
+        {
+            "message": "Missing item type\nDelete the model instance",
+            "line": " src/classes/model.js:36"
+        },
+        {
+            "message": "Missing item type\nModel attributes definition.\nThis needs to be overridden to define the various\nattributes the model will have.\n\nGets passed a function `attr` which should be called\nmultiple times (once for each attribute)\n`attr` has the following signature\n```\nattr(String name, String type)\n```\nEg.\n```\nattr('title', 'string')\n```",
+            "line": " src/classes/model.js:43"
+        },
+        {
+            "message": "Missing item type\nModel relationship definition.\nThis should be overriden to define any relationships to\nother models that are needed.\n\nGets passed a function `relation` which should be called multiple\ntimes (once for each relationship)\n`relation` has the following signature\n```\nrelation(String name, String type)\n```\nEg.\n```\nrelation('comments', 'hasMany')\n```",
+            "line": " src/classes/model.js:63"
+        },
+        {
+            "message": "Missing item type\nSets up a given model based on it's static definition methods\n`attributes` and `relationships`\n\nFirst processes `attributes` creating getters and setters for each\ndefined attribute\n\nThen process `relationships` creating getters and setters for each\ndefined relationship. Relationship getters return nested relationship\ndata where available and falls back to calling the appropriate relationship\nmethod to fetch the data if not available.",
+            "line": " src/classes/registry.js:4"
+        }
+    ]
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/classes/route.js - Ash Framework</title>
+    <title>src/classes/adapter.js - Ash Framework</title>
     <meta name="description" content="The Foo API: a library for doing X, Y, and Z">
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -140,176 +140,127 @@
                     <div id="docs-main">
                         <div class="content">
 <div class="page-header">
-    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/route.js File</h1>
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/adapter.js File</h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
-&#x27;use strict&#x27;
+const Base = require(&#x27;./base&#x27;)
+const Knex = require(&#x27;knex&#x27;)
 
-const Http = require(&#x27;./http&#x27;)
-const middleware = new WeakMap()
-
-/**
- * The Ash route class extends the @see Http class and so has access
- * to request and response properties.
- *
- * Routes execute via a series of hooks in the following order
- *
- * 1. deserialize
- * 2. beforeModel
- * 3. model
- * 4. afterModel
- * 5. serialize
- *
- * If a hook returns a promise, the subsequent hook will not execute until the promise has resolved.
- *
- * All hooks are optional except for &#x60;model&#x60; and amything returned from the &#x60;model&#x60; hook will be returned
- * to the client.
- *
- * Routes support the following:
- * - mixins (@see Mixin)
- * - services (@see Service)
- * - middleware (@see Middleware)
- *
- * @class Route
- * @extends Http
- * @constructor
- */
-module.exports = class Route extends Http {
+module.exports = class Adapter extends Base {
   /**
-   *
-   * @method constructor
+   * Sets up the knex query builder instance
+   * @constructor
    */
-  constructor (context) {
-    super(context)
-
-    const mw = []
-    this.constructor.middleware(middleware =&gt; mw.push(middleware))
-    middleware.set(this, mw)
+  constructor (config) {
+    super()
+    this.config = config
+    this.knex = Knex({
+      client: &#x27;pg&#x27;,
+      connection: config,
+      searchPath: &#x27;knex,public&#x27;
+    })
   }
 
   /**
-   * @method hasMiddleware
-   * @private
+   * Converts a models attributes hash into an array of column names for use in
+   * an sql query
+   *
+   * @param {Object} attributes - attributes hash of the form
+   * @example {title: &#x27;string&#x27;, createdAt: &#x27;date&#x27;}
+   * @return {Array} - an array of column names
    */
-  get hasMiddleware () {
-    return middleware.get(this).length &gt; 0
+  fieldsFromAttributes (attributes) {
+    return Object.keys(attributes)
   }
 
   /**
-   * @method registeredMiddleware
-   * @private
+   * Finds all records for a given model. @see &#x60;query&#x60; when you need more control over
+   * what records are returned.
+   *
+   * @param {Object} Model - object with properties &#x60;tableName&#x60; and an &#x60;attributes&#x60; hash
+   * @return {Array} - array of database records
    */
-  get registeredMiddleware () {
-    return middleware.get(this)
+  findAll (Model) {
+    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const tableName = Model.tableName
+    return this.knex.column(attributes).select().from(tableName)
+  }
+
+  /*
+  options should be implemented here to jsonapi spec
+  {
+    include: &#x27;comments, posts, comments.author&#x27;,
+    fields: {
+      articles: &#x27;title, body&#x27;,
+      people: &#x27;name&#x27;
+    },
+    sort: &#x27;age, -name&#x27;,
+    page: {number: 1, size: 20},
+    filter: {}
+  }
+  */
+  query (Model, options) {
+    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const tableName = Model.tableName
+
+    if (typeof options.fields === &#x27;object&#x27;) {
+      const types = Object.keys(options.fields)
+      if (types.indexOf(Model.type) !== -1) {
+        const fields = options.fields[Model.type].split(&#x27;,&#x27;).map(field =&gt; field.trim())
+        for (const attr of attributes) {
+          if (fields.indexOf(attr) === -1) {
+            attributes.splice(attributes.indexOf(attr))
+          }
+        }
+      }
+    }
+
+    let query = this.knex.column(attributes).select().from(tableName)
+
+    if (typeof options.page === &#x27;object&#x27; &amp;&amp; options.page.number &amp;&amp; options.page.size) {
+      query = query
+        .limit(options.page.size)
+        .offset(options.page.number * options.page.size - options.page.size)
+    }
+
+    if (typeof options.sort === &#x27;string&#x27;) {
+      options.sort.split(&#x27;,&#x27;).forEach(column =&gt; {
+        const direction = (column.indexOf(&#x27;-&#x27;) !== -1) ? &#x27;DESC&#x27; : &#x27;ASC&#x27;
+        column = column.replace(&#x27;-&#x27;, &#x27;&#x27;)
+        query = query.orderBy(column.trim(), direction)
+      })
+    }
+
+    return query
   }
 
   /**
-   * Route middleware
+   * Retrieves a single record for the given model by given id
    *
-   * You can use this to register route specific middleware. ie. middleware specified here
-   * will only run for this route. You can register the same piece of middleware in multiple
-   * routes but you must do so explicitly by registering it in that routes &#x60;middleware&#x60; method.
-   *
-   * Call &#x60;register&#x60; with the name of the middleware in the &#x60;app/middleware&#x60; directory that
-   * you want to load. You can call register multiple times to register more than one middleware
-   * and middleware will be executed in the order registered.
-   *
-   * Example
-   *
-   * Example: registering middleware on a route
-   * &#x60;&#x60;&#x60;
-   *
-   * // app/routes/my-route.js
-   * const Ash = require(&#x27;@ash-framework/ash&#x27;)
-   *
-   * module.exports = class MyRoute extends Ash.Route {
-   *   static middleware (register) {
-   *     register(&#x27;my-middleware&#x27;)
-   *   }
-   * }
-   * &#x60;&#x60;&#x60;
-   *
-   * @method middleware
-   * @static
-   * @param {Function} register
+   * @param {Object} Model - object with properties &#x60;tableName&#x60; and an &#x60;attributes&#x60; hash
+   * @param {number} id - id of record to retrieve
+   * @return {Object} - a single record or null if no record was found
    */
-  static middleware (register) {
-
+  findRecord (Model, id) {
+    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const tableName = Model.tableName
+    return this.knex.column(attributes).first().from(tableName).where({id}).limit(1)
+      .then(result =&gt; result || null)
   }
 
-  /**
-   * The first hook to be executed during the lifecycle of a route.
-   * This hook should generally be used to perform operations on an incoming
-   * request body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs
-   * rather than GETs and DELETEs.
-   *
-   * @method {Function} deserialize
-   */
-  deserialize () {
-
+  queryRecord (Model, id, options) {
   }
 
-  /**
-   * @method beforeModel
-   */
-  beforeModel () {
-
+  createRecord (Model, data) {
   }
 
-  /**
-   * @method model
-   */
-  model () {
-    console.log(&#x60;Route &#x27;${this.name}&#x27; must define a &#x27;model&#x27; method&#x60;)
+  updateRecord (Model, id, data) {
   }
 
-  /**
-   * @method afterModel
-   * @param {Object} model
-   */
-  afterModel (model) {
-
+  deleteRecord (Model, id) {
   }
-
-  /**
-   * @method serialize
-   * @param {Object} model
-   */
-  serialize (model) {
-
-  }
-
-  /**
-   * @method error
-   * @param {Object} error
-   */
-  error (error) {
-    return error
-  }
-
-  /**
-   * The model for the route as returned from the model hook.
-   * Provided for access in later hooks such as &#x60;afterModel&#x60; or &#x60;serialize&#x60;
-   *
-   * Example:
-   * &#x60;&#x60;&#x60;
-   *
-   * afterModel () {
-   *   this.currentModel.color = &#x27;red&#x27;
-   * }
-   * &#x60;&#x60;&#x60;
-   *
-   * @property {Mixed} currentModel
-   */
-
-  /**
-   * The name of the route. This is the same as the name of the route js file (without the .js)
-   * and not the name of the exported class. For the name of the class use &#x60;this.name&#x60;
-   *
-   * @property {String} routeName
-   */
 }
 
     </pre>
