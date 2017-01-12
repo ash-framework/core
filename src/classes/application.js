@@ -171,7 +171,7 @@ module.exports = class Application extends Base {
       app.use(cors(Object.assign({}, config.cors)))
     }
 
-    if (config.helmet !== false)
+    if (config.helmet !== false) {
       log.trace('Ash server loading security middleware')
       app.use(helmet())
     }
