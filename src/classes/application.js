@@ -161,7 +161,9 @@ module.exports = class Application extends Base {
     const app = express()
     _app.set(this, app)
 
-    app.use(helmet())
+    if (config.helmet !== false) {
+      app.use(helmet())
+    }
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
