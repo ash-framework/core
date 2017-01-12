@@ -1,8 +1,9 @@
 <!-- TITLE/ -->
 
-<h1>ash</h1>
+<h1>@ash-framework/ash</h1>
 
 <!-- /TITLE -->
+
 
 View API docs at [https://ash-framework.github.io/ash](https://ash-framework.github.io/ash)
 
@@ -13,8 +14,8 @@ View API docs at [https://ash-framework.github.io/ash](https://ash-framework.git
 <span class="badge-badge"><a href="https://nodei.co/npm/ash"><img src="https://nodei.co/npm/ash.png?downloads=true&stars=true" /></a></span>
 <br class="badge-separator" />
 <span class="badge-travisci"><a href="http://travis-ci.org/ash-project/ash" title="Check this project's build status on TravisCI"><img src="https://img.shields.io/travis/ash-project/ash/master.svg" alt="Travis CI Build Status" /></a></span>
-<span class="badge-npmversion"><a href="https://npmjs.org/package/ash" title="View this project on NPM"><img src="https://img.shields.io/npm/v/ash.svg" alt="NPM version" /></a></span>
-<span class="badge-npmdownloads"><a href="https://npmjs.org/package/ash" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/ash.svg" alt="NPM downloads" /></a></span>
+<span class="badge-npmversion"><a href="https://npmjs.org/package/@ash-framework/ash" title="View this project on NPM"><img src="https://img.shields.io/npm/v/@ash-framework/ash.svg" alt="NPM version" /></a></span>
+<span class="badge-npmdownloads"><a href="https://npmjs.org/package/@ash-framework/ash" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/@ash-framework/ash.svg" alt="NPM downloads" /></a></span>
 <span class="badge-daviddm"><a href="https://david-dm.org/ash-project/ash" title="View the status of this project's dependencies on DavidDM"><img src="https://img.shields.io/david/ash-project/ash.svg" alt="Dependency Status" /></a></span>
 <span class="badge-daviddmdev"><a href="https://david-dm.org/ash-project/ash#info=devDependencies" title="View the status of this project's development dependencies on DavidDM"><img src="https://img.shields.io/david/dev/ash-project/ash.svg" alt="Dev Dependency Status" /></a></span>
 
@@ -33,8 +34,8 @@ Node.js web framework
 <h2>Install</h2>
 
 <a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>NPM</h3></a><ul>
-<li>Install: <code>npm install --save ash</code></li>
-<li>Module: <code>require('ash')</code></li></ul>
+<li>Install: <code>npm install --save @ash-framework/ash</code></li>
+<li>Module: <code>require('@ash-framework/ash')</code></li></ul>
 
 <!-- /INSTALL -->
 

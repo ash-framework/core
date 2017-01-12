@@ -166,7 +166,7 @@
             "extension_for": [],
             "module": "Ash",
             "file": "src/classes/application.js",
-            "line": 15,
+            "line": 18,
             "description": "Application class used to create a new instance of an Ash application\nvia the static method `start`",
             "extends": "Base",
             "is_constructor": 1
@@ -354,7 +354,7 @@
     "classitems": [
         {
             "file": "src/classes/application.js",
-            "line": 24,
+            "line": 27,
             "description": "## Starts an Ash application\nStarts application by performing the following operations\n\n### 1. runs initializers\nRuns initializer classes in app/initializers (if any) in alphabetical order.\nInializers can be used to hook into app start up early on and gain access\nto the express app instance in case you need to perform operations\noutside the scope of the Ash framework.\n\n#### Example: adding an initializer\n```\n\n// app/initializers/application.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class Initializer extends Ash.Initializer {\n  init (app) {\n    // app is an unmodified express app instance so you can\n    // do the following.\n    app.get('/animals/mice', function (req, res) {\n      res.send('Success')\n    })\n  }\n}\n```\n\n### 2. loads middleware\nReads app/middleware.js to determine which middleware to run and in what order.\nReads in and runs any middleware specified in app/middleware.js from the app/middleware directory\n\n#### Example: creating middleware\n```\n\n// app/middleware/access.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class AccessMiddleware extends Ash.Middleware {\n  register () {\n\n  }\n}\n```\n\n#### Example: registering middleware\n```\n\n// app/middleware.js\nconst Ash = require('@ash-framework/ash')\n\nclass MiddlewareRouter extends Ash.MiddlewareRouter { }\n\nMiddlewareRouter.map(function () {\n  this.middleware('access')\n})\n\nmodule.exports = MiddlewareRouter\n```\n\n### 3. creates routes\nReads app/router.js to determine which routes to register.\nReads in and registers any routes specified in app/router.js from the app/routes directory\n\n#### Example: creating a route\n```\n\n// app/routes/user.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class UserRoute extends Ash.Route {\n  model () {\n    // return user data\n  }\n}\n```\n\n#### Example: registering route in the router\n```\n\n// app/router.js\nconst Ash = require('@ash-framework/ash')\n\nclass Router extends Ash.Router { }\n\nRouter.map(function () {\n  this.route('user')\n})\n\nmodule.exports = Router\n```\n\n### 4. adds an error handler\nThis error handler catches any errors and specifies how errors should be handled and\ndisplayed to the client.\n\nLooks for a user defined error handler class for the application in app/error-handler.js\nIf not found one is defined in its place.\n\n#### Example: adding a custom error handler\n```\n\n// app/error-handler.js\nconst {ErrorHandler, log} = require('@ash-framework/ash')\n\nmodule.exports = class ApplicationErrorHandler extends ErrorHandler {\n  error (error) {\n    log.error(error)\n    super.error(error)\n  }\n}\n```\n\n### 5. starts the app\nStarts the app on the port described in `config/environment.js`. The default port is 3010.\n\n#### Example: starting an application:\n```\n\nconst Ash = require('@ash-framework/ash')\n\nclass Application extends Ash.Application {\n}\n\nApplication.start()\n```",
             "static": 1,
             "itemtype": "method",
