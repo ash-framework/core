@@ -114,7 +114,6 @@ module.exports = class QueryFilter {
   _handleFilter (filter, colName, orWhere) {
     for (const key of Object.keys(filter)) {
       const value = filter[key]
-      console.log(key, value)
       if (key[0] === '$') {
         // its an operator
         const operator = key
