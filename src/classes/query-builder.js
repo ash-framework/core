@@ -108,7 +108,7 @@ module.exports = class QueryFilter {
 
   _validateColumnName (colName) {
     // TODO: throw an error to show that the column name is invalid
-    return !colName || this.Model.attributes[colName]
+    return !colName || this.Model.definition.attributes[colName]
   }
 
   _handleFilter (filter, colName, orWhere) {
