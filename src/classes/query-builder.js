@@ -3,10 +3,10 @@ const capitalise = word => {
 }
 
 module.exports = class QueryFilter {
-  constructor (knex, Model) {
+  constructor (queryBuilder, Model) {
     this.Model = Model
-    this.queryBuilder = knex.queryBuilder()
-    this.depth = 0
+    this.queryBuilder = queryBuilder
+    this.depth = 0 // nested query depth
   }
 
   _orBuilder (array) {
@@ -88,7 +88,6 @@ module.exports = class QueryFilter {
   _buildQuery (filter, colName, orWhere) {
     this.depth++
     const filterKeys = Object.keys(filter)
-    console.log(filter, colName, orWhere)
     if (this.depth > 1 && filterKeys.length > 1) {
       this._createNewContext(filter, colName, orWhere)
     } else {
@@ -132,6 +131,6 @@ module.exports = class QueryFilter {
   buildFilter (filter) {
     this._buildQuery(filter)
 
-    return this.queryBuilder.toString().replace('select * where ', '')
+    return this.queryBuilder
   }
 }
