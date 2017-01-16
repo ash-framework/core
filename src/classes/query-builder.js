@@ -28,6 +28,9 @@ module.exports = class QueryFilter {
       case '$or':
         this._orBuilder(value)
         break
+      case '$eq':
+        this._addClause('where', [colName, value], orWhere)
+        break
       case '$gt':
         this._addClause('where', [colName, '>', value], orWhere)
         break
@@ -96,31 +99,40 @@ module.exports = class QueryFilter {
   _createNewContext (filter, colName, orWhere) {
     const queryFilter = this
     const action = orWhere ? 'orWhere' : 'where'
+    // Create a nested condition, e.g. id = 1 AND (name = 'blah' OR thing = 1)
     queryFilter.queryBuilder[action](function () {
       queryFilter.queryBuilder = this
       queryFilter._handleFilter(filter, colName, orWhere)
     })
   }
 
+  _validateColumnName (colName) {
+    // TODO: throw an error to show that the column name is invalid
+    return !colName || this.Model.attributes[colName]
+  }
+
   _handleFilter (filter, colName, orWhere) {
-    const queryFilter = this
     for (const key of Object.keys(filter)) {
       const value = filter[key]
+      console.log(key, value)
       if (key[0] === '$') {
         // its an operator
         const operator = key
-        queryFilter._operatorFilter(colName, operator, value, orWhere)
+        if (this._validateColumnName(colName)) {
+          this._operatorFilter(colName, operator, value, orWhere)
+        }
       } else {
         // its not an operator so it is a column name
-        // verify its valid via Model.attributes
-        if (!queryFilter.Model.attributes[key]) return // TODO: throw an error to show that the column name is invalid
+        colName = key
 
-        // if its not an object then this is a simple AND operation
+        // if its not an object then this is a simple equality operation
         if (typeof value !== 'object') {
-          queryFilter._addClause('where', [key, value], orWhere)
+          if (this._validateColumnName(colName)) {
+            this._operatorFilter(colName, '$eq', value, orWhere)
+          }
         } else {
-          // value is actually a filter, and possibly need the key for operator case
-          queryFilter._buildQuery(value, key, orWhere)
+          // value is actually a filter, and possibly need the colName for operator case
+          this._buildQuery(value, colName, orWhere)
         }
       }
     }
