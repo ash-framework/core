@@ -1,27 +1,26 @@
 'use strict'
 
 const Service = require('./service')
-const DefaultAdapter = require('./adapter')
 const Registry = require('./registry')
+const ClassResolver = require('./class-resolver')
 
 module.exports = class Store extends Service {
   adapterFor (modelName) {
-    // 1. lookup app/adapters/modelName
-    // 2. lookup app/adapters/application
-    // 3. default to default adapter
-    return DefaultAdapter
+    return ClassResolver.resolve('adapter', modelName)
+  }
+
+  serializerFor (modelName) {
+    return ClassResolver.resolve('serializer', modelName)
   }
 
   modelFor (modelName) {
-    return this.models.get(modelName)
+    return Registry.models.get(modelName)
   }
 
   findAll (modelName) {
-    const Adapter = this.adapterFor(modelName)
     const Model = this.modelFor(modelName)
-    return Adapter
-      .findAll(this, modelName)
-      .then(data => data.map(item => new Model(item)))
+    const Adapter = this.adapterFor(modelName)
+    return Adapter.findAll(Model)
   }
 
   query (modelName, options) {
@@ -47,9 +46,5 @@ module.exports = class Store extends Service {
   deleteRecord (modelName, id) {
     const Adapter = this.adapterFor(modelName)
     return Adapter.deleteRecord(this, modelName, id)
-  }
-
-  get models () {
-    return Registry.models
   }
 }
