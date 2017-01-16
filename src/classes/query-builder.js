@@ -1,3 +1,7 @@
+const capitalise = word => {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
 module.exports = class QueryFilter {
   constructor (knex, Model) {
     this.Model = Model
@@ -17,7 +21,7 @@ module.exports = class QueryFilter {
   }
 
   _addClause (action, args, orWhere) {
-    if (orWhere) action = 'or' + action.charAt(0).toUpperCase() + action.slice(1)
+    if (orWhere) action = 'or' + capitalise(action)
     this.queryBuilder = this.queryBuilder[action](...args)
   }
 
