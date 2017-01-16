@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const { capitalize } = require('lodash')
 
 module.exports = class QueryFilter {
   constructor (queryBuilder, Model) {
@@ -19,7 +19,7 @@ module.exports = class QueryFilter {
   }
 
   _addClause (action, args, orWhere) {
-    if (orWhere) action = 'or' + _.capitalize(action)
+    if (orWhere) action = 'or' + capitalize(action)
     this.queryBuilder = this.queryBuilder[action](...args)
   }
 
