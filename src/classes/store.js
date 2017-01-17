@@ -27,13 +27,17 @@ module.exports = class Store extends Service {
   }
 
   query (modelName, options) {
+    const Model = this.modelFor(modelName)
     const Adapter = this.adapterFor(modelName)
-    return Adapter.query(this, modelName, options)
+    const adapter = new Adapter(config.database.connection)
+    return adapter.query(Model, options)
   }
 
   findRecord (modelName, id) {
+    const Model = this.modelFor(modelName)
     const Adapter = this.adapterFor(modelName)
-    return Adapter.findRecord(this, modelName, id)
+    const adapter = new Adapter(config.database.connection)
+    return adapter.findRecord(Model, id)
   }
 
   queryRecord (modelName, options) {
