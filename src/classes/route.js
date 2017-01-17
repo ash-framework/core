@@ -116,9 +116,19 @@ module.exports = class Route extends Http {
    * @method model
    */
   model () {
-    // TODO: behave differently depending on http verb:
-    // POST: createRecord, PUT: updateRecord, DELETE: deleteRecord, GET (no id): findAll, GET (id): findRecord
-    return this.store.query(this.constructor.modelName, this.query)
+    const modelId = this.params[`${this.constructor.modelName}_id`]
+    if (this.request.method === 'GET') {
+      if (modelId) {
+        return this.store.findRecord(this.constructor.modelName, modelId)
+      }
+      return this.store.query(this.constructor.modelName, this.query)
+    } else if (this.request.method === 'POST') {
+      return this.createRecord(this.constructor.modelName, this.body)
+    } else if (this.request.method === 'PUT') {
+      return this.updateRecord(this.constructor.modelName, modelId, this.body)
+    } else if (this.request.method === 'DELETE') {
+      return this.deleteRecord(this.constructor.modelName, modelId)
+    }
   }
 
   static get modelName () {
