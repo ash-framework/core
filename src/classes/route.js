@@ -118,7 +118,7 @@ module.exports = class Route extends Http {
   model () {
     // TODO: behave differently depending on http verb:
     // POST: createRecord, PUT: updateRecord, DELETE: deleteRecord, GET (no id): findAll, GET (id): findRecord
-    return this.store.findAll(this.constructor.modelName)
+    return this.store.query(this.constructor.modelName, this.query)
   }
 
   static get modelName () {
