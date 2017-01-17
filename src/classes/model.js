@@ -3,6 +3,7 @@
 const Base = require('./base')
 const DefaultAdapter = require('./adapter')
 const DefaultStore = require('./store')
+const { pluralize } = require('inflection')
 
 module.exports = class Model extends Base {
   constructor (props) {
@@ -23,6 +24,11 @@ module.exports = class Model extends Base {
     // 2. lookup app/stores/application
     // 3. default to default store
     return new DefaultStore()
+  }
+
+  static get type () {
+    const modelName = this.name.toLowerCase()
+    return pluralize(modelName.replace('model', ''))
   }
 
   /**
@@ -88,7 +94,8 @@ module.exports = class Model extends Base {
   }
 
   static get tableName () {
-    return this.name.toLowerCase()
+    const modelName = this.name.toLowerCase()
+    return pluralize(modelName.replace('model', ''))
   }
   // get isNew () {}
   // get isValid () {}

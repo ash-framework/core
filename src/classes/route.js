@@ -2,6 +2,7 @@
 
 const Http = require('./http')
 const middleware = new WeakMap()
+const { singularize } = require('inflection')
 
 /**
  * The Ash route class extends the @see Http class and so has access
@@ -115,7 +116,15 @@ module.exports = class Route extends Http {
    * @method model
    */
   model () {
-    console.log(`Route '${this.name}' must define a 'model' method`)
+    // TODO: behave differently depending on http verb:
+    // POST: createRecord, PUT: updateRecord, DELETE: deleteRecord, GET (no id): findAll, GET (id): findRecord
+    return this.store.findAll(this.constructor.modelName)
+  }
+
+  static get modelName () {
+    // TODO: harden interface and test
+    const routeName = this.name.toLowerCase()
+    return singularize(routeName.replace('route', ''))
   }
 
   /**
@@ -123,15 +132,22 @@ module.exports = class Route extends Http {
    * @param {Object} model
    */
   afterModel (model) {
-
+    return model
   }
 
   /**
    * @method serialize
    * @param {Object} model
    */
-  serialize (model) {
-
+  serialize (data) {
+    if (this.store && this.constructor.modelName) {
+      const Serializer = this.store.serializerFor(this.constructor.modelName)
+      // TODO: set baseUrl from config or request
+      // const options = {baseUrl: ''}
+      const serializer = new Serializer()
+      const Model = this.store.modelFor(this.constructor.modelName)
+      return serializer.serialize(Model, data)
+    }
   }
 
   /**

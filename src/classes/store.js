@@ -3,6 +3,8 @@
 const Service = require('./service')
 const Registry = require('./registry')
 const ClassResolver = require('./class-resolver')
+const path = require('path')
+const config = require(path.join(process.cwd(), 'config', 'environment'))(process.env)
 
 module.exports = class Store extends Service {
   adapterFor (modelName) {
@@ -20,7 +22,8 @@ module.exports = class Store extends Service {
   findAll (modelName) {
     const Model = this.modelFor(modelName)
     const Adapter = this.adapterFor(modelName)
-    return Adapter.findAll(Model)
+    const adapter = new Adapter(config.database.connection)
+    return adapter.findAll(Model)
   }
 
   query (modelName, options) {
