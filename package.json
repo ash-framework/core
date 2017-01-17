@@ -49,6 +49,7 @@
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "helmet": "^3.1.0",
+    "inflection": "^1.10.0",
     "knex": "^0.12.6",
     "loopback": "^3.2.1",
     "loopback-jsonapi-model-serializer": "^1.0.1",
