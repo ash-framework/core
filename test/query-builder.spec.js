@@ -69,7 +69,7 @@ describe('query-filter', () => {
     const result = builder.buildFilter(filter)
 
     // Then
-    expect(result.toString()).toBe('select * from \"posts\" where \"id\" > 1 and \"title\" = \'Post 2\'')
+    expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 1 and \"title\" = \'Post 2\')')
   })
 
   test('{id: {$gt: 1}, title: {$iLike: "%OsT 2"}} should generate "id > 1 AND title ILIKE \'%OsT 2\'"', async () => {
@@ -82,7 +82,7 @@ describe('query-filter', () => {
     const result = builder.buildFilter(filter)
 
     // Then
-    expect(result.toString()).toBe('select * from \"posts\" where \"id\" > 1 and \"title\" ILIKE \'%OsT 2\'')
+    expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 1 and \"title\" ILIKE \'%OsT 2\')')
   })
 
   test('{$or: [{id: 1}, {title: "Post 2"}]} should generate "id = 1 OR title = \"Post 2\""', async () => {
@@ -108,12 +108,12 @@ describe('query-filter', () => {
     const result = builder.buildFilter(filter)
 
     // Then
-    expect(result.toString()).toBe('select * from \"posts\" where \"id\" > 10 and (\"title\" = \'hello\' or \"title\" LIKE \'%bye%\')')
+    expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 10 and (\"title\" = \'hello\' or \"title\" LIKE \'%bye%\'))')
   })
 
-  test('{id: {$gt: 10}, $or: [{title: "hello"}, {title: {$ilike: "%bye%"}, description: {$ilike: "%bye%"}}]} should generate "id > 10 AND (title = \'hello\' OR (title ILIKE \'%bye%\' AND description ILIKE \'%bye%\'))"', async () => {
+  test('{$or: [{title: "hello"}, {title: {$like: "%bye%"}}], id: {$gt: 10}} should generate "(title = \'hello\' OR title LIKE \'%bye%\') AND id > 10"', async () => {
     // Given
-    const filter = {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$ilike: '%bye%'}, description: {$ilike: '%bye%'}}]}
+    const filter = {$or: [{title: "hello"}, {title: {$like: "%bye%"}}], id: {$gt: 10}}
 
     // When
     const postsSelect = db.knex('posts')
@@ -121,24 +121,71 @@ describe('query-filter', () => {
     const result = builder.buildFilter(filter)
 
     // Then
-    expect(result.toString()).toBe('select * from \"posts\" where \"id\" > 10 and (\"title\" = \'hello\' or (\"title\" ILIKE \'%bye%\' and \"description\" ILIKE \'%bye%\'))')
+    expect(result.toString()).toBe('select * from \"posts\" where ((\"title\" = \'hello\' or \"title\" LIKE \'%bye%\') and \"id\" > 10)')
   })
 
-  // {id: 1}
-  // id = 1
+  test('{id: {$gt: 10}, $or: [{title: "hello"}, {title: {$iLike: "%bye%"}, description: {$iLike: "%bye%"}}]} should generate "id > 10 AND (title = \'hello\' OR (title ILIKE \'%bye%\' AND description ILIKE \'%bye%\'))"', async () => {
+    // Given
+    const filter = {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$iLike: '%bye%'}, description: {$iLike: '%bye%'}}]}
 
-  // {id: {$gt: 1}}
-  // id > 1
+    // When
+    const postsSelect = db.knex('posts')
+    const builder = new QueryBuilder(postsSelect, models.Post)
+    const result = builder.buildFilter(filter)
 
-  // {id: {$gt: 1}, title: 'hello'}
-  // id > 1 AND title = 'hello'
+    // Then
+    expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 10 and (\"title\" = \'hello\' or (\"title\" ILIKE \'%bye%\' and \"description\" ILIKE \'%bye%\')))')
+  })
 
-  // {$or: [ {id: {$gt: 1}}, {title: 'hello', name: 'blah'} ]}
-  // id > 1 OR (title = 'hello' AND name = 'blah')
+  test('{id: {$gt: 10}, $or: [{title: "hello"}, {title: {$IliKe: "%bye%"}, description: {$iLIkE: "%bye%"}}]} should generate "id > 10 AND (title = \'hello\' OR (title ILIKE \'%bye%\' AND description ILIKE \'%bye%\'))"', async () => {
+    // Given
+    const filter = {title: {$IliKe: '%bye%'}, description: {$iLIkE: '%bye%'}}
 
-  // {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$like: '%bye%'}}]}
-  // id > 10 AND (title = 'hello' OR title LIKE '%bye%')
+    // When
+    const postsSelect = db.knex('posts')
+    const builder = new QueryBuilder(postsSelect, models.Post)
+    const result = builder.buildFilter(filter)
 
-  // {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$ilike: '%bye%'}, description: {$ilike: '%bye%'}}]}
-  // id > 10 AND (title = 'hello' OR (title ILIKE '%bye%' AND description ILIKE '%bye%'))
+    // Then
+    expect(result.toString()).toBe('select * from \"posts\" where (\"title\" ILIKE \'%bye%\' and \"description\" ILIKE \'%bye%\')')
+  })
+
+  test('{id: {$gt: 10}, $or: [{title: "hello"}, {title: {}, description: {$iLIkE: "%bye%"}}]} should generate "id > 10 AND (title = \'hello\' OR (title ILIKE \'%bye%\' AND description ILIKE \'%bye%\'))"', async () => {
+    // Given
+    const filter = {title: {$IliKe: '%bye%'}, description: {}}
+
+    // When
+    const postsSelect = db.knex('posts')
+    const builder = new QueryBuilder(postsSelect, models.Post)
+    const result = builder.buildFilter(filter)
+
+    // Then
+    expect(result.toString()).toBe('select * from \"posts\" where (\"title\" ILIKE \'%bye%\')')
+  })
+
+  test('{blah: 1} should be ignored since "blah" is not a Post attribute', async () => {
+    // Given
+    const filter = {blah: 1}
+
+    // When
+    const postsSelect = db.knex('posts')
+    const builder = new QueryBuilder(postsSelect, models.Post)
+    const result = builder.buildFilter(filter)
+
+    // Then
+    expect(result.toString()).toBe('select * from \"posts\"')
+  })
+
+  test('{id: {$gt: 1}, blah: 1} should generate "id > 1"', async () => {
+    // Given
+    const filter = {id: {$gt: 1}, blah: 1}
+
+    // When
+    const postsSelect = db.knex('posts')
+    const builder = new QueryBuilder(postsSelect, models.Post)
+    const result = builder.buildFilter(filter)
+
+    // Then
+    expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 1)')
+  })
 })
