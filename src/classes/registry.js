@@ -1,6 +1,9 @@
 const models = new Map()
 
 module.exports = class Registry {
+  // TODO: Set which store the model
+  // belongs to with Model.store =
+
   /**
    * Sets up a given model based on it's static definition methods
    * `attributes` and `relationships`
