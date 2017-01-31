@@ -4,15 +4,30 @@ const Service = require('./service')
 const Registry = require('./registry')
 const ClassResolver = require('./class-resolver')
 const path = require('path')
-const config = require(path.join(process.cwd(), 'config', 'environment'))(process.env)
+
+const adapters = new Map()
+const serializers = new Map()
 
 module.exports = class Store extends Service {
+  constructor (...args) {
+    super(...args)
+    this.config = require(path.join(process.cwd(), 'config', 'environment'))(process.env)
+  }
+
   adapterFor (modelName) {
-    return ClassResolver.resolve('adapter', modelName)
+    if (!adapters.has(modelName)) {
+      const Adapter = ClassResolver.resolve('adapter', modelName)
+      adapters.set(modelName, new Adapter(this.config.database.connection))
+    }
+    return adapters.get(modelName)
   }
 
   serializerFor (modelName) {
-    return ClassResolver.resolve('serializer', modelName)
+    if (!serializers.has(modelName)) {
+      const Serializer = ClassResolver.resolve('serializer', modelName)
+      serializers.set(modelName, new Serializer())
+    }
+    return serializers.get(modelName)
   }
 
   modelFor (modelName) {
@@ -21,37 +36,37 @@ module.exports = class Store extends Service {
 
   findAll (modelName) {
     const Model = this.modelFor(modelName)
-    const Adapter = this.adapterFor(modelName)
-    const adapter = new Adapter(config.database.connection)
+    const adapter = this.adapterFor(modelName)
     return adapter.findAll(Model)
   }
 
   query (modelName, options) {
     const Model = this.modelFor(modelName)
-    const Adapter = this.adapterFor(modelName)
-    const adapter = new Adapter(config.database.connection)
+    const adapter = this.adapterFor(modelName)
     return adapter.query(Model, options)
   }
 
   findRecord (modelName, id) {
     const Model = this.modelFor(modelName)
-    const Adapter = this.adapterFor(modelName)
-    const adapter = new Adapter(config.database.connection)
+    const adapter = this.adapterFor(modelName)
     return adapter.findRecord(Model, id)
   }
 
   queryRecord (modelName, options) {
-    const Adapter = this.adapterFor(modelName)
-    return Adapter.queryRecord(this, modelName, options)
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.queryRecord(Model, options)
   }
 
   createRecord (modelName, options) {
-    const Adapter = this.adapterFor(modelName)
-    return Adapter.createRecord(this, modelName, options)
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.createRecord(Model, options)
   }
 
   deleteRecord (modelName, id) {
-    const Adapter = this.adapterFor(modelName)
-    return Adapter.deleteRecord(this, modelName, id)
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.deleteRecord(Model, id)
   }
 }

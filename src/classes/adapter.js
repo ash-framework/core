@@ -28,6 +28,14 @@ module.exports = class Adapter extends Base {
     return Object.keys(attributes)
   }
 
+  parseIncludes () {
+
+  }
+
+  include () {
+
+  }
+
   /**
    * Finds all records for a given model. @see `query` when you need more control over
    * what records are returned.
@@ -87,6 +95,17 @@ module.exports = class Adapter extends Base {
       })
     }
 
+    if (typeof options.include === 'string') {
+      const includes = this.parseIncludes(options.include)
+      for (const include of includes) {
+        // needs to recurse since we may need to get comments for posts but also
+        // author for comments
+        // I think the include is going to need to perform queries, create
+        // lists and then merge them
+        this.include(query, include)
+      }
+    }
+
     return query
   }
 
@@ -104,15 +123,22 @@ module.exports = class Adapter extends Base {
       .then(result => result || null)
   }
 
-  queryRecord (Model, id, options) {
+  queryRecord (Model, options) {
+    return this.query(Model, options).first().limit(1)
   }
 
   createRecord (Model, data) {
+    const tableName = Model.tableName
+    return this.knex(tableName).insert(data)
   }
 
   updateRecord (Model, id, data) {
+    const tableName = Model.tableName
+    return this.knex(tableName).update(data).where('id', id)
   }
 
   deleteRecord (Model, id) {
+    const tableName = Model.tableName
+    return this.knex(tableName).where('id', id).delete()
   }
 }
