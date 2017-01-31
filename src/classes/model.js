@@ -1,34 +1,65 @@
 'use strict'
 
 const Base = require('./base')
-const DefaultAdapter = require('./adapter')
-const DefaultStore = require('./store')
-const { pluralize } = require('inflection')
+const { pluralize, singularize, dasherize, underscore } = require('inflection')
+const assert = require('assert')
+const {get} = require('lodash')
+
+const attributes = new WeakMap()
 
 module.exports = class Model extends Base {
-  constructor (props) {
+  constructor (props = {}) {
     super()
+    assert(!Array.isArray(props) && typeof props === 'object',
+      `Argument to new instance of '${this.constructor.name}' should be an Object`)
+    assert(/^.*Model$/.test(this.constructor.name),
+      `Model naming must follow the pattern <name>Model eg. filename: post.js, model class name: PostModel`)
+
     this.attributes = props
+
+    const relationships = get(this, 'constructor.definition.relationships', {})
+    Object.keys(relationships).forEach(relationship => {
+      if (props[relationship]) this.attributes[relationship] = props[relationship]
+    })
+
     this.modelName = this.constructor.modelName
   }
 
+  get attributes () {
+    return attributes.get(this)
+  }
+
+  set attributes (props) {
+    const attributeDefn = get(this, 'constructor.definition.attributes', {})
+    const attributesHash = attributes.get(this) || {}
+    const types = {
+      string: (value) => typeof value !== 'string',
+      number: (value) => typeof value !== 'number',
+      date: (value) => !(value instanceof Date),
+      boolean: (value) => typeof value !== 'boolean'
+    }
+    Object.keys(attributeDefn).forEach(attr => {
+      if (props[attr]) {
+        const type = attributeDefn[attr]
+        if (types[type](props[attr])) {
+          throw new Error()
+        }
+        attributesHash[attr] = props[attr]
+      }
+    })
+
+    if (props[this.constructor.idField]) {
+      attributesHash[this.constructor.idField] = props[this.constructor.idField]
+    }
+    attributes.set(this, attributesHash)
+  }
+
   static get adapter () {
-    // 1. lookup app/adapters/modelName
-    // 2. lookup app/adapters/application
-    // 3. default to default adapter
-    return DefaultAdapter
+    return this.store.adapterFor(this.modelName)
   }
 
-  static get store () {
-    // 1. lookup app/stores/modelName
-    // 2. lookup app/stores/application
-    // 3. default to default store
-    return new DefaultStore()
-  }
-
-  static get type () {
-    const modelName = this.name.toLowerCase()
-    return pluralize(modelName.replace('model', ''))
+  static get serializer () {
+    return this.store.serializerFor(this.modelName)
   }
 
   /**
@@ -36,14 +67,19 @@ module.exports = class Model extends Base {
    * @return Promise
    */
   save () {
-    // call out to adapter to save
+    return this.constructor.adapter
+      .createRecord(this.constructor, this.attributes)
   }
+
+  saveAll () {}
 
   /**
    * Delete the model instance
    */
   delete () {
-    // call out to adapter to delete
+    const id = this.id
+    const adapter = this.constructor.adapter
+    return adapter.deleteRecord(this.constructor, id)
   }
 
   /**
@@ -88,15 +124,37 @@ module.exports = class Model extends Base {
   // static validation () {}
   // get errors () {}
   // get fields () {}
-  // get id () {}
+
   static get modelName () {
-    return this.name.toLowerCase()
+    const nameWithoutModel = this.name.replace('Model', '')
+    const nameUnderscored = underscore(nameWithoutModel)
+    const nameDasherized = dasherize(nameUnderscored)
+    return singularize(nameDasherized)
   }
 
   static get tableName () {
-    const modelName = this.name.toLowerCase()
-    return pluralize(modelName.replace('model', ''))
+    const nameWithoutModel = this.name.replace('Model', '')
+    const nameUnderscored = underscore(nameWithoutModel)
+    return pluralize(nameUnderscored)
   }
-  // get isNew () {}
+
+  static get type () {
+    const nameWithoutModel = this.name.replace('Model', '')
+    const nameUnderscored = underscore(nameWithoutModel)
+    const nameDasherized = dasherize(nameUnderscored)
+    return pluralize(nameDasherized)
+  }
+
+  static get idField () {
+    return 'id'
+  }
+
+  get isNew () {
+    return !this.attributes[this.constructor.idField]
+  }
   // get isValid () {}
+
+  toJSON () {
+    return this.attributes
+  }
 }
