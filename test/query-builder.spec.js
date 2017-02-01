@@ -39,8 +39,8 @@ describe('query-filter', () => {
     const filter = {id: 1}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where \"id\" = 1')
@@ -51,8 +51,8 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where \"id\" > 1')
@@ -63,8 +63,8 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, title: "Post 2"}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 1 and \"title\" = \'Post 2\')')
@@ -75,8 +75,8 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, title: {$iLike: "%OsT 2"}}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 1 and \"title\" ILIKE \'%OsT 2\')')
@@ -87,8 +87,8 @@ describe('query-filter', () => {
     const filter = {$or: [{id: 1}, {title: "Post 2"}]}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"id\" = 1 or \"title\" = \'Post 2\')')
@@ -99,8 +99,8 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 10}, $or: [{title: "hello"}, {title: {$like: "%bye%"}}]}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 10 and (\"title\" = \'hello\' or \"title\" LIKE \'%bye%\'))')
@@ -111,8 +111,8 @@ describe('query-filter', () => {
     const filter = {$or: [{title: "hello"}, {title: {$like: "%bye%"}}], id: {$gt: 10}}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where ((\"title\" = \'hello\' or \"title\" LIKE \'%bye%\') and \"id\" > 10)')
@@ -123,8 +123,8 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$iLike: '%bye%'}, description: {$iLike: '%bye%'}}]}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 10 and (\"title\" = \'hello\' or (\"title\" ILIKE \'%bye%\' and \"description\" ILIKE \'%bye%\')))')
@@ -135,8 +135,8 @@ describe('query-filter', () => {
     const filter = {title: {$IliKe: '%bye%'}, description: {$iLIkE: '%bye%'}}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"title\" ILIKE \'%bye%\' and \"description\" ILIKE \'%bye%\')')
@@ -147,8 +147,8 @@ describe('query-filter', () => {
     const filter = {title: {$IliKe: '%bye%'}, description: {}}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"title\" ILIKE \'%bye%\')')
@@ -159,8 +159,8 @@ describe('query-filter', () => {
     const filter = {blah: 1}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\"')
@@ -171,8 +171,8 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, blah: 1}
 
     // When
-    const builder = new QueryObjectTranslator(models.Post)
-    const result = builder.buildFilter(filter)
+    const translator = new QueryObjectTranslator(models.Post)
+    const result = translator.translate(filter)
 
     // Then
     expect(result.toString()).toBe('select * from \"posts\" where (\"id\" > 1)')
