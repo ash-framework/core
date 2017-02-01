@@ -1,18 +1,18 @@
 const { capitalize } = require('lodash')
 
-module.exports = class QueryFilter {
+module.exports = class QueryObjectTranslator {
   constructor (Model) {
     this.Model = Model
     this.queryBuilder = Model.adapter.knex(Model.tableName)
   }
 
   _orBuilder (orConditions) {
-    const queryFilter = this
+    const translator = this
     this.queryBuilder.where(function () {
-      queryFilter.queryBuilder = this
+      translator.queryBuilder = this
       for (const condition of orConditions) {
         const isOr = condition !== orConditions[0]
-        queryFilter._buildQuery(condition, undefined, isOr)
+        translator._buildQuery(condition, undefined, isOr)
       }
     })
   }
@@ -97,13 +97,13 @@ module.exports = class QueryFilter {
   }
 
   _createNewContext (filter, colName, isOr) {
-    const queryFilter = this
+    const translator = this
     const action = isOr ? 'orWhere' : 'where'
     // Create a nested condition, e.g. id = 1 AND (name = 'blah' OR thing = 1)
-    queryFilter.queryBuilder[action](function () {
-      queryFilter.queryBuilder = this
+    translator.queryBuilder[action](function () {
+      translator.queryBuilder = this
 
-      queryFilter._handleFilter(filter, colName, isOr)
+      translator._handleFilter(filter, colName, isOr)
     })
   }
 

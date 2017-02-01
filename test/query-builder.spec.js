@@ -1,5 +1,5 @@
 /* global describe, test, beforeEach, beforeAll, afterAll, expect */
-const QueryBuilder = require('../src/classes/query-builder')
+const QueryObjectTranslator = require('../src/classes/query-object-translator')
 const Database = require('./database')
 const config = process.env.PG_CONNECTION_STRING
 let db
@@ -39,7 +39,7 @@ describe('query-filter', () => {
     const filter = {id: 1}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -51,7 +51,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -63,7 +63,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, title: "Post 2"}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -75,7 +75,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, title: {$iLike: "%OsT 2"}}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -87,7 +87,7 @@ describe('query-filter', () => {
     const filter = {$or: [{id: 1}, {title: "Post 2"}]}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -99,7 +99,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 10}, $or: [{title: "hello"}, {title: {$like: "%bye%"}}]}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -111,7 +111,7 @@ describe('query-filter', () => {
     const filter = {$or: [{title: "hello"}, {title: {$like: "%bye%"}}], id: {$gt: 10}}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -123,7 +123,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$iLike: '%bye%'}, description: {$iLike: '%bye%'}}]}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -135,7 +135,7 @@ describe('query-filter', () => {
     const filter = {title: {$IliKe: '%bye%'}, description: {$iLIkE: '%bye%'}}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -147,7 +147,7 @@ describe('query-filter', () => {
     const filter = {title: {$IliKe: '%bye%'}, description: {}}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -159,7 +159,7 @@ describe('query-filter', () => {
     const filter = {blah: 1}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -171,7 +171,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, blah: 1}
 
     // When
-    const builder = new QueryBuilder(models.Post)
+    const builder = new QueryObjectTranslator(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
