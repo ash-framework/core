@@ -1,9 +1,9 @@
 const { capitalize } = require('lodash')
 
 module.exports = class QueryFilter {
-  constructor (queryBuilder, Model) {
+  constructor (Model) {
     this.Model = Model
-    this.queryBuilder = queryBuilder
+    this.queryBuilder = Model.adapter.knex(Model.tableName)
   }
 
   _orBuilder (orConditions) {
@@ -104,7 +104,6 @@ module.exports = class QueryFilter {
       queryFilter.queryBuilder = this
 
       queryFilter._handleFilter(filter, colName, isOr)
-
     })
   }
 
@@ -112,7 +111,6 @@ module.exports = class QueryFilter {
     // TODO: throw an error to show that the column name is invalid
     return !colName || this.Model.definition.attributes[colName]
   }
-
 
   _handleFilter (filter, colName, isOr) {
     let iterationCount = 0

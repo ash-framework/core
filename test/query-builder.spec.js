@@ -23,12 +23,13 @@ describe('query-filter', () => {
     })
     models = {
       Post: {
+        tableName: 'posts',
+        modelName: 'Post',
+        type: 'posts',
         definition: {
-          name: 'Post',
-          type: 'posts',
-          tableName: 'posts',
           attributes: {id: 'number', title: 'string', description: 'string'}
-        }
+        },
+        adapter: { knex: db.knex }
       }
     }
   })
@@ -38,8 +39,7 @@ describe('query-filter', () => {
     const filter = {id: 1}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -51,8 +51,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -64,8 +63,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, title: "Post 2"}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -77,8 +75,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, title: {$iLike: "%OsT 2"}}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -90,8 +87,7 @@ describe('query-filter', () => {
     const filter = {$or: [{id: 1}, {title: "Post 2"}]}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -103,8 +99,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 10}, $or: [{title: "hello"}, {title: {$like: "%bye%"}}]}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -116,8 +111,7 @@ describe('query-filter', () => {
     const filter = {$or: [{title: "hello"}, {title: {$like: "%bye%"}}], id: {$gt: 10}}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -129,8 +123,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 10}, $or: [{title: 'hello'}, {title: {$iLike: '%bye%'}, description: {$iLike: '%bye%'}}]}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -142,8 +135,7 @@ describe('query-filter', () => {
     const filter = {title: {$IliKe: '%bye%'}, description: {$iLIkE: '%bye%'}}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -155,8 +147,7 @@ describe('query-filter', () => {
     const filter = {title: {$IliKe: '%bye%'}, description: {}}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -168,8 +159,7 @@ describe('query-filter', () => {
     const filter = {blah: 1}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
@@ -181,8 +171,7 @@ describe('query-filter', () => {
     const filter = {id: {$gt: 1}, blah: 1}
 
     // When
-    const postsSelect = db.knex('posts')
-    const builder = new QueryBuilder(postsSelect, models.Post)
+    const builder = new QueryBuilder(models.Post)
     const result = builder.buildFilter(filter)
 
     // Then
