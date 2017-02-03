@@ -23,6 +23,22 @@ module.exports = class Registry {
   static registerModel (Model) {
     Model.definition = {attributes: {}, relationships: {}}
 
+    Reflect.defineProperty(Model.prototype, Model.idField, {
+      get () {
+        return this.attributes[Model.idField]
+      },
+      set (value) {
+        const attributes = this.attributes
+        attributes[Model.idField] = value
+        this.attributes = attributes
+      },
+      enumerable: true,
+      configurable: false
+      // TODO: consider setting value based on type
+      // eg. if its a number set value: 0
+      // if its a Date set value: new Date etc
+    })
+
     Model.attributes(function (name, type) {
       // create attributes metadata object
       Model.definition.attributes[name] = type
@@ -33,8 +49,9 @@ module.exports = class Registry {
           return this.attributes[name]
         },
         set (value) {
-          // TODO: validate value to ensure it matches type
-          this.attributes[name] = value
+          const attributes = this.attributes
+          attributes[name] = value
+          this.attributes = attributes
         },
         enumerable: true,
         configurable: false
