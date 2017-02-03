@@ -348,5 +348,15 @@ describe('model', () => {
       // When/Then
       expect(() => (model.attributes = {bool: 'not a boolean'})).toThrow()
     })
+    test('updating property on attributes does not change attributes hash', () => {
+      // Given
+      class PostModel extends Model {}
+      set(PostModel, 'definition.attributes', {bool: 'boolean'})
+      const model = new PostModel({bool: true})
+      model.attributes.bool = false
+
+      // When/Then
+      expect(model.attributes.bool).toBe(true)
+    })
   })
 })

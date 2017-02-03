@@ -16,17 +16,14 @@ module.exports = class Model extends Base {
       `Model naming must follow the pattern <name>Model eg. filename: post.js, model class name: PostModel`)
 
     this.attributes = props
-
-    const relationships = get(this, 'constructor.definition.relationships', {})
-    Object.keys(relationships).forEach(relationship => {
-      if (props[relationship]) this.attributes[relationship] = props[relationship]
-    })
-
     this.modelName = this.constructor.modelName
   }
 
+  /**
+   * @return {Object} - clone of attributes hash
+   */
   get attributes () {
-    return attributes.get(this)
+    return JSON.parse(JSON.stringify(attributes.get(this)))
   }
 
   set attributes (props) {
@@ -38,6 +35,8 @@ module.exports = class Model extends Base {
       date: (value) => !(value instanceof Date),
       boolean: (value) => typeof value !== 'boolean'
     }
+
+    // attributes
     Object.keys(attributeDefn).forEach(attr => {
       if (props[attr]) {
         const type = attributeDefn[attr]
@@ -48,16 +47,30 @@ module.exports = class Model extends Base {
       }
     })
 
+    // relationships
+    const relationships = get(this, 'constructor.definition.relationships', {})
+    Object.keys(relationships).forEach(relationship => {
+      if (props[relationship]) attributesHash[relationship] = props[relationship]
+    })
+
+    // primary key field
     if (props[this.constructor.idField]) {
       attributesHash[this.constructor.idField] = props[this.constructor.idField]
     }
+
     attributes.set(this, attributesHash)
   }
 
+  /**
+   * @return {Adapter} - adapter for model
+   */
   static get adapter () {
     return this.store.adapterFor(this.modelName)
   }
 
+  /**
+   * @return {Serializer} - serializer for model
+   */
   static get serializer () {
     return this.store.serializerFor(this.modelName)
   }
@@ -77,9 +90,8 @@ module.exports = class Model extends Base {
    * Delete the model instance
    */
   delete () {
-    const id = this.id
-    const adapter = this.constructor.adapter
-    return adapter.deleteRecord(this.constructor, id)
+    return this.constructor.adapter
+      .deleteRecord(this.constructor, this.id)
   }
 
   /**
@@ -125,6 +137,10 @@ module.exports = class Model extends Base {
   // get errors () {}
   // get fields () {}
 
+
+  /**
+   * @return {string} model name
+   */
   static get modelName () {
     const nameWithoutModel = this.name.replace('Model', '')
     const nameUnderscored = underscore(nameWithoutModel)
@@ -132,12 +148,18 @@ module.exports = class Model extends Base {
     return singularize(nameDasherized)
   }
 
+  /**
+   * @return {string} table name for model
+   */
   static get tableName () {
     const nameWithoutModel = this.name.replace('Model', '')
     const nameUnderscored = underscore(nameWithoutModel)
     return pluralize(nameUnderscored)
   }
 
+  /**
+   * @return {string} model type
+   */
   static get type () {
     const nameWithoutModel = this.name.replace('Model', '')
     const nameUnderscored = underscore(nameWithoutModel)
@@ -152,7 +174,6 @@ module.exports = class Model extends Base {
   get isNew () {
     return !this.attributes[this.constructor.idField]
   }
-  // get isValid () {}
 
   toJSON () {
     return this.attributes
