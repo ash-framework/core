@@ -148,6 +148,9 @@
 const models = new Map()
 
 module.exports = class Registry {
+  // TODO: Set which store the model
+  // belongs to with Model.store =
+
   /**
    * Sets up a given model based on it&#x27;s static definition methods
    * &#x60;attributes&#x60; and &#x60;relationships&#x60;
@@ -167,9 +170,14 @@ module.exports = class Registry {
   static registerModel (Model) {
     Model.definition = {attributes: {}, relationships: {}}
 
-    Model.attributes(function (name, type) {
+    Model.attributes(function (name, type, options = {}) {
+      if (options.defaultValue &amp;&amp; typeof options.defaultValue !== type) { 
+        throw new Error(&#x27;Invalid value given for &#x60;defaultValue&#x60;&#x27;)
+      }
+
       // create attributes metadata object
-      Model.definition.attributes[name] = type
+      options.type = type
+      Model.definition.attributes[name] = options
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {
@@ -177,8 +185,9 @@ module.exports = class Registry {
           return this.attributes[name]
         },
         set (value) {
-          // TODO: validate value to ensure it matches type
-          this.attributes[name] = value
+          const attributes = this.attributes
+          attributes[name] = value
+          this.attributes = attributes
         },
         enumerable: true,
         configurable: false
@@ -188,10 +197,30 @@ module.exports = class Registry {
       })
     })
 
+    Reflect.defineProperty(Model.prototype, Model.idField, {
+      get () {
+        return this.attributes[Model.idField]
+      },
+      set (value) {
+        const attributes = this.attributes
+        attributes[Model.idField] = value
+        this.attributes = attributes
+      },
+      enumerable: true,
+      configurable: false
+      // TODO: consider setting value based on type
+      // eg. if its a number set value: 0
+      // if its a Date set value: new Date etc
+    })
+
+    if (!Model.definition.attributes[Model.idField]) {
+      Model.definition.attributes[Model.idField] = {type: &#x27;number&#x27;}
+    }
+
     // setup relationship definition object
     Model.relationships(function (name, modelName, type) {
       // create relationship metadata object
-      Model.definition.relationships[name] = type
+      Model.definition.relationships[name] = {type}
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {

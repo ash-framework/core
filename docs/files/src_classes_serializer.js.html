@@ -148,6 +148,27 @@
 &#x27;use strict&#x27;
 
 const Base = require(&#x27;./base&#x27;)
+const serializer = require(&#x27;loopback-jsonapi-model-serializer&#x27;)
+const loopback = require(&#x27;loopback&#x27;)
+
+/**
+ * Translates an Ash model definition to a loopback definition
+ * which can be used with loopback-jsonapi-model-serializer
+ * @param {Object} Model
+ */
+function translateToLoopbackModel (Model) {
+  const LoopbackModel = loopback.createModel({
+    name: Model.name,
+    properties: Model.definition.attributes,
+    relations: Model.definition.relations
+  })
+  LoopbackModel.pluralModelName = Model.type
+
+  const ds = loopback.createDataSource(&#x27;memory&#x27;)
+  ds.attach(LoopbackModel)
+
+  return LoopbackModel
+}
 
 /**
  *
@@ -156,8 +177,9 @@ const Base = require(&#x27;./base&#x27;)
  * @constructor
  */
 module.exports = class Serializer extends Base {
-  serialize (Model, data) {
-    return data
+  serialize (Model, data, options) {
+    const LoopbackModel = translateToLoopbackModel(Model)
+    return serializer(data, LoopbackModel, options)
   }
 }
 

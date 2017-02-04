@@ -148,28 +148,85 @@
 &#x27;use strict&#x27;
 
 const Base = require(&#x27;./base&#x27;)
-const DefaultAdapter = require(&#x27;./adapter&#x27;)
-const DefaultStore = require(&#x27;./store&#x27;)
+const { pluralize, singularize, dasherize, underscore } = require(&#x27;inflection&#x27;)
+const assert = require(&#x27;assert&#x27;)
+const {get, defaultsDeep} = require(&#x27;lodash&#x27;)
+
+const attributes = new WeakMap()
 
 module.exports = class Model extends Base {
-  constructor (props) {
+  constructor (props = {}) {
     super()
+    assert(!Array.isArray(props) &amp;&amp; typeof props === &#x27;object&#x27;,
+      &#x60;Argument to new instance of &#x27;${this.constructor.name}&#x27; should be an Object&#x60;)
+    assert(/^.*Model$/.test(this.constructor.name),
+      &#x60;Model naming must follow the pattern &lt;name&gt;Model eg. filename: post.js, model class name: PostModel&#x60;)
+
     this.attributes = props
     this.modelName = this.constructor.modelName
   }
 
-  static get adapter () {
-    // 1. lookup app/adapters/modelName
-    // 2. lookup app/adapters/application
-    // 3. default to default adapter
-    return DefaultAdapter
+  /**
+   * @return {Object} - clone of attributes hash
+   */
+  get attributes () {
+    return JSON.parse(JSON.stringify(attributes.get(this)))
   }
 
-  static get store () {
-    // 1. lookup app/stores/modelName
-    // 2. lookup app/stores/application
-    // 3. default to default store
-    return new DefaultStore()
+  set attributes (props) {
+    const types = {
+      string: (value) =&gt; typeof value !== &#x27;string&#x27;,
+      number: (value) =&gt; typeof value !== &#x27;number&#x27;,
+      date: (value) =&gt; !(value instanceof Date),
+      boolean: (value) =&gt; typeof value !== &#x27;boolean&#x27;
+    }
+
+    const attributeDefn = get(this, &#x27;constructor.definition.attributes&#x27;, {})
+    const attributesHash = {}
+    Object.keys(attributeDefn).forEach(attr =&gt; {
+      if (attributeDefn[attr].defaultValue) {
+        attributesHash[attr] = attributeDefn[attr].defaultValue
+      }
+    })
+    defaultsDeep(attributesHash, attributes.get(this))
+
+    // attributes
+    Object.keys(attributeDefn).forEach(attr =&gt; {
+      if (props[attr]) {
+        const type = attributeDefn[attr].type
+        if (types[type](props[attr])) {
+          throw new Error()
+        }
+        attributesHash[attr] = props[attr]
+      }
+    })
+
+    // relationships
+    const relationships = get(this, &#x27;constructor.definition.relationships&#x27;, {})
+    Object.keys(relationships).forEach(relationship =&gt; {
+      if (props[relationship]) attributesHash[relationship] = props[relationship]
+    })
+
+    // primary key field
+    if (props[this.constructor.idField]) {
+      attributesHash[this.constructor.idField] = props[this.constructor.idField]
+    }
+
+    attributes.set(this, attributesHash)
+  }
+
+  /**
+   * @return {Adapter} - adapter for model
+   */
+  static get adapter () {
+    return this.store.adapterFor(this.modelName)
+  }
+
+  /**
+   * @return {Serializer} - serializer for model
+   */
+  static get serializer () {
+    return this.store.serializerFor(this.modelName)
   }
 
   /**
@@ -177,14 +234,18 @@ module.exports = class Model extends Base {
    * @return Promise
    */
   save () {
-    // call out to adapter to save
+    return this.constructor.adapter
+      .createRecord(this.constructor, this.attributes)
   }
+
+  saveAll () {}
 
   /**
    * Delete the model instance
    */
   delete () {
-    // call out to adapter to delete
+    return this.constructor.adapter
+      .deleteRecord(this.constructor, this.id)
   }
 
   /**
@@ -229,16 +290,79 @@ module.exports = class Model extends Base {
   // static validation () {}
   // get errors () {}
   // get fields () {}
-  // get id () {}
+
+
+  /**
+   * @return {string} model name
+   */
   static get modelName () {
-    return this.name.toLowerCase()
+    const nameWithoutModel = this.name.replace(&#x27;Model&#x27;, &#x27;&#x27;)
+    const nameUnderscored = underscore(nameWithoutModel)
+    const nameDasherized = dasherize(nameUnderscored)
+    return singularize(nameDasherized)
   }
 
+  /**
+   * @return {string} table name for model
+   */
   static get tableName () {
-    return this.name.toLowerCase()
+    const nameWithoutModel = this.name.replace(&#x27;Model&#x27;, &#x27;&#x27;)
+    const nameUnderscored = underscore(nameWithoutModel)
+    return pluralize(nameUnderscored)
   }
-  // get isNew () {}
-  // get isValid () {}
+
+  /**
+   * @return {string} model type
+   */
+  static get type () {
+    const nameWithoutModel = this.name.replace(&#x27;Model&#x27;, &#x27;&#x27;)
+    const nameUnderscored = underscore(nameWithoutModel)
+    const nameDasherized = dasherize(nameUnderscored)
+    return pluralize(nameDasherized)
+  }
+
+  /**
+   * Specifies the name of the models id field.
+   *
+   * By default the name of the models id field is &#x27;id&#x27;
+   *
+   * This method can be overridden to specify a different name to use for the models id
+   * field in child classes.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;
+   * static get idField () {
+   *  return &#x27;modelId&#x27;
+   * }
+   * &#x60;&#x60;&#x60;
+   *
+   * By default id fields are of type &#x27;number&#x27;.
+   *
+   * If another type is desired then a matching named field should be provided in the model attributes hash.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;
+   * static get idField () {
+   *   return &#x27;customIdField&#x27;
+   * }
+   *
+   * static attributes (attr) {
+   *   attr(&#x27;customIdField&#x27;, &#x27;string&#x27;)
+   * }
+   * &#x60;&#x60;&#x60;
+   * @return {String} - id field name
+   */
+  static get idField () {
+    return &#x27;id&#x27;
+  }
+
+  get isNew () {
+    return !this.attributes[this.constructor.idField]
+  }
+
+  toJSON () {
+    return this.attributes
+  }
 }
 
     </pre>
