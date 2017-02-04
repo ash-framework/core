@@ -24,7 +24,7 @@ module.exports = class Registry {
     Model.definition = {attributes: {}, relationships: {}}
 
     Model.attributes(function (name, type, options = {}) {
-      if (options.defaultValue && typeof options.defaultValue !== type) { 
+      if (options.defaultValue && typeof options.defaultValue !== type) {
         throw new Error('Invalid value given for `defaultValue`')
       }
 
