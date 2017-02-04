@@ -55,7 +55,7 @@ describe('registry', () => {
       const post = new PostModel(expected)
 
       // Then
-      expect(PostModel.definition.attributes).toEqual({id: 'number'})
+      expect(PostModel.definition.attributes).toEqual({id: {type: 'number'}})
       expect(PostModel.idField).toEqual('id')
       expect(post.attributes).toEqual(expected)
       expect(post.id).toEqual(1)
@@ -87,7 +87,7 @@ describe('registry', () => {
       const post = new PostModel({id: 'one'})
 
       // Then
-      expect(PostModel.definition.attributes).toEqual({id: 'string'})
+      expect(PostModel.definition.attributes).toEqual({id: {type: 'string'}})
       expect(PostModel.idField).toEqual('id')
       expect(post.attributes.id).toEqual('one')
       expect(post.id).toEqual('one')
@@ -106,7 +106,7 @@ describe('registry', () => {
       post.id = 'one'
 
       // Then
-      expect(PostModel.definition.attributes).toEqual({id: 'string'})
+      expect(PostModel.definition.attributes).toEqual({id: {type: 'string'}})
       expect(PostModel.idField).toEqual('id')
       expect(post.attributes.id).toEqual('one')
       expect(post.id).toEqual('one')

@@ -39,7 +39,7 @@ module.exports = class Model extends Base {
     // attributes
     Object.keys(attributeDefn).forEach(attr => {
       if (props[attr]) {
-        const type = attributeDefn[attr]
+        const type = attributeDefn[attr].type
         if (types[type](props[attr])) {
           throw new Error()
         }
