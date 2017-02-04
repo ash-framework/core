@@ -13,7 +13,7 @@ module.exports = class Model extends Base {
     assert(!Array.isArray(props) && typeof props === 'object',
       `Argument to new instance of '${this.constructor.name}' should be an Object`)
     assert(/^.*Model$/.test(this.constructor.name),
-      `Model naming must follow the pattern <name>Model eg. filename: post.js, model class name: PostModel`)
+      'Model naming must follow the pattern <name>Model eg. filename: post.js, model class name: PostModel')
 
     this.attributes = props
     this.modelName = this.constructor.modelName
@@ -143,7 +143,6 @@ module.exports = class Model extends Base {
   // static validation () {}
   // get errors () {}
   // get fields () {}
-
 
   /**
    * @return {string} model name
