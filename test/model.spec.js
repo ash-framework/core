@@ -182,26 +182,6 @@ describe('model', () => {
       // Then
       expect(deleteRecordMock).toHaveBeenCalledWith(PostModel, post.id)
     })
-    test('idField', () => {
-      // Given
-      class PostModel extends Model {}
-
-      // When
-      const id = PostModel.idField
-
-      // Then
-      expect(id).toBe('id')
-    })
-    test('attribute getter', () => {
-      // Given
-      // When
-      // Then
-    })
-    test('relationship getter', () => {
-      // Given
-      // When
-      // Then
-    })
     test('implicit id attribute', () => {
       // Given
       class PostModel extends Model {}
