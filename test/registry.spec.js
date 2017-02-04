@@ -1,7 +1,6 @@
-/* global describe, test, expect, jest */
+/* global describe, test, expect */
 const Model = require('../src/classes/model')
 const Registry = require('../src/classes/registry')
-const {set} = require('lodash')
 
 describe('registry', () => {
   describe('registerModel', () => {
@@ -63,7 +62,6 @@ describe('registry', () => {
     test('register default id setter', () => {
       // Given
       class PostModel extends Model {}
-      const expected = {id: 1}
 
       // When
       Registry.registerModel(PostModel)
@@ -71,7 +69,6 @@ describe('registry', () => {
       post.id = 1
 
       // Then
-      // expect(post.attributes).toEqual(expected)
       expect(post.id).toEqual(1)
     })
     test('register custom id getter ', () => {
