@@ -126,5 +126,31 @@ describe('registry', () => {
       // Then
       expect(() => (post.id = 1)).toThrow()
     })
+    test('attribute default', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('bool', 'boolean', {defaultValue: true})
+        }
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+
+      // Then
+      expect(model.bool).toBe(true)
+    })
+    test('invalid value for attribute default', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('id', 'boolean', {defaultValue: 'not valid'})
+        }
+      }
+
+      // When/Then
+      expect(() => (Registry.registerModel(PostModel))).toThrow()
+    })
   })
 })

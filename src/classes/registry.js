@@ -23,9 +23,14 @@ module.exports = class Registry {
   static registerModel (Model) {
     Model.definition = {attributes: {}, relationships: {}}
 
-    Model.attributes(function (name, type) {
+    Model.attributes(function (name, type, options = {}) {
+      if (options.defaultValue && typeof options.defaultValue !== type) { 
+        throw new Error('Invalid value given for `defaultValue`')
+      }
+
       // create attributes metadata object
-      Model.definition.attributes[name] = {type}
+      options.type = type
+      Model.definition.attributes[name] = options
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {

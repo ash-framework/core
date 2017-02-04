@@ -3,7 +3,7 @@
 const Base = require('./base')
 const { pluralize, singularize, dasherize, underscore } = require('inflection')
 const assert = require('assert')
-const {get} = require('lodash')
+const {get, defaultsDeep} = require('lodash')
 
 const attributes = new WeakMap()
 
@@ -27,14 +27,21 @@ module.exports = class Model extends Base {
   }
 
   set attributes (props) {
-    const attributeDefn = get(this, 'constructor.definition.attributes', {})
-    const attributesHash = attributes.get(this) || {}
     const types = {
       string: (value) => typeof value !== 'string',
       number: (value) => typeof value !== 'number',
       date: (value) => !(value instanceof Date),
       boolean: (value) => typeof value !== 'boolean'
     }
+
+    const attributeDefn = get(this, 'constructor.definition.attributes', {})
+    const attributesHash = {}
+    Object.keys(attributeDefn).forEach(attr => {
+      if (attributeDefn[attr].defaultValue) {
+        attributesHash[attr] = attributeDefn[attr].defaultValue
+      }
+    })
+    defaultsDeep(attributesHash, attributes.get(this))
 
     // attributes
     Object.keys(attributeDefn).forEach(attr => {
