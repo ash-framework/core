@@ -219,6 +219,7 @@ describe('model', () => {
           return 'postId'
         }
       }
+      set(PostModel, 'definition.attributes', {postId: 'number'})
 
       // When
       const model = new PostModel({postId: 1})
