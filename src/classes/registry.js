@@ -25,7 +25,7 @@ module.exports = class Registry {
 
     Model.attributes(function (name, type) {
       // create attributes metadata object
-      Model.definition.attributes[name] = type
+      Model.definition.attributes[name] = {type}
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {
@@ -62,13 +62,13 @@ module.exports = class Registry {
     })
 
     if (!Model.definition.attributes[Model.idField]) {
-      Model.definition.attributes[Model.idField] = 'number'
+      Model.definition.attributes[Model.idField] = {type: 'number'}
     }
 
     // setup relationship definition object
     Model.relationships(function (name, modelName, type) {
       // create relationship metadata object
-      Model.definition.relationships[name] = type
+      Model.definition.relationships[name] = {type}
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {

@@ -8,7 +8,7 @@ describe('model', () => {
       // Given
       class PostModel extends Model {}
       PostModel.definition = {attributes: {}, relationships: {}}
-      PostModel.definition.attributes = {title: 'string'}
+      PostModel.definition.attributes = {title: {type: 'string'}}
       const expected = {title: 'my title'}
       // When
       const post = new PostModel(expected)
@@ -20,7 +20,7 @@ describe('model', () => {
       // Given
       class PostModel extends Model {}
       PostModel.definition = {attributes: {}, relationships: {}}
-      PostModel.definition.attributes = {title: 'string'}
+      PostModel.definition.attributes = {title: {type: 'string'}}
 
       // When/Then
       expect(() => new PostModel([])).toThrow()
@@ -31,7 +31,7 @@ describe('model', () => {
       // Given
       class PostModel extends Model {}
       PostModel.definition = {attributes: {}, relationships: {}}
-      PostModel.definition.attributes = {title: 'string'}
+      PostModel.definition.attributes = {title: {type: 'string'}}
       const expected = {title: 'my title', description: 'my description'}
 
       // When
@@ -147,7 +147,7 @@ describe('model', () => {
       // Given
       class PostModel extends Model {}
       PostModel.definition = {attributes: {}, relationships: {}}
-      PostModel.definition.attributes = {title: 'string'}
+      PostModel.definition.attributes = {title: {type: 'string'}}
       const createRecordMock = jest.fn()
       PostModel.store = {adapterFor: () => {
         return {createRecord: createRecordMock}
@@ -169,7 +169,7 @@ describe('model', () => {
       // Given
       class PostModel extends Model {}
       PostModel.definition = {attributes: {}, relationships: {}}
-      PostModel.definition.attributes = {title: 'string'}
+      PostModel.definition.attributes = {title: {type: 'string'}}
       const deleteRecordMock = jest.fn()
       PostModel.store = {adapterFor: () => {
         return {deleteRecord: deleteRecordMock}
@@ -219,7 +219,7 @@ describe('model', () => {
           return 'postId'
         }
       }
-      set(PostModel, 'definition.attributes', {postId: 'number'})
+      set(PostModel, 'definition.attributes', {postId: {type: 'number'}})
 
       // When
       const model = new PostModel({postId: 1})
@@ -272,7 +272,7 @@ describe('model', () => {
     test('.toJSON valid properties', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {name: 'string'})
+      set(PostModel, 'definition.attributes', {name: {type: 'string'}})
 
       // When
       const model = new PostModel({id: 1, name: 'Joe Bloggs', fake: 'fake'})
@@ -289,7 +289,7 @@ describe('model', () => {
     test('validation with bad string value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {name: 'string'})
+      set(PostModel, 'definition.attributes', {name: {type: 'string'}})
       const model = new PostModel()
 
       // When/Then
@@ -298,7 +298,7 @@ describe('model', () => {
     test('validation with bad number value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {age: 'number'})
+      set(PostModel, 'definition.attributes', {age: {type: 'number'}})
       const model = new PostModel()
 
       // When/Then
@@ -307,7 +307,7 @@ describe('model', () => {
     test('validation with good number value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {age: 'number'})
+      set(PostModel, 'definition.attributes', {age: {type: 'number'}})
       const model = new PostModel()
 
       // When/Then
@@ -316,7 +316,7 @@ describe('model', () => {
     test('validation with good date value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {date: 'date'})
+      set(PostModel, 'definition.attributes', {date: {type: 'date'}})
       const model = new PostModel()
 
       // When/Then
@@ -325,7 +325,7 @@ describe('model', () => {
     test('validation with bad date value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {date: 'date'})
+      set(PostModel, 'definition.attributes', {date: {type: 'date'}})
       const model = new PostModel()
 
       // When/Then
@@ -334,7 +334,7 @@ describe('model', () => {
     test('validation with good boolean value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {bool: 'boolean'})
+      set(PostModel, 'definition.attributes', {bool: {type: 'boolean'}})
       const model = new PostModel()
 
       // When/Then
@@ -343,7 +343,7 @@ describe('model', () => {
     test('validation with bad boolean value when setting attributes', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {bool: 'boolean'})
+      set(PostModel, 'definition.attributes', {bool: {type: 'boolean'}})
       const model = new PostModel()
 
       // When/Then
@@ -352,7 +352,7 @@ describe('model', () => {
     test('updating property on attributes does not change attributes hash', () => {
       // Given
       class PostModel extends Model {}
-      set(PostModel, 'definition.attributes', {bool: 'boolean'})
+      set(PostModel, 'definition.attributes', {bool: {type: 'boolean'}})
       const model = new PostModel({bool: true})
       model.attributes.bool = false
 
