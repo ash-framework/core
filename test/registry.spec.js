@@ -14,7 +14,7 @@ describe('registry', () => {
         }
       }
       const expected = {title: 'my title', description: 'my description'}
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel(expected)
@@ -32,7 +32,7 @@ describe('registry', () => {
           attr('description', 'string')
         }
       }
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel()
@@ -49,7 +49,7 @@ describe('registry', () => {
       // Given
       class PostModel extends Model {}
       const expected = {id: 1}
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel(expected)
@@ -64,7 +64,7 @@ describe('registry', () => {
       // Given
       class PostModel extends Model {}
       const expected = {id: 1}
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel()
@@ -81,7 +81,7 @@ describe('registry', () => {
           attr('id', 'string')
         }
       }
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel({id: 'one'})
@@ -99,7 +99,7 @@ describe('registry', () => {
           attr('id', 'string')
         }
       }
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel()
@@ -118,7 +118,7 @@ describe('registry', () => {
           attr('id', 'string')
         }
       }
-      
+
       // When
       Registry.registerModel(PostModel)
       const post = new PostModel()
