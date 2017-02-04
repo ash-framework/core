@@ -45,7 +45,7 @@ describe('registry', () => {
       expect(post.title).toEqual('my title')
       expect(post.description).toEqual('my description')
     })
-    test('register id getter', () => {
+    test('register default id getter', () => {
       // Given
       class PostModel extends Model {}
       const expected = {id: 1}
@@ -55,10 +55,12 @@ describe('registry', () => {
       const post = new PostModel(expected)
 
       // Then
+      expect(PostModel.definition.attributes).toEqual({id: 'number'})
+      expect(PostModel.idField).toEqual('id')
       expect(post.attributes).toEqual(expected)
       expect(post.id).toEqual(1)
     })
-    test('register id setter', () => {
+    test('register default id setter', () => {
       // Given
       class PostModel extends Model {}
       const expected = {id: 1}
@@ -71,6 +73,58 @@ describe('registry', () => {
       // Then
       // expect(post.attributes).toEqual(expected)
       expect(post.id).toEqual(1)
+    })
+    test('register custom id getter ', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('id', 'string')
+        }
+      }
+      
+      // When
+      Registry.registerModel(PostModel)
+      const post = new PostModel({id: 'one'})
+
+      // Then
+      expect(PostModel.definition.attributes).toEqual({id: 'string'})
+      expect(PostModel.idField).toEqual('id')
+      expect(post.attributes.id).toEqual('one')
+      expect(post.id).toEqual('one')
+    })
+    test('register custom id setter', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('id', 'string')
+        }
+      }
+      
+      // When
+      Registry.registerModel(PostModel)
+      const post = new PostModel()
+      post.id = 'one'
+
+      // Then
+      expect(PostModel.definition.attributes).toEqual({id: 'string'})
+      expect(PostModel.idField).toEqual('id')
+      expect(post.attributes.id).toEqual('one')
+      expect(post.id).toEqual('one')
+    })
+    test('setting invalid custom id value', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('id', 'string')
+        }
+      }
+      
+      // When
+      Registry.registerModel(PostModel)
+      const post = new PostModel()
+
+      // Then
+      expect(() => (post.id = 1)).toThrow()
     })
   })
 })

@@ -167,6 +167,37 @@ module.exports = class Model extends Base {
     return pluralize(nameDasherized)
   }
 
+  /**
+   * Specifies the name of the models id field.
+   *
+   * By default the name of the models id field is 'id'
+   *
+   * This method can be overridden to specify a different name to use for the models id
+   * field in child classes.
+   *
+   * @example
+   * ```
+   * static get idField () {
+   *  return 'modelId'
+   * }
+   * ```
+   *
+   * By default id fields are of type 'number'.
+   *
+   * If another type is desired then a matching named field should be provided in the model attributes hash.
+   *
+   * @example
+   * ```
+   * static get idField () {
+   *   return 'customIdField'
+   * }
+   *
+   * static attributes (attr) {
+   *   attr('customIdField', 'string')
+   * }
+   * ```
+   * @return {String} - id field name
+   */
   static get idField () {
     return 'id'
   }
