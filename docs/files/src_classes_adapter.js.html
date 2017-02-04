@@ -175,6 +175,14 @@ module.exports = class Adapter extends Base {
     return Object.keys(attributes)
   }
 
+  parseIncludes () {
+
+  }
+
+  include () {
+
+  }
+
   /**
    * Finds all records for a given model. @see &#x60;query&#x60; when you need more control over
    * what records are returned.
@@ -183,7 +191,7 @@ module.exports = class Adapter extends Base {
    * @return {Array} - array of database records
    */
   findAll (Model) {
-    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const attributes = this.fieldsFromAttributes(Model.definition.attributes)
     const tableName = Model.tableName
     return this.knex.column(attributes).select().from(tableName)
   }
@@ -202,7 +210,7 @@ module.exports = class Adapter extends Base {
   }
   */
   query (Model, options) {
-    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const attributes = this.fieldsFromAttributes(Model.definition.attributes)
     const tableName = Model.tableName
 
     if (typeof options.fields === &#x27;object&#x27;) {
@@ -214,6 +222,7 @@ module.exports = class Adapter extends Base {
             attributes.splice(attributes.indexOf(attr))
           }
         }
+        attributes.push(&#x27;id&#x27;)
       }
     }
 
@@ -233,6 +242,17 @@ module.exports = class Adapter extends Base {
       })
     }
 
+    if (typeof options.include === &#x27;string&#x27;) {
+      const includes = this.parseIncludes(options.include)
+      for (const include of includes) {
+        // needs to recurse since we may need to get comments for posts but also
+        // author for comments
+        // I think the include is going to need to perform queries, create
+        // lists and then merge them
+        this.include(query, include)
+      }
+    }
+
     return query
   }
 
@@ -244,22 +264,29 @@ module.exports = class Adapter extends Base {
    * @return {Object} - a single record or null if no record was found
    */
   findRecord (Model, id) {
-    const attributes = this.fieldsFromAttributes(Model.attributes)
+    const attributes = this.fieldsFromAttributes(Model.definition.attributes)
     const tableName = Model.tableName
     return this.knex.column(attributes).first().from(tableName).where({id}).limit(1)
       .then(result =&gt; result || null)
   }
 
-  queryRecord (Model, id, options) {
+  queryRecord (Model, options) {
+    return this.query(Model, options).first().limit(1)
   }
 
   createRecord (Model, data) {
+    const tableName = Model.tableName
+    return this.knex(tableName).insert(data)
   }
 
   updateRecord (Model, id, data) {
+    const tableName = Model.tableName
+    return this.knex(tableName).update(data).where(&#x27;id&#x27;, id)
   }
 
   deleteRecord (Model, id) {
+    const tableName = Model.tableName
+    return this.knex(tableName).where(&#x27;id&#x27;, id).delete()
   }
 }
 

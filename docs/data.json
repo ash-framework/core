@@ -364,7 +364,7 @@
             "extension_for": [],
             "module": "Ash",
             "file": "src/classes/route.js",
-            "line": 6,
+            "line": 7,
             "description": "The Ash route class extends the @see Http class and so has access\nto request and response properties.\n\nRoutes execute via a series of hooks in the following order\n\n1. deserialize\n2. beforeModel\n3. model\n4. afterModel\n5. serialize\n\nIf a hook returns a promise, the subsequent hook will not execute until the promise has resolved.\n\nAll hooks are optional except for `model` and amything returned from the `model` hook will be returned\nto the client.\n\nRoutes support the following:\n- mixins (@see Mixin)\n- services (@see Service)\n- middleware (@see Middleware)",
             "extends": "Http",
             "is_constructor": 1
@@ -393,7 +393,7 @@
             "extension_for": [],
             "module": "Ash",
             "file": "src/classes/serializer.js",
-            "line": 5,
+            "line": 26,
             "extends": "Base",
             "is_constructor": 1
         },
@@ -457,7 +457,7 @@
         },
         {
             "file": "src/classes/adapter.js",
-            "line": 31,
+            "line": 39,
             "description": "Finds all records for a given model. @see `query` when you need more control over\nwhat records are returned.",
             "params": [
                 {
@@ -474,7 +474,7 @@
         },
         {
             "file": "src/classes/adapter.js",
-            "line": 92,
+            "line": 112,
             "description": "Retrieves a single record for the given model by given id",
             "params": [
                 {
@@ -769,7 +769,34 @@
         },
         {
             "file": "src/classes/model.js",
-            "line": 28,
+            "line": 22,
+            "return": {
+                "description": "- clone of attributes hash",
+                "type": "Object"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 71,
+            "return": {
+                "description": "- adapter for model",
+                "type": "Adapter"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 78,
+            "return": {
+                "description": "- serializer for model",
+                "type": "Serializer"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 85,
             "description": "Save's the model instance",
             "return": {
                 "description": "Promise"
@@ -778,25 +805,66 @@
         },
         {
             "file": "src/classes/model.js",
-            "line": 36,
+            "line": 96,
             "description": "Delete the model instance",
             "class": "Route"
         },
         {
             "file": "src/classes/model.js",
-            "line": 43,
+            "line": 104,
             "description": "Model attributes definition.\nThis needs to be overridden to define the various\nattributes the model will have.\n\nGets passed a function `attr` which should be called\nmultiple times (once for each attribute)\n`attr` has the following signature\n```\nattr(String name, String type)\n```\nEg.\n```\nattr('title', 'string')\n```",
             "class": "Route"
         },
         {
             "file": "src/classes/model.js",
-            "line": 63,
+            "line": 124,
             "description": "Model relationship definition.\nThis should be overriden to define any relationships to\nother models that are needed.\n\nGets passed a function `relation` which should be called multiple\ntimes (once for each relationship)\n`relation` has the following signature\n```\nrelation(String name, String type)\n```\nEg.\n```\nrelation('comments', 'hasMany')\n```",
             "class": "Route"
         },
         {
+            "file": "src/classes/model.js",
+            "line": 148,
+            "return": {
+                "description": "model name",
+                "type": "String"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 158,
+            "return": {
+                "description": "table name for model",
+                "type": "String"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 167,
+            "return": {
+                "description": "model type",
+                "type": "String"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 177,
+            "description": "Specifies the name of the models id field.\n\nBy default the name of the models id field is 'id'\n\nThis method can be overridden to specify a different name to use for the models id\nfield in child classes.",
+            "example": [
+                "\n```\nstatic get idField () {\n return 'modelId'\n}\n```\n\nBy default id fields are of type 'number'.\n\nIf another type is desired then a matching named field should be provided in the model attributes hash.",
+                "\n```\nstatic get idField () {\n  return 'customIdField'\n}\n\nstatic attributes (attr) {\n  attr('customIdField', 'string')\n}\n```"
+            ],
+            "return": {
+                "description": "- id field name",
+                "type": "String"
+            },
+            "class": "Route"
+        },
+        {
             "file": "src/classes/registry.js",
-            "line": 4,
+            "line": 7,
             "description": "Sets up a given model based on it's static definition methods\n`attributes` and `relationships`\n\nFirst processes `attributes` creating getters and setters for each\ndefined attribute\n\nThen process `relationships` creating getters and setters for each\ndefined relationship. Relationship getters return nested relationship\ndata where available and falls back to calling the appropriate relationship\nmethod to fetch the data if not available.",
             "params": [
                 {
@@ -812,14 +880,14 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 33,
+            "line": 34,
             "itemtype": "method",
             "name": "constructor",
             "class": "Route"
         },
         {
             "file": "src/classes/route.js",
-            "line": 45,
+            "line": 46,
             "itemtype": "method",
             "name": "hasMiddleware",
             "access": "private",
@@ -828,7 +896,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 53,
+            "line": 54,
             "itemtype": "method",
             "name": "registeredMiddleware",
             "access": "private",
@@ -837,7 +905,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 61,
+            "line": 62,
             "description": "Route middleware\n\nYou can use this to register route specific middleware. ie. middleware specified here\nwill only run for this route. You can register the same piece of middleware in multiple\nroutes but you must do so explicitly by registering it in that routes `middleware` method.\n\nCall `register` with the name of the middleware in the `app/middleware` directory that\nyou want to load. You can call register multiple times to register more than one middleware\nand middleware will be executed in the order registered.\n\nExample\n\nExample: registering middleware on a route\n```\n\n// app/routes/my-route.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class MyRoute extends Ash.Route {\n  static middleware (register) {\n    register('my-middleware')\n  }\n}\n```",
             "itemtype": "method",
             "name": "middleware",
@@ -853,7 +921,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 95,
+            "line": 96,
             "description": "The first hook to be executed during the lifecycle of a route.\nThis hook should generally be used to perform operations on an incoming\nrequest body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs\nrather than GETs and DELETEs.",
             "itemtype": "method",
             "name": "deserialize",
@@ -862,21 +930,21 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 107,
+            "line": 108,
             "itemtype": "method",
             "name": "beforeModel",
             "class": "Route"
         },
         {
             "file": "src/classes/route.js",
-            "line": 114,
+            "line": 115,
             "itemtype": "method",
             "name": "model",
             "class": "Route"
         },
         {
             "file": "src/classes/route.js",
-            "line": 121,
+            "line": 140,
             "itemtype": "method",
             "name": "afterModel",
             "params": [
@@ -890,7 +958,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 129,
+            "line": 148,
             "itemtype": "method",
             "name": "serialize",
             "params": [
@@ -904,7 +972,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 137,
+            "line": 163,
             "itemtype": "method",
             "name": "error",
             "params": [
@@ -918,7 +986,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 145,
+            "line": 171,
             "description": "The model for the route as returned from the model hook.\nProvided for access in later hooks such as `afterModel` or `serialize`\n\nExample:\n```\n\nafterModel () {\n  this.currentModel.color = 'red'\n}\n```",
             "itemtype": "property",
             "name": "currentModel",
@@ -927,7 +995,7 @@
         },
         {
             "file": "src/classes/route.js",
-            "line": 160,
+            "line": 186,
             "description": "The name of the route. This is the same as the name of the route js file (without the .js)\nand not the name of the exported class. For the name of the class use `this.name`",
             "itemtype": "property",
             "name": "routeName",
@@ -948,6 +1016,19 @@
                 }
             ],
             "class": "Router"
+        },
+        {
+            "file": "src/classes/serializer.js",
+            "line": 7,
+            "description": "Translates an Ash model definition to a loopback definition\nwhich can be used with loopback-jsonapi-model-serializer",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Serializer"
         },
         {
             "file": "src/index.js",
@@ -1062,31 +1143,63 @@
         },
         {
             "message": "Missing item type\nFinds all records for a given model. @see `query` when you need more control over\nwhat records are returned.",
-            "line": " src/classes/adapter.js:31"
+            "line": " src/classes/adapter.js:39"
         },
         {
             "message": "Missing item type\nRetrieves a single record for the given model by given id",
-            "line": " src/classes/adapter.js:92"
+            "line": " src/classes/adapter.js:112"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/classes/model.js:22"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/classes/model.js:71"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/classes/model.js:78"
         },
         {
             "message": "Missing item type\nSave's the model instance",
-            "line": " src/classes/model.js:28"
+            "line": " src/classes/model.js:85"
         },
         {
             "message": "Missing item type\nDelete the model instance",
-            "line": " src/classes/model.js:36"
+            "line": " src/classes/model.js:96"
         },
         {
             "message": "Missing item type\nModel attributes definition.\nThis needs to be overridden to define the various\nattributes the model will have.\n\nGets passed a function `attr` which should be called\nmultiple times (once for each attribute)\n`attr` has the following signature\n```\nattr(String name, String type)\n```\nEg.\n```\nattr('title', 'string')\n```",
-            "line": " src/classes/model.js:43"
+            "line": " src/classes/model.js:104"
         },
         {
             "message": "Missing item type\nModel relationship definition.\nThis should be overriden to define any relationships to\nother models that are needed.\n\nGets passed a function `relation` which should be called multiple\ntimes (once for each relationship)\n`relation` has the following signature\n```\nrelation(String name, String type)\n```\nEg.\n```\nrelation('comments', 'hasMany')\n```",
-            "line": " src/classes/model.js:63"
+            "line": " src/classes/model.js:124"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/classes/model.js:148"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/classes/model.js:158"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/classes/model.js:167"
+        },
+        {
+            "message": "Missing item type\nSpecifies the name of the models id field.\n\nBy default the name of the models id field is 'id'\n\nThis method can be overridden to specify a different name to use for the models id\nfield in child classes.",
+            "line": " src/classes/model.js:177"
         },
         {
             "message": "Missing item type\nSets up a given model based on it's static definition methods\n`attributes` and `relationships`\n\nFirst processes `attributes` creating getters and setters for each\ndefined attribute\n\nThen process `relationships` creating getters and setters for each\ndefined relationship. Relationship getters return nested relationship\ndata where available and falls back to calling the appropriate relationship\nmethod to fetch the data if not available.",
-            "line": " src/classes/registry.js:4"
+            "line": " src/classes/registry.js:7"
+        },
+        {
+            "message": "Missing item type\nTranslates an Ash model definition to a loopback definition\nwhich can be used with loopback-jsonapi-model-serializer",
+            "line": " src/classes/serializer.js:7"
         }
     ]
 }

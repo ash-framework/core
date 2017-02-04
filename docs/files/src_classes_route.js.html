@@ -149,6 +149,7 @@
 
 const Http = require(&#x27;./http&#x27;)
 const middleware = new WeakMap()
+const { singularize } = require(&#x27;inflection&#x27;)
 
 /**
  * The Ash route class extends the @see Http class and so has access
@@ -262,7 +263,25 @@ module.exports = class Route extends Http {
    * @method model
    */
   model () {
-    console.log(&#x60;Route &#x27;${this.name}&#x27; must define a &#x27;model&#x27; method&#x60;)
+    const modelId = this.params[&#x60;${this.constructor.modelName}_id&#x60;]
+    if (this.request.method === &#x27;GET&#x27;) {
+      if (modelId) {
+        return this.store.findRecord(this.constructor.modelName, modelId)
+      }
+      return this.store.query(this.constructor.modelName, this.query)
+    } else if (this.request.method === &#x27;POST&#x27;) {
+      return this.createRecord(this.constructor.modelName, this.body)
+    } else if (this.request.method === &#x27;PUT&#x27;) {
+      return this.updateRecord(this.constructor.modelName, modelId, this.body)
+    } else if (this.request.method === &#x27;DELETE&#x27;) {
+      return this.deleteRecord(this.constructor.modelName, modelId)
+    }
+  }
+
+  static get modelName () {
+    // TODO: harden interface and test
+    const routeName = this.name.toLowerCase()
+    return singularize(routeName.replace(&#x27;route&#x27;, &#x27;&#x27;))
   }
 
   /**
@@ -270,15 +289,22 @@ module.exports = class Route extends Http {
    * @param {Object} model
    */
   afterModel (model) {
-
+    return model
   }
 
   /**
    * @method serialize
    * @param {Object} model
    */
-  serialize (model) {
-
+  serialize (data) {
+    if (this.store &amp;&amp; this.constructor.modelName) {
+      const Serializer = this.store.serializerFor(this.constructor.modelName)
+      // TODO: set baseUrl from config or request
+      // const options = {baseUrl: &#x27;&#x27;}
+      const serializer = new Serializer()
+      const Model = this.store.modelFor(this.constructor.modelName)
+      return serializer.serialize(Model, data)
+    }
   }
 
   /**
