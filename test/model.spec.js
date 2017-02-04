@@ -339,5 +339,14 @@ describe('model', () => {
       // When/Then
       expect(model.attributes.bool).toBe(true)
     })
+    test('default value for attribute', () => {
+      // Given
+      class PostModel extends Model {}
+      set(PostModel, 'definition.attributes', {bool: {type: 'boolean', defaultValue: true}})
+      const model = new PostModel()
+
+      // When/Then
+      expect(model.attributes.bool).toBe(true)
+    })
   })
 })
