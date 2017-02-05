@@ -38,7 +38,11 @@ module.exports = class Model extends Base {
     const attributesHash = {}
     Object.keys(attributeDefn).forEach(attr => {
       if (attributeDefn[attr].defaultValue) {
-        attributesHash[attr] = attributeDefn[attr].defaultValue
+        if (typeof attributeDefn[attr].defaultValue === 'function') {
+          attributesHash[attr] = attributeDefn[attr].defaultValue()
+        } else {
+          attributesHash[attr] = attributeDefn[attr].defaultValue
+        }
       }
     })
     defaultsDeep(attributesHash, attributes.get(this))
@@ -108,14 +112,33 @@ module.exports = class Model extends Base {
    *
    * Gets passed a function `attr` which should be called
    * multiple times (once for each attribute)
-   * `attr` has the following signature
-   * ```
-   * attr(String name, String type)
-   * ```
-   * Eg.
+   *
+   * @example
    * ```
    * attr('title', 'string')
    * ```
+   *
+   * To specify a default value, pass an options object with an appropriate
+   * default value
+   *
+   * @example
+   * ```
+   * attr('isAccepted', 'boolean', {
+   *   defaultValue: true
+   * })
+   * ```
+   *
+   * The default value can also be specified via a function
+   *
+   * @example
+   * ```
+   * attr('title', 'string', {
+   *   defaultValue: function () {
+   *     return 'default title'
+   *   }
+   * })
+   * ```
+   * @param {Function} attr - function used to define model attributes
    */
   static attributes (attr) {
     // override

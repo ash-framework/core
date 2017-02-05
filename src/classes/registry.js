@@ -24,8 +24,10 @@ module.exports = class Registry {
     Model.definition = {attributes: {}, relationships: {}}
 
     Model.attributes(function (name, type, options = {}) {
-      if (options.defaultValue && typeof options.defaultValue !== type) {
-        throw new Error('Invalid value given for `defaultValue`')
+      if (options.defaultValue) {
+        if (typeof options.defaultValue !== type && typeof options.defaultValue !== 'function') {
+          throw new Error('Invalid value given for `defaultValue`')
+        }
       }
 
       // create attributes metadata object
