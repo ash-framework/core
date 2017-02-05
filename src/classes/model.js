@@ -27,6 +27,7 @@ module.exports = class Model extends Base {
   }
 
   set attributes (props) {
+    // TODO: should clone props to guard against models being passed in
     const types = {
       string: (value) => typeof value !== 'string',
       number: (value) => typeof value !== 'number',
@@ -236,6 +237,7 @@ module.exports = class Model extends Base {
   }
 
   toJSON () {
+    // should be just attributes for this model
     return this.attributes
   }
 }

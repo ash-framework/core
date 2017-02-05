@@ -1,3 +1,4 @@
+const {camelCase} = require('lodash')
 const models = new Map()
 
 module.exports = class Registry {
@@ -46,9 +47,6 @@ module.exports = class Registry {
         },
         enumerable: true,
         configurable: false
-        // TODO: consider setting value based on type
-        // eg. if its a number set value: 0
-        // if its a Date set value: new Date etc
       })
     })
 
@@ -63,9 +61,6 @@ module.exports = class Registry {
       },
       enumerable: true,
       configurable: false
-      // TODO: consider setting value based on type
-      // eg. if its a number set value: 0
-      // if its a Date set value: new Date etc
     })
 
     if (!Model.definition.attributes[Model.idField]) {
@@ -73,30 +68,42 @@ module.exports = class Registry {
     }
 
     // setup relationship definition object
-    Model.relationships(function (name, modelName, type) {
-      // create relationship metadata object
-      Model.definition.relationships[name] = {type}
+    Model.relationships(function (type, modelName, options = {}) {
+      const store = Model.store
+      const RelatedModel = store.modelFor(modelName)
+
+      let name = (type === 'hasMany') ? camelCase(RelatedModel.type) : camelCase(modelName)
+      if (options.name) name = options.name
+
+      let keyFrom = (type === 'hasMany') ? camelCase(Model.idField) : `${camelCase(RelatedModel.modelName)}Id`
+      if (options.keyFrom) keyFrom = options.keyFrom
+
+      let keyTo = (type === 'hasMany') ? `${camelCase(Model.modelName)}Id` : camelCase(RelatedModel.idField)
+      if (options.keyTo) keyTo = options.keyTo
+
+      const defn = {type, modelFrom: Model.modelName, modelTo: modelName, keyFrom, keyTo}
+
+      Model.definition.relationships[name] = defn
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {
         get () {
-          // if the data has been fetched with the main record,
-          // just return that wrapped in a promise
+          const adapter = Model.adapter
+          // if the data has been passed in with the instance was created
+          // use that to build model instances and return them wrapped in a promise
           if (this.attributes[name]) {
-            // TODO: convert data to models before returning
-            // 1. if array, iterate doing 2.
-            // 2. new Model(data)
-            // 3. return the result as a promise below
-            return Promise.resolve(this.attributes[name])
+            let models
+            if (type === 'hasMany' && Array.isArray(this.attributes[name])) {
+              models = this.attributes[name].map(data => new RelatedModel(data))
+            } else {
+              models = new RelatedModel(this.attributes[name])
+            }
+            return Promise.resolve(models)
           }
           // otherwise use the adapter to fetch the data
           // returned as a promise
-          const adapter = Model.adapter
-          const store = Model.store
-          const RelatedModel = store.modelFor(modelName)
-
           if (type === 'hasMany') {
-            return adapter.query(store, modelName, {filter: {[`${Model.modelName}Id`]: this.attributes.id}})
+            return adapter.query(modelName, {filter: {[`${Model.modelName}Id`]: this.attributes.id}})
               .then(data => {
                 console.log('data:', data)
                 // cache the data in the models attributes hash
@@ -104,7 +111,7 @@ module.exports = class Registry {
                 return data.map(record => new RelatedModel(record))
               })
           } else if (type === 'hasOne') {
-            return adapter.queryRecord(store, modelName, {filter: {id: this[`${type}Id`]}})
+            return adapter.queryRecord(modelName, {filter: {id: this[`${type}Id`]}})
               .then(data => {
                 // cache the data in the models attributes hash
                 this.attributes[name] = data
