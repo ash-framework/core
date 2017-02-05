@@ -43,15 +43,13 @@ describe('model', () => {
     test('attributes hash ignores invalid relationship keys', () => {
       // Given
       class PostModel extends Model {}
-      PostModel.definition = {attributes: {}, relationships: {}}
-      PostModel.definition.relationships = {comments: {}}
-      const expected = [{title: 'my comment'}]
+      set(PostModel, 'definition', {attributes: {}, relationships: {comments: {}}})
 
       // When
-      const post = new PostModel({comments: [{title: 'my comment'}], invalid: true})
+      const post = new PostModel({comments: [{}], invalid: true})
 
       // Then
-      expect(post.attributes.comments).toEqual(expected)
+      expect(post.attributes.comments).toEqual([{}])
       expect(post.attributes.invalid).toBeUndefined()
     })
     test('.modelName', () => {
