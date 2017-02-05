@@ -1,4 +1,4 @@
-const {camelCase} = require('lodash')
+const {camelCase, isPlainObject} = require('lodash')
 const models = new Map()
 
 module.exports = class Registry {
@@ -85,6 +85,10 @@ module.exports = class Registry {
 
       Model.definition.relationships[name] = defn
 
+      if (!Model.definition.attributes[defn.keyFrom]) {
+        Model.definition.attributes[defn.keyFrom] = {type: 'number'}
+      }
+
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {
         get () {
@@ -103,25 +107,37 @@ module.exports = class Registry {
           // otherwise use the adapter to fetch the data
           // returned as a promise
           if (type === 'hasMany') {
-            return adapter.query(modelName, {filter: {[`${Model.modelName}Id`]: this.attributes.id}})
+            if (!this.attributes[defn.keyFrom]) return Promise.resolve([])
+            return adapter.query(modelName, {filter: {[defn.keyTo]: this.attributes[defn.keyFrom]}})
               .then(data => {
-                console.log('data:', data)
                 // cache the data in the models attributes hash
-                this.attributes[name] = data
+                const attributes = this.attributes
+                attributes[name] = data
+                this.attributes = attributes
                 return data.map(record => new RelatedModel(record))
               })
-          } else if (type === 'hasOne') {
-            return adapter.queryRecord(modelName, {filter: {id: this[`${type}Id`]}})
+          } else if (type === 'belongsTo') {
+            if (!this.attributes[defn.keyFrom]) return Promise.resolve(null)
+            return adapter.queryRecord(modelName, {filter: {[defn.keyTo]: this.attributes[defn.keyFrom]}})
               .then(data => {
+                if (data === null) return null
                 // cache the data in the models attributes hash
-                this.attributes[name] = data
+                const attributes = this.attributes
+                attributes[name] = data
+                this.attributes = attributes
                 return new RelatedModel(data)
               })
           }
         },
         set (value) {
-          // TODO: assert that value is correct type (array or object)
-          this.attributes[name] = value
+          if (type === 'hasMany' && !Array.isArray(value)) {
+            throw new Error(`Array expected when setting ${name} on ${Model.modelName} model. Instead got ${typeof value}`)
+          } else if (type === 'belongsTo' && !isPlainObject(value) && !(value instanceof RelatedModel)) {
+            throw new Error(`Object or ${RelatedModel.modelName} expected when setting ${name} on ${Model.modelName} model. Instead got ${typeof value}`)
+          }
+          const attributes = this.attributes
+          attributes[name] = JSON.parse(JSON.stringify(value))
+          this.attributes = attributes
         },
         enumerable: false,
         configurable: false
