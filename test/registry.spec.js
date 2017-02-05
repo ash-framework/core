@@ -149,5 +149,20 @@ describe('registry', () => {
       // When/Then
       expect(() => (Registry.registerModel(PostModel))).toThrow()
     })
+    test('function attribute default is not invalid', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('id', 'boolean', {
+            defaultValue: function () {
+              return true
+            }
+          })
+        }
+      }
+
+      // When/Then
+      expect(() => (Registry.registerModel(PostModel))).not.toThrow()
+    })
   })
 })

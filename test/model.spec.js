@@ -348,5 +348,17 @@ describe('model', () => {
       // When/Then
       expect(model.attributes.bool).toBe(true)
     })
+    test('default value as a function for attribute', () => {
+      // Given
+      class PostModel extends Model {}
+      set(PostModel, 'definition.attributes', {default: {
+        type: 'string',
+        defaultValue: function () { return 'default' }
+      }})
+      const model = new PostModel()
+
+      // When/Then
+      expect(model.attributes.default).toBe('default')
+    })
   })
 })
