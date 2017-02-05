@@ -335,5 +335,234 @@ describe('registry', () => {
       // Then
       expect(author.constructor.name).toEqual('AuthorModel')
     })
+
+    test('model relationship hasMany getter called', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('hasMany', 'comment')
+        }
+      }
+      class CommentModel extends Model {}
+      const queryMethodSpy = jest.fn().mockReturnValue(Promise.resolve([{}, {}]))
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(CommentModel),
+        adapterFor: () => ({query: queryMethodSpy})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel({id: 1})
+      const comments = await model.comments
+
+      // Then
+      expect(queryMethodSpy.mock.calls[0][0]).toBe(CommentModel.modelName)
+      expect(queryMethodSpy.mock.calls[0][1]).toEqual({filter: {postId: 1}})
+      expect(comments.length).toBe(2)
+      expect(comments[0].constructor.modelName).toBe(CommentModel.modelName)
+      expect(model.attributes.comments.length).toBe(2)
+    })
+
+    test('model relationship belongsTo getter called', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('belongsTo', 'author')
+        }
+      }
+      class AuthorModel extends Model {}
+      const queryRecordMethodSpy = jest.fn().mockReturnValue(Promise.resolve({}))
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(AuthorModel),
+        adapterFor: () => ({queryRecord: queryRecordMethodSpy})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel({id: 1, authorId: 10})
+      const author = await model.author
+
+      // Then
+      expect(queryRecordMethodSpy.mock.calls[0][0]).toBe(AuthorModel.modelName)
+      expect(queryRecordMethodSpy.mock.calls[0][1]).toEqual({filter: {id: 10}})
+      expect(author.constructor.modelName).toBe(AuthorModel.modelName)
+    })
+
+    test('hasMany relationship getter called from unsaved/fetched model', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('hasMany', 'comment')
+        }
+      }
+      class CommentModel extends Model {}
+      const queryMethodSpy = jest.fn().mockReturnValue(Promise.resolve([{}, {}]))
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(CommentModel),
+        adapterFor: () => ({query: queryMethodSpy})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+      const comments = await model.comments
+
+      // Then
+      expect(comments.length).toBe(0)
+    })
+
+    test('model belongsTo relationship getter called from unsaved/fetched model', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('belongsTo', 'author')
+        }
+      }
+      class AuthorModel extends Model {}
+      const queryRecordMethodSpy = jest.fn().mockReturnValue(Promise.resolve({}))
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(AuthorModel),
+        adapterFor: () => ({queryRecord: queryRecordMethodSpy})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+      const author = await model.author
+
+      // Then
+      expect(author).toBe(null)
+    })
+
+    test('model hasMany relationship returns empty result set', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('hasMany', 'comment')
+        }
+      }
+      class CommentModel extends Model {}
+      const queryMethodSpy = jest.fn().mockReturnValue(Promise.resolve([]))
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(CommentModel),
+        adapterFor: () => ({query: queryMethodSpy})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel({id: 1})
+      const comments = await model.comments
+
+      // Then
+      expect(comments.length).toBe(0)
+    })
+
+    test('model belongsTo relationship returns empty result', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('belongsTo', 'author')
+        }
+      }
+      class AuthorModel extends Model {}
+      const queryRecordMethodSpy = jest.fn().mockReturnValue(Promise.resolve(null))
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(AuthorModel),
+        adapterFor: () => ({queryRecord: queryRecordMethodSpy})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel({id: 1})
+      const author = await model.author
+
+      // Then
+      expect(author).toBe(null)
+    })
+
+    test('model relationship hasMany setter', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('hasMany', 'comment')
+        }
+      }
+      class CommentModel extends Model {}
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(CommentModel),
+        adapterFor: jest.fn().mockReturnValue(class Adapter {})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+      model.comments = [new CommentModel()]
+      const comments = await model.comments
+
+      // Then
+      expect(model.attributes.comments.length).toBe(1)
+      expect(model.attributes.comments[0].constructor.name).toBe('Object')
+      expect(comments[0].constructor.name).toBe('CommentModel')
+    })
+
+    test('model relationship hasMany setter error thrown for invalid type', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('hasMany', 'comment')
+        }
+      }
+      class CommentModel extends Model {}
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(CommentModel),
+        adapterFor: jest.fn().mockReturnValue(class Adapter {})
+      }
+
+      // When / Then
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+      expect(() => (model.comments = {})).toThrow()
+    })
+
+    test('model belongsTo relationship setter error thrown for invalid type', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('belongsTo', 'author')
+        }
+      }
+      class AuthorModel extends Model {}
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(AuthorModel),
+        adapterFor: jest.fn().mockReturnValue(class Adapter {})
+      }
+
+      // When / Then
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+      expect(() => (model.author = [])).toThrow()
+    })
+
+    test('model belongsTo relationship setter accepts models', async () => {
+      // Given
+      class PostModel extends Model {
+        static relationships (relation) {
+          relation('belongsTo', 'author')
+        }
+      }
+      class AuthorModel extends Model {}
+      PostModel.store = {
+        modelFor: jest.fn().mockReturnValue(AuthorModel),
+        adapterFor: jest.fn().mockReturnValue(class Adapter {})
+      }
+
+      // When
+      Registry.registerModel(PostModel)
+      const model = new PostModel()
+      model.author = new AuthorModel({id: 11})
+
+      // Then
+      expect(model.attributes.author.id).toBe(11)
+    })
   })
 })
