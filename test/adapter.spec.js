@@ -167,20 +167,78 @@ describe('adapter', () => {
       expect(data[2].id).toBe(2)
       expect(data[3].id).toBe(50)
     })
-    it('should be possible to filter results by various criteria', async () => {
+    it('included data', async () => {
       // Given
-      await db.knex('posts').insert([
-        {title: 'My Post 1'}, {title: 'My Post 2'}, {title: 'My Post 3'}, {title: 'My Post 4'}
-      ])
+      await db.knex('posts').insert([{title: 'p1', id: 1, authorId: 1}])
+      await db.knex('comments').insert([{title: 'c1', id: 1, postId: 1}, {title: 'c2', id: 2, postId: 1}])
+      await db.knex('authors').insert([{title: 'a1', id: 1}])
+      await db.knex('address').insert([{street: 'ad1', id: 1, authorId: 1}])
+      const models = {
+        post: {
+          modelName: 'post',
+          type: 'posts',
+          tableName: 'posts',
+          definition: {
+            attributes: {id: 'number', title: 'string'},
+            relationships: {
+              comments: {type: 'hasMany', modelFrom: 'post', keyFrom: 'id', modelTo: 'comment', keyTo: 'postId'},
+              author: {type: 'belongsTo', modelFrom: 'post', keyFrom: 'authorId', modelTo: 'author', keyTo: 'id'}
+            }
+          }
+        },
+        comment: {
+          modelName: 'comment',
+          type: 'comments',
+          tableName: 'comments',
+          definition: {attributes: {id: 'number', title: 'string'}}
+        },
+        author: {
+          modelName: 'author',
+          type: 'authors',
+          tableName: 'authors',
+          definition: {
+            attributes: {id: 'number', title: 'string'},
+            relationships: {
+              address: {type: 'hasMany', modelFrom: 'author', keyFrom: 'id', modelTo: 'address', keyTo: 'authorId'}
+            }
+          }
+        },
+        address: {
+          modelName: 'address',
+          type: 'addresses',
+          tableName: 'addresses',
+          definition: {attributes: {id: 'number', street: 'string'}}
+        }
+      }
+      const store = {
+        modelFor (modelName) {
+          return models[modelName]
+        }
+      }
 
       // When
-      const adapter = new Adapter(config)
-      const data = await adapter.query(models.Post, {page: {number: 2, size: 2}})
+      const adapter = new Adapter(store, config)
+      const data = await adapter.query(models.post, {include: 'comments, author, author.address'})
 
       // Then
-      expect(data.length).toBe(2)
-      expect(data[0].title).toBe('My Post 3')
-      expect(data[1].title).toBe('My Post 4')
+      expect(data.length).toEqual([
+        {
+          title: 'p1',
+          id: 1,
+          authorId: 1,
+          comments: [
+            {title: 'c1', id: 1, postId: 1},
+            {title: 'c2', id: 2, postId: 1}
+          ],
+          author: {
+            title: 'a1',
+            id: 1,
+            addresses: [
+              {street: 'ad1', id: 1, authorId: 1}
+            ]
+          }
+        }
+      ])
     })
   })
 
