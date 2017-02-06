@@ -1,6 +1,7 @@
 /* global describe, test, expect, jest */
 const Model = require('../src/classes/model')
 const Registry = require('../src/classes/registry')
+const moment = require('moment')
 
 describe('registry', () => {
   describe('registerModel', () => {
@@ -22,6 +23,23 @@ describe('registry', () => {
       expect(post.attributes).toEqual(expected)
       expect(post.title).toEqual('my title')
       expect(post.description).toEqual('my description')
+    })
+    test('attribute getters for dates return dates', () => {
+      // Given
+      class PostModel extends Model {
+        static attributes (attr) {
+          attr('startsAt', 'date')
+        }
+      }
+      const expected = {startsAt: moment('2013-02-08T02:30:26.000Z').toDate()}
+
+      // When
+      Registry.registerModel(PostModel)
+      const post = new PostModel(expected)
+
+      // Then
+      expect(post.startsAt instanceof Date).toBe(true)
+      expect(post.startsAt.toJSON()).toBe('2013-02-08T02:30:26.000Z')
     })
     test('basic register attribute setters', () => {
       // Given

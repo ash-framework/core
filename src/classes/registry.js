@@ -1,4 +1,4 @@
-const {camelCase, isPlainObject} = require('lodash')
+const {camelCase, isPlainObject, get} = require('lodash')
 const models = new Map()
 
 module.exports = class Registry {
@@ -46,8 +46,11 @@ module.exports = class Registry {
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {
-        // TODO: if type if date we need to convert to a javascript date object
         get () {
+          const type = get(this, `constructor.definition.attributes.${name}.type`)
+          if (type === 'date') {
+            return new Date(this.attributes[name])
+          }
           return this.attributes[name]
         },
         set (value) {
