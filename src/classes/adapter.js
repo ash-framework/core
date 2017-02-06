@@ -20,12 +20,36 @@ module.exports = class Adapter extends Base {
     return Object.keys(get(Model, 'definition.attributes'), {})
   }
 
-  parseIncludes () {
+  include () {
 
   }
 
-  include () {
+  limitFieldSet (Model, attributes, options = {}) {
+    const types = Object.keys(options)
+    if (types.indexOf(Model.type) !== -1) {
+      const fields = options[Model.type].split(',').map(field => field.trim())
+      for (const attr of attributes) {
+        if (fields.indexOf(attr) === -1) {
+          attributes.splice(attributes.indexOf(attr))
+        }
+      }
+    }
+    return attributes
+  }
 
+  paginate (query, options = {}) {
+    const number = options.size || 0
+    const size = options.size || 20
+    return query.limit(size).offset(number * size - size)
+  }
+
+  sort (query, sortString = '') {
+    sortString.split(',').forEach(column => {
+      const direction = (column.indexOf('-') !== -1) ? 'DESC' : 'ASC'
+      column = column.replace('-', '')
+      query = query.orderBy(column.trim(), direction)
+    })
+    return query
   }
 
   /**
@@ -55,48 +79,13 @@ module.exports = class Adapter extends Base {
   }
   */
   query (Model, options) {
-    const attributes = this.fieldsForModel(Model)
-    const tableName = Model.tableName
-
-    if (typeof options.fields === 'object') {
-      const types = Object.keys(options.fields)
-      if (types.indexOf(Model.type) !== -1) {
-        const fields = options.fields[Model.type].split(',').map(field => field.trim())
-        for (const attr of attributes) {
-          if (fields.indexOf(attr) === -1) {
-            attributes.splice(attributes.indexOf(attr))
-          }
-        }
-      }
-    }
-
-    let query = this.knex.column(attributes).select().from(tableName)
-
-    if (typeof options.page === 'object') {
-      const number = options.page.size || 0
-      const size = options.page.size || 20
-      query = query.limit(size).offset(number * size - size)
-    }
-
-    if (typeof options.sort === 'string') {
-      options.sort.split(',').forEach(column => {
-        const direction = (column.indexOf('-') !== -1) ? 'DESC' : 'ASC'
-        column = column.replace('-', '')
-        query = query.orderBy(column.trim(), direction)
-      })
-    }
-
-    if (typeof options.include === 'string') {
-      const includes = this.parseIncludes(options.include)
-      for (const include of includes) {
-        // needs to recurse since we may need to get comments for posts but also
-        // author for comments
-        // I think the include is going to need to perform queries, create
-        // lists and then merge them
-        this.include(query, include)
-      }
-    }
-
+    let query = this.knex.select().from(Model.tableName)
+    let attributes = this.fieldsForModel(Model)
+    if (options.fields) attributes = this.limitFieldSet(Model, attributes, options.fields)
+    query = query.column(attributes)
+    if (options.page) query = this.paginate(query, options.page)
+    if (options.sort) query = this.sort(query, options.sort)
+    if (options.include) query = this.include(query, options.include)
     return query
   }
 
