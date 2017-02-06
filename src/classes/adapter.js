@@ -1,5 +1,6 @@
 const Base = require('./base')
 const Knex = require('knex')
+const {get} = require('lodash')
 
 module.exports = class Adapter extends Base {
   /**
@@ -8,7 +9,6 @@ module.exports = class Adapter extends Base {
    */
   constructor (config) {
     super()
-    this.config = config
     this.knex = Knex({
       client: 'pg',
       connection: config,
@@ -16,16 +16,8 @@ module.exports = class Adapter extends Base {
     })
   }
 
-  /**
-   * Converts a models attributes hash into an array of column names for use in
-   * an sql query
-   *
-   * @param {Object} attributes - attributes hash of the form
-   * @example {title: 'string', createdAt: 'date'}
-   * @return {Array} - an array of column names
-   */
-  fieldsFromAttributes (attributes) {
-    return Object.keys(attributes)
+  fieldsForModel (Model) {
+    return Object.keys(get(Model, 'definition.attributes'), {})
   }
 
   parseIncludes () {
@@ -44,7 +36,7 @@ module.exports = class Adapter extends Base {
    * @return {Array} - array of database records
    */
   findAll (Model) {
-    const attributes = this.fieldsFromAttributes(Model.definition.attributes)
+    const attributes = this.fieldsForModel(Model)
     const tableName = Model.tableName
     return this.knex.column(attributes).select().from(tableName)
   }
@@ -63,7 +55,7 @@ module.exports = class Adapter extends Base {
   }
   */
   query (Model, options) {
-    const attributes = this.fieldsFromAttributes(Model.definition.attributes)
+    const attributes = this.fieldsForModel(Model)
     const tableName = Model.tableName
 
     if (typeof options.fields === 'object') {
@@ -75,16 +67,15 @@ module.exports = class Adapter extends Base {
             attributes.splice(attributes.indexOf(attr))
           }
         }
-        attributes.push('id')
       }
     }
 
     let query = this.knex.column(attributes).select().from(tableName)
 
-    if (typeof options.page === 'object' && options.page.number && options.page.size) {
-      query = query
-        .limit(options.page.size)
-        .offset(options.page.number * options.page.size - options.page.size)
+    if (typeof options.page === 'object') {
+      const number = options.page.size || 0
+      const size = options.page.size || 20
+      query = query.limit(size).offset(number * size - size)
     }
 
     if (typeof options.sort === 'string') {
@@ -117,14 +108,14 @@ module.exports = class Adapter extends Base {
    * @return {Object} - a single record or null if no record was found
    */
   findRecord (Model, id) {
-    const attributes = this.fieldsFromAttributes(Model.definition.attributes)
+    const attributes = this.fieldsForModel(Model)
     const tableName = Model.tableName
-    return this.knex.column(attributes).first().from(tableName).where({id}).limit(1)
+    return this.knex.column(attributes).first().from(tableName).where({id})
       .then(result => result || null)
   }
 
   queryRecord (Model, options) {
-    return this.query(Model, options).first().limit(1)
+    return this.query(Model, options).first()
   }
 
   createRecord (Model, data) {

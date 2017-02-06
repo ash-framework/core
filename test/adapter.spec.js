@@ -26,7 +26,7 @@ describe('adapter', () => {
         name: 'Post',
         type: 'posts',
         tableName: 'posts',
-        attributes: {id: 'number', title: 'string', description: 'string'}
+        definition: {attributes: {id: 'number', title: 'string', description: 'string'}}
       }
     }
   })
