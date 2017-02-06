@@ -358,5 +358,19 @@ describe('model', () => {
       // When/Then
       expect(model.attributes.default).toBe('default')
     })
+
+    test('.toJSON should only return attributes for the current model', () => {
+      // Given
+      class PostModel extends Model {}
+      set(PostModel, 'definition.attributes', {title: {type: 'string'}})
+      set(PostModel, 'definition.relationships', {comments: {}})
+      const model = new PostModel({title: 'my title', comments: [{}, {}]})
+
+      // When
+      const attributes = model.toJSON()
+
+      // Then
+      expect(attributes).toEqual({title: 'my title'})
+    })
   })
 })

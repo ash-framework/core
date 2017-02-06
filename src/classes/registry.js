@@ -46,6 +46,7 @@ module.exports = class Registry {
 
       // define properties with getters/setters for each attribute
       Reflect.defineProperty(Model.prototype, name, {
+        // TODO: if type if date we need to convert to a javascript date object
         get () {
           return this.attributes[name]
         },

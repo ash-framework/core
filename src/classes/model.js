@@ -93,8 +93,6 @@ module.exports = class Model extends Base {
    * @param  {Object} props - a hash of keys and values to set as the models internal data
    */
   set attributes (props) {
-    // TODO: should clone props to guard against models being passed in
-
     // current supported types. Can be extended as needed.
     const types = {
       string: (value) => typeof value !== 'string',
@@ -147,7 +145,7 @@ module.exports = class Model extends Base {
     }
 
     // finally set the models internal states with cleaned data
-    attributes.set(this, attributesHash)
+    attributes.set(this, JSON.parse(JSON.stringify(attributesHash)))
   }
 
   /**
@@ -350,8 +348,17 @@ module.exports = class Model extends Base {
     return !this.attributes[this.constructor.idField]
   }
 
+  /**
+   * @return {Object} - plain javascript representation of object (without relationship state)
+   */
   toJSON () {
-    // should be just attributes for this model
-    return this.attributes
+    const relationshipsDefn = get(this, 'constructor.definition.relationships', {})
+    const internal = this.attributes
+    const external = {}
+
+    Object.keys(internal).forEach(attr => {
+      if (!relationshipsDefn[attr]) external[attr] = internal[attr]
+    })
+    return external
   }
 }
