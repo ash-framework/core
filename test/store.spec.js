@@ -3,7 +3,7 @@ let Subject, classResolverMock, registryMock
 
 jest.mock('../src/classes/class-resolver', () => {
   class MockClassResolver {}
-  MockClassResolver.resolve = classResolverMock = jest.fn()
+  MockClassResolver.resolve = classResolverMock = jest.fn().mockReturnValue(class MockClass {})
   return MockClassResolver
 })
 

@@ -40,8 +40,21 @@ Node.js web framework
 <!-- /INSTALL -->
 
 
-## Usage
-Usage instructions go here
+## Developing Ash
+
+### Running tests
+
+1. Install jest
+```
+npm i -g jest
+```
+
+2. Create a postgres database for integration tests
+
+3. Run tests passing postgres database connection string as an environment variable
+```
+PG_CONNECTION_STRING='postgres://<user>@localhost:5432/<database>' jest
+```
 
 <!-- HISTORY/ -->
 

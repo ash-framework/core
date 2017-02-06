@@ -17,7 +17,7 @@ module.exports = class Store extends Service {
   adapterFor (modelName) {
     if (!adapters.has(modelName)) {
       const Adapter = ClassResolver.resolve('adapter', modelName)
-      adapters.set(modelName, new Adapter(this.config.database.connection))
+      adapters.set(modelName, new Adapter(this, this.config.database.connection))
     }
     return adapters.get(modelName)
   }

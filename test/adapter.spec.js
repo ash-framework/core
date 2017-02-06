@@ -4,6 +4,7 @@ const Database = require('./database')
 const config = process.env.PG_CONNECTION_STRING
 let db
 let models
+let store = {}
 
 beforeAll(() => {
   db = new Database(config)
@@ -37,7 +38,7 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'My Post 1'}, {title: 'My Post 2'}])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.findAll(models.Post)
 
       // Then
@@ -47,7 +48,7 @@ describe('adapter', () => {
 
     it('should return an empty array if no records are found', async () => {
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.findAll(models.Post)
 
       // Then
@@ -62,7 +63,7 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'My Post 1'}, {title: 'My Post 2'}])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {})
 
       // Then
@@ -72,7 +73,7 @@ describe('adapter', () => {
 
     it('should return an empty array if no records are found', async () => {
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {})
 
       // Then
@@ -88,7 +89,7 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'p1', description: 'd1'}, {title: 'p2', description: 'd2'}])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {fields: {posts: 'id, title'}})
 
       // Then
@@ -107,7 +108,7 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {page: {number: 2, size: 2}})
 
       // Then
@@ -122,7 +123,7 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {sort: 'title'})
 
       // Then
@@ -139,7 +140,7 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {sort: '-title'})
 
       // Then
@@ -156,7 +157,7 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {sort: '-title,id'})
 
       // Then
@@ -189,7 +190,7 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'My Post 1'}, {title: 'My Post 2'}])
 
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.findRecord(models.Post, 2)
 
       // Then
@@ -198,7 +199,7 @@ describe('adapter', () => {
 
     it('should return null if the id does not exist', async () => {
       // When
-      const adapter = new Adapter(config)
+      const adapter = new Adapter(store, config)
       const data = await adapter.findRecord(models.Post, 999)
 
       // Then

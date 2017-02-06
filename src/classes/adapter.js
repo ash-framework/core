@@ -7,11 +7,12 @@ module.exports = class Adapter extends Base {
    * Sets up the knex query builder instance
    * @constructor
    */
-  constructor (config) {
+  constructor (models, options) {
     super()
+    this.models = models
     this.knex = Knex({
       client: 'pg',
-      connection: config,
+      connection: options,
       searchPath: 'knex,public'
     })
   }
@@ -20,7 +21,7 @@ module.exports = class Adapter extends Base {
     return Object.keys(get(Model, 'definition.attributes'), {})
   }
 
-  include () {
+  include (query, includeString = '') {
 
   }
 
