@@ -17,10 +17,13 @@ afterAll(() => {
 describe('adapter', () => {
   beforeEach(async () => {
     await db.knex.schema.dropTableIfExists('posts')
+    await db.knex.schema.dropTableIfExists('comments')
+    await db.knex.schema.dropTableIfExists('authors')
     await db.knex.schema.createTable('posts', table => {
       table.increments()
       table.string('title')
       table.string('description')
+      table.integer('authorId')
     })
     models = {
       Post: {
@@ -167,19 +170,101 @@ describe('adapter', () => {
       expect(data[2].id).toBe(2)
       expect(data[3].id).toBe(50)
     })
+  //   it('included data', async () => {
+  //     // Given
+  //     await db.knex('posts').insert([{title: 'p1', id: 1, authorId: 1}])
+  //     await db.knex('comments').insert([{title: 'c1', id: 1, postId: 1}, {title: 'c2', id: 2, postId: 1}])
+  //     await db.knex('authors').insert([{title: 'a1', id: 1}])
+  //     await db.knex('address').insert([{street: 'ad1', id: 1, authorId: 1}])
+  //     const models = {
+  //       post: {
+  //         modelName: 'post',
+  //         type: 'posts',
+  //         tableName: 'posts',
+  //         definition: {
+  //           attributes: {id: 'number', title: 'string'},
+  //           relationships: {
+  //             comments: {type: 'hasMany', modelFrom: 'post', keyFrom: 'id', modelTo: 'comment', keyTo: 'postId'},
+  //             author: {type: 'belongsTo', modelFrom: 'post', keyFrom: 'authorId', modelTo: 'author', keyTo: 'id'}
+  //           }
+  //         }
+  //       },
+  //       comment: {
+  //         modelName: 'comment',
+  //         type: 'comments',
+  //         tableName: 'comments',
+  //         definition: {attributes: {id: 'number', title: 'string'}}
+  //       },
+  //       author: {
+  //         modelName: 'author',
+  //         type: 'authors',
+  //         tableName: 'authors',
+  //         definition: {
+  //           attributes: {id: 'number', title: 'string'},
+  //           relationships: {
+  //             address: {type: 'hasMany', modelFrom: 'author', keyFrom: 'id', modelTo: 'address', keyTo: 'authorId'}
+  //           }
+  //         }
+  //       },
+  //       address: {
+  //         modelName: 'address',
+  //         type: 'addresses',
+  //         tableName: 'addresses',
+  //         definition: {attributes: {id: 'number', street: 'string'}}
+  //       }
+  //     }
+  //     const store = {
+  //       modelFor (modelName) {
+  //         return models[modelName]
+  //       }
+  //     }
+
+  //     // When
+  //     const adapter = new Adapter(store, config)
+  //     const data = await adapter.query(models.post, {include: 'comments, author, author.address'})
+
+  //     // Then
+  //     expect(data.length).toEqual([
+  //       {
+  //         title: 'p1',
+  //         id: 1,
+  //         authorId: 1,
+  //         comments: [
+  //           {title: 'c1', id: 1, postId: 1},
+  //           {title: 'c2', id: 2, postId: 1}
+  //         ],
+  //         author: {
+  //           title: 'a1',
+  //           id: 1,
+  //           addresses: [
+  //             {street: 'ad1', id: 1, authorId: 1}
+  //           ]
+  //         }
+  //       }
+  //     ])
+  //   })
+  // })
     it('included data', async () => {
       // Given
+      await db.knex.schema.createTable('comments', table => {
+        table.increments()
+        table.string('title')
+        table.integer('postId')
+      })
+      await db.knex.schema.createTable('authors', table => {
+        table.increments()
+        table.string('name')
+      })
       await db.knex('posts').insert([{title: 'p1', id: 1, authorId: 1}])
       await db.knex('comments').insert([{title: 'c1', id: 1, postId: 1}, {title: 'c2', id: 2, postId: 1}])
-      await db.knex('authors').insert([{title: 'a1', id: 1}])
-      await db.knex('address').insert([{street: 'ad1', id: 1, authorId: 1}])
+      await db.knex('authors').insert([{name: 'a1', id: 1}])
       const models = {
         post: {
           modelName: 'post',
           type: 'posts',
           tableName: 'posts',
           definition: {
-            attributes: {id: 'number', title: 'string'},
+            attributes: {id: 'number', title: 'string', authorId: 'number'},
             relationships: {
               comments: {type: 'hasMany', modelFrom: 'post', keyFrom: 'id', modelTo: 'comment', keyTo: 'postId'},
               author: {type: 'belongsTo', modelFrom: 'post', keyFrom: 'authorId', modelTo: 'author', keyTo: 'id'}
@@ -190,24 +275,15 @@ describe('adapter', () => {
           modelName: 'comment',
           type: 'comments',
           tableName: 'comments',
-          definition: {attributes: {id: 'number', title: 'string'}}
+          definition: {attributes: {id: 'number', title: 'string', postId: 'number'}}
         },
         author: {
           modelName: 'author',
           type: 'authors',
           tableName: 'authors',
           definition: {
-            attributes: {id: 'number', title: 'string'},
-            relationships: {
-              address: {type: 'hasMany', modelFrom: 'author', keyFrom: 'id', modelTo: 'address', keyTo: 'authorId'}
-            }
+            attributes: {id: 'number', name: 'string'}
           }
-        },
-        address: {
-          modelName: 'address',
-          type: 'addresses',
-          tableName: 'addresses',
-          definition: {attributes: {id: 'number', street: 'string'}}
         }
       }
       const store = {
@@ -218,10 +294,10 @@ describe('adapter', () => {
 
       // When
       const adapter = new Adapter(store, config)
-      const data = await adapter.query(models.post, {include: 'comments, author, author.address'})
+      const data = await adapter.query(models.post, {include: 'comments, author'})
 
       // Then
-      expect(data.length).toEqual([
+      expect(data).toEqual([
         {
           title: 'p1',
           id: 1,
@@ -231,11 +307,8 @@ describe('adapter', () => {
             {title: 'c2', id: 2, postId: 1}
           ],
           author: {
-            title: 'a1',
-            id: 1,
-            addresses: [
-              {street: 'ad1', id: 1, authorId: 1}
-            ]
+            name: 'a1',
+            id: 1
           }
         }
       ])

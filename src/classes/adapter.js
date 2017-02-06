@@ -7,9 +7,9 @@ module.exports = class Adapter extends Base {
    * Sets up the knex query builder instance
    * @constructor
    */
-  constructor (models, options) {
+  constructor (store, options) {
     super()
-    this.models = models
+    this.store = store
     this.knex = Knex({
       client: 'pg',
       connection: options,
@@ -21,8 +21,52 @@ module.exports = class Adapter extends Base {
     return Object.keys(get(Model, 'definition.attributes'), {})
   }
 
-  include (query, includeString = '') {
+  include (Model, query, includeString = '', fieldOptions) {
+    return query.then(data => {
+      data = JSON.parse(JSON.stringify(data))
+      if (!Array.isArray(data)) data = [data]
+      return Promise.all(includeString.split(',').map(include => {
+        include = include.trim()
+        if (include.indexOf('.') !== -1) return
+        const definition = get(Model, `definition.relationships.${include}`)
+        if (!definition) return
+        const RelatedModel = this.store.modelFor(definition.modelTo)
+        if (!RelatedModel) return
+        let query = this.knex(RelatedModel.tableName)
 
+        let attributes = this.fieldsForModel(RelatedModel)
+        if (fieldOptions) attributes = this.limitFieldSet(RelatedModel, attributes, fieldOptions)
+        query = query.column(attributes)
+
+        let ids = data.map(item => item[definition.keyFrom])
+        query = query.whereIn(definition.keyTo, ids)
+
+        return query.then(relatedData => {
+          const relatedDataGroups = new Map()
+          relatedData.forEach(relData => {
+            if (relatedDataGroups.has(relData[definition.keyTo])) {
+              relatedDataGroups.get(relData[definition.keyTo]).push(relData)
+            } else {
+              relatedDataGroups.set(relData[definition.keyTo], [relData])
+            }
+          })
+          return {name: include, definition, groupedData: relatedDataGroups}
+        })
+      }))
+      .then(relationshipData => {
+        data.forEach(item => {
+          relationshipData.forEach(relationship => {
+            const relData = relationship.groupedData.get(item[relationship.definition.keyFrom])
+            if (relationship.definition.type === 'belongsTo') {
+              item[relationship.name] = relData[0]
+            } else {
+              item[relationship.name] = relData
+            }
+          })
+        })
+        return JSON.parse(JSON.stringify(data))
+      })
+    })
   }
 
   limitFieldSet (Model, attributes, options = {}) {
@@ -86,7 +130,7 @@ module.exports = class Adapter extends Base {
     query = query.column(attributes)
     if (options.page) query = this.paginate(query, options.page)
     if (options.sort) query = this.sort(query, options.sort)
-    if (options.include) query = this.include(query, options.include)
+    if (options.include) query = this.include(Model, query, options.include, options.fields)
     return query
   }
 
