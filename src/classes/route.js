@@ -151,10 +151,9 @@ module.exports = class Route extends Http {
    */
   serialize (data) {
     if (this.store && this.constructor.modelName) {
-      const Serializer = this.store.serializerFor(this.constructor.modelName)
+      const serializer = this.store.serializerFor(this.constructor.modelName)
       // TODO: set baseUrl from config or request
       // const options = {baseUrl: ''}
-      const serializer = new Serializer()
       const Model = this.store.modelFor(this.constructor.modelName)
       return serializer.serialize(Model, data)
     }
