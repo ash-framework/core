@@ -17,12 +17,13 @@
     "node": ">=7.1.0"
   },
   "scripts": {
+    "docs": "yuidoc",
     "lint": "standard --verbose | snazzy",
     "pretest": "npm run lint",
-    "test:ci": "mocha -R spec test",
-    "test:dev": "testem .",
+    "test:ci": "jest",
+    "test:dev": "jest --watch",
+    "test:coverage": "jest --coverage",
     "test": "npm run test:ci",
-    "prepublish": "npm test && npm prune",
     "preversion:patch": "npm run test",
     "version:patch": "xyz -i patch",
     "preversion:minor": "npm run test",
@@ -46,18 +47,33 @@
     "@ash-framework/router": "^0.1.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
-    "helmet": "^3.1.0"
+    "helmet": "^3.1.0",
+    "inflection": "^1.10.0",
+    "knex": "^0.12.6",
+    "lodash": "^4.17.4",
+    "loopback": "^3.2.1",
+    "loopback-jsonapi-model-serializer": "^1.0.1",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.28.0",
+    "yuidoc-ember-theme": "https://github.com/ash-framework/yuidoc-ember-theme"
   },
   "devDependencies": {
+    "babel-jest": "^18.0.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0",
     "chai": "^3.5.0",
     "github": "^5.2.2",
+    "jest-cli": "^18.1.0",
     "mocha": "^3.1.2",
     "projectz": "^1.2.0",
     "snazzy": "^5.0.0",
     "standard": "^8.4.0",
     "testem": "^1.12.0",
     "xyz": "^1.0.1",
-    "yuidoc-ember-theme": "^1.2.1"
+    "yuidocjs": "^0.10.2"
   },
   "peerDependencies": {},
   "maintainers": [
@@ -99,5 +115,8 @@
       "/dist/",
       "/docs/"
     ]
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

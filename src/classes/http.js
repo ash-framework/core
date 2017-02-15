@@ -200,7 +200,7 @@ module.exports = class Http extends Base {
    * @param {Function} register - takes a string name of the service to inject as its only argument.
    */
   static services (register) {
-
+    register('store')
   }
 
   /**

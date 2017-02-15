@@ -12,8 +12,18 @@ const fs = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
 const bodyparser = require('body-parser')
+const Registry = require('./registry')
 
 const _app = new WeakMap()
+
+function loadModels (Registry, modelDir) {
+  const modelFiles = fs.readdirSync(modelDir)
+  modelFiles.forEach(modelFile => {
+    const Module = require(modelDir + '/' + modelFile)
+    const Model = (Module.__esModule) ? Module.default : Module
+    Registry.registerModel(Model)
+  })
+}
 
 /**
  * Application class used to create a new instance of an Ash application
@@ -154,9 +164,15 @@ module.exports = class Application extends Base {
    * @method start
    */
   static start () {
-    const config = require(path.join(process.cwd(), 'config/environment.js'))(process.env.NODE_ENV)
-    const MiddlewareRouter = require(path.join(process.cwd(), 'app/middleware.js'))
-    const Router = require(path.join(process.cwd(), 'app/router.js'))
+    const configModule = require(path.join(process.cwd(), 'config/environment.js'))
+    const config = ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
+
+    const middlewareModule = require(path.join(process.cwd(), 'app/middleware.js'))
+    const MiddlewareRouter = (middlewareModule.__esModule) ? middlewareModule.default : middlewareModule
+
+    const routerModule = require(path.join(process.cwd(), 'app/router.js'))
+    const Router = (routerModule.__esModule) ? routerModule.default : routerModule
+
     const log = new Log()
 
     log.trace('Ash server creating express app instance')
@@ -197,12 +213,17 @@ module.exports = class Application extends Base {
       if (initializers.length > 0) {
         log.trace('Ash server loading initializers')
         initializers.forEach(initializerName => {
-          const Initializer = require(initializerDir + '/' + initializerName)
+          const Module = require(initializerDir + '/' + initializerName)
+          const Initializer = (Module.__esModule) ? Module.default : Module
           const initializer = new Initializer()
           initializer.init(app)
         })
       }
     }
+
+    log.trace('Ash server loading models')
+    const modelDir = path.join(process.cwd(), 'app/models')
+    loadModels(Registry, modelDir)
 
     log.trace('Ash server loading middleware')
     const middlewareDir = path.join(process.cwd(), 'app/middleware')

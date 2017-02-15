@@ -2,6 +2,7 @@
 
 const Http = require('./http')
 const middleware = new WeakMap()
+const { singularize } = require('inflection')
 
 /**
  * The Ash route class extends the @see Http class and so has access
@@ -115,7 +116,25 @@ module.exports = class Route extends Http {
    * @method model
    */
   model () {
-    console.log(`Route '${this.name}' must define a 'model' method`)
+    const modelId = this.params[`${this.constructor.modelName}_id`]
+    if (this.request.method === 'GET') {
+      if (modelId) {
+        return this.store.findRecord(this.constructor.modelName, modelId)
+      }
+      return this.store.query(this.constructor.modelName, this.query)
+    } else if (this.request.method === 'POST') {
+      return this.createRecord(this.constructor.modelName, this.body)
+    } else if (this.request.method === 'PUT') {
+      return this.updateRecord(this.constructor.modelName, modelId, this.body)
+    } else if (this.request.method === 'DELETE') {
+      return this.deleteRecord(this.constructor.modelName, modelId)
+    }
+  }
+
+  static get modelName () {
+    // TODO: harden interface and test
+    const routeName = this.name.toLowerCase()
+    return singularize(routeName.replace('route', ''))
   }
 
   /**
@@ -123,15 +142,21 @@ module.exports = class Route extends Http {
    * @param {Object} model
    */
   afterModel (model) {
-
+    return model
   }
 
   /**
    * @method serialize
    * @param {Object} model
    */
-  serialize (model) {
-
+  serialize (data) {
+    if (this.store && this.constructor.modelName) {
+      const serializer = this.store.serializerFor(this.constructor.modelName)
+      // TODO: set baseUrl from config or request
+      // const options = {baseUrl: ''}
+      const Model = this.store.modelFor(this.constructor.modelName)
+      return serializer.serialize(Model, data)
+    }
   }
 
   /**
