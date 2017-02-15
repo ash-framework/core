@@ -26,10 +26,10 @@ module.exports = class Inject {
       let Service
       try {
         const Module = require(path.join(process.cwd(), 'app', 'services') + '/' + serviceName)
-        Service = (Module.__esModule) ? Service.default : Service
+        Service = (Module.__esModule) ? Module.default : Module
       } catch (error) {
         const Module = require(path.join(__dirname, '/', serviceName))
-        Service = (Module.__esModule) ? Service.default : Service
+        Service = (Module.__esModule) ? Module.default : Module
       }
       service.set(request, new Service())
     }
