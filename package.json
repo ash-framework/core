@@ -24,7 +24,6 @@
     "test:dev": "jest --watch",
     "test:coverage": "jest --coverage",
     "test": "npm run test:ci",
-    "prepublish": "npm test && npm prune",
     "preversion:patch": "npm run test",
     "version:patch": "xyz -i patch",
     "preversion:minor": "npm run test",
