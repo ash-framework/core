@@ -2,10 +2,10 @@
 
 const Base = require('./base')
 const ErrorHandler = require('./error-handler')
-const createRoutes = require('@ash-framework/router')
+const createRoutes = require('../router')
 const Log = require('@ash-framework/log')
 const HttpError = require('@ash-framework/http-error')
-const loadMiddleware = require('@ash-framework/middleware')
+const loadMiddleware = require('../middleware-router')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
