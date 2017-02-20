@@ -19,6 +19,7 @@ const _app = new WeakMap()
 function loadModels (Registry, modelDir) {
   const modelFiles = fs.readdirSync(modelDir)
   modelFiles.forEach(modelFile => {
+    if (modelFile.indexOf('.js') === -1) return
     const Module = require(modelDir + '/' + modelFile)
     const Model = (Module.__esModule) ? Module.default : Module
     Registry.registerModel(Model)
@@ -209,7 +210,7 @@ module.exports = class Application extends Base {
 
     const initializerDir = path.join(process.cwd(), 'app/initializers')
     if (fs.existsSync(initializerDir)) {
-      const initializers = fs.readdirSync(initializerDir)
+      const initializers = fs.readdirSync(initializerDir).filter(file => file.indexOf('.js') !== -1)
       if (initializers.length > 0) {
         log.trace('Ash server loading initializers')
         initializers.forEach(initializerName => {
