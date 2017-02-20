@@ -11,7 +11,7 @@ View API docs at [https://ash-framework.github.io/ash](https://ash-framework.git
 
 <span class="badge-badge"><a href="https://mediasuite.co.nz" title="The Media Suite"><img src="https://mediasuite.co.nz/ms-badge.png" alt="The Media Suite" /></a></span>
 <br class="badge-separator" />
-<span class="badge-badge"><a href="https://nodei.co/npm/ash"><img src="https://nodei.co/npm/ash.png?downloads=true&stars=true" /></a></span>
+<span class="badge-badge"><a href="https://nodei.co/npm/@ash-framework/ash"><img src="https://nodei.co/npm/@ash-framework/ash.png?downloads=true&stars=true" /></a></span>
 <br class="badge-separator" />
 <span class="badge-travisci"><a href="http://travis-ci.org/ash-project/ash" title="Check this project's build status on TravisCI"><img src="https://img.shields.io/travis/ash-project/ash/master.svg" alt="Travis CI Build Status" /></a></span>
 <span class="badge-npmversion"><a href="https://npmjs.org/package/@ash-framework/ash" title="View this project on NPM"><img src="https://img.shields.io/npm/v/@ash-framework/ash.svg" alt="NPM version" /></a></span>
