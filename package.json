@@ -1,5 +1,5 @@
 {
-  "name": "@ash-framework/ash",
+  "name": "@ash-framework/core",
   "description": "Node.js web framework",
   "version": "0.1.1",
   "license": "MIT",
