@@ -4,7 +4,7 @@ node_js:
 services:
   - postgresql
 before_script:
-  - psql -c 'create database public.ash_test;' -U postgres
+  - psql -c 'create database travis_ci_test;' -U postgres
 after_success:
   - npm run docs
 deploy:
