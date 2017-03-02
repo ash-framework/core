@@ -7,7 +7,15 @@
 <!-- /TITLE -->
 
 
-View API docs at [https://ash-framework.github.io/ash](https://ash-framework.github.io/ash)
+<!-- DESCRIPTION/ -->
+
+Node.js API framework
+
+<!-- /DESCRIPTION -->
+
+
+View the API docs at [https://ash-framework.github.io/ash](https://ash-framework.github.io/ash)
+Get started by installing the cli at [https://github.com/ash-framework/cli](https://github.com/ash-framework/cli)
 
 <!-- BADGES/ -->
 
@@ -22,13 +30,6 @@ View API docs at [https://ash-framework.github.io/ash](https://ash-framework.git
 <span class="badge-daviddmdev"><a href="https://david-dm.org/ash-project/ash#info=devDependencies" title="View the status of this project's development dependencies on DavidDM"><img src="https://img.shields.io/david/dev/ash-project/ash.svg" alt="Dev Dependency Status" /></a></span>
 
 <!-- /BADGES -->
-
-
-<!-- DESCRIPTION/ -->
-
-Node.js web framework
-
-<!-- /DESCRIPTION -->
 
 
 <!-- INSTALL/ -->
