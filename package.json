@@ -79,7 +79,10 @@
   "maintainers": [
     "Richard Walker digitalsadhu@gmail.com"
   ],
-  "contributors": [],
+  "contributors": [
+    "Mark Stuart mark@mediasuite.co.nz",
+    "Patrick Haply https://github.com/pnw"
+  ],
   "badges": {
     "list": [
       [
