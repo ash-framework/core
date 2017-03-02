@@ -1,6 +1,11 @@
 module.exports = function () {
   const ENV = {
-    database: process.env.PG_CONNECTION_STRING
+    database: {
+      connection: {
+        database: process.env.PG_DB,
+        user: process.env.PG_USER
+      }
+    }
   }
   return ENV
 }

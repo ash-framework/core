@@ -1,10 +1,15 @@
-/* global describe, it, beforeEach, beforeAll, afterAll, expect */
+/* global describe, it, beforeEach, beforeAll, afterAll, expect, afterEach */
 const Adapter = require('../src/classes/adapter')
 const Database = require('./database')
-const config = process.env.PG_CONNECTION_STRING
+const config = {
+  database: process.env.PG_DB,
+  user: process.env.PG_USER
+}
+
 let db
 let models
 let store = {}
+let adapter
 
 beforeAll(() => {
   db = new Database(config)
@@ -33,6 +38,11 @@ describe('adapter', () => {
         definition: {attributes: {id: 'number', title: 'string', description: 'string'}}
       }
     }
+    adapter = new Adapter(store, config)
+  })
+
+  afterEach(() => {
+    adapter.knex.destroy()
   })
 
   describe('findAll', () => {
@@ -41,7 +51,6 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'My Post 1'}, {title: 'My Post 2'}])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.findAll(models.Post)
 
       // Then
@@ -51,7 +60,6 @@ describe('adapter', () => {
 
     it('should return an empty array if no records are found', async () => {
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.findAll(models.Post)
 
       // Then
@@ -66,7 +74,6 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'My Post 1'}, {title: 'My Post 2'}])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {})
 
       // Then
@@ -76,7 +83,6 @@ describe('adapter', () => {
 
     it('should return an empty array if no records are found', async () => {
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {})
 
       // Then
@@ -92,7 +98,6 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'p1', description: 'd1'}, {title: 'p2', description: 'd2'}])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {fields: {posts: 'id, title'}})
 
       // Then
@@ -111,7 +116,6 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {page: {number: 2, size: 2}})
 
       // Then
@@ -126,7 +130,6 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {sort: 'title'})
 
       // Then
@@ -143,7 +146,6 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {sort: '-title'})
 
       // Then
@@ -160,7 +162,6 @@ describe('adapter', () => {
       ])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.query(models.Post, {sort: '-title,id'})
 
       // Then
@@ -170,80 +171,7 @@ describe('adapter', () => {
       expect(data[2].id).toBe(2)
       expect(data[3].id).toBe(50)
     })
-  //   it('included data', async () => {
-  //     // Given
-  //     await db.knex('posts').insert([{title: 'p1', id: 1, authorId: 1}])
-  //     await db.knex('comments').insert([{title: 'c1', id: 1, postId: 1}, {title: 'c2', id: 2, postId: 1}])
-  //     await db.knex('authors').insert([{title: 'a1', id: 1}])
-  //     await db.knex('address').insert([{street: 'ad1', id: 1, authorId: 1}])
-  //     const models = {
-  //       post: {
-  //         modelName: 'post',
-  //         type: 'posts',
-  //         tableName: 'posts',
-  //         definition: {
-  //           attributes: {id: 'number', title: 'string'},
-  //           relationships: {
-  //             comments: {type: 'hasMany', modelFrom: 'post', keyFrom: 'id', modelTo: 'comment', keyTo: 'postId'},
-  //             author: {type: 'belongsTo', modelFrom: 'post', keyFrom: 'authorId', modelTo: 'author', keyTo: 'id'}
-  //           }
-  //         }
-  //       },
-  //       comment: {
-  //         modelName: 'comment',
-  //         type: 'comments',
-  //         tableName: 'comments',
-  //         definition: {attributes: {id: 'number', title: 'string'}}
-  //       },
-  //       author: {
-  //         modelName: 'author',
-  //         type: 'authors',
-  //         tableName: 'authors',
-  //         definition: {
-  //           attributes: {id: 'number', title: 'string'},
-  //           relationships: {
-  //             address: {type: 'hasMany', modelFrom: 'author', keyFrom: 'id', modelTo: 'address', keyTo: 'authorId'}
-  //           }
-  //         }
-  //       },
-  //       address: {
-  //         modelName: 'address',
-  //         type: 'addresses',
-  //         tableName: 'addresses',
-  //         definition: {attributes: {id: 'number', street: 'string'}}
-  //       }
-  //     }
-  //     const store = {
-  //       modelFor (modelName) {
-  //         return models[modelName]
-  //       }
-  //     }
 
-  //     // When
-  //     const adapter = new Adapter(store, config)
-  //     const data = await adapter.query(models.post, {include: 'comments, author, author.address'})
-
-  //     // Then
-  //     expect(data.length).toEqual([
-  //       {
-  //         title: 'p1',
-  //         id: 1,
-  //         authorId: 1,
-  //         comments: [
-  //           {title: 'c1', id: 1, postId: 1},
-  //           {title: 'c2', id: 2, postId: 1}
-  //         ],
-  //         author: {
-  //           title: 'a1',
-  //           id: 1,
-  //           addresses: [
-  //             {street: 'ad1', id: 1, authorId: 1}
-  //           ]
-  //         }
-  //       }
-  //     ])
-  //   })
-  // })
     it('included data', async () => {
       // Given
       await db.knex.schema.createTable('comments', table => {
@@ -312,6 +240,7 @@ describe('adapter', () => {
           }
         }
       ])
+      adapter.knex.destroy()
     })
   })
 
@@ -321,7 +250,6 @@ describe('adapter', () => {
       await db.knex('posts').insert([{title: 'My Post 1'}, {title: 'My Post 2'}])
 
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.findRecord(models.Post, 2)
 
       // Then
@@ -330,7 +258,6 @@ describe('adapter', () => {
 
     it('should return null if the id does not exist', async () => {
       // When
-      const adapter = new Adapter(store, config)
       const data = await adapter.findRecord(models.Post, 999)
 
       // Then
