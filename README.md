@@ -91,8 +91,8 @@ Become a sponsor!
 
 These amazing people have contributed code to this project:
 
-<ul><li>Mark Stuart mark@mediasuite.co.nz</li>
-<li>Patrick Haply https://github.com/pnw</li></ul>
+<ul><li>Mark Stuart https://github.com/markstuart</li>
+<li>Patches https://github.com/pnw</li></ul>
 
 
 
