@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - "7"
 env:
-  - PG_CONNECTION_STRING=postgres://postgres@localhost/test
+  - PG_DB=test
+  - PG_USER=postgres
 services:
   - postgresql
 before_script:
