@@ -4,6 +4,7 @@
 
 <!-- /TITLE -->
 
+![Ash Api Framework](/logo_vertical.jpg?raw=true "Ash Api Framework")
 
 View API docs at [https://ash-framework.github.io/ash](https://ash-framework.github.io/ash)
 
