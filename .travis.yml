@@ -2,8 +2,7 @@ language: node_js
 node_js:
   - "7"
 env:
-  - PG_DB=test
-  - PG_USER=postgres
+  - PG_DB=test PG_USER=postgres
 services:
   - postgresql
 before_script:
