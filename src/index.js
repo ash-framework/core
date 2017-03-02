@@ -21,7 +21,6 @@ const Service = require('./classes/service')
 const Model = require('./classes/model')
 const Adapter = require('./classes/adapter')
 const Serializer = require('./classes/serializer')
-const JSONAPISerializer = require('./classes/jsonapi-serializer')
 
 /**
  * The top level Ash namespace.
@@ -109,8 +108,6 @@ const Ash = {
   Service,
 
   Model,
-
-  JSONAPISerializer,
 
   Adapter,
 
