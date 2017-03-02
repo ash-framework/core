@@ -14,7 +14,7 @@ Node.js API framework
 <!-- /DESCRIPTION -->
 
 
-View the API docs at [https://ash-framework.github.io/core](https://ash-framework.github.io/ash)
+View the API docs at [https://ash-framework.github.io/core](https://ash-framework.github.io/core)
 
 Get started by installing the cli at [https://github.com/ash-framework/cli](https://github.com/ash-framework/cli)
 
