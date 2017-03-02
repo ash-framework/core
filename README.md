@@ -1,6 +1,6 @@
 <!-- TITLE/ -->
 
-<h1>@ash-framework/ash</h1>
+<h1>@ash-framework/core</h1>
 
 <!-- /TITLE -->
 
