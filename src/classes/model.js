@@ -7,7 +7,16 @@ const {get, defaultsDeep} = require('lodash')
 
 const attributes = new WeakMap()
 
+/**
+ *
+ * @class Model
+ * @extends Base
+ */
 module.exports = class Model extends Base {
+  /**
+   * @constructor
+   * @param {object} props - properties hash that the model instance should be created with
+   */
   constructor (props = {}) {
     super()
     assert(!Array.isArray(props) && typeof props === 'object',
@@ -41,7 +50,7 @@ module.exports = class Model extends Base {
    * // comments are plain javascript objects in an array
    * const comments = model.attributes.comments
    * ```
-   *
+   * @property attributes
    * @return {Object} - clone of attributes hash
    */
   get attributes () {
@@ -90,6 +99,7 @@ module.exports = class Model extends Base {
    *   ]
    * }
    * ```
+   * @property attributes
    * @param  {Object} props - a hash of keys and values to set as the models internal data
    */
   set attributes (props) {
@@ -149,6 +159,8 @@ module.exports = class Model extends Base {
   }
 
   /**
+   * @property adapter
+   * @static
    * @return {Adapter} - adapter for model
    */
   static get adapter () {
@@ -156,6 +168,8 @@ module.exports = class Model extends Base {
   }
 
   /**
+   * @property serializer
+   * @static
    * @return {Serializer} - serializer for model
    */
   static get serializer () {
@@ -164,7 +178,9 @@ module.exports = class Model extends Base {
 
   /**
    * Save's the model instance
-   * @return Promise
+   *
+   * @method save
+   * @return {Promise}
    */
   save () {
     return this.constructor.adapter
@@ -175,6 +191,8 @@ module.exports = class Model extends Base {
 
   /**
    * Delete the model instance
+   * @method delete
+   * @return {Promise}
    */
   delete () {
     return this.constructor.adapter
@@ -214,6 +232,8 @@ module.exports = class Model extends Base {
    *   }
    * })
    * ```
+   * @method attributes
+   * @static
    * @param {Function} attr - function used to define model attributes
    */
   static attributes (attr) {
@@ -253,6 +273,9 @@ module.exports = class Model extends Base {
    * If not specified, `name` is a pluralized version of the models name for `hasMany` or singular for `belongsTo`
    * If not specified, `keyFrom` is the models `idField` for `hasMany` or a concatenation of `modelName` and the string 'Id' for `belongsTo`
    * If not specified, `keyTo` is a concatenation of the related model's `modelName` and the string 'Id' for  for `hasMany` or the related models `idField` for `belongsTo`
+   * @method relationships
+   * @static
+   * @param {function} relation
    */
   static relationships (relation) {
     // override
@@ -265,6 +288,8 @@ module.exports = class Model extends Base {
    * @example
    *  For a model class named `MyPostModel` or `MyPostsModel`, `modelName` will be `my-post`
    *
+   * @property modelName
+   * @static
    * @return {string} model name
    */
   static get modelName () {
@@ -281,6 +306,8 @@ module.exports = class Model extends Base {
    * @example
    *  For model MyPostModel, tablename would be my_posts
    *
+   * @property tableName
+   * @static
    * @return {string} table name for model
    */
   static get tableName () {
@@ -296,6 +323,8 @@ module.exports = class Model extends Base {
    * @example
    * for a model `post`, type would be `posts`
    *
+   * @property type
+   * @static
    * @return {string} model type
    */
   static get type () {
@@ -334,6 +363,8 @@ module.exports = class Model extends Base {
    *   attr('customIdField', 'string')
    * }
    * ```
+   * @property idField
+   * @static
    * @return {String} - id field name
    */
   static get idField () {
@@ -342,6 +373,7 @@ module.exports = class Model extends Base {
 
   /**
    * Assumes the model to be in a new state if the models id is not present in the attributes hash
+   * @property isNew
    * @return {Boolean} - true if model is considered new (not saved in database)
    */
   get isNew () {
@@ -349,6 +381,7 @@ module.exports = class Model extends Base {
   }
 
   /**
+   * @method toJSON
    * @return {Object} - plain javascript representation of object (without relationship state)
    */
   toJSON () {
