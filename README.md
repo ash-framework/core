@@ -22,8 +22,6 @@ Get started by installing the cli at [https://github.com/ash-framework/cli](http
 
 <span class="badge-badge"><a href="https://mediasuite.co.nz" title="The Media Suite"><img src="https://mediasuite.co.nz/ms-badge.png" alt="The Media Suite" /></a></span>
 <br class="badge-separator" />
-<span class="badge-badge"><a href="https://nodei.co/npm/@ash-framework/ash"><img src="https://nodei.co/npm/@ash-framework/ash.png?downloads=true&stars=true" /></a></span>
-<br class="badge-separator" />
 <span class="badge-travisci"><a href="http://travis-ci.org/ash-framework/core" title="Check this project's build status on TravisCI"><img src="https://img.shields.io/travis/ash-framework/core/master.svg" alt="Travis CI Build Status" /></a></span>
 <span class="badge-npmversion"><a href="https://npmjs.org/package/ash-core" title="View this project on NPM"><img src="https://img.shields.io/npm/v/ash-core.svg" alt="NPM version" /></a></span>
 <span class="badge-npmdownloads"><a href="https://npmjs.org/package/ash-core" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/ash-core.svg" alt="NPM downloads" /></a></span>

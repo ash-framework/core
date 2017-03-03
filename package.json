@@ -97,14 +97,6 @@
         }
       ],
       "---",
-      [
-        "badge",
-        {
-          "image": "https://nodei.co/npm/@ash-framework/ash.png?downloads=true&stars=true",
-          "url": "https://nodei.co/npm/@ash-framework/ash"
-        }
-      ],
-      "---",
       "travisci",
       "npmversion",
       "npmdownloads",
