@@ -8,6 +8,10 @@ const path = require('path')
 const adapters = new Map()
 const serializers = new Map()
 
+/**
+ * @class Store
+ * @extends Service
+ */
 module.exports = class Store extends Service {
   constructor (...args) {
     super(...args)

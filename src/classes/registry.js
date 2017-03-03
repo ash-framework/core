@@ -1,6 +1,11 @@
 const {camelCase, isPlainObject, get} = require('lodash')
 const models = new Map()
 
+/**
+ * @class Registry
+ * @extends Base
+ * @private
+ */
 module.exports = class Registry {
   // TODO: Set which store the model
   // belongs to with Model.store =

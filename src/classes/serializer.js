@@ -30,6 +30,12 @@ function translateToLoopbackModel (Model) {
  * @constructor
  */
 module.exports = class Serializer extends Base {
+  /**
+   * @method serialize
+   * @param {Object} Model
+   * @param {Object} data
+   * @param {Object} options
+   */
   serialize (Model, data, options) {
     const LoopbackModel = translateToLoopbackModel(Model)
     return serializer(data, LoopbackModel, options)

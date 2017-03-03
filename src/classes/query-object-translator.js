@@ -1,5 +1,10 @@
 const { capitalize } = require('lodash')
 
+/**
+ * @class QueryObjectTranslator
+ * @extends Base
+ * @private
+ */
 module.exports = class QueryObjectTranslator {
   /**
    * Creates an instance of QueryObjectTranslator.

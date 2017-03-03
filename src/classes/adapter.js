@@ -2,6 +2,10 @@ const Base = require('./base')
 const Knex = require('knex')
 const {get} = require('lodash')
 
+/**
+ * @class Adapter
+ * @extends Base
+ */
 module.exports = class Adapter extends Base {
   /**
    * Sets up the knex query builder instance

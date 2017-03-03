@@ -12,6 +12,11 @@ const TYPES = Object.freeze({
   service: 'services'
 })
 
+/**
+ * @class ClassResolver
+ * @extends Base
+ * @private
+ */
 module.exports = class ClassResolver {
   static resolve (type, name) {
     try {
