@@ -1,9 +1,11 @@
 {
-  "name": "Ash Framework",
-  "description": "The Foo API: a library for doing X, Y, and Z",
-  "version": "0.1.3",
-  "url": "http://example.com/",
+  "name": "Ash API Framework",
+  "description": "A Node.js based API framework for Ember.js developers",
+  "version": "v0.1.3",
+  "url": "https://github.com/ash-framework/core",
+  "logo": "https://raw.githubusercontent.com/ash-framework/core/master/logo_vertical.jpg",
   "options": {
+    "linkNatives": "true",
     "outdir": "./docs",
     "paths": "src",
     "themedir" : "node_modules/yuidoc-ember-theme",
