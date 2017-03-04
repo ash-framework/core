@@ -3,14 +3,19 @@ const Knex = require('knex')
 const {get} = require('lodash')
 
 /**
- * @class Adapter
- * @extends Base
- */
+  @class Adapter
+  @extends Base
+  @public
+*/
 module.exports = class Adapter extends Base {
   /**
-   * Sets up the knex query builder instance
-   * @constructor
-   */
+    Sets up the knex query builder instance
+    @method constructor
+    @constructor
+    @public
+    @param {Store} store - Instance of Ash.Store
+    @param {Mixed} options - knex database options {Object} or {String}
+  */
   constructor (store, options) {
     super()
     this.store = store
@@ -21,10 +26,26 @@ module.exports = class Adapter extends Base {
     })
   }
 
+  /**
+    Returns a fields array of Model attribute names
+    @method fieldsForModel
+    @private
+    @param {Model} Model - Model class
+    @return {Array} - array of model attribute names
+  */
   fieldsForModel (Model) {
     return Object.keys(get(Model, 'definition.attributes'), {})
   }
 
+  /**
+    @method include
+    @private
+    @param {Model} Model
+    @param {Object} query
+    @param {String} includeString
+    @param {Object} fieldOptions
+    @return {Promise}
+  */
   include (Model, query, includeString = '', fieldOptions) {
     return query.then(data => {
       data = JSON.parse(JSON.stringify(data))
@@ -73,6 +94,14 @@ module.exports = class Adapter extends Base {
     })
   }
 
+  /**
+    @method limitFieldSet
+    @private
+    @param {Model} Model
+    @param {Object} attributes
+    @param {Object} options
+    @return {Array} attributes
+  */
   limitFieldSet (Model, attributes, options = {}) {
     const types = Object.keys(options)
     if (types.indexOf(Model.type) !== -1) {
@@ -86,12 +115,26 @@ module.exports = class Adapter extends Base {
     return attributes
   }
 
+  /**
+    @method paginate
+    @private
+    @param {Promise} query - knex query promise object
+    @param {Object} options
+    @return {Promise} - knex query promise object
+  */
   paginate (query, options = {}) {
     const number = options.size || 0
     const size = options.size || 20
     return query.limit(size).offset(number * size - size)
   }
 
+  /**
+    @method sort
+    @private
+    @param {Promise} query - knex query promise object
+    @param {String} sortString
+    @return {Promise} - knex query promise object
+  */
   sort (query, sortString = '') {
     sortString.split(',').forEach(column => {
       const direction = (column.indexOf('-') !== -1) ? 'DESC' : 'ASC'
@@ -102,30 +145,113 @@ module.exports = class Adapter extends Base {
   }
 
   /**
-   * Finds all records for a given model. @see `query` when you need more control over
-   * what records are returned.
-   *
-   * @param {Object} Model - object with properties `tableName` and an `attributes` hash
-   * @return {Array} - array of database records
-   */
+    Finds all records for a given model. @see `query` when you need more control over
+    what records are returned.
+    @method query
+    @public
+    @param {Model} Model - object with properties `tableName` and an `attributes` hash
+    @return {Array} - array of database records
+  */
   findAll (Model) {
     const attributes = this.fieldsForModel(Model)
     const tableName = Model.tableName
     return this.knex.column(attributes).select().from(tableName)
   }
 
-  /*
-  options should be implemented here to jsonapi spec
-  {
-    include: 'comments, posts, comments.author',
-    fields: {
-      articles: 'title, body',
-      people: 'name'
-    },
-    sort: 'age, -name',
-    page: {number: 1, size: 20},
-    filter: {}
-  }
+  /**
+    Finds records of a given model using options.
+
+    Options is an {Object} with the following properties:
+
+    `include` - used to include related model records
+
+    ```javascript
+    adapter.query(Post, {include: 'comments,author'})
+    ```
+
+    `fields` - used to specify desired attribute fields to be returned in result objects
+
+    ```javascript
+    adapter.query(Post, {fields: {posts: 'title,description'}})
+    ```
+
+    To restrict fields from included relationship models
+
+    ```javascript
+    adapter.query(Post, {fields: {posts: 'title', comments: 'comment'}})
+    ```
+
+    `sort` - used to sort results by its attributes
+
+    ```javascript
+    adapter.query(Post, {sort: 'title'})
+    ```
+
+    To specify sorting by multiple columns, separate by comma
+
+    ```javascript
+    adapter.query(Post, {sort: 'title,description'})
+    ```
+
+    Sort is ascending by default, use "-" to indicate descending
+
+    ```javascript
+    adapter.query(Post, {sort: '-title'})
+    ```
+
+    `page` - used to paginate results
+
+    ```javascript
+    adapter.query(Post, {page: {number: 1, size: 20}})
+    ```
+
+    `filter` - used to refine desired results by specified criteria
+
+    ```javascript
+    adapter.query(Post, {filter: {title: 'my title'}})
+    ```
+
+    filter also supports a number of operators prefixed with a $ character
+
+    - `$or` - SQL OR
+    - `$eq` - SQL =
+    - `$gt` - SQL >
+    - `$gte` - SQL >=
+    - `$lt` - SQL <
+    - `$lte` - SQL <=
+    - `$ne` - SQL !=
+    - `$not` - SQL NOT
+    - `$between` - SQL BETWEEN
+    - `$notbetween` - SQL NOT BETWEEN
+    - `$in` - SQL IN
+    - `$notin` SQL NOT IN
+    - `$like` SQL LIKE
+    - `$notlike` SQL NOT LIKE
+    - `$ilike` - SQL NOT ILIKE
+    - `$overlap` - SQL &&
+    - `$contains` - SQL @>
+    - `$contained` - SQL <@
+
+    ```javascript
+    adapter.query(Post, {filter: {title: {$like: '%my title%'}}})
+    ```
+
+    `$or` is a slightly special case. It takes an array of objects to 'Or' together
+
+    ```javascript
+    adapter.query(Post, {filter: {
+      $or: [
+        {id: {$lt: 10}},
+        {id: {$in: [20, 21, 22]}}
+      ]
+    })
+    ```
+
+    @method query
+    @public
+    @param {Model} Model
+    @param {Object} options
+    @return {Promise}
   */
   query (Model, options) {
     let query = this.knex.select().from(Model.tableName)
@@ -139,12 +265,13 @@ module.exports = class Adapter extends Base {
   }
 
   /**
-   * Retrieves a single record for the given model by given id
-   *
-   * @param {Object} Model - object with properties `tableName` and an `attributes` hash
-   * @param {number} id - id of record to retrieve
-   * @return {Object} - a single record or null if no record was found
-   */
+    Retrieves a single record for the given model by given id
+    @method findRecord
+    @public
+    @param {Model} Model
+    @param {number} id
+    @return {Promise}
+  */
   findRecord (Model, id) {
     const attributes = this.fieldsForModel(Model)
     const tableName = Model.tableName
@@ -152,20 +279,53 @@ module.exports = class Adapter extends Base {
       .then(result => result || null)
   }
 
+  /**
+    Similar to `query` except that only a single record is returned
+    @method queryRecord
+    @public
+    @param {Model} Model
+    @param {Object} options @see `query`
+    @return {Promise}
+  */
   queryRecord (Model, options) {
     return this.query(Model, options).first()
   }
 
+  /**
+    Creates a new record for a given model using supplied attributes hash
+    @method createRecord
+    @public
+    @param {Model} Model
+    @param {Object} data
+    @return {Promise}
+  */
   createRecord (Model, data) {
     const tableName = Model.tableName
     return this.knex(tableName).insert(data)
   }
 
+  /**
+    Updates a record for a given model with given id using a supplied attributes hash
+    @method updateRecord
+    @public
+    @param {Model} Model
+    @param {Number} id
+    @param {Object} data
+    @return {Promise}
+  */
   updateRecord (Model, id, data) {
     const tableName = Model.tableName
     return this.knex(tableName).update(data).where('id', id)
   }
 
+  /**
+    Delete a Model by given id
+    @method deleteRecord
+    @public
+    @param {Model} Model
+    @param {Number} id
+    @return {Promise}
+  */
   deleteRecord (Model, id) {
     const tableName = Model.tableName
     return this.knex(tableName).where('id', id).delete()
