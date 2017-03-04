@@ -145,12 +145,12 @@ module.exports = class Adapter extends Base {
   }
 
   /**
-    Finds all records for a given model. @see `query` when you need more control over
+    Finds all records for a given model. Use `query` when you need more control over
     what records are returned.
-    @method query
+    @method findAll
     @public
-    @param {Model} Model - object with properties `tableName` and an `attributes` hash
-    @return {Array} - array of database records
+    @param {Model} Model
+    @return {Promise}
   */
   findAll (Model) {
     const attributes = this.fieldsForModel(Model)
