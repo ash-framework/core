@@ -84,49 +84,49 @@ module.exports = class Store extends Service {
     `include` - used to include related model records
 
     ```javascript
-    adapter.query(Post, {include: 'comments,author'})
+    store.query(Post, {include: 'comments,author'})
     ```
 
     `fields` - used to specify desired attribute fields to be returned in result objects
 
     ```javascript
-    adapter.query(Post, {fields: {posts: 'title,description'}})
+    store.query(Post, {fields: {posts: 'title,description'}})
     ```
 
     To restrict fields from included relationship models
 
     ```javascript
-    adapter.query(Post, {fields: {posts: 'title', comments: 'comment'}})
+    store.query(Post, {fields: {posts: 'title', comments: 'comment'}})
     ```
 
     `sort` - used to sort results by its attributes
 
     ```javascript
-    adapter.query(Post, {sort: 'title'})
+    store.query(Post, {sort: 'title'})
     ```
 
     To specify sorting by multiple columns, separate by comma
 
     ```javascript
-    adapter.query(Post, {sort: 'title,description'})
+    store.query(Post, {sort: 'title,description'})
     ```
 
     Sort is ascending by default, use "-" to indicate descending
 
     ```javascript
-    adapter.query(Post, {sort: '-title'})
+    store.query(Post, {sort: '-title'})
     ```
 
     `page` - used to paginate results
 
     ```javascript
-    adapter.query(Post, {page: {number: 1, size: 20}})
+    store.query(Post, {page: {number: 1, size: 20}})
     ```
 
     `filter` - used to refine desired results by specified criteria
 
     ```javascript
-    adapter.query(Post, {filter: {title: 'my title'}})
+    store.query(Post, {filter: {title: 'my title'}})
     ```
 
     filter also supports a number of operators prefixed with a $ character
@@ -151,13 +151,13 @@ module.exports = class Store extends Service {
     - `$contained` - SQL <@
 
     ```javascript
-    adapter.query(Post, {filter: {title: {$like: '%my title%'}}})
+    store.query(Post, {filter: {title: {$like: '%my title%'}}})
     ```
 
     `$or` is a slightly special case. It takes an array of objects to 'Or' together
 
     ```javascript
-    adapter.query(Post, {filter: {
+    store.query(Post, {filter: {
       $or: [
         {id: {$lt: 10}},
         {id: {$in: [20, 21, 22]}}
