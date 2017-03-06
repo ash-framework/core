@@ -1,27 +1,31 @@
 const { capitalize } = require('lodash')
 
 /**
- * @class QueryObjectTranslator
- * @extends Base
- * @private
- */
+  @class QueryObjectTranslator
+  @extends Base
+  @private
+*/
 module.exports = class QueryObjectTranslator {
   /**
-   * Creates an instance of QueryObjectTranslator.
-   *
-   * @param {Object} Model instance
-   */
+    Creates an instance of QueryObjectTranslator.
+
+    @method constructor
+    @constructor
+    @private
+    @param {Object} Model instance
+  */
   constructor (Model) {
     this.Model = Model
     this.queryBuilder = Model.adapter.knex(Model.tableName)
   }
 
   /**
-   * Creates a new context in the query, wrapping the 'or' conditions
-   *
-   * @private
-   * @param {Array} orConditions
-   */
+    Creates a new context in the query, wrapping the 'or' conditions
+
+    @method orBuilder
+    @private
+    @param {Array} orConditions
+  */
   orBuilder (orConditions) {
     const translator = this
     this.queryBuilder.where(function () {
@@ -34,28 +38,30 @@ module.exports = class QueryObjectTranslator {
   }
 
   /**
-   * Adds a single clause to the queryBuilder
-   *
-   * @private
-   * @param {String} action The action to add to the query
-   * @param {Array} args The arguments to the queryBuilder action
-   * @param {Boolean} isOr Whether this action should be the 'or' version of itself
-   */
+    Adds a single clause to the queryBuilder
+
+    @method addClause
+    @private
+    @param {String} action The action to add to the query
+    @param {Array} args The arguments to the queryBuilder action
+    @param {Boolean} isOr Whether this action should be the 'or' version of itself
+  */
   addClause (action, args, isOr) {
     if (isOr) action = 'or' + capitalize(action)
     this.queryBuilder = this.queryBuilder[action](...args)
   }
 
   /**
-   * Detects which queryBuilder action to take based on
-   * the incoming query object operator syntax
-   *
-   * @private
-   * @param {String} colName Attribute name on the model
-   * @param {any} operator Symbol representing the sql operator
-   * @param {any} value The value to use in the operation
-   * @param {any} isOr Whether the current context is an 'or'
-   */
+    Detects which queryBuilder action to take based on
+    the incoming query object operator syntax
+
+    @method operatorFilter
+    @private
+    @param {String} colName Attribute name on the model
+    @param {any} operator Symbol representing the sql operator
+    @param {any} value The value to use in the operation
+    @param {any} isOr Whether the current context is an 'or'
+  */
   operatorFilter (colName, operator, value, isOr) {
     operator = operator.toLowerCase()
     switch (operator) {
@@ -121,13 +127,12 @@ module.exports = class QueryObjectTranslator {
   }
 
   /**
-   *
-   *
-   * @private
-   * @param {Object} filter
-   * @param {String} colName
-   * @param {Boolean} isOr
-   */
+    @method buildQuery
+    @private
+    @param {Object} filter
+    @param {String} colName
+    @param {Boolean} isOr
+  */
   buildQuery (filter, colName, isOr) {
     const filterKeys = Object.keys(filter)
     const isAnd = filterKeys.length > 1
@@ -139,13 +144,12 @@ module.exports = class QueryObjectTranslator {
   }
 
   /**
-   *
-   *
-   * @private
-   * @param {any} filter
-   * @param {any} colName
-   * @param {any} isOr
-   */
+    @method createNewContext
+    @private
+    @param {any} filter
+    @param {any} colName
+    @param {any} isOr
+  */
   createNewContext (filter, colName, isOr) {
     const translator = this
     const action = isOr ? 'orWhere' : 'where'
@@ -158,25 +162,23 @@ module.exports = class QueryObjectTranslator {
   }
 
   /**
-   *
-   *
-   * @private
-   * @param {any} colName
-   * @returns
-   */
+    @method validateColumnName
+    @private
+    @param {any} colName
+    @return {Boolean}
+  */
   validateColumnName (colName) {
     // TODO: throw an error to show that the column name is invalid
     return !colName || this.Model.definition.attributes[colName]
   }
 
   /**
-   *
-   *
-   * @private
-   * @param {any} filter
-   * @param {any} colName
-   * @param {any} isOr
-   */
+    @method handleFilter
+    @private
+    @param {any} filter
+    @param {any} colName
+    @param {any} isOr
+  */
   handleFilter (filter, colName, isOr) {
     let iterationCount = 0
     for (const key of Object.keys(filter)) {
@@ -206,11 +208,11 @@ module.exports = class QueryObjectTranslator {
   }
 
   /**
-   *
-   *
-   * @param {any} filter
-   * @returns
-   */
+    @method translate
+    @param {any} filter
+    @private
+    @return {Object}
+  */
   translate (filter) {
     this.buildQuery(filter)
 

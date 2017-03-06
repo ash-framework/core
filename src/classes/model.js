@@ -8,15 +8,17 @@ const {get, defaultsDeep} = require('lodash')
 const attributes = new WeakMap()
 
 /**
- *
- * @class Model
- * @extends Base
- */
+  @class Model
+  @extends Base
+  @public
+*/
 module.exports = class Model extends Base {
   /**
-   * @constructor
-   * @param {object} props - properties hash that the model instance should be created with
-   */
+    @method constructor
+    @constructor
+    @public
+    @param {object} props - properties hash that the model instance should be created with
+  */
   constructor (props = {}) {
     super()
     assert(!Array.isArray(props) && typeof props === 'object',
@@ -29,79 +31,81 @@ module.exports = class Model extends Base {
   }
 
   /**
-   * Provides a copy of the models internal state as a plain javascript object
-   * Does not provide relationship data as models. For this you need to use
-   * individual relationship getters.
-   *
-   * @example
-   * ```
-   * const model = new PostModel({
-   *   title: 'My title',
-   *   comments: [
-   *     {comment: 'This is my comment'},
-   *     {comment: 'This is another comment'}
-   *   ]
-   * })
-   *
-   * model.comments.then(comments => {
-   *   // comments are `CommentModel` instances
-   * })
-   *
-   * // comments are plain javascript objects in an array
-   * const comments = model.attributes.comments
-   * ```
-   * @property attributes
-   * @return {Object} - clone of attributes hash
-   */
+    Provides a copy of the models internal state as a plain javascript object
+    Does not provide relationship data as models. For this you need to use
+    individual relationship getters.
+
+    Example:
+    ```javascript
+    const model = new PostModel({
+      title: 'My title',
+      comments: [
+        {comment: 'This is my comment'},
+        {comment: 'This is another comment'}
+      ]
+    })
+
+    model.comments.then(comments => {
+      // comments are `CommentModel` instances
+    })
+
+    // comments are plain javascript objects in an array
+    const comments = model.attributes.comments
+    ```
+    @property attributes
+    @public
+    @return {Object} - clone of attributes hash
+  */
   get attributes () {
     return JSON.parse(JSON.stringify(attributes.get(this)))
   }
 
   /**
-   * Setter for model instances internal state.
-   * Called in model constructor with passed in state data
-   *
-   * Performs validation of incoming data and guards access to internal state.
-   * All individual getters and setters go through this setter thereby providing a single
-   * entry point for data validation and cleanup
-   *
-   * Internal state is stored as a plain object and can contain nested relationship data
-   * @example
-   * For a model
-   * ```
-   * class PostModel extends Model {
-   *   static attributes (attr) {
-   *     attr('title', 'string')
-   *   }
-   *   static relationships (relation) {
-   *     relation('hasMany', 'comment')
-   *   }
-   * }
-   * ```
-   * The following is valid though `unspecifiedProp` will be ignored:
-   * ```
-   * new PostModel({
-   *   title: 'My title',
-   *   unspecifiedProp: true,
-   *   comments: [
-   *     {comment: 'This is my comment'},
-   *     {comment: 'This is another comment'}
-   *   ]
-   * })
-   * ```
-   * The internal state of the model will be:
-   * ```
-   * {
-   *   title: 'My title',
-   *   comments: [
-   *     {comment: 'This is my comment'},
-   *     {comment: 'This is another comment'}
-   *   ]
-   * }
-   * ```
-   * @property attributes
-   * @param  {Object} props - a hash of keys and values to set as the models internal data
-   */
+    Setter for model instances internal state.
+    Called in model constructor with passed in state data
+
+    Performs validation of incoming data and guards access to internal state.
+    All individual getters and setters go through this setter thereby providing a single
+    entry point for data validation and cleanup
+
+    Internal state is stored as a plain object and can contain nested relationship data
+    Example:
+    For a model
+    ```javascript
+    class PostModel extends Model {
+      static attributes (attr) {
+        attr('title', 'string')
+      }
+      static relationships (relation) {
+        relation('hasMany', 'comment')
+      }
+    }
+    ```
+    The following is valid though `unspecifiedProp` will be ignored:
+    ```javascript
+    new PostModel({
+      title: 'My title',
+      unspecifiedProp: true,
+      comments: [
+        {comment: 'This is my comment'},
+        {comment: 'This is another comment'}
+      ]
+    })
+    ```
+    The internal state of the model will be:
+    ```javascript
+    {
+      title: 'My title',
+      comments: [
+        {comment: 'This is my comment'},
+        {comment: 'This is another comment'}
+      ]
+    }
+    ```
+    @property attributes
+    @public
+    @param  {Object} props - a hash of keys and values to set as the models internal data
+  */
   set attributes (props) {
     // current supported types. Can be extended as needed.
     const types = {
@@ -159,29 +163,32 @@ module.exports = class Model extends Base {
   }
 
   /**
-   * @property adapter
-   * @static
-   * @return {Adapter} - adapter for model
-   */
+    @property adapter
+    @static
+    @public
+    @return {Adapter} - adapter for model
+  */
   static get adapter () {
     return this.store.adapterFor(this.modelName)
   }
 
   /**
-   * @property serializer
-   * @static
-   * @return {Serializer} - serializer for model
-   */
+    @property serializer
+    @static
+    @public
+    @return {Serializer} - serializer for model
+  */
   static get serializer () {
     return this.store.serializerFor(this.modelName)
   }
 
   /**
-   * Save's the model instance
-   *
-   * @method save
-   * @return {Promise}
-   */
+    Save's the model instance
+
+    @method save
+    @public
+    @return {Promise}
+  */
   save () {
     return this.constructor.adapter
       .createRecord(this.constructor, this.attributes)
@@ -190,108 +197,112 @@ module.exports = class Model extends Base {
   saveAll () {}
 
   /**
-   * Delete the model instance
-   * @method delete
-   * @return {Promise}
-   */
+    Delete the model instance
+    @method delete
+    @public
+    @return {Promise}
+  */
   delete () {
     return this.constructor.adapter
       .deleteRecord(this.constructor, this.id)
   }
 
   /**
-   * Model attributes definition.
-   * This needs to be overridden to define the various
-   * attributes the model will have.
-   *
-   * Gets passed a function `attr` which should be called
-   * multiple times (once for each attribute)
-   *
-   * @example
-   * ```
-   * attr('title', 'string')
-   * ```
-   *
-   * To specify a default value, pass an options object with an appropriate
-   * default value
-   *
-   * @example
-   * ```
-   * attr('isAccepted', 'boolean', {
-   *   defaultValue: true
-   * })
-   * ```
-   *
-   * The default value can also be specified via a function
-   *
-   * @example
-   * ```
-   * attr('title', 'string', {
-   *   defaultValue: function () {
-   *     return 'default title'
-   *   }
-   * })
-   * ```
-   * @method attributes
-   * @static
-   * @param {Function} attr - function used to define model attributes
-   */
+    Model attributes definition.
+    This needs to be overridden to define the various
+    attributes the model will have.
+
+    Gets passed a function `attr` which should be called
+    multiple times (once for each attribute)
+
+    Example
+    ```javascript
+    attr('title', 'string')
+    ```
+
+    To specify a default value, pass an options object with an appropriate
+    default value
+
+    Example
+    ```javascript
+    attr('isAccepted', 'boolean', {
+      defaultValue: true
+    })
+    ```
+
+    The default value can also be specified via a function
+
+    Example
+    ```javascript
+    attr('title', 'string', {
+      defaultValue: function () {
+        return 'default title'
+      }
+    })
+    ```
+    @method attributes
+    @static
+    @public
+    @param {Function} attr - function used to define model attributes
+  */
   static attributes (attr) {
     // override
   }
 
   /**
-   * Model relationship definition.
-   * This should be overriden to define any relationships to
-   * other models that are needed.
-   *
-   * Gets passed a function `relation` which should be called multiple times (once for each relationship)
-   * `relation` has the following signature
-   *
-   * ```
-   * relation(type, modelName, options)
-   * ```
-   *
-   * `type` can be either `belongsTo` or `hasMany`
-   * `modelName` is a models `Model.modelName` property
-   * `options` is an object which may contain any or all of the keys `name`, `keyFrom` or `keyTo`
-   *
-   * @example
-   * ```
-   * relationships (relation) {
-   *   relation('hasMany', 'comment')
-   * }
-   * ```
-   *
-   * @example
-   * ```
-   * relationships (relation) {
-   *   relation('hasMany', 'comment', {name: 'comments', keyFrom: 'id', keyTo: 'postId'})
-   * }
-   * ```
-   *
-   * If not specified, `name` is a pluralized version of the models name for `hasMany` or singular for `belongsTo`
-   * If not specified, `keyFrom` is the models `idField` for `hasMany` or a concatenation of `modelName` and the string 'Id' for `belongsTo`
-   * If not specified, `keyTo` is a concatenation of the related model's `modelName` and the string 'Id' for  for `hasMany` or the related models `idField` for `belongsTo`
-   * @method relationships
-   * @static
-   * @param {function} relation
-   */
+    Model relationship definition.
+    This should be overriden to define any relationships to
+    other models that are needed.
+
+    Gets passed a function `relation` which should be called multiple times (once for each relationship)
+    `relation` has the following signature
+
+    ```javascript
+    relation(type, modelName, options)
+    ```
+
+    `type` can be either `belongsTo` or `hasMany`
+    `modelName` is a models `Model.modelName` property
+    `options` is an object which may contain any or all of the keys `name`, `keyFrom` or `keyTo`
+
+    Example:
+    ```javascript
+    relationships (relation) {
+      relation('hasMany', 'comment')
+    }
+    ```
+
+    Example:
+    ```javascript
+    relationships (relation) {
+      relation('hasMany', 'comment', {name: 'comments', keyFrom: 'id', keyTo: 'postId'})
+    }
+    ```
+
+    If not specified, `name` is a pluralized version of the models name for `hasMany` or singular for `belongsTo`
+    If not specified, `keyFrom` is the models `idField` for `hasMany` or a concatenation of `modelName` and the string 'Id' for `belongsTo`
+    If not specified, `keyTo` is a concatenation of the related model's `modelName` and the string 'Id' for  for `hasMany` or the related models `idField` for `belongsTo`
+    @method relationships
+    @static
+    @public
+    @param {function} relation
+  */
   static relationships (relation) {
     // override
   }
 
   /**
-   * Model name matching filename (not classname)
-   * Used throughout Ash to reference the model
-   *
-   * @example
-   *  For a model class named `MyPostModel` or `MyPostsModel`, `modelName` will be `my-post`
-   *
-   * @property modelName
-   * @static
-   * @return {string} model name
-   */
+    Model name matching filename (not classname)
+    Used throughout Ash to reference the model
+
+    Example:
+     For a model class named `MyPostModel` or `MyPostsModel`, `modelName` will be `my-post`
+
+    @property modelName
+    @static
+    @public
+    @return {string} model name
+  */
   static get modelName () {
     const nameWithoutModel = this.name.replace('Model', '')
     const nameUnderscored = underscore(nameWithoutModel)
@@ -300,16 +311,17 @@ module.exports = class Model extends Base {
   }
 
   /**
-   * Table name for model of the form lowercase, pluralized with underscores separating words
-   * Calculated from models class name with `Model` stripped off the end
-   *
-   * @example
-   *  For model MyPostModel, tablename would be my_posts
-   *
-   * @property tableName
-   * @static
-   * @return {string} table name for model
-   */
+    Table name for model of the form lowercase, pluralized with underscores separating words
+    Calculated from models class name with `Model` stripped off the end
+
+    Example:
+     For model MyPostModel, tablename would be my_posts
+
+    @property tableName
+    @static
+    @public
+    @return {string} table name for model
+  */
   static get tableName () {
     const nameWithoutModel = this.name.replace('Model', '')
     const nameUnderscored = underscore(nameWithoutModel)
@@ -317,16 +329,17 @@ module.exports = class Model extends Base {
   }
 
   /**
-   * Exposes a pluralised version of the models name
-   * Matches up with jsonapi specs `type` attribute
-   *
-   * @example
-   * for a model `post`, type would be `posts`
-   *
-   * @property type
-   * @static
-   * @return {string} model type
-   */
+    Exposes a pluralised version of the models name
+    Matches up with jsonapi specs `type` attribute
+
+    Example:
+    for a model `post`, type would be `posts`
+
+    @property type
+    @static
+    @public
+    @return {string} model type
+  */
   static get type () {
     const nameWithoutModel = this.name.replace('Model', '')
     const nameUnderscored = underscore(nameWithoutModel)
@@ -335,55 +348,58 @@ module.exports = class Model extends Base {
   }
 
   /**
-   * Specifies the name of the models id field.
-   *
-   * By default the name of the models id field is 'id'
-   *
-   * This method can be overridden to specify a different name to use for the models id
-   * field in child classes.
-   *
-   * @example
-   * ```
-   * static get idField () {
-   *  return 'modelId'
-   * }
-   * ```
-   *
-   * By default id fields are of type 'number'.
-   *
-   * If another type is desired then a matching named field should be provided in the model attributes hash.
-   *
-   * @example
-   * ```
-   * static get idField () {
-   *   return 'customIdField'
-   * }
-   *
-   * static attributes (attr) {
-   *   attr('customIdField', 'string')
-   * }
-   * ```
-   * @property idField
-   * @static
-   * @return {String} - id field name
-   */
+    Specifies the name of the models id field.
+
+    By default the name of the models id field is 'id'
+
+    This method can be overridden to specify a different name to use for the models id
+    field in child classes.
+
+    Example:
+    ```javascript
+    static get idField () {
+     return 'modelId'
+    }
+    ```
+
+    By default id fields are of type 'number'.
+
+    If another type is desired then a matching named field should be provided in the model attributes hash.
+
+    Example:
+    ```javascript
+    static get idField () {
+      return 'customIdField'
+    }
+
+    static attributes (attr) {
+      attr('customIdField', 'string')
+    }
+    ```
+    @property idField
+    @static
+    @public
+    @return {String} - id field name
+  */
   static get idField () {
     return 'id'
   }
 
   /**
-   * Assumes the model to be in a new state if the models id is not present in the attributes hash
-   * @property isNew
-   * @return {Boolean} - true if model is considered new (not saved in database)
-   */
+    Assumes the model to be in a new state if the models id is not present in the attributes hash
+    @property isNew
+    @public
+    @return {Boolean} - true if model is considered new (not saved in database)
+  */
   get isNew () {
     return !this.attributes[this.constructor.idField]
   }
 
   /**
-   * @method toJSON
-   * @return {Object} - plain javascript representation of object (without relationship state)
-   */
+    @method toJSON
+    @public
+    @return {Object} - plain javascript representation of object (without relationship state)
+  */
   toJSON () {
     const relationshipsDefn = get(this, 'constructor.definition.relationships', {})
     const internal = this.attributes

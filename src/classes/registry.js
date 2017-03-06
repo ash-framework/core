@@ -2,37 +2,37 @@ const {camelCase, isPlainObject, get} = require('lodash')
 const models = new Map()
 
 /**
- * @class Registry
- * @extends Base
- * @private
- */
+  @class Registry
+  @extends Base
+  @private
+*/
 module.exports = class Registry {
   // TODO: Set which store the model
   // belongs to with Model.store =
 
   /**
-   * Sets up a given model based on it's static definition methods
-   * `attributes`, `idField` and `relationships` before adding it to the registry
-   *
-   * First creates an empty definition object on each model
-   *
-   * Next processes `attributes` creating getters and setters for each
-   * defined attribute and adding an entry to the models `definition.attributes` object
-   *
-   * Then process and setup primary key using Model.idField creating a getter
-   * and setter on the model and adding an entry to the models `definition.attributes` object
-   *
-   * Then process `relationships` creating getters and setters for each
-   * defined relationship. Relationship getters return nested data from `instance.attributes`
-   * where available and fall back to calling the appropriate relationship
-   * method to fetch the data via the adapter. Additionally adds an entry to the models `definition.relationships` object
-   *
-   * Finally adds the now setup model to the model registry
-   *
-   * @param {Object} Model
-   * @private
-   * @static
-   */
+    Sets up a given model based on it's static definition methods
+    `attributes`, `idField` and `relationships` before adding it to the registry
+
+    First creates an empty definition object on each model
+
+    Next processes `attributes` creating getters and setters for each
+    defined attribute and adding an entry to the models `definition.attributes` object
+
+    Then process and setup primary key using Model.idField creating a getter
+    and setter on the model and adding an entry to the models `definition.attributes` object
+
+    Then process `relationships` creating getters and setters for each
+    defined relationship. Relationship getters return nested data from `instance.attributes`
+    where available and fall back to calling the appropriate relationship
+    method to fetch the data via the adapter. Additionally adds an entry to the models `definition.relationships` object
+
+    Finally adds the now setup model to the model registry
+
+    @param {Model} Model
+    @private
+    @static
+  */
   static registerModel (Model) {
     // Create empty model definition object
     Model.definition = {attributes: {}, relationships: {}}
@@ -183,8 +183,10 @@ module.exports = class Registry {
   }
 
   /**
-   * @return {Map[Model]} - map of all registered model classes
-   */
+    @property models
+    @private
+    @return {Map[Model]} - map of all registered model classes
+  */
   static get models () {
     return models
   }

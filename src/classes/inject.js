@@ -4,18 +4,16 @@ const services = new Map()
 const path = require('path')
 
 /**
- *
- * @class Inject
- * @constructor
- * @private
- */
+  @class Inject
+  @private
+*/
 module.exports = class Inject {
   /**
-   * @method service
-   * @static
-   * @param {Object} context
-   * @param {String} serviceName
-   */
+    @method service
+    @static
+    @param {Object} context
+    @param {String} serviceName
+  */
   static service (context, serviceName) {
     const {request} = context
     if (!services.has(serviceName)) {
@@ -37,12 +35,12 @@ module.exports = class Inject {
   }
 
   /**
-   * Registers mixins on a class as defined by that classes static mixins method.
-   *
-   * @method mixins
-   * @static
-   * @param {Object} context instantiated object to have mixins to applied to.
-   */
+    Registers mixins on a class as defined by that classes static mixins method.
+
+    @method mixins
+    @static
+    @param {Object} context instantiated object to have mixins to applied to.
+  */
   static mixins (context) {
     const mixins = []
     context.constructor.mixins(mixin => {
