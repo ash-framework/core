@@ -3,6 +3,7 @@
 const Http = require('./http')
 const middleware = new WeakMap()
 const { singularize } = require('inflection')
+const HttpError = require('@ash-framework/http-error')
 
 /**
   The Ash route class extends the See Http class and so has access
@@ -75,9 +76,9 @@ module.exports = class Route extends Http {
     ```javascript
 
     // app/routes/my-route.js
-    const Ash = require('@ash-framework/ash')
+    import Ash from 'ash-core'
 
-    module.exports = class MyRoute extends Ash.Route {
+    export default class MyRoute extends Ash.Route {
       static middleware (register) {
         register('my-middleware')
       }
@@ -123,6 +124,12 @@ module.exports = class Route extends Http {
     if (this.request.method === 'GET') {
       if (modelId) {
         return this.store.findRecord(this.constructor.modelName, modelId)
+          .then(model => {
+            if (model === null) {
+              return Promise.reject(new HttpError(404))
+            }
+            return model
+          })
       }
       return this.store.query(this.constructor.modelName, this.query)
     } else if (this.request.method === 'POST') {
