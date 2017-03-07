@@ -30,87 +30,110 @@ const Serializer = require('./classes/serializer')
  */
 const Ash = {
   /**
-   * @property {Route} Route
-   */
+    @property {Route} Route
+    @public
+  */
   Route,
 
   /**
-   * @property {Router} Router
-   */
+    @property {Router} Router
+    @public
+  */
   Router,
 
   /**
-   * @property {Middleware} Middleware
-   */
+    @property {Middleware} Middleware
+    @public
+  */
   Middleware,
 
   /**
-   * @property {MiddlewareRouter} MiddlewareRouter
-   */
+    @property {MiddlewareRouter} MiddlewareRouter
+    @public
+  */
   MiddlewareRouter,
 
   /**
-   * Instance of the Ash logger. Should be use throughout to log as needed.
-   *
-   * Has the following methods:
-   * - log.error
-   * - log.info
-   * - log.trace
-   * - log.warn
-   * - log.debug
-   * - log.fatal
-   *
-   * @property {Object} log
-   */
+    Instance of the Ash logger. Should be use throughout to log as needed.
+
+    Has the following methods:
+    - log.error
+    - log.info
+    - log.trace
+    - log.warn
+    - log.debug
+    - log.fatal
+
+    @property {Object} log
+    @public
+  */
   log: new Log(),
 
   /**
-   * @property {Application} Application
-   */
+    @property {Application} Application
+    @public
+  */
   Application,
 
   /**
-   * @property {Mixin} Mixin
-   */
+    @property {Mixin} Mixin
+    @public
+  */
   Mixin,
 
   /**
-   * @property {Initializer} Initializer
-   */
+    @property {Initializer} Initializer
+    @public
+  */
   Initializer,
 
   /**
-   * This error should be used to throw Http related errors
-   *
-   * ```
-   *
-   * throw new Ash.HttpError(404)
-   * ```
-   *
-   * An optional message can be given
-   *
-   * ```
-   *
-   * throw new Ash.HttpError(404, 'Nothing was found, sorry about that.')
-   * ```
-   * @property {HttpError} HttpError
-   */
+    This error should be used to throw Http related errors
+
+    ```
+
+    throw new Ash.HttpError(404)
+    ```
+
+    An optional message can be given
+
+    ```
+
+    throw new Ash.HttpError(404, 'Nothing was found, sorry about that.')
+    ```
+    @property {HttpError} HttpError
+    @public
+  */
   HttpError,
 
   /**
-   * @property {ErrorHandler} ErrorHandler
-   */
+    @property {ErrorHandler} ErrorHandler
+    @public
+  */
   ErrorHandler,
 
   /**
-   * @property {Service} Service
-   */
+    @property {Service} Service
+    @public
+  */
   Service,
 
+  /**
+    @property {Model} Model
+    @public
+  */
   Model,
 
+  /**
+    @property {Adapter} Adapter
+    @public
+  */
   Adapter,
 
+  /**
+    @property {Serializer} Serializer
+    @public
+  */
   Serializer
 }
 
