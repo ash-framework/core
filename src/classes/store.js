@@ -231,7 +231,7 @@ module.exports = class Store extends Service {
   updateRecord (modelName, id, data) {
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
-    return adapter.updateRecord(Model, data)
+    return adapter.updateRecord(Model, id, data)
   }
 
   /**
