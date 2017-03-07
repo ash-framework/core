@@ -125,7 +125,7 @@ module.exports = class Adapter extends Base {
     @return {Promise} - knex query promise object
   */
   paginate (query, options = {}) {
-    const number = options.size || 0
+    const number = options.number || 0
     const size = options.size || 20
     return query.limit(size).offset(number * size - size)
   }
