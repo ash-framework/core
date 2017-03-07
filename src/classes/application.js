@@ -28,6 +28,7 @@ function loadModels (Registry, modelDir) {
     Model.store = store
     Registry.registerModel(Model)
   })
+  Registry.setupModels()
 }
 
 /**

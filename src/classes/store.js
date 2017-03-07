@@ -185,10 +185,10 @@ module.exports = class Store extends Service {
     @param {number} id
     @return {Promise}
   */
-  findRecord (modelName, id) {
+  findRecord (modelName, id, options) {
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
-    return adapter.findRecord(Model, id)
+    return adapter.findRecord(Model, id, options)
   }
 
   /**

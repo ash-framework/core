@@ -256,7 +256,7 @@ module.exports = class Adapter extends Base {
     @param {Object} options
     @return {Promise}
   */
-  query (Model, options) {
+  query (Model, options, single = false) {
     let query
     if (options.filter) {
       const translator = new QueryObjectTranslator(Model)
@@ -271,6 +271,9 @@ module.exports = class Adapter extends Base {
 
     if (options.page) query = this.paginate(query, options.page)
     if (options.sort) query = this.sort(query, options.sort)
+
+    if (single) query = query.first()
+
     if (options.include) query = this.include(Model, query, options.include, options.fields)
 
     return query
@@ -284,11 +287,11 @@ module.exports = class Adapter extends Base {
     @param {number} id
     @return {Promise}
   */
-  findRecord (Model, id) {
-    const attributes = this.fieldsForModel(Model)
-    const tableName = Model.tableName
-    return this.knex.column(attributes).first().from(tableName).where({id})
-      .then(result => result || null)
+  findRecord (Model, id, options = {}) {
+    options.filter = {[Model.idField]: id}
+    options.page = null
+    options.sort = null
+    return this.queryRecord(Model, options).then(result => result || null)
   }
 
   /**
@@ -300,7 +303,7 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   queryRecord (Model, options) {
-    return this.query(Model, options).first()
+    return this.query(Model, options, true)
   }
 
   /**

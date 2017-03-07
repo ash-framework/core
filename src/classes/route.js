@@ -124,9 +124,9 @@ module.exports = class Route extends Http {
     const modelName = this.constructor.modelName
     if (this.request.method === 'GET') {
       if (modelId) {
-        return this.store.findRecord(modelName, modelId)
+        return this.store.findRecord(modelName, modelId, this.query)
           .then(model => {
-            if (model === null) {
+            if (!model) {
               return Promise.reject(new HttpError(404))
             }
             return model
