@@ -126,11 +126,13 @@ module.exports = class Route extends Http {
       }
       return this.store.query(this.constructor.modelName, this.query)
     } else if (this.request.method === 'POST') {
-      return this.createRecord(this.constructor.modelName, this.body)
+      return this.store.createRecord(this.constructor.modelName, this.body)
     } else if (this.request.method === 'PUT') {
-      return this.updateRecord(this.constructor.modelName, modelId, this.body)
+      return this.store.updateRecord(this.constructor.modelName, modelId, this.body)
+    } else if (this.request.method === 'PATCH') {
+      return this.store.updateRecord(this.constructor.modelName, modelId, this.body)
     } else if (this.request.method === 'DELETE') {
-      return this.deleteRecord(this.constructor.modelName, modelId)
+      return this.store.deleteRecord(this.constructor.modelName, modelId)
     }
   }
 
