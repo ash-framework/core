@@ -121,9 +121,10 @@ module.exports = class Route extends Http {
   */
   model () {
     const modelId = this.params[`${this.constructor.modelName}_id`]
+    const modelName = this.constructor.modelName
     if (this.request.method === 'GET') {
       if (modelId) {
-        return this.store.findRecord(this.constructor.modelName, modelId)
+        return this.store.findRecord(modelName, modelId)
           .then(model => {
             if (model === null) {
               return Promise.reject(new HttpError(404))
@@ -131,15 +132,27 @@ module.exports = class Route extends Http {
             return model
           })
       }
-      return this.store.query(this.constructor.modelName, this.query)
+      return this.store.query(modelName, this.query)
     } else if (this.request.method === 'POST') {
-      return this.store.createRecord(this.constructor.modelName, this.body)
+      return this.store.createRecord(modelName, this.body)
     } else if (this.request.method === 'PUT') {
-      return this.store.updateRecord(this.constructor.modelName, modelId, this.body)
+      if (!modelId) return
+      return this.store.updateRecord(modelName, modelId, this.body)
+        .catch(() => {
+          return Promise.reject(new HttpError(404))
+        })
     } else if (this.request.method === 'PATCH') {
-      return this.store.updateRecord(this.constructor.modelName, modelId, this.body)
+      if (!modelId) return
+      return this.store.updateRecord(modelName, modelId, this.body)
+        .catch(() => {
+          return Promise.reject(new HttpError(404))
+        })
     } else if (this.request.method === 'DELETE') {
-      return this.store.deleteRecord(this.constructor.modelName, modelId)
+      if (!modelId) return
+      return this.store.deleteRecord(modelName, modelId)
+        .catch(() => {
+          return Promise.reject(new HttpError(404))
+        })
     }
   }
 

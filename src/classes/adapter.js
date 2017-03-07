@@ -313,7 +313,8 @@ module.exports = class Adapter extends Base {
   */
   createRecord (Model, data) {
     const tableName = Model.tableName
-    return this.knex(tableName).insert(data)
+    return this.knex(tableName).insert(data, '*')
+      .then(results => results[0])
   }
 
   /**
@@ -327,7 +328,13 @@ module.exports = class Adapter extends Base {
   */
   updateRecord (Model, id, data) {
     const tableName = Model.tableName
-    return this.knex(tableName).update(data).where('id', id)
+    return this.knex(tableName).update(data, '*').where('id', id)
+      .then(results => {
+        if (results.length === 0) {
+          return Promise.reject(new Error('Record not found'))
+        }
+        return results[0]
+      })
   }
 
   /**
@@ -341,5 +348,10 @@ module.exports = class Adapter extends Base {
   deleteRecord (Model, id) {
     const tableName = Model.tableName
     return this.knex(tableName).where('id', id).delete()
+      .then(numAffected => {
+        if (numAffected === 0) {
+          return Promise.reject(new Error('Record not found'))
+        }
+      })
   }
 }

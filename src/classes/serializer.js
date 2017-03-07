@@ -38,6 +38,7 @@ module.exports = class Serializer extends Base {
     @return {Object}
   */
   serialize (Model, data, options) {
+    if (!data) return null
     const LoopbackModel = translateToLoopbackModel(Model)
     return serializer(data, LoopbackModel, options)
   }
