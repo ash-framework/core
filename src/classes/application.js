@@ -13,15 +13,19 @@ const cors = require('cors')
 const helmet = require('helmet')
 const bodyparser = require('body-parser')
 const Registry = require('./registry')
+const ClassResolver = require('./class-resolver')
 
 const _app = new WeakMap()
 
 function loadModels (Registry, modelDir) {
   const modelFiles = fs.readdirSync(modelDir)
+  const Store = ClassResolver.resolve('store')
+  const store = new Store()
   modelFiles.forEach(modelFile => {
     if (modelFile.indexOf('.js') === -1) return
     const Module = require(modelDir + '/' + modelFile)
     const Model = (Module.__esModule) ? Module.default : Module
+    Model.store = store
     Registry.registerModel(Model)
   })
 }

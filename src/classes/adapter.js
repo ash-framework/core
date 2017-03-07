@@ -1,6 +1,7 @@
 const Base = require('./base')
 const Knex = require('knex')
 const {get} = require('lodash')
+const QueryObjectTranslator = require('./query-object-translator')
 
 /**
   @class Adapter
@@ -256,13 +257,22 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   query (Model, options) {
-    let query = this.knex.select().from(Model.tableName)
+    let query
+    if (options.filter) {
+      const translator = new QueryObjectTranslator(Model)
+      query = translator.translate(options.filter)
+    } else {
+      query = this.knex.select().from(Model.tableName)
+    }
+
     let attributes = this.fieldsForModel(Model)
     if (options.fields) attributes = this.limitFieldSet(Model, attributes, options.fields)
     query = query.column(attributes)
+
     if (options.page) query = this.paginate(query, options.page)
     if (options.sort) query = this.sort(query, options.sort)
     if (options.include) query = this.include(Model, query, options.include, options.fields)
+
     return query
   }
 
