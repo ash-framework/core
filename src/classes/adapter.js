@@ -102,13 +102,15 @@ module.exports = class Adapter extends Base {
     @param {Object} options
     @return {Array} attributes
   */
-  limitFieldSet (Model, attributes, options = {}) {
+  limitFieldSet (Model, attributes = [], options = {}) {
+    const originalAttributes = attributes
     const types = Object.keys(options)
     if (types.indexOf(Model.type) !== -1) {
       const fields = options[Model.type].split(',').map(field => field.trim())
-      for (const attr of attributes) {
-        if (fields.indexOf(attr) === -1) {
-          attributes.splice(attributes.indexOf(attr))
+      attributes = []
+      for (const attr of originalAttributes) {
+        if (fields.indexOf(attr) !== -1) {
+          attributes.push(attr)
         }
       }
     }
