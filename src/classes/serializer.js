@@ -3,6 +3,7 @@
 const Base = require('./base')
 const serializer = require('loopback-jsonapi-model-serializer')
 const loopback = require('loopback')
+const ds = loopback.createDataSource('memory')
 
 /**
   Translates an Ash model definition to a loopback definition
@@ -10,15 +11,22 @@ const loopback = require('loopback')
   @param {Object} Model
 */
 function translateToLoopbackModel (Model) {
-  const LoopbackModel = loopback.createModel({
-    name: Model.name,
-    properties: Model.definition.attributes,
-    relations: Model.definition.relations
-  })
+  const LoopbackModel = ds.createModel(Model.name, Model.definition.attributes)
   LoopbackModel.pluralModelName = Model.type
 
-  const ds = loopback.createDataSource('memory')
-  ds.attach(LoopbackModel)
+  Object.keys(Model.definition.relationships).forEach(relationshipName => {
+    const relatedModelName = Model.definition.relationships[relationshipName].modelTo
+    const RelatedModel = Model.store.modelFor(relatedModelName)
+
+    const RelatedLoopbackModel = ds.createModel(RelatedModel.name, RelatedModel.definition.attributes)
+    RelatedLoopbackModel.pluralModelName = RelatedModel.type
+
+    if (Model.definition.relationships[relationshipName].type === 'belongsTo') {
+      LoopbackModel.belongsTo(RelatedLoopbackModel)
+    } else {
+      LoopbackModel.hasMany(RelatedLoopbackModel)
+    }
+  })
 
   return LoopbackModel
 }
