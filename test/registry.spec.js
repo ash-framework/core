@@ -17,6 +17,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel(expected)
 
       // Then
@@ -35,6 +36,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel(expected)
 
       // Then
@@ -52,6 +54,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel()
       post.title = 'my title'
       post.description = 'my description'
@@ -69,6 +72,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel(expected)
 
       // Then
@@ -83,6 +87,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel()
       post.id = 1
 
@@ -99,6 +104,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel({id: 'one'})
 
       // Then
@@ -117,6 +123,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel()
       post.id = 'one'
 
@@ -136,6 +143,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const post = new PostModel()
 
       // Then
@@ -151,6 +159,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
 
       // Then
@@ -165,7 +174,10 @@ describe('registry', () => {
       }
 
       // When/Then
-      expect(() => (Registry.registerModel(PostModel))).toThrow()
+      expect(() => {
+        Registry.registerModel(PostModel)
+        Registry.setupModels()
+      }).toThrow()
     })
     test('function attribute default is not invalid', () => {
       // Given
@@ -197,6 +209,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
 
       // Then
       expect(PostModel.definition.relationships).toEqual({
@@ -218,6 +231,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
 
       // Then
       expect(PostModel.definition.relationships).toEqual({
@@ -239,6 +253,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
 
       // Then
       expect(PostModel.definition.relationships).toEqual({
@@ -260,6 +275,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
 
       // Then
       expect(PostModel.definition.relationships).toEqual({
@@ -281,6 +297,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
 
       // Then
       expect(PostModel.definition.relationships).toEqual({
@@ -302,6 +319,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(MyPostModel)
+      Registry.setupModels()
 
       // Then
       expect(MyPostModel.definition.relationships).toEqual({
@@ -324,6 +342,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel({comments: [{}, {}]})
       const comments = await model.comments
 
@@ -347,6 +366,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel({author: {}})
       const author = await model.author
 
@@ -370,6 +390,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel({id: 1})
       const comments = await model.comments
 
@@ -397,6 +418,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel({id: 1, authorId: 10})
       const author = await model.author
 
@@ -422,6 +444,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
       const comments = await model.comments
 
@@ -445,6 +468,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
       const author = await model.author
 
@@ -468,6 +492,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel({id: 1})
       const comments = await model.comments
 
@@ -491,6 +516,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel({id: 1})
       const author = await model.author
 
@@ -513,6 +539,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
       model.comments = [new CommentModel()]
       const comments = await model.comments
@@ -538,6 +565,7 @@ describe('registry', () => {
 
       // When / Then
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
       expect(() => (model.comments = {})).toThrow()
     })
@@ -557,6 +585,7 @@ describe('registry', () => {
 
       // When / Then
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
       expect(() => (model.author = [])).toThrow()
     })
@@ -576,6 +605,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.setupModels()
       const model = new PostModel()
       model.author = new AuthorModel({id: 11})
 
