@@ -120,45 +120,7 @@ module.exports = class Route extends Http {
     @public
   */
   model () {
-    const modelId = this.params[`${this.constructor.modelName}_id`]
-    const modelName = this.constructor.modelName
-    if (this.request.method === 'GET') {
-      if (modelId) {
-        return this.store.findRecord(modelName, modelId, this.query)
-          .then(model => {
-            if (!model) {
-              return Promise.reject(new HttpError(404))
-            }
-            if (this.request.baseUrl === '') return model
-            return Promise.reject(new Error(`Nested route '${this.constructor.name}' must implement model hook`))
-          })
-      }
-      return this.store.query(modelName, this.query)
-        .then(records => {
-          if (this.request.baseUrl === '') return records
-          return Promise.reject(new Error(`Nested route '${this.constructor.name}' must implement model hook`))
-        })
-    } else if (this.request.method === 'POST') {
-      return this.store.createRecord(modelName, this.body)
-    } else if (this.request.method === 'PUT') {
-      if (!modelId) return
-      return this.store.updateRecord(modelName, modelId, this.body)
-        .catch(() => {
-          return Promise.reject(new HttpError(404))
-        })
-    } else if (this.request.method === 'PATCH') {
-      if (!modelId) return
-      return this.store.updateRecord(modelName, modelId, this.body)
-        .catch(() => {
-          return Promise.reject(new HttpError(404))
-        })
-    } else if (this.request.method === 'DELETE') {
-      if (!modelId) return
-      return this.store.deleteRecord(modelName, modelId)
-        .catch(() => {
-          return Promise.reject(new HttpError(404))
-        })
-    }
+    return Promise.reject(`Route '${this.constructor.name}' must implement model () {} hook.`)
   }
 
   /**
