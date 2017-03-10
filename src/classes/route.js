@@ -129,10 +129,15 @@ module.exports = class Route extends Http {
             if (!model) {
               return Promise.reject(new HttpError(404))
             }
-            return model
+            if (this.request.baseUrl === '') return model
+            return Promise.reject(new Error(`Nested route '${this.constructor.name}' must implement model hook`))
           })
       }
       return this.store.query(modelName, this.query)
+        .then(records => {
+          if (this.request.baseUrl === '') return records
+          return Promise.reject(new Error(`Nested route '${this.constructor.name}' must implement model hook`))
+        })
     } else if (this.request.method === 'POST') {
       return this.store.createRecord(modelName, this.body)
     } else if (this.request.method === 'PUT') {
