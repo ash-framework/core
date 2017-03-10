@@ -49,7 +49,7 @@ module.exports = class Adapter extends Base {
   */
   include (Model, query, includeString = '', fieldOptions) {
     return query.then(data => {
-      data = Object.assign({}, data)
+      data = JSON.parse(JSON.stringify(data))
       let single = false
       if (!Array.isArray(data)) {
         single = true
@@ -95,9 +95,9 @@ module.exports = class Adapter extends Base {
           })
         })
         if (single) {
-          return Object.assign({}, data[0])
+          data = data[0]
         }
-        return Object.assign({}, data)
+        return JSON.parse(JSON.stringify(data))
       })
     })
   }
