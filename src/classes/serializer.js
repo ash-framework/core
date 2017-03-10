@@ -4,6 +4,7 @@ const Base = require('./base')
 const serializer = require('loopback-jsonapi-model-serializer')
 const loopback = require('loopback')
 const ds = loopback.createDataSource('memory')
+const path = require('path')
 
 /**
   Translates an Ash model definition to a loopback definition
@@ -11,14 +12,14 @@ const ds = loopback.createDataSource('memory')
   @param {Object} Model
 */
 function translateToLoopbackModel (Model) {
-  const LoopbackModel = ds.createModel(Model.name, Model.definition.attributes)
+  const LoopbackModel = ds.createModel(Model.modelName, Object.assign({}, Model.definition.attributes))
   LoopbackModel.pluralModelName = Model.type
 
   Object.keys(Model.definition.relationships).forEach(relationshipName => {
     const relatedModelName = Model.definition.relationships[relationshipName].modelTo
     const RelatedModel = Model.store.modelFor(relatedModelName)
 
-    const RelatedLoopbackModel = ds.createModel(RelatedModel.name, Object.assign({}, RelatedModel.definition.attributes))
+    const RelatedLoopbackModel = ds.createModel(RelatedModel.modelName, Object.assign({}, RelatedModel.definition.attributes))
     RelatedLoopbackModel.pluralModelName = RelatedModel.type
 
     if (Model.definition.relationships[relationshipName].type === 'belongsTo') {
@@ -48,6 +49,7 @@ module.exports = class Serializer extends Base {
   serialize (Model, data, options) {
     if (!data) return null
     const LoopbackModel = translateToLoopbackModel(Model)
-    return serializer(data, LoopbackModel, options)
+    const config = require(path.join(process.cwd(), 'config', 'environment'))(process.env)
+    return serializer(data, LoopbackModel, Object.assign({}, {baseUrl: `${config.host}:${config.port}`}, options))
   }
 }
