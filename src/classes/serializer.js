@@ -18,7 +18,7 @@ function translateToLoopbackModel (Model) {
     const relatedModelName = Model.definition.relationships[relationshipName].modelTo
     const RelatedModel = Model.store.modelFor(relatedModelName)
 
-    const RelatedLoopbackModel = ds.createModel(RelatedModel.name, RelatedModel.definition.attributes)
+    const RelatedLoopbackModel = ds.createModel(RelatedModel.name, Object.assign({}, RelatedModel.definition.attributes))
     RelatedLoopbackModel.pluralModelName = RelatedModel.type
 
     if (Model.definition.relationships[relationshipName].type === 'belongsTo') {

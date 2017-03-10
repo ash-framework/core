@@ -116,9 +116,17 @@ module.exports = class Registry {
         const defn = {type, modelFrom: Model.modelName, modelTo: modelName, keyFrom, keyTo}
         Model.definition.relationships[name] = defn
 
-        // define keyFrom (eg. postId) if not explicitly defined using `attr()` function
-        if (!Model.definition.attributes[defn.keyFrom]) {
-          Model.definition.attributes[defn.keyFrom] = {type: 'number'}
+        if (type === 'belongsTo') {
+          // define keyFrom (eg. postId) if not explicitly defined using `attr()` function
+          if (!Model.definition.attributes[defn.keyFrom]) {
+            Model.definition.attributes[defn.keyFrom] = {type: 'number'}
+          }
+        }
+
+        if (type === 'hasMany') {
+          if (!RelatedModel.definition.attributes[defn.keyTo]) {
+            RelatedModel.definition.attributes[defn.keyTo] = {type: 'number'}
+          }
         }
 
         // define properties with getters/setters for each attribute
