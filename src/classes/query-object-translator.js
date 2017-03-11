@@ -122,6 +122,9 @@ module.exports = class QueryObjectTranslator {
       case '$contained':
         this.addClause('where', [colName, '<@', value], isOr)
         break
+      case '$null':
+        this.addClause('whereNull', [colName], isOr)
+        break
       // default should throw error 'Unknown operator'
     }
   }
@@ -182,7 +185,7 @@ module.exports = class QueryObjectTranslator {
   handleFilter (filter, colName, isOr) {
     let iterationCount = 0
     for (const key of Object.keys(filter)) {
-      const value = filter[key]
+      let value = filter[key]
       if (iterationCount++ > 0) isOr = undefined
       if (key[0] === '$') {
         // its an operator
@@ -194,14 +197,18 @@ module.exports = class QueryObjectTranslator {
         // its not an operator so it is a column name
         colName = key
 
-        // if its not an object then this is a simple equality operation
-        if (typeof value !== 'object') {
-          if (this.validateColumnName(colName)) {
-            this.operatorFilter(colName, '$eq', value, isOr)
-          }
+        if (value === null) {
+          this.operatorFilter(colName, '$null', null, isOr)
         } else {
-          // value is actually a filter, and possibly need the colName for operator case
-          this.buildQuery(value, colName, isOr)
+          // if its not an object then this is a simple equality operation
+          if (typeof value !== 'object') {
+            if (this.validateColumnName(colName)) {
+              this.operatorFilter(colName, '$eq', value, isOr)
+            }
+          } else {
+            // value is actually a filter, and possibly need the colName for operator case
+            this.buildQuery(value, colName, isOr)
+          }
         }
       }
     }

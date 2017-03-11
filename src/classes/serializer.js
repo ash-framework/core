@@ -47,7 +47,7 @@ module.exports = class Serializer extends Base {
     @return {Object}
   */
   serialize (Model, data, options) {
-    if (!data) return null
+    if (!data) return {data: null}
     const LoopbackModel = translateToLoopbackModel(Model)
     const config = require(path.join(process.cwd(), 'config', 'environment'))(process.env)
     return serializer(data, LoopbackModel, Object.assign({}, {baseUrl: `${config.host}:${config.port}`}, options))
