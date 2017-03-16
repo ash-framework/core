@@ -209,6 +209,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
 
       // Then
@@ -253,6 +254,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
 
       // Then
@@ -275,6 +277,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
 
       // Then
@@ -297,6 +300,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
 
       // Then
@@ -319,6 +323,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(MyPostModel)
+      Registry.registerModel(MyCustomCommentModel)
       Registry.setupModels()
 
       // Then
@@ -342,6 +347,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
       const model = new PostModel({comments: [{}, {}]})
       const comments = await model.comments
@@ -390,6 +396,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
       const model = new PostModel({id: 1})
       const comments = await model.comments
@@ -444,6 +451,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
       const model = new PostModel()
       const comments = await model.comments
@@ -492,6 +500,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
       const model = new PostModel({id: 1})
       const comments = await model.comments
@@ -539,6 +548,7 @@ describe('registry', () => {
 
       // When
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
       const model = new PostModel()
       model.comments = [new CommentModel()]
@@ -565,6 +575,7 @@ describe('registry', () => {
 
       // When / Then
       Registry.registerModel(PostModel)
+      Registry.registerModel(CommentModel)
       Registry.setupModels()
       const model = new PostModel()
       expect(() => (model.comments = {})).toThrow()
