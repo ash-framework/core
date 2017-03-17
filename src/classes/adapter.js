@@ -4,6 +4,7 @@ const {get} = require('lodash')
 const QueryObjectTranslator = require('./query-object-translator')
 const Log = require('@ash-framework/log')
 const log = new Log()
+const {underscore} = require('inflection')
 
 /**
   @class Adapter
@@ -52,6 +53,16 @@ module.exports = class Adapter extends Base {
     return Object.keys(get(Model, 'definition.attributes'), {})
   }
 
+  databaseFieldsForModel (Model) {
+    return this.fieldsForModel(Model).map(field => underscore(field))
+  }
+
+  columnsForModel (Model) {
+    const modelAttrs = this.fieldsForModel(Model)
+    const databaseAttrs = this.databaseFieldsForModel(Model)
+    return databaseAttrs.map((dbAttr, i) => `${dbAttr} as ${modelAttrs[i]}`)
+  }
+
   /**
     @method include
     @private
@@ -78,9 +89,17 @@ module.exports = class Adapter extends Base {
         if (!RelatedModel) return
         let query = this.knex(RelatedModel.tableName)
 
-        let attributes = this.fieldsForModel(RelatedModel)
+        let attributes = this.columnsForModel(Model)
         if (fieldOptions) attributes = this.limitFieldSet(RelatedModel, attributes, fieldOptions)
         query = query.column(attributes)
+
+        let columns = []
+        if (fieldOptions && fieldOptions[RelatedModel.type]) {
+          columns = this.limitFieldSet(RelatedModel, fieldOptions[RelatedModel.type])
+        } else {
+          columns = this.columnsForModel(RelatedModel)
+        }
+        query = query.column(columns)
 
         let ids = data.map(item => item[definition.keyFrom])
         query = query.whereIn(definition.keyTo, ids)
@@ -124,19 +143,24 @@ module.exports = class Adapter extends Base {
     @param {Object} options
     @return {Array} attributes
   */
-  limitFieldSet (Model, attributes = [], options = {}) {
-    const originalAttributes = attributes
-    const types = Object.keys(options)
-    if (types.indexOf(Model.type) !== -1) {
-      const fields = options[Model.type].split(',').map(field => field.trim())
-      attributes = []
-      for (const attr of originalAttributes) {
-        if (fields.indexOf(attr) !== -1) {
-          attributes.push(attr)
-        }
-      }
+  limitFieldSet (Model, fieldNames = '') {
+    // convert and clean string => array
+    fieldNames = fieldNames.split(',').map(field => field.trim())
+
+    // always include id field
+    if (fieldNames.indexOf(Model.idField) === -1) {
+      fieldNames.push(Model.idField)
     }
-    return attributes
+
+    // create a field map from model attr name to db column name eg. {myTitle => my_title, etc}
+    const modelFields = this.fieldsForModel(Model)
+    const dbFields = this.databaseFieldsForModel(Model)
+    const fieldMap = modelFields.map((modelField, i) => ({nameForModel: modelField, nameForDb: dbFields[i]}))
+
+    // filter out using fieldNames and return array of strings ['my_title as myTitle', etc]
+    return fieldMap
+      .filter(fieldMapping => fieldNames.indexOf(fieldMapping.nameForModel) !== -1)
+      .map(fieldMapping => `${fieldMapping.nameForDb} as ${fieldMapping.nameForModel}`)
   }
 
   /**
@@ -180,9 +204,8 @@ module.exports = class Adapter extends Base {
     log.trace(`Adapter: running findAll for '${Model.modelName}' models`)
     return this.checkConnection()
       .then(() => {
-        const attributes = this.fieldsForModel(Model)
-        const tableName = Model.tableName
-        return this.knex.column(attributes).select().from(tableName)
+        const attributes = this.columnsForModel(Model)
+        return this.knex.column(attributes).select().from(Model.tableName)
       })
   }
 
@@ -295,9 +318,13 @@ module.exports = class Adapter extends Base {
           query = this.knex.select().from(Model.tableName)
         }
 
-        let attributes = this.fieldsForModel(Model)
-        if (options.fields) attributes = this.limitFieldSet(Model, attributes, options.fields)
-        query = query.column(attributes)
+        let columns = []
+        if (options.fields && options.fields[Model.type]) {
+          columns = this.limitFieldSet(Model, options.fields[Model.type])
+        } else {
+          columns = this.columnsForModel(Model)
+        }
+        query = query.column(columns)
 
         if (options.page) query = this.paginate(query, options.page)
         if (options.sort) query = this.sort(query, options.sort)
