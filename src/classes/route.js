@@ -3,7 +3,6 @@
 const Http = require('./http')
 const middleware = new WeakMap()
 const { singularize } = require('inflection')
-const HttpError = require('@ash-framework/http-error')
 
 /**
   The Ash route class extends the See Http class and so has access

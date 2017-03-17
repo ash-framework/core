@@ -6,7 +6,7 @@ describe('serializer', () => {
     it('when given a model definition and payload it should serialize payload', () => {
       // Given
       const Post = {
-        name: 'Post',
+        modelName: 'Post',
         type: 'posts',
         tableName: 'posts',
         definition: {
