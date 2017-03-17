@@ -182,11 +182,11 @@ module.exports = class Application extends Base {
 
     const log = new Log()
 
-    log.trace('Ash server creating express app instance')
+    log.trace('Boot: creating express app instance')
     const app = express()
     _app.set(this, app)
 
-    log.trace('Ash server loading cors middleware')
+    log.trace('Boot: loading cors middleware')
     if (typeof config.cors === 'object') {
       if (config.cors.preFlight === true) {
         app.options('*', cors(Object.assign({}, config.cors)))
@@ -195,11 +195,11 @@ module.exports = class Application extends Base {
     }
 
     if (config.helmet !== false) {
-      log.trace('Ash server loading security middleware')
+      log.trace('Boot: loading security middleware')
       app.use(helmet())
     }
 
-    log.trace('Ash server adding body parsing middleware')
+    log.trace('Boot: adding body parsing middleware')
     const bodyParserOptions = config.bodyParser || {}
     if (typeof bodyParserOptions.json === 'object') {
       app.use(bodyparser.json(bodyParserOptions.json))
@@ -218,7 +218,7 @@ module.exports = class Application extends Base {
     if (fs.existsSync(initializerDir)) {
       const initializers = fs.readdirSync(initializerDir).filter(file => file.indexOf('.js') !== -1)
       if (initializers.length > 0) {
-        log.trace('Ash server loading initializers')
+        log.trace('Boot: loading initializers')
         initializers.forEach(initializerName => {
           const Module = require(initializerDir + '/' + initializerName)
           const Initializer = (Module.__esModule) ? Module.default : Module
@@ -228,32 +228,28 @@ module.exports = class Application extends Base {
       }
     }
 
-    log.trace('Ash server loading models')
+    log.trace('Boot: loading models')
     const modelDir = path.join(process.cwd(), 'app/models')
     loadModels(Registry, modelDir)
 
-    log.trace('Ash server loading middleware')
+    log.trace('Boot: loading middleware')
     const middlewareDir = path.join(process.cwd(), 'app/middleware')
     loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
 
-    log.trace('Ash server loading routes')
+    log.trace('Boot: loading routes')
     const options = {routesDir: path.join(process.cwd(), 'app/routes')}
     app.use(createRoutes(Router.definition, options))
 
-    log.trace('Ash server registering 404 handler')
+    log.trace('Boot: registering 404 handler')
     app.use(function (request, response, next) {
       next(new HttpError(404))
     })
 
-    log.trace('Ash server registering error handler')
+    log.trace('Boot: registering error handler')
     app.use(function (err, request, response, next) {
+      log.error(err)
       if (!err.stack) {
-        err = new HttpError(err)
-      }
-      if (err.status === 404) {
-        log.warn(`${request.method} ${request.originalUrl} 404 ${err.message}`)
-      } else {
-        log.error(err.stack)
+        err = new HttpError(500)
       }
       let errorHandler
       const customErrorHandler = path.join(process.cwd(), 'app') + '/error-handler.js'
@@ -267,7 +263,7 @@ module.exports = class Application extends Base {
     })
 
     app.listen(config.port, function () {
-      log.trace(`Ash server started on port ${config.port}`)
+      log.trace(`Boot: started on port ${config.port}`)
     })
   }
 }

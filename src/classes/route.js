@@ -119,7 +119,8 @@ module.exports = class Route extends Http {
     @public
   */
   model () {
-    return Promise.reject(new Error(`Route '${this.constructor.name}' must implement model () {} hook.`))
+    const msg = `Route '${this.constructor.name}': model hook error. You must implement a model hook`
+    return Promise.reject(msg)
   }
 
   /**
@@ -168,7 +169,7 @@ module.exports = class Route extends Http {
     @return {any} error
   */
   error (error) {
-    return error
+    return Promise.reject(error)
   }
 
   /**

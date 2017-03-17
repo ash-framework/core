@@ -2,6 +2,8 @@ const Base = require('./base')
 const Knex = require('knex')
 const {get} = require('lodash')
 const QueryObjectTranslator = require('./query-object-translator')
+const Log = require('@ash-framework/log')
+const log = new Log()
 
 /**
   @class Adapter
@@ -25,6 +27,18 @@ module.exports = class Adapter extends Base {
       connection: options,
       searchPath: 'knex,public'
     })
+  }
+
+  checkConnection () {
+    if (this.isConnected) return Promise.resolve()
+    return this.knex.raw('SELECT 1 = 1;')
+      .then(() => {
+        this.isConnected = true
+      })
+      .catch((err) => {
+        this.isConnected = false
+        return Promise.reject(`Adapter: database connection failed. Did you set connection values in 'config/environment.js'?`)
+      })
   }
 
   /**
@@ -163,9 +177,13 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   findAll (Model) {
-    const attributes = this.fieldsForModel(Model)
-    const tableName = Model.tableName
-    return this.knex.column(attributes).select().from(tableName)
+    log.trace(`Adapter: running findAll for '${Model.modelName}' models`)
+    return this.checkConnection()
+      .then(() => {
+        const attributes = this.fieldsForModel(Model)
+        const tableName = Model.tableName
+        return this.knex.column(attributes).select().from(tableName)
+      })
   }
 
   /**
@@ -264,26 +282,32 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   query (Model, options, single = false) {
-    let query
-    if (options.filter) {
-      const translator = new QueryObjectTranslator(Model)
-      query = translator.translate(options.filter)
-    } else {
-      query = this.knex.select().from(Model.tableName)
+    if (!single) {
+      log.trace(`Adapter: running query for '${Model.modelName}' models. Called with options ${JSON.stringify(options)}`)
     }
+    return this.checkConnection()
+      .then(() => {
+        let query
+        if (options.filter) {
+          const translator = new QueryObjectTranslator(Model)
+          query = translator.translate(options.filter)
+        } else {
+          query = this.knex.select().from(Model.tableName)
+        }
 
-    let attributes = this.fieldsForModel(Model)
-    if (options.fields) attributes = this.limitFieldSet(Model, attributes, options.fields)
-    query = query.column(attributes)
+        let attributes = this.fieldsForModel(Model)
+        if (options.fields) attributes = this.limitFieldSet(Model, attributes, options.fields)
+        query = query.column(attributes)
 
-    if (options.page) query = this.paginate(query, options.page)
-    if (options.sort) query = this.sort(query, options.sort)
+        if (options.page) query = this.paginate(query, options.page)
+        if (options.sort) query = this.sort(query, options.sort)
 
-    if (single) query = query.first()
+        if (single) query = query.first()
 
-    if (options.include) query = this.include(Model, query, options.include, options.fields)
+        if (options.include) query = this.include(Model, query, options.include, options.fields)
 
-    return query
+        return query
+      })
   }
 
   /**
@@ -295,10 +319,14 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   findRecord (Model, id, options = {}) {
-    options.filter = {[Model.idField]: id}
-    options.page = null
-    options.sort = null
-    return this.queryRecord(Model, options).then(result => result || null)
+    log.trace(`Adapter: running findRecord for '${Model.modelName}' model with id = ${id} and options ${JSON.stringify(options)}`)
+    return this.checkConnection()
+      .then(() => {
+        options.filter = {[Model.idField]: id}
+        options.page = null
+        options.sort = null
+        return this.queryRecord(Model, options).then(result => result || null)
+      })
   }
 
   /**
@@ -310,7 +338,11 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   queryRecord (Model, options) {
-    return this.query(Model, options, true)
+    log.trace(`Adapter: running queryRecord for '${Model.modelName}' model with options ${JSON.stringify(options)}`)
+    return this.checkConnection()
+      .then(() => {
+        return this.query(Model, options, true)
+      })
   }
 
   /**
@@ -322,9 +354,13 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   createRecord (Model, data) {
-    const tableName = Model.tableName
-    return this.knex(tableName).insert(data, '*')
-      .then(results => results[0])
+    log.trace(`Adapter: running createRecord for '${Model.modelName}' model with data ${JSON.stringify(data)}`)
+    return this.checkConnection()
+      .then(() => {
+        const tableName = Model.tableName
+        return this.knex(tableName).insert(data, '*')
+          .then(results => results[0])
+      })
   }
 
   /**
@@ -337,13 +373,17 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   updateRecord (Model, id, data) {
-    const tableName = Model.tableName
-    return this.knex(tableName).update(data, '*').where('id', id)
-      .then(results => {
-        if (results.length === 0) {
-          return Promise.reject(new Error('Record not found'))
-        }
-        return results[0]
+    log.trace(`Adapter: running updateRecord for '${Model.modelName}' model with id = ${id} and data ${JSON.stringify(data)}`)
+    return this.checkConnection()
+      .then(() => {
+        const tableName = Model.tableName
+        return this.knex(tableName).update(data, '*').where('id', id)
+          .then(results => {
+            if (results.length === 0) {
+              return Promise.reject(new Error('Record not found'))
+            }
+            return results[0]
+          })
       })
   }
 
@@ -356,12 +396,16 @@ module.exports = class Adapter extends Base {
     @return {Promise}
   */
   deleteRecord (Model, id) {
-    const tableName = Model.tableName
-    return this.knex(tableName).where('id', id).delete()
-      .then(numAffected => {
-        if (numAffected === 0) {
-          return Promise.reject(new Error('Record not found'))
-        }
+    log.trace(`Adapter: running deleteRecord for '${Model.modelName}' model with id = ${id}`)
+    return this.checkConnection()
+      .then(() => {
+        const tableName = Model.tableName
+        return this.knex(tableName).where('id', id).delete()
+          .then(numAffected => {
+            if (numAffected === 0) {
+              return Promise.reject(new Error('Record not found'))
+            }
+          })
       })
   }
 }
