@@ -36,7 +36,7 @@ module.exports = class Adapter extends Base {
       .then(() => {
         this.isConnected = true
       })
-      .catch((err) => {
+      .catch(() => {
         this.isConnected = false
         return Promise.reject(`Adapter: database connection failed. Did you set connection values in 'config/environment.js'?`)
       })
