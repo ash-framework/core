@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/registry.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/registry.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+const {camelCase, isPlainObject, get} = require(&#x27;lodash&#x27;)
+const models = new Map()
+
+/**
+  @class Registry
+  @extends Base
+  @private
+*/
+module.exports = class Registry {
+  // TODO: Set which store the model
+  // belongs to with Model.store =
+
+  static registerModel (Model) {
+    // Create empty model definition object
+    Model.definition = {attributes: {}, relationships: {}}
+
+    // Add model to registry
+    models.set(Model.modelName, Model)
+  }
+
+  /**
+    Sets up a given model based on it&#x27;s static definition methods
+    &#x60;attributes&#x60;, &#x60;idField&#x60; and &#x60;relationships&#x60; before adding it to the registry
+
+    First creates an empty definition object on each model
+
+    Next processes &#x60;attributes&#x60; creating getters and setters for each
+    defined attribute and adding an entry to the models &#x60;definition.attributes&#x60; object
+
+    Then process and setup primary key using Model.idField creating a getter
+    and setter on the model and adding an entry to the models &#x60;definition.attributes&#x60; object
+
+    Then process &#x60;relationships&#x60; creating getters and setters for each
+    defined relationship. Relationship getters return nested data from &#x60;instance.attributes&#x60;
+    where available and fall back to calling the appropriate relationship
+    method to fetch the data via the adapter. Additionally adds an entry to the models &#x60;definition.relationships&#x60; object
+
+    Finally adds the now setup model to the model registry
+
+    @param {Model} Model
+    @private
+    @static
+  */
+  static setupModels () {
+    for (const entry of models) {
+      const Model = entry[1]
+
+      // Process attributes
+      if (Model.attributes) {
+        Model.attributes(function (name, type, options = {}) {
+          if (options.defaultValue) {
+            if (typeof options.defaultValue !== type &amp;&amp; typeof options.defaultValue !== &#x27;function&#x27;) {
+              throw new Error(&#x60;Invalid value given for &#x27;defaultValue&#x27; Expected ${type} or function, got ${typeof options.defaultValue}&#x60;)
+            }
+          }
+
+          // create attributes metadata object
+          options.type = type
+          Model.definition.attributes[name] = options
+
+          // define properties with getters/setters for each attribute
+          Reflect.defineProperty(Model.prototype, name, {
+            get () {
+              const type = get(this, &#x60;constructor.definition.attributes.${name}.type&#x60;)
+              if (type === &#x27;date&#x27;) {
+                return new Date(this.attributes[name])
+              }
+              return this.attributes[name]
+            },
+            set (value) {
+              const attributes = this.attributes
+              attributes[name] = value
+              this.attributes = attributes
+            },
+            enumerable: true,
+            configurable: false
+          })
+        })
+      }
+
+      // Process idField (primary key)
+      Reflect.defineProperty(Model.prototype, Model.idField, {
+        get () {
+          return this.attributes[Model.idField]
+        },
+        set (value) {
+          const attributes = this.attributes
+          attributes[Model.idField] = value
+          this.attributes = attributes
+        },
+        enumerable: true,
+        configurable: false
+      })
+
+      // If primary key not explicitly defined using &#x60;attr()&#x60; function, define as a number
+      if (!Model.definition.attributes[Model.idField]) {
+        Model.definition.attributes[Model.idField] = {type: &#x27;number&#x27;}
+      }
+
+      // Process relationships
+      if (Model.attributes &amp;&amp; Model.relationships) {
+        Model.relationships(function (type, modelName, options = {}) {
+          const store = Model.store
+          const RelatedModel = store.modelFor(modelName)
+
+          // default name to singular or plural depending on type. Allow user override via options.name
+          let name = (type === &#x27;hasMany&#x27;) ? camelCase(RelatedModel.type) : camelCase(modelName)
+          if (options.name) name = options.name
+
+          // default keyFrom to singular or plural depending on type. Allow user override via options.keyFrom
+          let keyFrom = (type === &#x27;hasMany&#x27;) ? camelCase(Model.idField) : &#x60;${camelCase(RelatedModel.modelName)}Id&#x60;
+          if (options.keyFrom) keyFrom = options.keyFrom
+
+          // default keyTo to singular or plural depending on type. Allow user override via options.keyTo
+          let keyTo = (type === &#x27;hasMany&#x27;) ? &#x60;${camelCase(Model.modelName)}Id&#x60; : camelCase(RelatedModel.idField)
+          if (options.keyTo) keyTo = options.keyTo
+
+          // create relationships definition object. This is used both for fetching related data and for
+          // serialization
+          const defn = {type, modelFrom: Model.modelName, modelTo: modelName, keyFrom, keyTo}
+          Model.definition.relationships[name] = defn
+
+          if (type === &#x27;belongsTo&#x27;) {
+            // define keyFrom (eg. postId) if not explicitly defined using &#x60;attr()&#x60; function
+            if (!Model.definition.attributes[defn.keyFrom]) {
+              Model.definition.attributes[defn.keyFrom] = {type: &#x27;number&#x27;}
+            }
+          }
+
+          if (type === &#x27;hasMany&#x27;) {
+            if (!RelatedModel.definition.attributes[defn.keyTo]) {
+              RelatedModel.definition.attributes[defn.keyTo] = {type: &#x27;number&#x27;}
+            }
+          }
+
+          // define properties with getters/setters for each attribute
+          Reflect.defineProperty(Model.prototype, name, {
+            get () {
+              const adapter = Model.adapter
+
+              // if the data has been passed in during object construction
+              // use that to build model instances and return them wrapped in a promise rather
+              // than hitting the adapter
+              if (this.attributes[name]) {
+                let models
+                if (type === &#x27;hasMany&#x27; &amp;&amp; Array.isArray(this.attributes[name])) {
+                  models = this.attributes[name].map(data =&gt; new RelatedModel(data))
+                } else {
+                  models = new RelatedModel(this.attributes[name])
+                }
+                return Promise.resolve(models)
+              }
+
+              // otherwise use the adapter to fetch the data, construct models and return as a promise
+              if (type === &#x27;hasMany&#x27;) {
+                if (!this.attributes[defn.keyFrom]) return Promise.resolve([])
+                return adapter.query(modelName, {filter: {[defn.keyTo]: this.attributes[defn.keyFrom]}})
+                  .then(data =&gt; {
+                    // cache the data in the models attributes hash so that next time related data is accessed
+                    // no hit on the adapter is needed.
+                    const attributes = this.attributes
+                    attributes[name] = data
+                    this.attributes = attributes
+                    return data.map(record =&gt; new RelatedModel(record))
+                  })
+              } else if (type === &#x27;belongsTo&#x27;) {
+                if (!this.attributes[defn.keyFrom]) return Promise.resolve(null)
+                return adapter.queryRecord(modelName, {filter: {[defn.keyTo]: this.attributes[defn.keyFrom]}})
+                  .then(data =&gt; {
+                    if (data === null) return null
+
+                    // cache the data in the models attributes hash so that next time related data is accessed
+                    // no hit on the adapter is needed.
+                    const attributes = this.attributes
+                    attributes[name] = data
+                    this.attributes = attributes
+                    return new RelatedModel(data)
+                  })
+              }
+            },
+            set (value) {
+              // Do some basic validation of the value being set
+              if (type === &#x27;hasMany&#x27; &amp;&amp; !Array.isArray(value)) {
+                throw new Error(&#x60;Array expected when setting ${name} on ${Model.modelName} model. Instead got ${typeof value}&#x60;)
+              } else if (type === &#x27;belongsTo&#x27; &amp;&amp; !isPlainObject(value) &amp;&amp; !(value instanceof RelatedModel)) {
+                throw new Error(&#x60;Object or ${RelatedModel.modelName} expected when setting ${name} on ${Model.modelName} model. Instead got ${typeof value}&#x60;)
+              }
+
+              // this.attributes is always a pojo but we want to support setting models so perform a stringify/parse
+              // before setting
+              const attributes = this.attributes
+              attributes[name] = JSON.parse(JSON.stringify(value))
+              this.attributes = attributes
+            },
+            enumerable: false,
+            configurable: false
+          })
+        })
+      }
+    }
+  }
+
+  /**
+    @property models
+    @private
+    @return {Map[Model]} - map of all registered model classes
+  */
+  static get models () {
+    return models
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

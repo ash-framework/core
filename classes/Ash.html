@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ash - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+
+
+<div class="page-header">
+    <h1> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Ash Class
+            <a class="pull-right file-edit" href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L25" target="_blank">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+    </h1>
+</div>
+
+
+<div class="content-meta">
+
+
+            Module: <a href="../modules/Ash.html">Ash</a>
+
+
+        <div class="foundat">
+            Defined In: <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L25">src/index.js:25</a>
+        </div>
+</div>
+
+
+
+  <div class="class-description">
+  <p>The top level Ash namespace.
+All access to Ash classes is through this object</p>
+
+  </div>
+
+<div>
+    <div class="page-section">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#tab_index" aria-controls="tab_index" role="tab" data-toggle="tab">Index</a></li>
+
+            <li role="presentation"><a href="#tab_properties" aria-controls="tab_properties" role="tab" data-toggle="tab">Properties</a></li>
+
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+              <form id="options-form" class="form-inline">
+                  Show:
+                  <label for="api-show-inherited" class="checkbox">
+                      <input type="checkbox" id="api-show-inherited" checked>
+                      Inherited
+                  </label>
+          
+                  <label for="api-show-protected" class="checkbox">
+                      <input type="checkbox" id="api-show-protected">
+                      Protected
+                  </label>
+          
+                  <label for="api-show-private" class="checkbox">
+                      <input type="checkbox" id="api-show-private">
+                      Private
+                  </label>
+                  <label for="api-show-deprecated" class="checkbox">
+                      <input type="checkbox" id="api-show-deprecated">
+                      Deprecated
+                  </label>
+          
+              </form>
+
+          <div id="tab_index" role="tabpanel" class="tab-pane active" >
+
+                  <div class="index-section properties">
+                      <h3>Properties</h3>
+
+                      <ul class="index-list properties">
+                              <li class="index-item property public">
+                                  <a href="#property_Adapter">Adapter</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Application">Application</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_ErrorHandler">ErrorHandler</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_HttpError">HttpError</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Initializer">Initializer</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_log">log</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Middleware">Middleware</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_MiddlewareRouter">MiddlewareRouter</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Mixin">Mixin</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Model">Model</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Route">Route</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Router">Router</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Serializer">Serializer</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_Service">Service</a>
+
+                              </li>
+                      </ul>
+                  </div>
+
+
+          </div>
+
+
+              <div id="tab_properties" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="property_Adapter" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Adapter"></a>
+          Adapter
+      </h3>
+      <span class="type"><a href="../classes/Adapter.html" class="crosslink">Adapter</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L127">src/index.js:127</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Application" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Application"></a>
+          Application
+      </h3>
+      <span class="type"><a href="../classes/Application.html" class="crosslink">Application</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L72">src/index.js:72</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_ErrorHandler" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_ErrorHandler"></a>
+          ErrorHandler
+      </h3>
+      <span class="type"><a href="../classes/ErrorHandler.html" class="crosslink">ErrorHandler</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L109">src/index.js:109</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_HttpError" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_HttpError"></a>
+          HttpError
+      </h3>
+      <span class="type">HttpError</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L90">src/index.js:90</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>This error should be used to throw Http related errors</p>
+  <pre class="code prettyprint"><code>
+  throw new Ash.HttpError(404)
+  </code></pre>
+  <p>An optional message can be given</p>
+  <pre class="code prettyprint"><code>
+  throw new Ash.HttpError(404, 'Nothing was found, sorry about that.')
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Initializer" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Initializer"></a>
+          Initializer
+      </h3>
+      <span class="type"><a href="../classes/Initializer.html" class="crosslink">Initializer</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L84">src/index.js:84</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_log" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_log"></a>
+          log
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L56">src/index.js:56</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Instance of the Ash logger. Should be use throughout to log as needed.</p>
+  <p>Has the following methods:</p>
+  <ul>
+  <li>log.error</li>
+  <li><a href="http://log.info">log.info</a></li>
+  <li>log.trace</li>
+  <li>log.warn</li>
+  <li>log.debug</li>
+  <li>log.fatal</li>
+  </ul>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Middleware" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Middleware"></a>
+          Middleware
+      </h3>
+      <span class="type"><a href="../classes/Middleware.html" class="crosslink">Middleware</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L44">src/index.js:44</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_MiddlewareRouter" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_MiddlewareRouter"></a>
+          MiddlewareRouter
+      </h3>
+      <span class="type"><a href="../classes/MiddlewareRouter.html" class="crosslink">MiddlewareRouter</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L50">src/index.js:50</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Mixin" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Mixin"></a>
+          Mixin
+      </h3>
+      <span class="type"><a href="../classes/Mixin.html" class="crosslink">Mixin</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L78">src/index.js:78</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Model" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Model"></a>
+          Model
+      </h3>
+      <span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L121">src/index.js:121</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Route" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Route"></a>
+          Route
+      </h3>
+      <span class="type"><a href="../classes/Route.html" class="crosslink">Route</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L32">src/index.js:32</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Router" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Router"></a>
+          Router
+      </h3>
+      <span class="type"><a href="../classes/Router.html" class="crosslink">Router</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L38">src/index.js:38</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Serializer" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Serializer"></a>
+          Serializer
+      </h3>
+      <span class="type"><a href="../classes/Serializer.html" class="crosslink">Serializer</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L133">src/index.js:133</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_Service" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_Service"></a>
+          Service
+      </h3>
+      <span class="type"><a href="../classes/Service.html" class="crosslink">Service</a></span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/index.js#L115">src/index.js:115</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+                  </div>
+              </div>
+
+
+      </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

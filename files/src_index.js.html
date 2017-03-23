@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/index.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/index.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * Provides the Ash application framework
+ *
+ * @module Ash
+ * @main
+ */
+
+&#x27;use strict&#x27;
+
+const Log = require(&#x27;@ash-framework/log&#x27;)
+const HttpError = require(&#x27;@ash-framework/http-error&#x27;)
+const Application = require(&#x27;./classes/application&#x27;)
+const Route = require(&#x27;./classes/route&#x27;)
+const Router = require(&#x27;./classes/router&#x27;)
+const Middleware = require(&#x27;./classes/middleware&#x27;)
+const MiddlewareRouter = require(&#x27;./classes/middleware-router&#x27;)
+const Mixin = require(&#x27;./classes/mixin&#x27;)
+const Initializer = require(&#x27;./classes/initializer&#x27;)
+const ErrorHandler = require(&#x27;./classes/error-handler&#x27;)
+const Service = require(&#x27;./classes/service&#x27;)
+const Model = require(&#x27;./classes/model&#x27;)
+const Adapter = require(&#x27;./classes/adapter&#x27;)
+const Serializer = require(&#x27;./classes/serializer&#x27;)
+
+/**
+ * The top level Ash namespace.
+ * All access to Ash classes is through this object
+ *
+ * @class Ash
+ */
+const Ash = {
+  /**
+    @property {Route} Route
+    @public
+  */
+  Route,
+
+  /**
+    @property {Router} Router
+    @public
+  */
+  Router,
+
+  /**
+    @property {Middleware} Middleware
+    @public
+  */
+  Middleware,
+
+  /**
+    @property {MiddlewareRouter} MiddlewareRouter
+    @public
+  */
+  MiddlewareRouter,
+
+  /**
+    Instance of the Ash logger. Should be use throughout to log as needed.
+
+    Has the following methods:
+    - log.error
+    - log.info
+    - log.trace
+    - log.warn
+    - log.debug
+    - log.fatal
+
+    @property {Object} log
+    @public
+  */
+  log: new Log(),
+
+  /**
+    @property {Application} Application
+    @public
+  */
+  Application,
+
+  /**
+    @property {Mixin} Mixin
+    @public
+  */
+  Mixin,
+
+  /**
+    @property {Initializer} Initializer
+    @public
+  */
+  Initializer,
+
+  /**
+    This error should be used to throw Http related errors
+
+    &#x60;&#x60;&#x60;
+
+    throw new Ash.HttpError(404)
+    &#x60;&#x60;&#x60;
+
+    An optional message can be given
+
+    &#x60;&#x60;&#x60;
+
+    throw new Ash.HttpError(404, &#x27;Nothing was found, sorry about that.&#x27;)
+    &#x60;&#x60;&#x60;
+    @property {HttpError} HttpError
+    @public
+  */
+  HttpError,
+
+  /**
+    @property {ErrorHandler} ErrorHandler
+    @public
+  */
+  ErrorHandler,
+
+  /**
+    @property {Service} Service
+    @public
+  */
+  Service,
+
+  /**
+    @property {Model} Model
+    @public
+  */
+  Model,
+
+  /**
+    @property {Adapter} Adapter
+    @public
+  */
+  Adapter,
+
+  /**
+    @property {Serializer} Serializer
+    @public
+  */
+  Serializer
+}
+
+module.exports = Ash
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/application.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/application.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;
+
+const Base = require(&#x27;./base&#x27;)
+const ErrorHandler = require(&#x27;./error-handler&#x27;)
+const createRoutes = require(&#x27;../router&#x27;)
+const Log = require(&#x27;@ash-framework/log&#x27;)
+const HttpError = require(&#x27;@ash-framework/http-error&#x27;)
+const loadMiddleware = require(&#x27;../middleware-router&#x27;)
+const express = require(&#x27;express&#x27;)
+const path = require(&#x27;path&#x27;)
+const fs = require(&#x27;fs&#x27;)
+const cors = require(&#x27;cors&#x27;)
+const helmet = require(&#x27;helmet&#x27;)
+const bodyparser = require(&#x27;body-parser&#x27;)
+const Registry = require(&#x27;./registry&#x27;)
+const ClassResolver = require(&#x27;./class-resolver&#x27;)
+
+const _app = new WeakMap()
+
+function loadModels (Registry, modelDir) {
+  const modelFiles = fs.readdirSync(modelDir)
+  const Store = ClassResolver.resolve(&#x27;store&#x27;)
+  const store = new Store()
+  modelFiles.forEach(modelFile =&gt; {
+    if (modelFile.indexOf(&#x27;.js&#x27;) === -1) return
+    const Module = require(modelDir + &#x27;/&#x27; + modelFile)
+    const Model = (Module.__esModule) ? Module.default : Module
+    Model.store = store
+    Registry.registerModel(Model)
+  })
+  Registry.setupModels()
+}
+
+/**
+  Application class used to create a new instance of an Ash application
+  via the static method &#x60;start&#x60;
+
+  @class Application
+  @extends Base
+  @public
+*/
+module.exports = class Application extends Base {
+  /**
+    ## Starts an Ash application
+    Starts application by performing the following operations
+
+    ### 1. runs initializers
+    Runs initializer classes in app/initializers (if any) in alphabetical order.
+    Inializers can be used to hook into app start up early on and gain access
+    to the express app instance in case you need to perform operations
+    outside the scope of the Ash framework.
+
+    #### Example: adding an initializer
+    &#x60;&#x60;&#x60;
+
+    // app/initializers/application.js
+    const Ash = require(&#x27;@ash-framework/ash&#x27;)
+
+    module.exports = class Initializer extends Ash.Initializer {
+      init (app) {
+        // app is an unmodified express app instance so you can
+        // do the following.
+        app.get(&#x27;/animals/mice&#x27;, function (req, res) {
+          res.send(&#x27;Success&#x27;)
+        })
+      }
+    }
+    &#x60;&#x60;&#x60;
+
+    ### 2. loads middleware
+    Reads app/middleware.js to determine which middleware to run and in what order.
+    Reads in and runs any middleware specified in app/middleware.js from the app/middleware directory
+
+    #### Example: creating middleware
+    &#x60;&#x60;&#x60;
+
+    // app/middleware/access.js
+    const Ash = require(&#x27;@ash-framework/ash&#x27;)
+
+    module.exports = class AccessMiddleware extends Ash.Middleware {
+      register () {
+
+      }
+    }
+    &#x60;&#x60;&#x60;
+
+    #### Example: registering middleware
+    &#x60;&#x60;&#x60;
+
+    // app/middleware.js
+    const Ash = require(&#x27;@ash-framework/ash&#x27;)
+
+    class MiddlewareRouter extends Ash.MiddlewareRouter { }
+
+    MiddlewareRouter.map(function () {
+      this.middleware(&#x27;access&#x27;)
+    })
+
+    module.exports = MiddlewareRouter
+    &#x60;&#x60;&#x60;
+
+    ### 3. creates routes
+    Reads app/router.js to determine which routes to register.
+    Reads in and registers any routes specified in app/router.js from the app/routes directory
+
+    #### Example: creating a route
+    &#x60;&#x60;&#x60;
+
+    // app/routes/user.js
+    const Ash = require(&#x27;@ash-framework/ash&#x27;)
+
+    module.exports = class UserRoute extends Ash.Route {
+      model () {
+        // return user data
+      }
+    }
+    &#x60;&#x60;&#x60;
+
+    #### Example: registering route in the router
+    &#x60;&#x60;&#x60;
+
+    // app/router.js
+    const Ash = require(&#x27;@ash-framework/ash&#x27;)
+
+    class Router extends Ash.Router { }
+
+    Router.map(function () {
+      this.route(&#x27;user&#x27;)
+    })
+
+    module.exports = Router
+    &#x60;&#x60;&#x60;
+
+    ### 4. adds an error handler
+    This error handler catches any errors and specifies how errors should be handled and
+    displayed to the client.
+
+    Looks for a user defined error handler class for the application in app/error-handler.js
+    If not found one is defined in its place.
+
+    #### Example: adding a custom error handler
+    &#x60;&#x60;&#x60;
+
+    // app/error-handler.js
+    const {ErrorHandler, log} = require(&#x27;@ash-framework/ash&#x27;)
+
+    module.exports = class ApplicationErrorHandler extends ErrorHandler {
+      error (error) {
+        log.error(error)
+        super.error(error)
+      }
+    }
+    &#x60;&#x60;&#x60;
+
+    ### 5. starts the app
+    Starts the app on the port described in &#x60;config/environment.js&#x60;. The default port is 3010.
+
+    #### Example: starting an application:
+    &#x60;&#x60;&#x60;
+
+    const Ash = require(&#x27;@ash-framework/ash&#x27;)
+
+    class Application extends Ash.Application {
+    }
+
+    Application.start()
+    &#x60;&#x60;&#x60;
+
+    @static
+    @public
+    @method start
+  */
+  static start () {
+    const configModule = require(path.join(process.cwd(), &#x27;config/environment.js&#x27;))
+    const config = ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
+
+    const middlewareModule = require(path.join(process.cwd(), &#x27;app/middleware.js&#x27;))
+    const MiddlewareRouter = (middlewareModule.__esModule) ? middlewareModule.default : middlewareModule
+
+    const routerModule = require(path.join(process.cwd(), &#x27;app/router.js&#x27;))
+    const Router = (routerModule.__esModule) ? routerModule.default : routerModule
+
+    const log = new Log()
+
+    log.trace(&#x27;Boot: creating express app instance&#x27;)
+    const app = express()
+    _app.set(this, app)
+
+    log.trace(&#x27;Boot: loading cors middleware&#x27;)
+    if (typeof config.cors === &#x27;object&#x27;) {
+      if (config.cors.preFlight === true) {
+        app.options(&#x27;*&#x27;, cors(Object.assign({}, config.cors)))
+      }
+      app.use(cors(Object.assign({}, config.cors)))
+    }
+
+    if (config.helmet !== false) {
+      log.trace(&#x27;Boot: loading security middleware&#x27;)
+      app.use(helmet())
+    }
+
+    log.trace(&#x27;Boot: adding body parsing middleware&#x27;)
+    const bodyParserOptions = config.bodyParser || {}
+    if (typeof bodyParserOptions.json === &#x27;object&#x27;) {
+      app.use(bodyparser.json(bodyParserOptions.json))
+    }
+    if (typeof bodyParserOptions.text === &#x27;object&#x27;) {
+      app.use(bodyparser.text(bodyParserOptions.text))
+    }
+    if (typeof bodyParserOptions.raw === &#x27;object&#x27;) {
+      app.use(bodyparser.raw(bodyParserOptions.raw))
+    }
+    if (typeof bodyParserOptions.urlencoded === &#x27;object&#x27;) {
+      app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
+    }
+
+    const initializerDir = path.join(process.cwd(), &#x27;app/initializers&#x27;)
+    if (fs.existsSync(initializerDir)) {
+      const initializers = fs.readdirSync(initializerDir).filter(file =&gt; file.indexOf(&#x27;.js&#x27;) !== -1)
+      if (initializers.length &gt; 0) {
+        log.trace(&#x27;Boot: loading initializers&#x27;)
+        initializers.forEach(initializerName =&gt; {
+          const Module = require(initializerDir + &#x27;/&#x27; + initializerName)
+          const Initializer = (Module.__esModule) ? Module.default : Module
+          const initializer = new Initializer()
+          initializer.init(app)
+        })
+      }
+    }
+
+    log.trace(&#x27;Boot: loading models&#x27;)
+    const modelDir = path.join(process.cwd(), &#x27;app/models&#x27;)
+    loadModels(Registry, modelDir)
+
+    log.trace(&#x27;Boot: loading middleware&#x27;)
+    const middlewareDir = path.join(process.cwd(), &#x27;app/middleware&#x27;)
+    loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
+
+    log.trace(&#x27;Boot: loading routes&#x27;)
+    const options = {routesDir: path.join(process.cwd(), &#x27;app/routes&#x27;)}
+    app.use(createRoutes(Router.definition, options))
+
+    log.trace(&#x27;Boot: registering 404 handler&#x27;)
+    app.use(function (request, response, next) {
+      next(new HttpError(404))
+    })
+
+    log.trace(&#x27;Boot: registering error handler&#x27;)
+    app.use(function (err, request, response, next) {
+      log.error(err)
+      if (!err.stack) {
+        err = new HttpError(500)
+      }
+      let errorHandler
+      const customErrorHandler = path.join(process.cwd(), &#x27;app&#x27;) + &#x27;/error-handler.js&#x27;
+      if (fs.existsSync(customErrorHandler)) {
+        const ErrorHandler = require(customErrorHandler)
+        errorHandler = new ErrorHandler({request, response})
+      } else {
+        errorHandler = new ErrorHandler({request, response})
+      }
+      errorHandler.error(err)
+    })
+
+    app.listen(config.port, function () {
+      log.trace(&#x60;Boot: started on port ${config.port}&#x60;)
+    })
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

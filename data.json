@@ -1,0 +1,2273 @@
+{
+    "project": {
+        "name": "Ash API Framework",
+        "description": "A Node.js based API framework for Ember.js developers",
+        "version": "v0.1.4",
+        "url": "https://github.com/ash-framework/core",
+        "logo": "https://raw.githubusercontent.com/ash-framework/core/master/logo_vertical.jpg"
+    },
+    "files": {
+        "src/classes/adapter.js": {
+            "name": "src/classes/adapter.js",
+            "modules": {},
+            "classes": {
+                "Adapter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/application.js": {
+            "name": "src/classes/application.js",
+            "modules": {},
+            "classes": {
+                "Application": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/base.js": {
+            "name": "src/classes/base.js",
+            "modules": {},
+            "classes": {
+                "Base": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/class-resolver.js": {
+            "name": "src/classes/class-resolver.js",
+            "modules": {},
+            "classes": {
+                "ClassResolver": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/error-handler.js": {
+            "name": "src/classes/error-handler.js",
+            "modules": {},
+            "classes": {
+                "ErrorHandler": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/http.js": {
+            "name": "src/classes/http.js",
+            "modules": {},
+            "classes": {
+                "Http": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/initializer.js": {
+            "name": "src/classes/initializer.js",
+            "modules": {},
+            "classes": {
+                "Initializer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/inject.js": {
+            "name": "src/classes/inject.js",
+            "modules": {},
+            "classes": {
+                "Inject": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/middleware-router.js": {
+            "name": "src/classes/middleware-router.js",
+            "modules": {},
+            "classes": {
+                "MiddlewareRouter": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/middleware.js": {
+            "name": "src/classes/middleware.js",
+            "modules": {},
+            "classes": {
+                "Middleware": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/mixin.js": {
+            "name": "src/classes/mixin.js",
+            "modules": {},
+            "classes": {
+                "Mixin": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/model.js": {
+            "name": "src/classes/model.js",
+            "modules": {},
+            "classes": {
+                "Model": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/query-object-translator.js": {
+            "name": "src/classes/query-object-translator.js",
+            "modules": {},
+            "classes": {
+                "QueryObjectTranslator": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/registry.js": {
+            "name": "src/classes/registry.js",
+            "modules": {},
+            "classes": {
+                "Registry": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/route.js": {
+            "name": "src/classes/route.js",
+            "modules": {},
+            "classes": {
+                "Route": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/router.js": {
+            "name": "src/classes/router.js",
+            "modules": {},
+            "classes": {
+                "Router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/serializer.js": {
+            "name": "src/classes/serializer.js",
+            "modules": {},
+            "classes": {
+                "Serializer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/service.js": {
+            "name": "src/classes/service.js",
+            "modules": {},
+            "classes": {
+                "Service": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/classes/store.js": {
+            "name": "src/classes/store.js",
+            "modules": {},
+            "classes": {
+                "Store": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/index.js": {
+            "name": "src/index.js",
+            "modules": {
+                "Ash": 1
+            },
+            "classes": {
+                "Ash": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Ash": {
+            "name": "Ash",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Adapter": 1,
+                "Application": 1,
+                "Base": 1,
+                "ClassResolver": 1,
+                "ErrorHandler": 1,
+                "Http": 1,
+                "Initializer": 1,
+                "Inject": 1,
+                "MiddlewareRouter": 1,
+                "Middleware": 1,
+                "Mixin": 1,
+                "Model": 1,
+                "QueryObjectTranslator": 1,
+                "Registry": 1,
+                "Route": 1,
+                "Router": 1,
+                "Serializer": 1,
+                "Service": 1,
+                "Store": 1,
+                "Ash": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/index.js",
+            "line": 25,
+            "description": "Provides the Ash application framework",
+            "itemtype": "main"
+        }
+    },
+    "classes": {
+        "Adapter": {
+            "name": "Adapter",
+            "shortname": "Adapter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/adapter.js",
+            "line": 9,
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "Application": {
+            "name": "Application",
+            "shortname": "Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/application.js",
+            "line": 34,
+            "description": "Application class used to create a new instance of an Ash application\nvia the static method `start`",
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "Base": {
+            "name": "Base",
+            "shortname": "Base",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/base.js",
+            "line": 5,
+            "description": "Ash framework base class.\nThis class is the base class for all Ash classes.\nIt adds support for mixins in all child classes.",
+            "access": "public",
+            "tagname": ""
+        },
+        "ClassResolver": {
+            "name": "ClassResolver",
+            "shortname": "ClassResolver",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/class-resolver.js",
+            "line": 17,
+            "access": "private",
+            "tagname": ""
+        },
+        "ErrorHandler": {
+            "name": "ErrorHandler",
+            "shortname": "ErrorHandler",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/error-handler.js",
+            "line": 5,
+            "description": "Base error handler for Ash applications. Users can choose to inherit\nfrom this class and override its error method in order to define a\ncustom error handler for their application.\n\n```\n// app/error-handler.js\nconst Ash = require('@ash-framework/ash')\n\nclass ErrorHandler extends Ash.ErrorHandler {\n  error (err) {\n    super.error(err)\n    // perform custom operations\n  }\n}\n```",
+            "access": "public",
+            "tagname": "",
+            "extends": "Http"
+        },
+        "Http": {
+            "name": "Http",
+            "shortname": "Http",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/http.js",
+            "line": 6,
+            "description": "Extends the `Base` class to add Http `request` and `response` properties.\n\nThe `Http` class is intended to be used as a base class for any subclass that needs\naccess to the http `request` and/or `response`.\n\nThe class gains properties and methods from the request for convenience (effectively proxying them)\nand exposes the response (via `this.response`). The request itself is also available in full as\nneeded via `this.request`",
+            "uses": [
+                "Inject"
+            ],
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Initializer": {
+            "name": "Initializer",
+            "shortname": "Initializer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/initializer.js",
+            "line": 5,
+            "description": "Provides access to the express app object.\nThis can be used to do any low level express setup.",
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "Inject": {
+            "name": "Inject",
+            "shortname": "Inject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [
+                "Http"
+            ],
+            "module": "Ash",
+            "file": "src/classes/inject.js",
+            "line": 6,
+            "access": "private",
+            "tagname": ""
+        },
+        "MiddlewareRouter": {
+            "name": "MiddlewareRouter",
+            "shortname": "MiddlewareRouter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/middleware-router.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Middleware": {
+            "name": "Middleware",
+            "shortname": "Middleware",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/middleware.js",
+            "line": 5,
+            "description": "`Middleware` in Ash is implemented as a class that has access to the request and the response.\nA register method is called by the framework and needs to be implemented for the middleware to run.\n\nSince `Middleware` extends `Http`, it has access to `request` properties such as\n`this.params`, `this.query` and so on directly as well as other properties indirectly through\n`this.request` and `this.response`\n\nMiddleware should be used in conjunction with services to perform useful operations\nbefore the route is executed.",
+            "access": "public",
+            "tagname": "",
+            "extends": "Http"
+        },
+        "Mixin": {
+            "name": "Mixin",
+            "shortname": "Mixin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/mixin.js",
+            "line": 5,
+            "extends": "Base",
+            "is_constructor": 1
+        },
+        "Model": {
+            "name": "Model",
+            "shortname": "Model",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/model.js",
+            "line": 10,
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "QueryObjectTranslator": {
+            "name": "QueryObjectTranslator",
+            "shortname": "QueryObjectTranslator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/query-object-translator.js",
+            "line": 3,
+            "extends": "Base",
+            "access": "private",
+            "tagname": ""
+        },
+        "Registry": {
+            "name": "Registry",
+            "shortname": "Registry",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/registry.js",
+            "line": 4,
+            "extends": "Base",
+            "access": "private",
+            "tagname": ""
+        },
+        "Route": {
+            "name": "Route",
+            "shortname": "Route",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/route.js",
+            "line": 7,
+            "description": "The Ash route class extends the See Http class and so has access\nto request and response properties.\n\nRoutes execute via a series of hooks in the following order\n\n1. deserialize\n2. beforeModel\n3. model\n4. afterModel\n5. serialize\n\nIf a hook returns a promise, the subsequent hook will not execute until the promise has resolved.\n\nAll hooks are optional except for `model` and amything returned from the `model` hook will be returned\nto the client.\n\nRoutes support the following:\n- mixins (See Mixin)\n- services (See Service)\n- middleware (See Middleware)",
+            "extends": "Http",
+            "access": "public",
+            "tagname": ""
+        },
+        "Router": {
+            "name": "Router",
+            "shortname": "Router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/router.js",
+            "line": 5,
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "Serializer": {
+            "name": "Serializer",
+            "shortname": "Serializer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/serializer.js",
+            "line": 35,
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "Service": {
+            "name": "Service",
+            "shortname": "Service",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/service.js",
+            "line": 5,
+            "extends": "Base",
+            "access": "public",
+            "tagname": ""
+        },
+        "Store": {
+            "name": "Store",
+            "shortname": "Store",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "file": "src/classes/store.js",
+            "line": 11,
+            "extends": "Service",
+            "access": "public",
+            "tagname": ""
+        },
+        "Ash": {
+            "name": "Ash",
+            "shortname": "Ash",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Ash",
+            "namespace": "",
+            "file": "src/index.js",
+            "line": 25,
+            "description": "The top level Ash namespace.\nAll access to Ash classes is through this object"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "src/classes/adapter.js",
+            "line": 15,
+            "description": "Sets up the knex query builder instance",
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "store",
+                    "description": "- Instance of Ash.Store",
+                    "type": "Store"
+                },
+                {
+                    "name": "options",
+                    "description": "- knex database options {Object} or {String}",
+                    "type": "Mixed"
+                }
+            ],
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 45,
+            "description": "Returns a fields array of Model attribute names",
+            "itemtype": "method",
+            "name": "fieldsForModel",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "- Model class",
+                    "type": "Model"
+                }
+            ],
+            "return": {
+                "description": "- array of model attribute names",
+                "type": "Array"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 66,
+            "itemtype": "method",
+            "name": "include",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "query",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "includeString",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "fieldOptions",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 138,
+            "itemtype": "method",
+            "name": "limitFieldSet",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "attributes",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "attributes",
+                "type": "Array"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 166,
+            "itemtype": "method",
+            "name": "paginate",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "- knex query promise object",
+                    "type": "Promise"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "- knex query promise object",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 179,
+            "itemtype": "method",
+            "name": "sort",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "- knex query promise object",
+                    "type": "Promise"
+                },
+                {
+                    "name": "sortString",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "- knex query promise object",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 195,
+            "description": "Finds all records for a given model. Use `query` when you need more control over\nwhat records are returned.",
+            "itemtype": "method",
+            "name": "findAll",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 212,
+            "description": "Finds records of a given model using options.\n\nOptions is an {Object} with the following properties:\n\n`include` - used to include related model records\n\n```javascript\nadapter.query(Post, {include: 'comments,author'})\n```\n\n`fields` - used to specify desired attribute fields to be returned in result objects\n\n```javascript\nadapter.query(Post, {fields: {posts: 'title,description'}})\n```\n\nTo restrict fields from included relationship models\n\n```javascript\nadapter.query(Post, {fields: {posts: 'title', comments: 'comment'}})\n```\n\n`sort` - used to sort results by its attributes\n\n```javascript\nadapter.query(Post, {sort: 'title'})\n```\n\nTo specify sorting by multiple columns, separate by comma\n\n```javascript\nadapter.query(Post, {sort: 'title,description'})\n```\n\nSort is ascending by default, use \"-\" to indicate descending\n\n```javascript\nadapter.query(Post, {sort: '-title'})\n```\n\n`page` - used to paginate results\n\n```javascript\nadapter.query(Post, {page: {number: 1, size: 20}})\n```\n\n`filter` - used to refine desired results by specified criteria\n\n```javascript\nadapter.query(Post, {filter: {title: 'my title'}})\n```\n\nfilter also supports a number of operators prefixed with a $ character\n\n- `$or` - SQL OR\n- `$eq` - SQL =\n- `$gt` - SQL >\n- `$gte` - SQL >=\n- `$lt` - SQL <\n- `$lte` - SQL <=\n- `$ne` - SQL !=\n- `$not` - SQL NOT\n- `$between` - SQL BETWEEN\n- `$notbetween` - SQL NOT BETWEEN\n- `$in` - SQL IN\n- `$notin` SQL NOT IN\n- `$like` SQL LIKE\n- `$notlike` SQL NOT LIKE\n- `$ilike` - SQL NOT ILIKE\n- `$overlap` - SQL &&\n- `$contains` - SQL @>\n- `$contained` - SQL <@\n\n```javascript\nadapter.query(Post, {filter: {title: {$like: '%my title%'}}})\n```\n\n`$or` is a slightly special case. It takes an array of objects to 'Or' together\n\n```javascript\nadapter.query(Post, {filter: {\n  $or: [\n    {id: {$lt: 10}},\n    {id: {$in: [20, 21, 22]}}\n  ]\n})\n```",
+            "itemtype": "method",
+            "name": "query",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 340,
+            "description": "Retrieves a single record for the given model by given id",
+            "itemtype": "method",
+            "name": "findRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 359,
+            "description": "Similar to `query` except that only a single record is returned",
+            "itemtype": "method",
+            "name": "queryRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "options",
+                    "description": "@see `query`",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 375,
+            "description": "Creates a new record for a given model using supplied attributes hash",
+            "itemtype": "method",
+            "name": "createRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 393,
+            "description": "Updates a record for a given model with given id using a supplied attributes hash",
+            "itemtype": "method",
+            "name": "updateRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/adapter.js",
+            "line": 417,
+            "description": "Delete a Model by given id",
+            "itemtype": "method",
+            "name": "deleteRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Adapter"
+        },
+        {
+            "file": "src/classes/application.js",
+            "line": 43,
+            "description": "## Starts an Ash application\nStarts application by performing the following operations\n\n### 1. runs initializers\nRuns initializer classes in app/initializers (if any) in alphabetical order.\nInializers can be used to hook into app start up early on and gain access\nto the express app instance in case you need to perform operations\noutside the scope of the Ash framework.\n\n#### Example: adding an initializer\n```\n\n// app/initializers/application.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class Initializer extends Ash.Initializer {\n  init (app) {\n    // app is an unmodified express app instance so you can\n    // do the following.\n    app.get('/animals/mice', function (req, res) {\n      res.send('Success')\n    })\n  }\n}\n```\n\n### 2. loads middleware\nReads app/middleware.js to determine which middleware to run and in what order.\nReads in and runs any middleware specified in app/middleware.js from the app/middleware directory\n\n#### Example: creating middleware\n```\n\n// app/middleware/access.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class AccessMiddleware extends Ash.Middleware {\n  register () {\n\n  }\n}\n```\n\n#### Example: registering middleware\n```\n\n// app/middleware.js\nconst Ash = require('@ash-framework/ash')\n\nclass MiddlewareRouter extends Ash.MiddlewareRouter { }\n\nMiddlewareRouter.map(function () {\n  this.middleware('access')\n})\n\nmodule.exports = MiddlewareRouter\n```\n\n### 3. creates routes\nReads app/router.js to determine which routes to register.\nReads in and registers any routes specified in app/router.js from the app/routes directory\n\n#### Example: creating a route\n```\n\n// app/routes/user.js\nconst Ash = require('@ash-framework/ash')\n\nmodule.exports = class UserRoute extends Ash.Route {\n  model () {\n    // return user data\n  }\n}\n```\n\n#### Example: registering route in the router\n```\n\n// app/router.js\nconst Ash = require('@ash-framework/ash')\n\nclass Router extends Ash.Router { }\n\nRouter.map(function () {\n  this.route('user')\n})\n\nmodule.exports = Router\n```\n\n### 4. adds an error handler\nThis error handler catches any errors and specifies how errors should be handled and\ndisplayed to the client.\n\nLooks for a user defined error handler class for the application in app/error-handler.js\nIf not found one is defined in its place.\n\n#### Example: adding a custom error handler\n```\n\n// app/error-handler.js\nconst {ErrorHandler, log} = require('@ash-framework/ash')\n\nmodule.exports = class ApplicationErrorHandler extends ErrorHandler {\n  error (error) {\n    log.error(error)\n    super.error(error)\n  }\n}\n```\n\n### 5. starts the app\nStarts the app on the port described in `config/environment.js`. The default port is 3010.\n\n#### Example: starting an application:\n```\n\nconst Ash = require('@ash-framework/ash')\n\nclass Application extends Ash.Application {\n}\n\nApplication.start()\n```",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "start",
+            "class": "Application"
+        },
+        {
+            "file": "src/classes/base.js",
+            "line": 14,
+            "description": "Sets up mixins.\nWhen overriding the constructor, remember to call `super()`",
+            "itemtype": "method",
+            "name": "constructor",
+            "access": "public",
+            "tagname": "",
+            "is_constructor": 1,
+            "class": "Base"
+        },
+        {
+            "file": "src/classes/base.js",
+            "line": 26,
+            "description": "Defines mixins for class.\n\nGets passed a `register` function that\ncan be called to mix mixin class methods in.\n\nCall register multiple times to mixin multiple mixins.\n\n```\nclass MyMixin1 {\n  method1 () {}\n}\n\nclass MyMixin2 {\n  method2 () {}\n}\n\nclass MyClass extends Ash.Base {\n  static mixins(register) {\n    register(MyMixin1)\n    register(MyMixin2)\n  }\n}\n```\n\nInstantiating `MyClass` will result in an object with methods `method1` and `method2` mixed in.",
+            "itemtype": "method",
+            "name": "mixins",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "register",
+                    "description": "- mixin registration function. Can be called multiple times to register\nadditional mixins.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Base"
+        },
+        {
+            "file": "src/classes/class-resolver.js",
+            "line": 22,
+            "description": "Resolves a class via a number of lookups.\n1. Try the apps folder for the requested type using the specified name\n2. Try the apps folder for the requested type using the generic 'application.js' file\n3. Fallback to the framework's lib directory",
+            "example": [
+                "\n```javascript\nClassResolver.resolve('route', 'my-route.js')\n```\napp/routes/my-route.js will be returned if it exists otherwise\napp/routes/application.js will be returned if it exists otherwise\nnode_modules/ash-core/lib/route.js otherwise"
+            ],
+            "itemtype": "method",
+            "name": "resolve",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "ClassResolver"
+        },
+        {
+            "file": "src/classes/error-handler.js",
+            "line": 27,
+            "description": "Method called by Ash whenever an error occurs. This includes 404 errors",
+            "itemtype": "method",
+            "name": "error",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "err",
+                    "description": "- error object with properties `status` and `message`",
+                    "type": "Object"
+                }
+            ],
+            "class": "ErrorHandler"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 22,
+            "description": "The http request object.\n\nThis is the express request object\nSee http://expressjs.com/en/api.html#req",
+            "itemtype": "property",
+            "name": "request",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 31,
+            "description": "The http response object.\n\nThis is the express response object\nSee http://expressjs.com/en/api.html#res",
+            "itemtype": "property",
+            "name": "response",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 40,
+            "description": "The request body\n\nContains key-value pairs of data submitted in the request body",
+            "itemtype": "property",
+            "name": "body",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 47,
+            "description": "Named url parameters\n\nThis property is an object containing properties mapped to named route parameters.\nThis object defaults to {}.\n\nExample: defining parameters\n```javascript\n// app/router.js\nRouter.map(function () {\n  this.route('users', {path: '/users/:user_id'})\n})\n```\n\nExample: accessing defined parameters\n```javascript\nthis.params.user_id\n```",
+            "itemtype": "property",
+            "name": "params",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 69,
+            "description": "This property is an object containing a property for each query\nstring parameter in the route. If there is no query string, it is\nan empty object\n\nExample:\n```javascript\n// /users?age=20&name=bob\n\nthis.query.age // 20\nthis.query.name // bob\n```",
+            "itemtype": "property",
+            "name": "query",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 84,
+            "description": "The request headers object.\nContains Key-value pairs of header names and values. Header names are lower-cased.\n\nDuplicates in raw headers are handled in the following ways, depending on the header name:\n\nDuplicates of age, authorization, content-length, content-type, etag, expires, from, host, if-modified-since, if-unmodified-since, last-modified, location, max-forwards, proxy-authorization, referer, retry-after, or user-agent are discarded.\nset-cookie is always an array. Duplicates are added to the array.\nFor all other headers, the values are joined together with ', '.\n\nExample:\n```javascript\nthis.headers\n// { 'user-agent': 'curl/7.22.0',\n//   host: '127.0.0.1:3010',\n//   accept: '*\\/*' }\n```",
+            "itemtype": "property",
+            "name": "headers",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 105,
+            "description": "Contains a string corresponding to the HTTP method of the\nrequest: GET, POST, PUT, and so on.\n\nExample:\n```javascript\nthis.method // GET\n```",
+            "itemtype": "property",
+            "name": "method",
+            "type": "Object",
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 117,
+            "description": "Constructs a new http object.\nSets up request and response properties and injects services if defined.\n\nSets the following properties on the route:\n- request (express request)\n- response (express response)\n- body (request body)\n- params (request url named parameters)\n- query (request url query parameters)\n- headers (request headers)\n- method (request method)\n\nServices are injected under the defined injection property.\n\nExample:\nGiven the following service definition:\n```javascript\nstatic services(register) {\n  register('authentication')\n}\n```\nThe route will be able to access the service:\n\n```javascript\nthis.authentication\n```",
+            "itemtype": "method",
+            "name": "constructor",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "- object with properties `request` and `response`\nwhich are the express js request and reponse objects respectively",
+                    "type": "Object"
+                }
+            ],
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 169,
+            "description": "Used to define which services should be registered on the class.\n\nCall the `register` function as many times as needed to register services.\nServices are referenced by their name and will be looked up by the framework\nand injected onto the instance.\n\nExample:\n```javascript\nclass MyClass extends Http {\n  static services (register) {\n    register('authentication')\n    register('user')\n  }\n}\n```\n\nIn the example above, the `authentication` service will be looked up from the `app/services`\ndirectory and injected onto the instance as `this.authentication`. The user service will be\ninjected in the same manor afterwards.",
+            "itemtype": "method",
+            "name": "services",
+            "static": 1,
+            "params": [
+                {
+                    "name": "register",
+                    "description": "- takes a string name of the service to inject as its only argument.",
+                    "type": "Function"
+                }
+            ],
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 198,
+            "description": "Checks if the specified content types are acceptable, based on the request’s Accept HTTP header field.\n\nExample:\n```javascript\nthis.accepts(['json', 'text'])\n// => \"json\"\n```\n\nNote: This is a proxy of the express js `request.accepts` method.",
+            "itemtype": "method",
+            "name": "accepts",
+            "params": [
+                {
+                    "name": "types",
+                    "description": "- may be a single MIME type string (such as “application/json”),\nan extension name such as “json”, a comma-delimited list, or an array.",
+                    "type": "Mixed"
+                }
+            ],
+            "return": {
+                "description": "Returns the best match, or if none of the specified content types is acceptable,\nreturns false.",
+                "type": "Mixed"
+            },
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/http.js",
+            "line": 219,
+            "description": "Determines if the incoming request’s “Content-Type” HTTP header field matches\nthe MIME type specified by the type parameter.\n\nNote: This is a proxy of the express js `request.is` method.\n\nExample:\n```javascript\n// When Content-Type is application/json\nthis.is('json')\nthis.is('application/json')\nthis.is('application/')\n// => true\n```",
+            "itemtype": "method",
+            "name": "is",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Returns `true` if the incoming request’s “Content-Type” HTTP header field matches\nthe MIME type specified by the type parameter. Returns `false` otherwise.",
+                "type": "Mixed"
+            },
+            "class": "Http"
+        },
+        {
+            "file": "src/classes/initializer.js",
+            "line": 14,
+            "description": "Override the init method in any initializer to gain\naccess to the express app.\n\nExample:\n```javascript\ninit (app) {\n  app.use(function (req, res, next) {\n    next()\n  })\n\n  app.get('/version', function (req, res) {\n    res.send({\n      version: 2\n    })\n  })\n}\n```",
+            "itemtype": "method",
+            "name": "init",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "app",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Initializer"
+        },
+        {
+            "file": "src/classes/inject.js",
+            "line": 11,
+            "itemtype": "method",
+            "name": "service",
+            "static": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "serviceName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Inject"
+        },
+        {
+            "file": "src/classes/inject.js",
+            "line": 37,
+            "description": "Registers mixins on a class as defined by that classes static mixins method.",
+            "itemtype": "method",
+            "name": "mixins",
+            "static": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "instantiated object to have mixins to applied to.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Inject"
+        },
+        {
+            "file": "src/classes/middleware-router.js",
+            "line": 11,
+            "itemtype": "method",
+            "name": "map",
+            "static": 1,
+            "params": [
+                {
+                    "name": "definition",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "MiddlewareRouter"
+        },
+        {
+            "file": "src/classes/middleware.js",
+            "line": 21,
+            "description": "Registers code to be executed as middleware.\n\nExample:\n```javascript\nclass Token extends Ash.Middleware {\n  services (register) {\n    register('store')\n    register('current-user')\n  }\n\n  register () {\n    const token = this.query.token\n    return this.store.query('user', {filter: {token}}).then(user => {\n      this.currentUser.id = user.id\n      this.currentUser.name = user.name\n    })\n  }\n}\n```\nIn the above example we register 2 services, look up a user based on the token\nin the url query string and then set the returned user as the current user.\n\nNote. Returning a promise from the `register` function causes later middleware or\nthe route to wait for the promise to resolve as in the example above.",
+            "itemtype": "method",
+            "name": "register",
+            "access": "public",
+            "tagname": "",
+            "class": "Middleware"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "- properties hash that the model instance should be created with",
+                    "type": "Object"
+                }
+            ],
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 33,
+            "description": "Provides a copy of the models internal state as a plain javascript object\nDoes not provide relationship data as models. For this you need to use\nindividual relationship getters.\n\nExample:\n```javascript\nconst model = new PostModel({\n  title: 'My title',\n  comments: [\n    {comment: 'This is my comment'},\n    {comment: 'This is another comment'}\n  ]\n})\n\nmodel.comments.then(comments => {\n  // comments are `CommentModel` instances\n})\n\n// comments are plain javascript objects in an array\nconst comments = model.attributes.comments\n```",
+            "itemtype": "property",
+            "name": "attributes",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- clone of attributes hash",
+                "type": "Object"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 63,
+            "description": "Setter for model instances internal state.\nCalled in model constructor with passed in state data\n\nPerforms validation of incoming data and guards access to internal state.\nAll individual getters and setters go through this setter thereby providing a single\nentry point for data validation and cleanup\n\nInternal state is stored as a plain object and can contain nested relationship data\nExample:\nFor a model\n```javascript\nclass PostModel extends Model {\n  static attributes (attr) {\n    attr('title', 'string')\n  }\n  static relationships (relation) {\n    relation('hasMany', 'comment')\n  }\n}\n```\nThe following is valid though `unspecifiedProp` will be ignored:\n```javascript\nnew PostModel({\n  title: 'My title',\n  unspecifiedProp: true,\n  comments: [\n    {comment: 'This is my comment'},\n    {comment: 'This is another comment'}\n  ]\n})\n```\nThe internal state of the model will be:\n```javascript\n{\n  title: 'My title',\n  comments: [\n    {comment: 'This is my comment'},\n    {comment: 'This is another comment'}\n  ]\n}\n```",
+            "itemtype": "property",
+            "name": "attributes",
+            "access": "public",
+            "tagname": "",
+            "class": "Model",
+            "subprops": [
+                {
+                    "name": "props",
+                    "description": "- a hash of keys and values to set as the models internal data",
+                    "type": "Object"
+                }
+            ]
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 165,
+            "itemtype": "property",
+            "name": "adapter",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- adapter for model",
+                "type": "Adapter"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 175,
+            "itemtype": "property",
+            "name": "serializer",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- serializer for model",
+                "type": "Serializer"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 185,
+            "description": "Save's the model instance",
+            "itemtype": "method",
+            "name": "save",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 199,
+            "description": "Delete the model instance",
+            "itemtype": "method",
+            "name": "delete",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 210,
+            "description": "Model attributes definition.\nThis needs to be overridden to define the various\nattributes the model will have.\n\nGets passed a function `attr` which should be called\nmultiple times (once for each attribute)\n\nExample\n```javascript\nattr('title', 'string')\n```\n\nTo specify a default value, pass an options object with an appropriate\ndefault value\n\nExample\n```javascript\nattr('isAccepted', 'boolean', {\n  defaultValue: true\n})\n```\n\nThe default value can also be specified via a function\n\nExample\n```javascript\nattr('title', 'string', {\n  defaultValue: function () {\n    return 'default title'\n  }\n})\n```",
+            "itemtype": "method",
+            "name": "attributes",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "attr",
+                    "description": "- function used to define model attributes",
+                    "type": "Function"
+                }
+            ],
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 252,
+            "description": "Model relationship definition.\nThis should be overriden to define any relationships to\nother models that are needed.\n\nGets passed a function `relation` which should be called multiple times (once for each relationship)\n`relation` has the following signature\n\n```javascript\nrelation(type, modelName, options)\n```\n\n`type` can be either `belongsTo` or `hasMany`\n`modelName` is a models `Model.modelName` property\n`options` is an object which may contain any or all of the keys `name`, `keyFrom` or `keyTo`\n\nExample:\n```javascript\nrelationships (relation) {\n  relation('hasMany', 'comment')\n}\n```\n\nExample:\n```javascript\nrelationships (relation) {\n  relation('hasMany', 'comment', {name: 'comments', keyFrom: 'id', keyTo: 'postId'})\n}\n```\n\nIf not specified, `name` is a pluralized version of the models name for `hasMany` or singular for `belongsTo`\nIf not specified, `keyFrom` is the models `idField` for `hasMany` or a concatenation of `modelName` and the string 'Id' for `belongsTo`\nIf not specified, `keyTo` is a concatenation of the related model's `modelName` and the string 'Id' for  for `hasMany` or the related models `idField` for `belongsTo`",
+            "itemtype": "method",
+            "name": "relationships",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "relation",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 294,
+            "description": "Model name matching filename (not classname)\nUsed throughout Ash to reference the model\n\nExample:\n For a model class named `MyPostModel` or `MyPostsModel`, `modelName` will be `my-post`",
+            "itemtype": "property",
+            "name": "modelName",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "model name",
+                "type": "String"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 313,
+            "description": "Table name for model of the form lowercase, pluralized with underscores separating words\nCalculated from models class name with `Model` stripped off the end\n\nExample:\n For model MyPostModel, tablename would be my_posts",
+            "itemtype": "property",
+            "name": "tableName",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "table name for model",
+                "type": "String"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 331,
+            "description": "Exposes a pluralised version of the models name\nMatches up with jsonapi specs `type` attribute\n\nExample:\nfor a model `post`, type would be `posts`",
+            "itemtype": "property",
+            "name": "type",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "model type",
+                "type": "String"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 350,
+            "description": "Specifies the name of the models id field.\n\nBy default the name of the models id field is 'id'\n\nThis method can be overridden to specify a different name to use for the models id\nfield in child classes.\n\nExample:\n```javascript\nstatic get idField () {\n return 'modelId'\n}\n```\n\nBy default id fields are of type 'number'.\n\nIf another type is desired then a matching named field should be provided in the model attributes hash.\n\nExample:\n```javascript\nstatic get idField () {\n  return 'customIdField'\n}\n\nstatic attributes (attr) {\n  attr('customIdField', 'string')\n}\n```",
+            "itemtype": "property",
+            "name": "idField",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- id field name",
+                "type": "String"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 388,
+            "description": "Assumes the model to be in a new state if the models id is not present in the attributes hash",
+            "itemtype": "property",
+            "name": "isNew",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- true if model is considered new (not saved in database)",
+                "type": "Boolean"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/model.js",
+            "line": 398,
+            "itemtype": "method",
+            "name": "toJSON",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- plain javascript representation of object (without relationship state)",
+                "type": "Object"
+            },
+            "class": "Model"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 9,
+            "description": "Creates an instance of QueryObjectTranslator.",
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "instance",
+                    "type": "Object"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 22,
+            "description": "Creates a new context in the query, wrapping the 'or' conditions",
+            "itemtype": "method",
+            "name": "orBuilder",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "orConditions",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 40,
+            "description": "Adds a single clause to the queryBuilder",
+            "itemtype": "method",
+            "name": "addClause",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "action",
+                    "description": "The action to add to the query",
+                    "type": "String"
+                },
+                {
+                    "name": "args",
+                    "description": "The arguments to the queryBuilder action",
+                    "type": "Array"
+                },
+                {
+                    "name": "isOr",
+                    "description": "Whether this action should be the 'or' version of itself",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 54,
+            "description": "Detects which queryBuilder action to take based on\nthe incoming query object operator syntax",
+            "itemtype": "method",
+            "name": "operatorFilter",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "colName",
+                    "description": "Attribute name on the model",
+                    "type": "String"
+                },
+                {
+                    "name": "operator",
+                    "description": "Symbol representing the sql operator",
+                    "type": "Any"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to use in the operation",
+                    "type": "Any"
+                },
+                {
+                    "name": "isOr",
+                    "description": "Whether the current context is an 'or'",
+                    "type": "Any"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 132,
+            "itemtype": "method",
+            "name": "buildQuery",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "colName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "isOr",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 149,
+            "itemtype": "method",
+            "name": "createNewContext",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "colName",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "isOr",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 167,
+            "itemtype": "method",
+            "name": "validateColumnName",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "colName",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 178,
+            "itemtype": "method",
+            "name": "handleFilter",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "colName",
+                    "description": "",
+                    "type": "Any"
+                },
+                {
+                    "name": "isOr",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/query-object-translator.js",
+            "line": 217,
+            "itemtype": "method",
+            "name": "translate",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "",
+                    "type": "Any"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "QueryObjectTranslator"
+        },
+        {
+            "file": "src/classes/registry.js",
+            "line": 21,
+            "description": "Sets up a given model based on it's static definition methods\n`attributes`, `idField` and `relationships` before adding it to the registry\n\nFirst creates an empty definition object on each model\n\nNext processes `attributes` creating getters and setters for each\ndefined attribute and adding an entry to the models `definition.attributes` object\n\nThen process and setup primary key using Model.idField creating a getter\nand setter on the model and adding an entry to the models `definition.attributes` object\n\nThen process `relationships` creating getters and setters for each\ndefined relationship. Relationship getters return nested data from `instance.attributes`\nwhere available and fall back to calling the appropriate relationship\nmethod to fetch the data via the adapter. Additionally adds an entry to the models `definition.relationships` object\n\nFinally adds the now setup model to the model registry",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Model"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Registry"
+        },
+        {
+            "file": "src/classes/registry.js",
+            "line": 203,
+            "itemtype": "property",
+            "name": "models",
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "- map of all registered model classes",
+                "type": "Map[Model]"
+            },
+            "class": "Registry"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 34,
+            "itemtype": "method",
+            "name": "constructor",
+            "access": "public",
+            "tagname": "",
+            "is_constructor": 1,
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 47,
+            "itemtype": "method",
+            "name": "hasMiddleware",
+            "access": "private",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 55,
+            "itemtype": "method",
+            "name": "registeredMiddleware",
+            "access": "private",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 63,
+            "description": "Route middleware\n\nYou can use this to register route specific middleware. ie. middleware specified here\nwill only run for this route. You can register the same piece of middleware in multiple\nroutes but you must do so explicitly by registering it in that routes `middleware` method.\n\nCall `register` with the name of the middleware in the `app/middleware` directory that\nyou want to load. You can call register multiple times to register more than one middleware\nand middleware will be executed in the order registered.\n\nExample: registering middleware on a route\n```javascript\n\n// app/routes/my-route.js\nimport Ash from 'ash-core'\n\nexport default class MyRoute extends Ash.Route {\n  static middleware (register) {\n    register('my-middleware')\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "middleware",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "register",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 96,
+            "description": "The first hook to be executed during the lifecycle of a route.\nThis hook should generally be used to perform operations on an incoming\nrequest body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs\nrather than GETs and DELETEs.",
+            "itemtype": "method",
+            "name": "deserialize",
+            "type": "Function",
+            "access": "public",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 109,
+            "itemtype": "method",
+            "name": "beforeModel",
+            "access": "public",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 117,
+            "itemtype": "method",
+            "name": "model",
+            "access": "public",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 126,
+            "itemtype": "property",
+            "name": "modelName",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 137,
+            "itemtype": "method",
+            "name": "afterModel",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Any"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 147,
+            "itemtype": "method",
+            "name": "serialize",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 165,
+            "itemtype": "method",
+            "name": "error",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "error",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "error",
+                "type": "Any"
+            },
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/route.js",
+            "line": 175,
+            "description": "The name of the route. This is the same as the name of the route js file (without the .js)\nand not the name of the exported class. For the name of the class use `this.name`",
+            "itemtype": "property",
+            "name": "routeName",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Route"
+        },
+        {
+            "file": "src/classes/router.js",
+            "line": 11,
+            "itemtype": "method",
+            "name": "map",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "definition",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Router"
+        },
+        {
+            "file": "src/classes/serializer.js",
+            "line": 9,
+            "description": "Translates an Ash model definition to a loopback definition\nwhich can be used with loopback-jsonapi-model-serializer",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Serializer"
+        },
+        {
+            "file": "src/classes/serializer.js",
+            "line": 41,
+            "itemtype": "method",
+            "name": "serialize",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "Model",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "class": "Serializer"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 17,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 27,
+            "itemtype": "method",
+            "name": "adapterFor",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Adapter"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 41,
+            "itemtype": "method",
+            "name": "serializerFor",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Serializer"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 55,
+            "itemtype": "method",
+            "name": "modelFor",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Model"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 65,
+            "description": "Finds all records for a given model. Use `query` when you need more control over\nwhat records are returned.",
+            "itemtype": "method",
+            "name": "findAll",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise[Array]"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 79,
+            "description": "Finds records of a given model using options.\n\nOptions is an {Object} with the following properties:\n\n`include` - used to include related model records\n\n```javascript\nstore.query(Post, {include: 'comments,author'})\n```\n\n`fields` - used to specify desired attribute fields to be returned in result objects\n\n```javascript\nstore.query(Post, {fields: {posts: 'title,description'}})\n```\n\nTo restrict fields from included relationship models\n\n```javascript\nstore.query(Post, {fields: {posts: 'title', comments: 'comment'}})\n```\n\n`sort` - used to sort results by its attributes\n\n```javascript\nstore.query(Post, {sort: 'title'})\n```\n\nTo specify sorting by multiple columns, separate by comma\n\n```javascript\nstore.query(Post, {sort: 'title,description'})\n```\n\nSort is ascending by default, use \"-\" to indicate descending\n\n```javascript\nstore.query(Post, {sort: '-title'})\n```\n\n`page` - used to paginate results\n\n```javascript\nstore.query(Post, {page: {number: 1, size: 20}})\n```\n\n`filter` - used to refine desired results by specified criteria\n\n```javascript\nstore.query(Post, {filter: {title: 'my title'}})\n```\n\nfilter also supports a number of operators prefixed with a $ character\n\n- `$or` - SQL OR\n- `$eq` - SQL =\n- `$gt` - SQL >\n- `$gte` - SQL >=\n- `$lt` - SQL <\n- `$lte` - SQL <=\n- `$ne` - SQL !=\n- `$not` - SQL NOT\n- `$between` - SQL BETWEEN\n- `$notbetween` - SQL NOT BETWEEN\n- `$in` - SQL IN\n- `$notin` SQL NOT IN\n- `$like` SQL LIKE\n- `$notlike` SQL NOT LIKE\n- `$ilike` - SQL NOT ILIKE\n- `$overlap` - SQL &&\n- `$contains` - SQL @>\n- `$contained` - SQL <@\n\n```javascript\nstore.query(Post, {filter: {title: {$like: '%my title%'}}})\n```\n\n`$or` is a slightly special case. It takes an array of objects to 'Or' together\n\n```javascript\nstore.query(Post, {filter: {\n  $or: [\n    {id: {$lt: 10}},\n    {id: {$in: [20, 21, 22]}}\n  ]\n})\n```",
+            "itemtype": "method",
+            "name": "query",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise[Array]"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 180,
+            "description": "Retrieves a single record for the given model by given id",
+            "itemtype": "method",
+            "name": "findRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 194,
+            "description": "Similar to `query` except that only a single record is returned",
+            "itemtype": "method",
+            "name": "queryRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "options",
+                    "description": "See `query`",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 208,
+            "description": "Creates a new record for a given model using supplied attributes hash",
+            "itemtype": "method",
+            "name": "createRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 222,
+            "description": "Updates a record for a given model with given id using a supplied attributes hash",
+            "itemtype": "method",
+            "name": "updateRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/classes/store.js",
+            "line": 237,
+            "description": "Delete a Model by given id",
+            "itemtype": "method",
+            "name": "deleteRecord",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "modelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Promise"
+            },
+            "class": "Store"
+        },
+        {
+            "file": "src/index.js",
+            "line": 32,
+            "itemtype": "property",
+            "name": "Route",
+            "type": "Route",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 38,
+            "itemtype": "property",
+            "name": "Router",
+            "type": "Router",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 44,
+            "itemtype": "property",
+            "name": "Middleware",
+            "type": "Middleware",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 50,
+            "itemtype": "property",
+            "name": "MiddlewareRouter",
+            "type": "MiddlewareRouter",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 56,
+            "description": "Instance of the Ash logger. Should be use throughout to log as needed.\n\nHas the following methods:\n- log.error\n- log.info\n- log.trace\n- log.warn\n- log.debug\n- log.fatal",
+            "itemtype": "property",
+            "name": "log",
+            "type": "Object",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 72,
+            "itemtype": "property",
+            "name": "Application",
+            "type": "Application",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 78,
+            "itemtype": "property",
+            "name": "Mixin",
+            "type": "Mixin",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 84,
+            "itemtype": "property",
+            "name": "Initializer",
+            "type": "Initializer",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 90,
+            "description": "This error should be used to throw Http related errors\n\n```\n\nthrow new Ash.HttpError(404)\n```\n\nAn optional message can be given\n\n```\n\nthrow new Ash.HttpError(404, 'Nothing was found, sorry about that.')\n```",
+            "itemtype": "property",
+            "name": "HttpError",
+            "type": "HttpError",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 109,
+            "itemtype": "property",
+            "name": "ErrorHandler",
+            "type": "ErrorHandler",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 115,
+            "itemtype": "property",
+            "name": "Service",
+            "type": "Service",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 121,
+            "itemtype": "property",
+            "name": "Model",
+            "type": "Model",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 127,
+            "itemtype": "property",
+            "name": "Adapter",
+            "type": "Adapter",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        },
+        {
+            "file": "src/index.js",
+            "line": 133,
+            "itemtype": "property",
+            "name": "Serializer",
+            "type": "Serializer",
+            "access": "public",
+            "tagname": "",
+            "class": "Ash",
+            "module": "Ash"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nSets up a given model based on it's static definition methods\n`attributes`, `idField` and `relationships` before adding it to the registry\n\nFirst creates an empty definition object on each model\n\nNext processes `attributes` creating getters and setters for each\ndefined attribute and adding an entry to the models `definition.attributes` object\n\nThen process and setup primary key using Model.idField creating a getter\nand setter on the model and adding an entry to the models `definition.attributes` object\n\nThen process `relationships` creating getters and setters for each\ndefined relationship. Relationship getters return nested data from `instance.attributes`\nwhere available and fall back to calling the appropriate relationship\nmethod to fetch the data via the adapter. Additionally adds an entry to the models `definition.relationships` object\n\nFinally adds the now setup model to the model registry",
+            "line": " src/classes/registry.js:21"
+        },
+        {
+            "message": "Missing item type\nTranslates an Ash model definition to a loopback definition\nwhich can be used with loopback-jsonapi-model-serializer",
+            "line": " src/classes/serializer.js:9"
+        }
+    ]
+}

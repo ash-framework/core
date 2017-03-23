@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/query-object-translator.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/query-object-translator.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+const { capitalize } = require(&#x27;lodash&#x27;)
+
+/**
+  @class QueryObjectTranslator
+  @extends Base
+  @private
+*/
+module.exports = class QueryObjectTranslator {
+  /**
+    Creates an instance of QueryObjectTranslator.
+
+    @method constructor
+    @constructor
+    @private
+    @param {Object} Model instance
+  */
+  constructor (Model) {
+    this.Model = Model
+    this.queryBuilder = Model.adapter.knex(Model.tableName)
+  }
+
+  /**
+    Creates a new context in the query, wrapping the &#x27;or&#x27; conditions
+
+    @method orBuilder
+    @private
+    @param {Array} orConditions
+  */
+  orBuilder (orConditions) {
+    const translator = this
+    this.queryBuilder.where(function () {
+      translator.queryBuilder = this
+      for (const condition of orConditions) {
+        const isOr = condition !== orConditions[0]
+        translator.buildQuery(condition, undefined, isOr)
+      }
+    })
+  }
+
+  /**
+    Adds a single clause to the queryBuilder
+
+    @method addClause
+    @private
+    @param {String} action The action to add to the query
+    @param {Array} args The arguments to the queryBuilder action
+    @param {Boolean} isOr Whether this action should be the &#x27;or&#x27; version of itself
+  */
+  addClause (action, args, isOr) {
+    if (isOr) action = &#x27;or&#x27; + capitalize(action)
+    this.queryBuilder = this.queryBuilder[action](...args)
+  }
+
+  /**
+    Detects which queryBuilder action to take based on
+    the incoming query object operator syntax
+
+    @method operatorFilter
+    @private
+    @param {String} colName Attribute name on the model
+    @param {any} operator Symbol representing the sql operator
+    @param {any} value The value to use in the operation
+    @param {any} isOr Whether the current context is an &#x27;or&#x27;
+  */
+  operatorFilter (colName, operator, value, isOr) {
+    operator = operator.toLowerCase()
+    switch (operator) {
+      case &#x27;$or&#x27;:
+        this.orBuilder(value)
+        break
+      case &#x27;$eq&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, value], isOr)
+        break
+      case &#x27;$gt&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;&gt;&#x27;, value], isOr)
+        break
+      case &#x27;$gte&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;&gt;=&#x27;, value], isOr)
+        break
+      case &#x27;$lt&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;&lt;&#x27;, value], isOr)
+        break
+      case &#x27;$lte&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;&lt;=&#x27;, value], isOr)
+        break
+      case &#x27;$ne&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;!=&#x27;, value], isOr)
+        break
+      case &#x27;$not&#x27;:
+        this.addClause(&#x27;whereNot&#x27;, [colName, value], isOr)
+        break
+      case &#x27;$between&#x27;:
+        this.addClause(&#x27;whereBetween&#x27;, [colName, value], isOr)
+        break
+      case &#x27;$notbetween&#x27;:
+        this.addClause(&#x27;whereNotBetween&#x27;, [colName, value], isOr)
+        break
+      case &#x27;$in&#x27;:
+        this.addClause(&#x27;whereIn&#x27;, [colName, value], isOr)
+        break
+      case &#x27;$notin&#x27;:
+        this.addClause(&#x27;whereNotIn&#x27;, [colName, value], isOr)
+        break
+      case &#x27;$like&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;LIKE&#x27;, value], isOr)
+        break
+      case &#x27;$notlike&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;NOT LIKE&#x27;, value], isOr)
+        break
+      case &#x27;$ilike&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;ILIKE&#x27;, value], isOr)
+        break
+      case &#x27;$notilike&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;NOT ILIKE&#x27;, value], isOr)
+        break
+      case &#x27;$overlap&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;&amp;&amp;&#x27;, value], isOr)
+        break
+      case &#x27;$contains&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;@&gt;&#x27;, value], isOr)
+        break
+      case &#x27;$contained&#x27;:
+        this.addClause(&#x27;where&#x27;, [colName, &#x27;&lt;@&#x27;, value], isOr)
+        break
+      case &#x27;$null&#x27;:
+        this.addClause(&#x27;whereNull&#x27;, [colName], isOr)
+        break
+      // default should throw error &#x27;Unknown operator&#x27;
+    }
+  }
+
+  /**
+    @method buildQuery
+    @private
+    @param {Object} filter
+    @param {String} colName
+    @param {Boolean} isOr
+  */
+  buildQuery (filter, colName, isOr) {
+    const filterKeys = Object.keys(filter)
+    const isAnd = filterKeys.length &gt; 1
+    if (isAnd) {
+      this.createNewContext(filter, colName, isOr)
+    } else {
+      this.handleFilter(filter, colName, isOr)
+    }
+  }
+
+  /**
+    @method createNewContext
+    @private
+    @param {any} filter
+    @param {any} colName
+    @param {any} isOr
+  */
+  createNewContext (filter, colName, isOr) {
+    const translator = this
+    const action = isOr ? &#x27;orWhere&#x27; : &#x27;where&#x27;
+    // Create a nested condition, e.g. id = 1 AND (name = &#x27;blah&#x27; OR thing = 1)
+    translator.queryBuilder[action](function () {
+      translator.queryBuilder = this
+
+      translator.handleFilter(filter, colName, isOr)
+    })
+  }
+
+  /**
+    @method validateColumnName
+    @private
+    @param {any} colName
+    @return {Boolean}
+  */
+  validateColumnName (colName) {
+    // TODO: throw an error to show that the column name is invalid
+    return !colName || this.Model.definition.attributes[colName]
+  }
+
+  /**
+    @method handleFilter
+    @private
+    @param {any} filter
+    @param {any} colName
+    @param {any} isOr
+  */
+  handleFilter (filter, colName, isOr) {
+    let iterationCount = 0
+    for (const key of Object.keys(filter)) {
+      let value = filter[key]
+      if (iterationCount++ &gt; 0) isOr = undefined
+      if (key[0] === &#x27;$&#x27;) {
+        // its an operator
+        const operator = key
+        if (this.validateColumnName(colName)) {
+          this.operatorFilter(colName, operator, value, isOr)
+        }
+      } else {
+        // its not an operator so it is a column name
+        colName = key
+
+        if (value === null) {
+          this.operatorFilter(colName, &#x27;$null&#x27;, null, isOr)
+        } else {
+          // if its not an object then this is a simple equality operation
+          if (typeof value !== &#x27;object&#x27;) {
+            if (this.validateColumnName(colName)) {
+              this.operatorFilter(colName, &#x27;$eq&#x27;, value, isOr)
+            }
+          } else {
+            // value is actually a filter, and possibly need the colName for operator case
+            this.buildQuery(value, colName, isOr)
+          }
+        }
+      }
+    }
+  }
+
+  /**
+    @method translate
+    @param {any} filter
+    @private
+    @return {Object}
+  */
+  translate (filter) {
+    this.buildQuery(filter)
+
+    return this.queryBuilder
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

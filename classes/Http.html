@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Http - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+
+
+<div class="page-header">
+    <h1> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Http Class
+            <a class="pull-right file-edit" href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L6" target="_blank">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+    </h1>
+</div>
+
+
+<div class="content-meta">
+        <div class="uses">
+            Uses:
+            <ul class="inline commas">
+                    <li><a href="Inject.html">Inject</a></li>
+            </ul>
+        </div>
+
+        <div class="extends">
+            Extends: <a href="../classes/Base.html" class="crosslink">Base</a>
+        </div>
+
+            Module: <a href="../modules/Ash.html">Ash</a>
+
+
+        <div class="foundat">
+            Defined In: <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L6">src/classes/http.js:6</a>
+        </div>
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_Http" class="method item">
+	<span class="method-signature">
+	<span class="name anchorable-toc">
+		<a class="fa fa-link toc-anchor" href="#method_Http"></a>
+		Http
+	</span>
+
+		<span class="paren">()</span>
+	</span>
+
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L6">src/classes/http.js:6</a>
+		</p>
+
+
+
+	</div>
+
+
+
+
+</div>
+    </div>
+
+  <div class="class-description">
+  <p>Extends the <code>Base</code> class to add Http <code>request</code> and <code>response</code> properties.</p>
+<p>The <code>Http</code> class is intended to be used as a base class for any subclass that needs
+access to the http <code>request</code> and/or <code>response</code>.</p>
+<p>The class gains properties and methods from the request for convenience (effectively proxying them)
+and exposes the response (via <code>this.response</code>). The request itself is also available in full as
+needed via <code>this.request</code></p>
+
+  </div>
+
+<div>
+    <div class="page-section">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#tab_index" aria-controls="tab_index" role="tab" data-toggle="tab">Index</a></li>
+            <li role="presentation"><a href="#tab_methods" aria-controls="tab_methods" role="tab" data-toggle="tab">Methods</a></li>
+
+            <li role="presentation"><a href="#tab_properties" aria-controls="tab_properties" role="tab" data-toggle="tab">Properties</a></li>
+
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+              <form id="options-form" class="form-inline">
+                  Show:
+                  <label for="api-show-inherited" class="checkbox">
+                      <input type="checkbox" id="api-show-inherited" checked>
+                      Inherited
+                  </label>
+          
+                  <label for="api-show-protected" class="checkbox">
+                      <input type="checkbox" id="api-show-protected">
+                      Protected
+                  </label>
+          
+                  <label for="api-show-private" class="checkbox">
+                      <input type="checkbox" id="api-show-private">
+                      Private
+                  </label>
+                  <label for="api-show-deprecated" class="checkbox">
+                      <input type="checkbox" id="api-show-deprecated">
+                      Deprecated
+                  </label>
+          
+              </form>
+
+          <div id="tab_index" role="tabpanel" class="tab-pane active" >
+                  <div class="index-section methods">
+                      <h3>Methods</h3>
+
+                      <ul class="index-list methods extends">
+                              <li class="index-item method">
+                                  <a href="#method_accepts">accepts</a>
+
+                              </li>
+                              <li class="index-item method inherited">
+                                  <a href="#method_constructor">constructor</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_is">is</a>
+
+                              </li>
+                              <li class="index-item method">
+                                  <a href="#method_services">services</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                      </ul>
+                  </div>
+
+                  <div class="index-section properties">
+                      <h3>Properties</h3>
+
+                      <ul class="index-list properties extends">
+                              <li class="index-item property">
+                                  <a href="#property_body">body</a>
+
+                              </li>
+                              <li class="index-item property">
+                                  <a href="#property_headers">headers</a>
+
+                              </li>
+                              <li class="index-item property">
+                                  <a href="#property_method">method</a>
+
+                              </li>
+                              <li class="index-item property">
+                                  <a href="#property_params">params</a>
+
+                              </li>
+                              <li class="index-item property">
+                                  <a href="#property_query">query</a>
+
+                              </li>
+                              <li class="index-item property">
+                                  <a href="#property_request">request</a>
+
+                              </li>
+                              <li class="index-item property">
+                                  <a href="#property_response">response</a>
+
+                              </li>
+                      </ul>
+                  </div>
+
+
+          </div>
+
+              <div id="tab_methods" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="method_accepts" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_accepts"></a>
+  		accepts
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>types</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type">Mixed</span>
+  		</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L198">src/classes/http.js:198</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Checks if the specified content types are acceptable, based on the request’s Accept HTTP header field.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">this.accepts(['json', 'text'])
+  // =&gt; "json"
+  </code></pre>
+  <p>Note: This is a proxy of the express js <code>request.accepts</code> method.</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">types</code>
+  						<span class="type">Mixed</span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>may be a single MIME type string (such as “application/json”),
+  an extension name such as “json”, a comma-delimited list, or an array.</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type">Mixed</span>:
+  					<p>Returns the best match, or if none of the specified content types is acceptable,
+  returns false.</p>
+  
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_constructor" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_constructor"></a>
+  		constructor
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>context</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  			<p>Inherited from
+  			<a href="../classes/Base.html#method_constructor">
+  				Base
+  			</a>
+  			but overwritten in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L117">src/classes/http.js:117</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Constructs a new http object.
+  Sets up request and response properties and injects services if defined.</p>
+  <p>Sets the following properties on the route:</p>
+  <ul>
+  <li>request (express request)</li>
+  <li>response (express response)</li>
+  <li>body (request body)</li>
+  <li>params (request url named parameters)</li>
+  <li>query (request url query parameters)</li>
+  <li>headers (request headers)</li>
+  <li>method (request method)</li>
+  </ul>
+  <p>Services are injected under the defined injection property.</p>
+  <p>Example:
+  Given the following service definition:</p>
+  <pre class="code prettyprint"><code class="language-javascript">static services(register) {
+    register('authentication')
+  }
+  </code></pre>
+  <p>The route will be able to access the service:</p>
+  <pre class="code prettyprint"><code class="language-javascript">this.authentication
+  </code></pre>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">context</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>object with properties <code>request</code> and <code>response</code>
+  which are the express js request and reponse objects respectively</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  
+  </div>
+  <div id="method_is" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_is"></a>
+  		is
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>type</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type">Mixed</span>
+  		</span>
+  	</span>
+  
+  
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L219">src/classes/http.js:219</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Determines if the incoming request’s “Content-Type” HTTP header field matches
+  the MIME type specified by the type parameter.</p>
+  <p>Note: This is a proxy of the express js <code>request.is</code> method.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">// When Content-Type is application/json
+  this.is('json')
+  this.is('application/json')
+  this.is('application/')
+  // =&gt; true
+  </code></pre>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">type</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type">Mixed</span>:
+  					<p>Returns <code>true</code> if the incoming request’s “Content-Type” HTTP header field matches
+  the MIME type specified by the type parameter. Returns <code>false</code> otherwise.</p>
+  
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_services" class="method item">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_services"></a>
+  		Http.services
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>register</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  	</span>
+  
+  
+  		<span class="flag static">static</span>
+  
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L169">src/classes/http.js:169</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Used to define which services should be registered on the class.</p>
+  <p>Call the <code>register</code> function as many times as needed to register services.
+  Services are referenced by their name and will be looked up by the framework
+  and injected onto the instance.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">class MyClass extends Http {
+    static services (register) {
+      register('authentication')
+      register('user')
+    }
+  }
+  </code></pre>
+  <p>In the example above, the <code>authentication</code> service will be looked up from the <code>app/services</code>
+  directory and injected onto the instance as <code>this.authentication</code>. The user service will be
+  injected in the same manor afterwards.</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">register</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>takes a string name of the service to inject as its only argument.</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  
+  </div>
+                  </div>
+              </div>
+
+              <div id="tab_properties" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="property_body" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_body"></a>
+          body
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L40">src/classes/http.js:40</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>The request body</p>
+  <p>Contains key-value pairs of data submitted in the request body</p>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_headers" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_headers"></a>
+          headers
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L84">src/classes/http.js:84</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>The request headers object.
+  Contains Key-value pairs of header names and values. Header names are lower-cased.</p>
+  <p>Duplicates in raw headers are handled in the following ways, depending on the header name:</p>
+  <p>Duplicates of age, authorization, content-length, content-type, etag, expires, from, host, if-modified-since, if-unmodified-since, last-modified, location, max-forwards, proxy-authorization, referer, retry-after, or user-agent are discarded.
+  set-cookie is always an array. Duplicates are added to the array.
+  For all other headers, the values are joined together with ', '.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">this.headers
+  // { 'user-agent': 'curl/7.22.0',
+  //   host: '127.0.0.1:3010',
+  //   accept: '*\/*' }
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_method" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_method"></a>
+          method
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L105">src/classes/http.js:105</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Contains a string corresponding to the HTTP method of the
+  request: GET, POST, PUT, and so on.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">this.method // GET
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_params" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_params"></a>
+          params
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L47">src/classes/http.js:47</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Named url parameters</p>
+  <p>This property is an object containing properties mapped to named route parameters.
+  This object defaults to {}.</p>
+  <p>Example: defining parameters</p>
+  <pre class="code prettyprint"><code class="language-javascript">// app/router.js
+  Router.map(function () {
+    this.route('users', {path: '/users/:user_id'})
+  })
+  </code></pre>
+  <p>Example: accessing defined parameters</p>
+  <pre class="code prettyprint"><code class="language-javascript">this.params.user_id
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_query" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_query"></a>
+          query
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L69">src/classes/http.js:69</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>This property is an object containing a property for each query
+  string parameter in the route. If there is no query string, it is
+  an empty object</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">// /users?age=20&amp;name=bob
+  
+  this.query.age // 20
+  this.query.name // bob
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_request" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_request"></a>
+          request
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L22">src/classes/http.js:22</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>The http request object.</p>
+  <p>This is the express request object
+  See <a href="http://expressjs.com/en/api.html#req">http://expressjs.com/en/api.html#req</a></p>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_response" class="property item">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_response"></a>
+          response
+      </h3>
+      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/http.js#L31">src/classes/http.js:31</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>The http response object.</p>
+  <p>This is the express response object
+  See <a href="http://expressjs.com/en/api.html#res">http://expressjs.com/en/api.html#res</a></p>
+  
+      </div>
+  
+  
+  
+  </div>
+                  </div>
+              </div>
+
+
+      </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

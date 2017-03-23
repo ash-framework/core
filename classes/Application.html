@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Application - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+
+
+<div class="page-header">
+    <h1> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Application Class
+            <a class="pull-right file-edit" href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/application.js#L34" target="_blank">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+    </h1>
+</div>
+
+
+<div class="content-meta">
+
+        <div class="extends">
+            Extends: <a href="../classes/Base.html" class="crosslink">Base</a>
+        </div>
+
+            Module: <a href="../modules/Ash.html">Ash</a>
+
+
+        <div class="foundat">
+            Defined In: <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/application.js#L34">src/classes/application.js:34</a>
+        </div>
+</div>
+
+
+
+  <div class="class-description">
+  <p>Application class used to create a new instance of an Ash application
+via the static method <code>start</code></p>
+
+  </div>
+
+<div>
+    <div class="page-section">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#tab_index" aria-controls="tab_index" role="tab" data-toggle="tab">Index</a></li>
+            <li role="presentation"><a href="#tab_methods" aria-controls="tab_methods" role="tab" data-toggle="tab">Methods</a></li>
+
+
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+              <form id="options-form" class="form-inline">
+                  Show:
+                  <label for="api-show-inherited" class="checkbox">
+                      <input type="checkbox" id="api-show-inherited" checked>
+                      Inherited
+                  </label>
+          
+                  <label for="api-show-protected" class="checkbox">
+                      <input type="checkbox" id="api-show-protected">
+                      Protected
+                  </label>
+          
+                  <label for="api-show-private" class="checkbox">
+                      <input type="checkbox" id="api-show-private">
+                      Private
+                  </label>
+                  <label for="api-show-deprecated" class="checkbox">
+                      <input type="checkbox" id="api-show-deprecated">
+                      Deprecated
+                  </label>
+          
+              </form>
+
+          <div id="tab_index" role="tabpanel" class="tab-pane active" >
+                  <div class="index-section methods">
+                      <h3>Methods</h3>
+
+                      <ul class="index-list methods extends">
+                              <li class="index-item method public inherited">
+                                  <a href="#method_constructor">constructor</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_start">start</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                      </ul>
+                  </div>
+
+
+
+          </div>
+
+              <div id="tab_methods" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="method_constructor" class="method item public inherited">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_constructor"></a>
+  		constructor
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>Inherited from
+  				<a href="../classes/Base.html#method_constructor">Base</a>:
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/base.js#L14">src/classes/base.js:14</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description">Sets up mixins.
+  When overriding the constructor, remember to call <code>super()</code></div>
+  
+  
+  
+  </div>
+  <div id="method_start" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_start"></a>
+  		Application.start
+  	</span>
+  
+  		<span class="paren">()</span>
+  	</span>
+  
+  
+  		<span class="flag static">static</span>
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/application.js#L43">src/classes/application.js:43</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><h2>Starts an Ash application</h2>
+  <p>Starts application by performing the following operations</p>
+  <h3>1. runs initializers</h3>
+  <p>Runs initializer classes in app/initializers (if any) in alphabetical order.
+  Inializers can be used to hook into app start up early on and gain access
+  to the express app instance in case you need to perform operations
+  outside the scope of the Ash framework.</p>
+  <h4>Example: adding an initializer</h4>
+  <pre class="code prettyprint"><code>
+  // app/initializers/application.js
+  const Ash = require('@ash-framework/ash')
+  
+  module.exports = class Initializer extends Ash.Initializer {
+    init (app) {
+      // app is an unmodified express app instance so you can
+      // do the following.
+      app.get('/animals/mice', function (req, res) {
+        res.send('Success')
+      })
+    }
+  }
+  </code></pre>
+  <h3>2. loads middleware</h3>
+  <p>Reads app/middleware.js to determine which middleware to run and in what order.
+  Reads in and runs any middleware specified in app/middleware.js from the app/middleware directory</p>
+  <h4>Example: creating middleware</h4>
+  <pre class="code prettyprint"><code>
+  // app/middleware/access.js
+  const Ash = require('@ash-framework/ash')
+  
+  module.exports = class AccessMiddleware extends Ash.Middleware {
+    register () {
+  
+    }
+  }
+  </code></pre>
+  <h4>Example: registering middleware</h4>
+  <pre class="code prettyprint"><code>
+  // app/middleware.js
+  const Ash = require('@ash-framework/ash')
+  
+  class MiddlewareRouter extends Ash.MiddlewareRouter { }
+  
+  MiddlewareRouter.map(function () {
+    this.middleware('access')
+  })
+  
+  module.exports = MiddlewareRouter
+  </code></pre>
+  <h3>3. creates routes</h3>
+  <p>Reads app/router.js to determine which routes to register.
+  Reads in and registers any routes specified in app/router.js from the app/routes directory</p>
+  <h4>Example: creating a route</h4>
+  <pre class="code prettyprint"><code>
+  // app/routes/user.js
+  const Ash = require('@ash-framework/ash')
+  
+  module.exports = class UserRoute extends Ash.Route {
+    model () {
+      // return user data
+    }
+  }
+  </code></pre>
+  <h4>Example: registering route in the router</h4>
+  <pre class="code prettyprint"><code>
+  // app/router.js
+  const Ash = require('@ash-framework/ash')
+  
+  class Router extends Ash.Router { }
+  
+  Router.map(function () {
+    this.route('user')
+  })
+  
+  module.exports = Router
+  </code></pre>
+  <h3>4. adds an error handler</h3>
+  <p>This error handler catches any errors and specifies how errors should be handled and
+  displayed to the client.</p>
+  <p>Looks for a user defined error handler class for the application in app/error-handler.js
+  If not found one is defined in its place.</p>
+  <h4>Example: adding a custom error handler</h4>
+  <pre class="code prettyprint"><code>
+  // app/error-handler.js
+  const {ErrorHandler, log} = require('@ash-framework/ash')
+  
+  module.exports = class ApplicationErrorHandler extends ErrorHandler {
+    error (error) {
+      log.error(error)
+      super.error(error)
+    }
+  }
+  </code></pre>
+  <h3>5. starts the app</h3>
+  <p>Starts the app on the port described in <code>config/environment.js</code>. The default port is 3010.</p>
+  <h4>Example: starting an application:</h4>
+  <pre class="code prettyprint"><code>
+  const Ash = require('@ash-framework/ash')
+  
+  class Application extends Ash.Application {
+  }
+  
+  Application.start()
+  </code></pre>
+  </div>
+  
+  
+  
+  </div>
+                  </div>
+              </div>
+
+
+
+      </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

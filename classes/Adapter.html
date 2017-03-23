@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Adapter - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+
+
+<div class="page-header">
+    <h1> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Adapter Class
+            <a class="pull-right file-edit" href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L9" target="_blank">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+    </h1>
+</div>
+
+
+<div class="content-meta">
+
+        <div class="extends">
+            Extends: <a href="../classes/Base.html" class="crosslink">Base</a>
+        </div>
+
+            Module: <a href="../modules/Ash.html">Ash</a>
+
+
+        <div class="foundat">
+            Defined In: <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L9">src/classes/adapter.js:9</a>
+        </div>
+</div>
+
+
+
+
+<div>
+    <div class="page-section">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#tab_index" aria-controls="tab_index" role="tab" data-toggle="tab">Index</a></li>
+            <li role="presentation"><a href="#tab_methods" aria-controls="tab_methods" role="tab" data-toggle="tab">Methods</a></li>
+
+
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+              <form id="options-form" class="form-inline">
+                  Show:
+                  <label for="api-show-inherited" class="checkbox">
+                      <input type="checkbox" id="api-show-inherited" checked>
+                      Inherited
+                  </label>
+          
+                  <label for="api-show-protected" class="checkbox">
+                      <input type="checkbox" id="api-show-protected">
+                      Protected
+                  </label>
+          
+                  <label for="api-show-private" class="checkbox">
+                      <input type="checkbox" id="api-show-private">
+                      Private
+                  </label>
+                  <label for="api-show-deprecated" class="checkbox">
+                      <input type="checkbox" id="api-show-deprecated">
+                      Deprecated
+                  </label>
+          
+              </form>
+
+          <div id="tab_index" role="tabpanel" class="tab-pane active" >
+                  <div class="index-section methods">
+                      <h3>Methods</h3>
+
+                      <ul class="index-list methods extends">
+                              <li class="index-item method public inherited">
+                                  <a href="#method_constructor">constructor</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_createRecord">createRecord</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_deleteRecord">deleteRecord</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_fieldsForModel">fieldsForModel</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_findAll">findAll</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_findRecord">findRecord</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_include">include</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_limitFieldSet">limitFieldSet</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_paginate">paginate</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_query">query</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_queryRecord">queryRecord</a>
+
+                              </li>
+                              <li class="index-item method private">
+                                  <a href="#method_sort">sort</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_updateRecord">updateRecord</a>
+
+                              </li>
+                      </ul>
+                  </div>
+
+
+
+          </div>
+
+              <div id="tab_methods" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="method_constructor" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_constructor"></a>
+  		constructor
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>store</code>
+  				</li>
+  				<li class="arg">
+  						<code>options</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  			<p>Inherited from
+  			<a href="../classes/Base.html#method_constructor">
+  				Base
+  			</a>
+  			but overwritten in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L15">src/classes/adapter.js:15</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Sets up the knex query builder instance</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">store</code>
+  						<span class="type"><a href="../classes/Store.html" class="crosslink">Store</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>Instance of Ash.Store</li>
+  </ul>
+  </div>
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">options</code>
+  						<span class="type">Mixed</span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>knex database options {Object} or {String}</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  
+  </div>
+  <div id="method_createRecord" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_createRecord"></a>
+  		createRecord
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>data</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L375">src/classes/adapter.js:375</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Creates a new record for a given model using supplied attributes hash</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">data</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_deleteRecord" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_deleteRecord"></a>
+  		deleteRecord
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>id</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L417">src/classes/adapter.js:417</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Delete a Model by given id</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">id</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_fieldsForModel" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_fieldsForModel"></a>
+  		fieldsForModel
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L45">src/classes/adapter.js:45</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Returns a fields array of Model attribute names</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>Model class</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+  					<ul>
+  <li>array of model attribute names</li>
+  </ul>
+  
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_findAll" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_findAll"></a>
+  		findAll
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L195">src/classes/adapter.js:195</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Finds all records for a given model. Use <code>query</code> when you need more control over
+  what records are returned.</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_findRecord" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_findRecord"></a>
+  		findRecord
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>id</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L340">src/classes/adapter.js:340</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Retrieves a single record for the given model by given id</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">id</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_include" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_include"></a>
+  		include
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>query</code>
+  				</li>
+  				<li class="arg">
+  						<code>includeString</code>
+  				</li>
+  				<li class="arg">
+  						<code>fieldOptions</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L66">src/classes/adapter.js:66</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">query</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">includeString</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">fieldOptions</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_limitFieldSet" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_limitFieldSet"></a>
+  		limitFieldSet
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>attributes</code>
+  				</li>
+  				<li class="arg">
+  						<code>options</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L138">src/classes/adapter.js:138</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">attributes</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">options</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+  					<p>attributes</p>
+  
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_paginate" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_paginate"></a>
+  		paginate
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>query</code>
+  				</li>
+  				<li class="arg">
+  						<code>options</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L166">src/classes/adapter.js:166</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">query</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>knex query promise object</li>
+  </ul>
+  </div>
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">options</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>:
+  					<ul>
+  <li>knex query promise object</li>
+  </ul>
+  
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_query" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_query"></a>
+  		query
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>options</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L212">src/classes/adapter.js:212</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Finds records of a given model using options.</p>
+  <p>Options is an {Object} with the following properties:</p>
+  <p><code>include</code> - used to include related model records</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {include: 'comments,author'})
+  </code></pre>
+  <p><code>fields</code> - used to specify desired attribute fields to be returned in result objects</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {fields: {posts: 'title,description'}})
+  </code></pre>
+  <p>To restrict fields from included relationship models</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {fields: {posts: 'title', comments: 'comment'}})
+  </code></pre>
+  <p><code>sort</code> - used to sort results by its attributes</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {sort: 'title'})
+  </code></pre>
+  <p>To specify sorting by multiple columns, separate by comma</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {sort: 'title,description'})
+  </code></pre>
+  <p>Sort is ascending by default, use "-" to indicate descending</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {sort: '-title'})
+  </code></pre>
+  <p><code>page</code> - used to paginate results</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {page: {number: 1, size: 20}})
+  </code></pre>
+  <p><code>filter</code> - used to refine desired results by specified criteria</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {filter: {title: 'my title'}})
+  </code></pre>
+  <p>filter also supports a number of operators prefixed with a $ character</p>
+  <ul>
+  <li><code>$or</code> - SQL OR</li>
+  <li><code>$eq</code> - SQL =</li>
+  <li><code>$gt</code> - SQL &gt;</li>
+  <li><code>$gte</code> - SQL &gt;=</li>
+  <li><code>$lt</code> - SQL &lt;</li>
+  <li><code>$lte</code> - SQL &lt;=</li>
+  <li><code>$ne</code> - SQL !=</li>
+  <li><code>$not</code> - SQL NOT</li>
+  <li><code>$between</code> - SQL BETWEEN</li>
+  <li><code>$notbetween</code> - SQL NOT BETWEEN</li>
+  <li><code>$in</code> - SQL IN</li>
+  <li><code>$notin</code> SQL NOT IN</li>
+  <li><code>$like</code> SQL LIKE</li>
+  <li><code>$notlike</code> SQL NOT LIKE</li>
+  <li><code>$ilike</code> - SQL NOT ILIKE</li>
+  <li><code>$overlap</code> - SQL &amp;&amp;</li>
+  <li><code>$contains</code> - SQL @&gt;</li>
+  <li><code>$contained</code> - SQL &lt;@</li>
+  </ul>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {filter: {title: {$like: '%my title%'}}})
+  </code></pre>
+  <p><code>$or</code> is a slightly special case. It takes an array of objects to 'Or' together</p>
+  <pre class="code prettyprint"><code class="language-javascript">adapter.query(Post, {filter: {
+    $or: [
+      {id: {$lt: 10}},
+      {id: {$in: [20, 21, 22]}}
+    ]
+  })
+  </code></pre>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">options</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_queryRecord" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_queryRecord"></a>
+  		queryRecord
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>options</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L359">src/classes/adapter.js:359</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Similar to <code>query</code> except that only a single record is returned</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">options</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  					<div class="param-description"><p>@see <code>query</code></p>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_sort" class="method item private">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_sort"></a>
+  		sort
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>query</code>
+  				</li>
+  				<li class="arg">
+  						<code>sortString</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag private">private</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L179">src/classes/adapter.js:179</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">query</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>knex query promise object</li>
+  </ul>
+  </div>
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">sortString</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>:
+  					<ul>
+  <li>knex query promise object</li>
+  </ul>
+  
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_updateRecord" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_updateRecord"></a>
+  		updateRecord
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>Model</code>
+  				</li>
+  				<li class="arg">
+  						<code>id</code>
+  				</li>
+  				<li class="arg">
+  						<code>data</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/adapter.js#L393">src/classes/adapter.js:393</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Updates a record for a given model with given id using a supplied attributes hash</p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">Model</code>
+  						<span class="type"><a href="../classes/Model.html" class="crosslink">Model</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">id</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+  
+  
+  
+  				</li>
+  				<li class="param">
+  						<code class="param-name">data</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+                  </div>
+              </div>
+
+
+
+      </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

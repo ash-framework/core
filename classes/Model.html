@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Model - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+
+
+<div class="page-header">
+    <h1> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Model Class
+            <a class="pull-right file-edit" href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L10" target="_blank">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+    </h1>
+</div>
+
+
+<div class="content-meta">
+
+        <div class="extends">
+            Extends: <a href="../classes/Base.html" class="crosslink">Base</a>
+        </div>
+
+            Module: <a href="../modules/Ash.html">Ash</a>
+
+
+        <div class="foundat">
+            Defined In: <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L10">src/classes/model.js:10</a>
+        </div>
+</div>
+
+
+
+
+<div>
+    <div class="page-section">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#tab_index" aria-controls="tab_index" role="tab" data-toggle="tab">Index</a></li>
+            <li role="presentation"><a href="#tab_methods" aria-controls="tab_methods" role="tab" data-toggle="tab">Methods</a></li>
+
+            <li role="presentation"><a href="#tab_properties" aria-controls="tab_properties" role="tab" data-toggle="tab">Properties</a></li>
+
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+              <form id="options-form" class="form-inline">
+                  Show:
+                  <label for="api-show-inherited" class="checkbox">
+                      <input type="checkbox" id="api-show-inherited" checked>
+                      Inherited
+                  </label>
+          
+                  <label for="api-show-protected" class="checkbox">
+                      <input type="checkbox" id="api-show-protected">
+                      Protected
+                  </label>
+          
+                  <label for="api-show-private" class="checkbox">
+                      <input type="checkbox" id="api-show-private">
+                      Private
+                  </label>
+                  <label for="api-show-deprecated" class="checkbox">
+                      <input type="checkbox" id="api-show-deprecated">
+                      Deprecated
+                  </label>
+          
+              </form>
+
+          <div id="tab_index" role="tabpanel" class="tab-pane active" >
+                  <div class="index-section methods">
+                      <h3>Methods</h3>
+
+                      <ul class="index-list methods extends">
+                              <li class="index-item method public">
+                                  <a href="#method_attributes">attributes</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item method public inherited">
+                                  <a href="#method_constructor">constructor</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_delete">delete</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_relationships">relationships</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_save">save</a>
+
+                              </li>
+                              <li class="index-item method public">
+                                  <a href="#method_toJSON">toJSON</a>
+
+                              </li>
+                      </ul>
+                  </div>
+
+                  <div class="index-section properties">
+                      <h3>Properties</h3>
+
+                      <ul class="index-list properties extends">
+                              <li class="index-item property public">
+                                  <a href="#property_adapter">adapter</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_attributes">attributes</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_attributes">attributes</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_idField">idField</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_isNew">isNew</a>
+
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_modelName">modelName</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_serializer">serializer</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_tableName">tableName</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                              <li class="index-item property public">
+                                  <a href="#property_type">type</a>
+
+                                      <span class="flag static">static</span>
+                              </li>
+                      </ul>
+                  </div>
+
+
+          </div>
+
+              <div id="tab_methods" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="method_attributes" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_attributes"></a>
+  		Model.attributes
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>attr</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  	</span>
+  
+  
+  		<span class="flag static">static</span>
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L210">src/classes/model.js:210</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Model attributes definition.
+  This needs to be overridden to define the various
+  attributes the model will have.</p>
+  <p>Gets passed a function <code>attr</code> which should be called
+  multiple times (once for each attribute)</p>
+  <p>Example</p>
+  <pre class="code prettyprint"><code class="language-javascript">attr('title', 'string')
+  </code></pre>
+  <p>To specify a default value, pass an options object with an appropriate
+  default value</p>
+  <p>Example</p>
+  <pre class="code prettyprint"><code class="language-javascript">attr('isAccepted', 'boolean', {
+    defaultValue: true
+  })
+  </code></pre>
+  <p>The default value can also be specified via a function</p>
+  <p>Example</p>
+  <pre class="code prettyprint"><code class="language-javascript">attr('title', 'string', {
+    defaultValue: function () {
+      return 'default title'
+    }
+  })
+  </code></pre>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">attr</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>function used to define model attributes</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  
+  </div>
+  <div id="method_constructor" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_constructor"></a>
+  		constructor
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>props</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  			<p>Inherited from
+  			<a href="../classes/Base.html#method_constructor">
+  				Base
+  			</a>
+  			but overwritten in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L16">src/classes/model.js:16</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">props</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+  
+  					<div class="param-description"><ul>
+  <li>properties hash that the model instance should be created with</li>
+  </ul>
+  </div>
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  
+  </div>
+  <div id="method_delete" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_delete"></a>
+  		delete
+  	</span>
+  
+  		<span class="paren">()</span>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L199">src/classes/model.js:199</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Delete the model instance</p>
+  </div>
+  
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_relationships" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_relationships"></a>
+  		Model.relationships
+  	</span>
+  
+  		<div class="args">
+  			<span class="paren">(</span><ul class="args-list inline commas">
+  				<li class="arg">
+  						<code>relation</code>
+  				</li>
+  			</ul><span class="paren">)</span>
+  		</div>
+  	</span>
+  
+  
+  		<span class="flag static">static</span>
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L252">src/classes/model.js:252</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Model relationship definition.
+  This should be overriden to define any relationships to
+  other models that are needed.</p>
+  <p>Gets passed a function <code>relation</code> which should be called multiple times (once for each relationship)
+  <code>relation</code> has the following signature</p>
+  <pre class="code prettyprint"><code class="language-javascript">relation(type, modelName, options)
+  </code></pre>
+  <p><code>type</code> can be either <code>belongsTo</code> or <code>hasMany</code>
+  <code>modelName</code> is a models <code>Model.modelName</code> property
+  <code>options</code> is an object which may contain any or all of the keys <code>name</code>, <code>keyFrom</code> or <code>keyTo</code></p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">relationships (relation) {
+    relation('hasMany', 'comment')
+  }
+  </code></pre>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">relationships (relation) {
+    relation('hasMany', 'comment', {name: 'comments', keyFrom: 'id', keyTo: 'postId'})
+  }
+  </code></pre>
+  <p>If not specified, <code>name</code> is a pluralized version of the models name for <code>hasMany</code> or singular for <code>belongsTo</code>
+  If not specified, <code>keyFrom</code> is the models <code>idField</code> for <code>hasMany</code> or a concatenation of <code>modelName</code> and the string 'Id' for <code>belongsTo</code>
+  If not specified, <code>keyTo</code> is a concatenation of the related model's <code>modelName</code> and the string 'Id' for  for <code>hasMany</code> or the related models <code>idField</code> for <code>belongsTo</code></p>
+  </div>
+  
+  		<div class="params">
+  			<h4>Parameters:</h4>
+  
+  			<ul class="params-list">
+  				<li class="param">
+  						<code class="param-name">relation</code>
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+  
+  
+  
+  				</li>
+  			</ul>
+  		</div>
+  
+  
+  </div>
+  <div id="method_save" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_save"></a>
+  		save
+  	</span>
+  
+  		<span class="paren">()</span>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L185">src/classes/model.js:185</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  	<div class="description"><p>Save's the model instance</p>
+  </div>
+  
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a></span>
+  			</div>
+  		</div>
+  
+  </div>
+  <div id="method_toJSON" class="method item public">
+  	<span class="method-signature">
+  	<span class="name anchorable-toc">
+  		<a class="fa fa-link toc-anchor" href="#method_toJSON"></a>
+  		toJSON
+  	</span>
+  
+  		<span class="paren">()</span>
+  		<span class="returns-inline">
+  			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  		</span>
+  	</span>
+  
+  
+  
+  		<span class="flag public">public</span>
+  
+  
+  
+  
+  	<div class="meta">
+  				<p>
+  				Defined in
+  		<a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L398">src/classes/model.js:398</a>
+  		</p>
+  
+  
+  
+  	</div>
+  
+  
+  
+  		<div class="returns">
+  			<h4>Returns:</h4>
+  
+  			<div class="returns-description">
+  						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+  					<ul>
+  <li>plain javascript representation of object (without relationship state)</li>
+  </ul>
+  
+  			</div>
+  		</div>
+  
+  </div>
+                  </div>
+              </div>
+
+              <div id="tab_properties" role="tabpanel" class="tab-pane">
+                  <div class="item-list">
+  <div id="property_adapter" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_adapter"></a>
+          adapter
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+          <span class="flag static">static</span>
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L165">src/classes/model.js:165</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_attributes" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_attributes"></a>
+          attributes
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L33">src/classes/model.js:33</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Provides a copy of the models internal state as a plain javascript object
+  Does not provide relationship data as models. For this you need to use
+  individual relationship getters.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">const model = new PostModel({
+    title: 'My title',
+    comments: [
+      {comment: 'This is my comment'},
+      {comment: 'This is another comment'}
+    ]
+  })
+  
+  model.comments.then(comments =&gt; {
+    // comments are <code>CommentModel</code> instances
+  })
+  
+  // comments are plain javascript objects in an array
+  const comments = model.attributes.comments
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_attributes" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_attributes"></a>
+          attributes
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L63">src/classes/model.js:63</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Setter for model instances internal state.
+  Called in model constructor with passed in state data</p>
+  <p>Performs validation of incoming data and guards access to internal state.
+  All individual getters and setters go through this setter thereby providing a single
+  entry point for data validation and cleanup</p>
+  <p>Internal state is stored as a plain object and can contain nested relationship data
+  Example:
+  For a model</p>
+  <pre class="code prettyprint"><code class="language-javascript">class PostModel extends Model {
+    static attributes (attr) {
+      attr('title', 'string')
+    }
+    static relationships (relation) {
+      relation('hasMany', 'comment')
+    }
+  }
+  </code></pre>
+  <p>The following is valid though <code>unspecifiedProp</code> will be ignored:</p>
+  <pre class="code prettyprint"><code class="language-javascript">new PostModel({
+    title: 'My title',
+    unspecifiedProp: true,
+    comments: [
+      {comment: 'This is my comment'},
+      {comment: 'This is another comment'}
+    ]
+  })
+  </code></pre>
+  <p>The internal state of the model will be:</p>
+  <pre class="code prettyprint"><code class="language-javascript">{
+    title: 'My title',
+    comments: [
+      {comment: 'This is my comment'},
+      {comment: 'This is another comment'}
+    ]
+  }
+  </code></pre>
+  
+      </div>
+  
+  
+  
+          <h4>Sub-properties:</h4>
+  
+          <ul class="params-list">
+              <li class="param">
+                      <code class="param-name">props</code>
+                      <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+  
+                  <div class="param-description">
+                      <ul>
+  <li>a hash of keys and values to set as the models internal data</li>
+  </ul>
+  
+                  </div>
+  
+              </li>
+          </ul>
+  </div>
+  <div id="property_idField" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_idField"></a>
+          idField
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+          <span class="flag static">static</span>
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L350">src/classes/model.js:350</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Specifies the name of the models id field.</p>
+  <p>By default the name of the models id field is 'id'</p>
+  <p>This method can be overridden to specify a different name to use for the models id
+  field in child classes.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">static get idField () {
+   return 'modelId'
+  }
+  </code></pre>
+  <p>By default id fields are of type 'number'.</p>
+  <p>If another type is desired then a matching named field should be provided in the model attributes hash.</p>
+  <p>Example:</p>
+  <pre class="code prettyprint"><code class="language-javascript">static get idField () {
+    return 'customIdField'
+  }
+  
+  static attributes (attr) {
+    attr('customIdField', 'string')
+  }
+  </code></pre>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_isNew" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_isNew"></a>
+          isNew
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L388">src/classes/model.js:388</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Assumes the model to be in a new state if the models id is not present in the attributes hash</p>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_modelName" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_modelName"></a>
+          modelName
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+          <span class="flag static">static</span>
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L294">src/classes/model.js:294</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Model name matching filename (not classname)
+  Used throughout Ash to reference the model</p>
+  <p>Example:
+  For a model class named <code>MyPostModel</code> or <code>MyPostsModel</code>, <code>modelName</code> will be <code>my-post</code></p>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_serializer" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_serializer"></a>
+          serializer
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+          <span class="flag static">static</span>
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L175">src/classes/model.js:175</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_tableName" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_tableName"></a>
+          tableName
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+          <span class="flag static">static</span>
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L313">src/classes/model.js:313</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Table name for model of the form lowercase, pluralized with underscores separating words
+  Calculated from models class name with <code>Model</code> stripped off the end</p>
+  <p>Example:
+  For model MyPostModel, tablename would be my_posts</p>
+  
+      </div>
+  
+  
+  
+  </div>
+  <div id="property_type" class="property item public">
+      <h3 class="name anchorable-toc">
+          <a class="fa fa-link toc-anchor" href="#property_type"></a>
+          type
+      </h3>
+      <span class="type">Unknown</span>
+  
+  
+          <span class="flag public">public</span>
+  
+  
+          <span class="flag static">static</span>
+  
+      <div class="meta">
+                  <p>
+                  Defined in
+          <a href="https://github.com/ash-framework/core/tree/v0.1.4/src/classes/model.js#L331">src/classes/model.js:331</a>
+          </p>
+  
+  
+      </div>
+  
+      <div class="description">
+          <p>Exposes a pluralised version of the models name
+  Matches up with jsonapi specs <code>type</code> attribute</p>
+  <p>Example:
+  for a model <code>post</code>, type would be <code>posts</code></p>
+  
+      </div>
+  
+  
+  
+  </div>
+                  </div>
+              </div>
+
+
+      </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

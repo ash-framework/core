@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/route.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/route.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;
+
+const Http = require(&#x27;./http&#x27;)
+const middleware = new WeakMap()
+const { singularize } = require(&#x27;inflection&#x27;)
+
+/**
+  The Ash route class extends the See Http class and so has access
+  to request and response properties.
+
+  Routes execute via a series of hooks in the following order
+
+  1. deserialize
+  2. beforeModel
+  3. model
+  4. afterModel
+  5. serialize
+
+  If a hook returns a promise, the subsequent hook will not execute until the promise has resolved.
+
+  All hooks are optional except for &#x60;model&#x60; and amything returned from the &#x60;model&#x60; hook will be returned
+  to the client.
+
+  Routes support the following:
+  - mixins (See Mixin)
+  - services (See Service)
+  - middleware (See Middleware)
+
+  @class Route
+  @extends Http
+  @public
+*/
+module.exports = class Route extends Http {
+  /**
+    @method constructor
+    @public
+    @constructor
+  */
+  constructor (context) {
+    super(context)
+
+    const mw = []
+    this.constructor.middleware(middleware =&gt; mw.push(middleware))
+    middleware.set(this, mw)
+  }
+
+  /**
+    @method hasMiddleware
+    @private
+  */
+  get hasMiddleware () {
+    return middleware.get(this).length &gt; 0
+  }
+
+  /**
+    @method registeredMiddleware
+    @private
+  */
+  get registeredMiddleware () {
+    return middleware.get(this)
+  }
+
+  /**
+    Route middleware
+
+    You can use this to register route specific middleware. ie. middleware specified here
+    will only run for this route. You can register the same piece of middleware in multiple
+    routes but you must do so explicitly by registering it in that routes &#x60;middleware&#x60; method.
+
+    Call &#x60;register&#x60; with the name of the middleware in the &#x60;app/middleware&#x60; directory that
+    you want to load. You can call register multiple times to register more than one middleware
+    and middleware will be executed in the order registered.
+
+    Example: registering middleware on a route
+    &#x60;&#x60;&#x60;javascript
+
+    // app/routes/my-route.js
+    import Ash from &#x27;ash-core&#x27;
+
+    export default class MyRoute extends Ash.Route {
+      static middleware (register) {
+        register(&#x27;my-middleware&#x27;)
+      }
+    }
+    &#x60;&#x60;&#x60;
+
+    @method middleware
+    @static
+    @public
+    @param {Function} register
+  */
+  static middleware (register) {
+
+  }
+
+  /**
+    The first hook to be executed during the lifecycle of a route.
+    This hook should generally be used to perform operations on an incoming
+    request body. As such it makes more sense to use this hook for POSTs, PUTs and PATCHs
+    rather than GETs and DELETEs.
+
+    @method {Function} deserialize
+    @public
+  */
+  deserialize () {
+
+  }
+
+  /**
+    @method beforeModel
+    @public
+  */
+  beforeModel () {
+
+  }
+
+  /**
+    @method model
+    @public
+  */
+  model () {
+    const msg = &#x60;Route &#x27;${this.constructor.name}&#x27;: model hook error. You must implement a model hook&#x60;
+    return Promise.reject(msg)
+  }
+
+  /**
+    @property modelName
+    @public
+    @return {String}
+  */
+  static get modelName () {
+    // TODO: harden interface and test
+    const routeName = this.name.toLowerCase()
+    return singularize(routeName.replace(&#x27;route&#x27;, &#x27;&#x27;))
+  }
+
+  /**
+    @method afterModel
+    @public
+    @param {Object} model
+    @return {any}
+  */
+  afterModel (model) {
+    return model
+  }
+
+  /**
+    @method serialize
+    @public
+    @param {Object} model
+  */
+  serialize (model) {
+    if (this.store &amp;&amp; this.constructor.modelName) {
+      const serializer = this.store.serializerFor(this.constructor.modelName)
+      // TODO: set baseUrl from config or request
+      // const options = {baseUrl: &#x27;&#x27;}
+      const Model = this.store.modelFor(this.constructor.modelName)
+      if (serializer &amp;&amp; Model) {
+        return serializer.serialize(Model, model)
+      }
+    }
+    return model
+  }
+
+  /**
+    @method error
+    @public
+    @param {Object} error
+    @return {any} error
+  */
+  error (error) {
+    return Promise.reject(error)
+  }
+
+  /**
+    The name of the route. This is the same as the name of the route js file (without the .js)
+    and not the name of the exported class. For the name of the class use &#x60;this.name&#x60;
+
+    @property {String} routeName
+    @public
+  */
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/http.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/http.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;
+
+const Base = require(&#x27;./base&#x27;)
+const Inject = require(&#x27;./inject&#x27;)
+
+/**
+  Extends the &#x60;Base&#x60; class to add Http &#x60;request&#x60; and &#x60;response&#x60; properties.
+
+  The &#x60;Http&#x60; class is intended to be used as a base class for any subclass that needs
+  access to the http &#x60;request&#x60; and/or &#x60;response&#x60;.
+
+  The class gains properties and methods from the request for convenience (effectively proxying them)
+  and exposes the response (via &#x60;this.response&#x60;). The request itself is also available in full as
+  needed via &#x60;this.request&#x60;
+
+  @class Http
+  @uses Inject
+  @extends Base
+  @constructor
+*/
+module.exports = class Http extends Base {
+  /**
+    The http request object.
+
+    This is the express request object
+    See http://expressjs.com/en/api.html#req
+
+    @property {Object} request
+  */
+
+  /**
+    The http response object.
+
+    This is the express response object
+    See http://expressjs.com/en/api.html#res
+
+    @property {Object} response
+  */
+
+  /**
+    The request body
+
+    Contains key-value pairs of data submitted in the request body
+    @property {Object} body
+  */
+
+  /**
+    Named url parameters
+
+    This property is an object containing properties mapped to named route parameters.
+    This object defaults to {}.
+
+    Example: defining parameters
+    &#x60;&#x60;&#x60;javascript
+    // app/router.js
+    Router.map(function () {
+      this.route(&#x27;users&#x27;, {path: &#x27;/users/:user_id&#x27;})
+    })
+    &#x60;&#x60;&#x60;
+
+    Example: accessing defined parameters
+    &#x60;&#x60;&#x60;javascript
+    this.params.user_id
+    &#x60;&#x60;&#x60;
+
+    @property {Object} params
+  */
+
+  /**
+    This property is an object containing a property for each query
+    string parameter in the route. If there is no query string, it is
+    an empty object
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    // /users?age=20&amp;name=bob
+
+    this.query.age // 20
+    this.query.name // bob
+    &#x60;&#x60;&#x60;
+    @property {Object} query
+  */
+
+  /**
+    The request headers object.
+    Contains Key-value pairs of header names and values. Header names are lower-cased.
+
+    Duplicates in raw headers are handled in the following ways, depending on the header name:
+
+    Duplicates of age, authorization, content-length, content-type, etag, expires, from, host, if-modified-since, if-unmodified-since, last-modified, location, max-forwards, proxy-authorization, referer, retry-after, or user-agent are discarded.
+    set-cookie is always an array. Duplicates are added to the array.
+    For all other headers, the values are joined together with &#x27;, &#x27;.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    this.headers
+    // { &#x27;user-agent&#x27;: &#x27;curl/7.22.0&#x27;,
+    //   host: &#x27;127.0.0.1:3010&#x27;,
+    //   accept: &#x27;*\/*&#x27; }
+    &#x60;&#x60;&#x60;
+
+    @property {Object} headers
+  */
+
+  /**
+    Contains a string corresponding to the HTTP method of the
+    request: GET, POST, PUT, and so on.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    this.method // GET
+    &#x60;&#x60;&#x60;
+
+    @property {Object} method
+  */
+
+  /**
+    Constructs a new http object.
+    Sets up request and response properties and injects services if defined.
+
+    Sets the following properties on the route:
+    - request (express request)
+    - response (express response)
+    - body (request body)
+    - params (request url named parameters)
+    - query (request url query parameters)
+    - headers (request headers)
+    - method (request method)
+
+    Services are injected under the defined injection property.
+
+    Example:
+    Given the following service definition:
+    &#x60;&#x60;&#x60;javascript
+    static services(register) {
+      register(&#x27;authentication&#x27;)
+    }
+    &#x60;&#x60;&#x60;
+    The route will be able to access the service:
+
+    &#x60;&#x60;&#x60;javascript
+    this.authentication
+    &#x60;&#x60;&#x60;
+
+    @method constructor
+    @param {Object} context - object with properties &#x60;request&#x60; and &#x60;response&#x60;
+    which are the express js request and reponse objects respectively
+  */
+  constructor (context) {
+    super(context)
+
+    const {request, response} = context
+    const {body, params, query, headers, method} = request
+
+    this.body = body
+    this.params = params
+    this.query = query
+    this.headers = headers
+    this.method = method
+
+    this.request = request
+    this.response = response
+
+    this.constructor.services(service =&gt; {
+      Inject.service(this, service)
+    })
+  }
+
+  /**
+    Used to define which services should be registered on the class.
+
+    Call the &#x60;register&#x60; function as many times as needed to register services.
+    Services are referenced by their name and will be looked up by the framework
+    and injected onto the instance.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    class MyClass extends Http {
+      static services (register) {
+        register(&#x27;authentication&#x27;)
+        register(&#x27;user&#x27;)
+      }
+    }
+    &#x60;&#x60;&#x60;
+
+    In the example above, the &#x60;authentication&#x60; service will be looked up from the &#x60;app/services&#x60;
+    directory and injected onto the instance as &#x60;this.authentication&#x60;. The user service will be
+    injected in the same manor afterwards.
+
+    @method services
+    @static
+    @param {Function} register - takes a string name of the service to inject as its only argument.
+  */
+  static services (register) {
+    register(&#x27;store&#x27;)
+  }
+
+  /**
+    Checks if the specified content types are acceptable, based on the request’s Accept HTTP header field.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    this.accepts([&#x27;json&#x27;, &#x27;text&#x27;])
+    // =&gt; &quot;json&quot;
+    &#x60;&#x60;&#x60;
+
+    Note: This is a proxy of the express js &#x60;request.accepts&#x60; method.
+
+    @method accepts
+    @param {Mixed} types - may be a single MIME type string (such as “application/json”),
+    an extension name such as “json”, a comma-delimited list, or an array.
+    @return {Mixed} Returns the best match, or if none of the specified content types is acceptable,
+    returns false.
+  */
+  accepts (types) {
+    return this.request.accepts(types)
+  }
+
+  /**
+    Determines if the incoming request’s “Content-Type” HTTP header field matches
+    the MIME type specified by the type parameter.
+
+    Note: This is a proxy of the express js &#x60;request.is&#x60; method.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    // When Content-Type is application/json
+    this.is(&#x27;json&#x27;)
+    this.is(&#x27;application/json&#x27;)
+    this.is(&#x27;application/&#x27;)
+    // =&gt; true
+    &#x60;&#x60;&#x60;
+
+    @method is
+    @param {String} type
+    @return {Mixed} Returns &#x60;true&#x60; if the incoming request’s “Content-Type” HTTP header field matches
+    the MIME type specified by the type parameter. Returns &#x60;false&#x60; otherwise.
+  */
+  is (type) {
+    return this.request.is(type)
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

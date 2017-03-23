@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/adapter.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/adapter.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+const Base = require(&#x27;./base&#x27;)
+const Knex = require(&#x27;knex&#x27;)
+const {get} = require(&#x27;lodash&#x27;)
+const QueryObjectTranslator = require(&#x27;./query-object-translator&#x27;)
+const Log = require(&#x27;@ash-framework/log&#x27;)
+const log = new Log()
+const {underscore} = require(&#x27;inflection&#x27;)
+
+/**
+  @class Adapter
+  @extends Base
+  @public
+*/
+module.exports = class Adapter extends Base {
+  /**
+    Sets up the knex query builder instance
+    @method constructor
+    @constructor
+    @public
+    @param {Store} store - Instance of Ash.Store
+    @param {Mixed} options - knex database options {Object} or {String}
+  */
+  constructor (store, options) {
+    super()
+    this.store = store
+    this.knex = Knex({
+      client: &#x27;pg&#x27;,
+      connection: options,
+      searchPath: &#x27;knex,public&#x27;
+    })
+  }
+
+  checkConnection () {
+    if (this.isConnected) return Promise.resolve()
+    return this.knex.raw(&#x27;SELECT 1 = 1;&#x27;)
+      .then(() =&gt; {
+        this.isConnected = true
+      })
+      .catch(() =&gt; {
+        this.isConnected = false
+        return Promise.reject(&#x60;Adapter: database connection failed. Did you set connection values in &#x27;config/environment.js&#x27;?&#x60;)
+      })
+  }
+
+  /**
+    Returns a fields array of Model attribute names
+    @method fieldsForModel
+    @private
+    @param {Model} Model - Model class
+    @return {Array} - array of model attribute names
+  */
+  fieldsForModel (Model) {
+    return Object.keys(get(Model, &#x27;definition.attributes&#x27;), {})
+  }
+
+  databaseFieldsForModel (Model) {
+    return this.fieldsForModel(Model).map(field =&gt; underscore(field))
+  }
+
+  columnsForModel (Model) {
+    const modelAttrs = this.fieldsForModel(Model)
+    const databaseAttrs = this.databaseFieldsForModel(Model)
+    return databaseAttrs.map((dbAttr, i) =&gt; &#x60;${dbAttr} as ${modelAttrs[i]}&#x60;)
+  }
+
+  /**
+    @method include
+    @private
+    @param {Model} Model
+    @param {Object} query
+    @param {String} includeString
+    @param {Object} fieldOptions
+    @return {Promise}
+  */
+  include (Model, query, includeString = &#x27;&#x27;, fieldOptions) {
+    return query.then(data =&gt; {
+      data = JSON.parse(JSON.stringify(data))
+      let single = false
+      if (!Array.isArray(data)) {
+        single = true
+        data = [data]
+      }
+      return Promise.all(includeString.split(&#x27;,&#x27;).map(include =&gt; {
+        include = include.trim()
+        if (include.indexOf(&#x27;.&#x27;) !== -1) return
+        const definition = get(Model, &#x60;definition.relationships.${include}&#x60;)
+        if (!definition) return
+        const RelatedModel = this.store.modelFor(definition.modelTo)
+        if (!RelatedModel) return
+        let query = this.knex(RelatedModel.tableName)
+
+        let attributes = this.columnsForModel(Model)
+        if (fieldOptions) attributes = this.limitFieldSet(RelatedModel, attributes, fieldOptions)
+        query = query.column(attributes)
+
+        let columns = []
+        if (fieldOptions &amp;&amp; fieldOptions[RelatedModel.type]) {
+          columns = this.limitFieldSet(RelatedModel, fieldOptions[RelatedModel.type])
+        } else {
+          columns = this.columnsForModel(RelatedModel)
+        }
+        query = query.column(columns)
+
+        let ids = data.map(item =&gt; item[definition.keyFrom])
+        query = query.whereIn(definition.keyTo, ids)
+
+        return query.then(relatedData =&gt; {
+          const relatedDataGroups = new Map()
+          relatedData.forEach(relData =&gt; {
+            if (relatedDataGroups.has(relData[definition.keyTo])) {
+              relatedDataGroups.get(relData[definition.keyTo]).push(relData)
+            } else {
+              relatedDataGroups.set(relData[definition.keyTo], [relData])
+            }
+          })
+          return {name: include, definition, groupedData: relatedDataGroups}
+        })
+      }))
+      .then(relationshipData =&gt; {
+        data.forEach(item =&gt; {
+          relationshipData.forEach(relationship =&gt; {
+            const relData = relationship.groupedData.get(item[relationship.definition.keyFrom])
+            if (relationship.definition.type === &#x27;belongsTo&#x27;) {
+              item[relationship.name] = relData[0]
+            } else {
+              item[relationship.name] = relData
+            }
+          })
+        })
+        if (single) {
+          data = data[0]
+        }
+        return JSON.parse(JSON.stringify(data))
+      })
+    })
+  }
+
+  /**
+    @method limitFieldSet
+    @private
+    @param {Model} Model
+    @param {Object} attributes
+    @param {Object} options
+    @return {Array} attributes
+  */
+  limitFieldSet (Model, fieldNames = &#x27;&#x27;) {
+    // convert and clean string =&gt; array
+    fieldNames = fieldNames.split(&#x27;,&#x27;).map(field =&gt; field.trim())
+
+    // always include id field
+    if (fieldNames.indexOf(Model.idField) === -1) {
+      fieldNames.push(Model.idField)
+    }
+
+    // create a field map from model attr name to db column name eg. {myTitle =&gt; my_title, etc}
+    const modelFields = this.fieldsForModel(Model)
+    const dbFields = this.databaseFieldsForModel(Model)
+    const fieldMap = modelFields.map((modelField, i) =&gt; ({nameForModel: modelField, nameForDb: dbFields[i]}))
+
+    // filter out using fieldNames and return array of strings [&#x27;my_title as myTitle&#x27;, etc]
+    return fieldMap
+      .filter(fieldMapping =&gt; fieldNames.indexOf(fieldMapping.nameForModel) !== -1)
+      .map(fieldMapping =&gt; &#x60;${fieldMapping.nameForDb} as ${fieldMapping.nameForModel}&#x60;)
+  }
+
+  /**
+    @method paginate
+    @private
+    @param {Promise} query - knex query promise object
+    @param {Object} options
+    @return {Promise} - knex query promise object
+  */
+  paginate (query, options = {}) {
+    const number = options.number || 0
+    const size = options.size || 20
+    return query.limit(size).offset(number * size - size)
+  }
+
+  /**
+    @method sort
+    @private
+    @param {Promise} query - knex query promise object
+    @param {String} sortString
+    @return {Promise} - knex query promise object
+  */
+  sort (query, sortString = &#x27;&#x27;) {
+    sortString.split(&#x27;,&#x27;).forEach(column =&gt; {
+      const direction = (column.indexOf(&#x27;-&#x27;) !== -1) ? &#x27;DESC&#x27; : &#x27;ASC&#x27;
+      column = column.replace(&#x27;-&#x27;, &#x27;&#x27;)
+      query = query.orderBy(column.trim(), direction)
+    })
+    return query
+  }
+
+  /**
+    Finds all records for a given model. Use &#x60;query&#x60; when you need more control over
+    what records are returned.
+    @method findAll
+    @public
+    @param {Model} Model
+    @return {Promise}
+  */
+  findAll (Model) {
+    log.trace(&#x60;Adapter: running findAll for &#x27;${Model.modelName}&#x27; models&#x60;)
+    return this.checkConnection()
+      .then(() =&gt; {
+        const attributes = this.columnsForModel(Model)
+        return this.knex.column(attributes).select().from(Model.tableName)
+      })
+  }
+
+  /**
+    Finds records of a given model using options.
+
+    Options is an {Object} with the following properties:
+
+    &#x60;include&#x60; - used to include related model records
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {include: &#x27;comments,author&#x27;})
+    &#x60;&#x60;&#x60;
+
+    &#x60;fields&#x60; - used to specify desired attribute fields to be returned in result objects
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {fields: {posts: &#x27;title,description&#x27;}})
+    &#x60;&#x60;&#x60;
+
+    To restrict fields from included relationship models
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {fields: {posts: &#x27;title&#x27;, comments: &#x27;comment&#x27;}})
+    &#x60;&#x60;&#x60;
+
+    &#x60;sort&#x60; - used to sort results by its attributes
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {sort: &#x27;title&#x27;})
+    &#x60;&#x60;&#x60;
+
+    To specify sorting by multiple columns, separate by comma
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {sort: &#x27;title,description&#x27;})
+    &#x60;&#x60;&#x60;
+
+    Sort is ascending by default, use &quot;-&quot; to indicate descending
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {sort: &#x27;-title&#x27;})
+    &#x60;&#x60;&#x60;
+
+    &#x60;page&#x60; - used to paginate results
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {page: {number: 1, size: 20}})
+    &#x60;&#x60;&#x60;
+
+    &#x60;filter&#x60; - used to refine desired results by specified criteria
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {filter: {title: &#x27;my title&#x27;}})
+    &#x60;&#x60;&#x60;
+
+    filter also supports a number of operators prefixed with a $ character
+
+    - &#x60;$or&#x60; - SQL OR
+    - &#x60;$eq&#x60; - SQL =
+    - &#x60;$gt&#x60; - SQL &gt;
+    - &#x60;$gte&#x60; - SQL &gt;=
+    - &#x60;$lt&#x60; - SQL &lt;
+    - &#x60;$lte&#x60; - SQL &lt;=
+    - &#x60;$ne&#x60; - SQL !=
+    - &#x60;$not&#x60; - SQL NOT
+    - &#x60;$between&#x60; - SQL BETWEEN
+    - &#x60;$notbetween&#x60; - SQL NOT BETWEEN
+    - &#x60;$in&#x60; - SQL IN
+    - &#x60;$notin&#x60; SQL NOT IN
+    - &#x60;$like&#x60; SQL LIKE
+    - &#x60;$notlike&#x60; SQL NOT LIKE
+    - &#x60;$ilike&#x60; - SQL NOT ILIKE
+    - &#x60;$overlap&#x60; - SQL &amp;&amp;
+    - &#x60;$contains&#x60; - SQL @&gt;
+    - &#x60;$contained&#x60; - SQL &lt;@
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {filter: {title: {$like: &#x27;%my title%&#x27;}}})
+    &#x60;&#x60;&#x60;
+
+    &#x60;$or&#x60; is a slightly special case. It takes an array of objects to &#x27;Or&#x27; together
+
+    &#x60;&#x60;&#x60;javascript
+    adapter.query(Post, {filter: {
+      $or: [
+        {id: {$lt: 10}},
+        {id: {$in: [20, 21, 22]}}
+      ]
+    })
+    &#x60;&#x60;&#x60;
+
+    @method query
+    @public
+    @param {Model} Model
+    @param {Object} options
+    @return {Promise}
+  */
+  query (Model, options, single = false) {
+    if (!single) {
+      log.trace(&#x60;Adapter: running query for &#x27;${Model.modelName}&#x27; models. Called with options ${JSON.stringify(options)}&#x60;)
+    }
+    return this.checkConnection()
+      .then(() =&gt; {
+        let query
+        if (options.filter) {
+          const translator = new QueryObjectTranslator(Model)
+          query = translator.translate(options.filter)
+        } else {
+          query = this.knex.select().from(Model.tableName)
+        }
+
+        let columns = []
+        if (options.fields &amp;&amp; options.fields[Model.type]) {
+          columns = this.limitFieldSet(Model, options.fields[Model.type])
+        } else {
+          columns = this.columnsForModel(Model)
+        }
+        query = query.column(columns)
+
+        if (options.page) query = this.paginate(query, options.page)
+        if (options.sort) query = this.sort(query, options.sort)
+
+        if (single) query = query.first()
+
+        if (options.include) query = this.include(Model, query, options.include, options.fields)
+
+        return query
+      })
+  }
+
+  /**
+    Retrieves a single record for the given model by given id
+    @method findRecord
+    @public
+    @param {Model} Model
+    @param {number} id
+    @return {Promise}
+  */
+  findRecord (Model, id, options = {}) {
+    log.trace(&#x60;Adapter: running findRecord for &#x27;${Model.modelName}&#x27; model with id = ${id} and options ${JSON.stringify(options)}&#x60;)
+    return this.checkConnection()
+      .then(() =&gt; {
+        options.filter = {[Model.idField]: id}
+        options.page = null
+        options.sort = null
+        return this.queryRecord(Model, options).then(result =&gt; result || null)
+      })
+  }
+
+  /**
+    Similar to &#x60;query&#x60; except that only a single record is returned
+    @method queryRecord
+    @public
+    @param {Model} Model
+    @param {Object} options @see &#x60;query&#x60;
+    @return {Promise}
+  */
+  queryRecord (Model, options) {
+    log.trace(&#x60;Adapter: running queryRecord for &#x27;${Model.modelName}&#x27; model with options ${JSON.stringify(options)}&#x60;)
+    return this.checkConnection()
+      .then(() =&gt; {
+        return this.query(Model, options, true)
+      })
+  }
+
+  /**
+    Creates a new record for a given model using supplied attributes hash
+    @method createRecord
+    @public
+    @param {Model} Model
+    @param {Object} data
+    @return {Promise}
+  */
+  createRecord (Model, data) {
+    log.trace(&#x60;Adapter: running createRecord for &#x27;${Model.modelName}&#x27; model with data ${JSON.stringify(data)}&#x60;)
+    return this.checkConnection()
+      .then(() =&gt; {
+        const tableName = Model.tableName
+        return this.knex(tableName).insert(data, &#x27;*&#x27;)
+          .then(results =&gt; results[0])
+      })
+  }
+
+  /**
+    Updates a record for a given model with given id using a supplied attributes hash
+    @method updateRecord
+    @public
+    @param {Model} Model
+    @param {Number} id
+    @param {Object} data
+    @return {Promise}
+  */
+  updateRecord (Model, id, data) {
+    log.trace(&#x60;Adapter: running updateRecord for &#x27;${Model.modelName}&#x27; model with id = ${id} and data ${JSON.stringify(data)}&#x60;)
+    return this.checkConnection()
+      .then(() =&gt; {
+        const tableName = Model.tableName
+        return this.knex(tableName).update(data, &#x27;*&#x27;).where(&#x27;id&#x27;, id)
+          .then(results =&gt; {
+            if (results.length === 0) {
+              return Promise.reject(new Error(&#x27;Record not found&#x27;))
+            }
+            return results[0]
+          })
+      })
+  }
+
+  /**
+    Delete a Model by given id
+    @method deleteRecord
+    @public
+    @param {Model} Model
+    @param {Number} id
+    @return {Promise}
+  */
+  deleteRecord (Model, id) {
+    log.trace(&#x60;Adapter: running deleteRecord for &#x27;${Model.modelName}&#x27; model with id = ${id}&#x60;)
+    return this.checkConnection()
+      .then(() =&gt; {
+        const tableName = Model.tableName
+        return this.knex(tableName).where(&#x27;id&#x27;, id).delete()
+          .then(numAffected =&gt; {
+            if (numAffected === 0) {
+              return Promise.reject(new Error(&#x27;Record not found&#x27;))
+            }
+          })
+      })
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/store.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/store.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;
+
+const Service = require(&#x27;./service&#x27;)
+const Registry = require(&#x27;./registry&#x27;)
+const ClassResolver = require(&#x27;./class-resolver&#x27;)
+const path = require(&#x27;path&#x27;)
+
+const adapters = new Map()
+const serializers = new Map()
+
+/**
+  @class Store
+  @extends Service
+  @public
+*/
+module.exports = class Store extends Service {
+  /**
+   @method constructor
+   @constructor
+   @public
+  */
+  constructor (...args) {
+    super(...args)
+    this.config = require(path.join(process.cwd(), &#x27;config&#x27;, &#x27;environment&#x27;))(process.env)
+  }
+
+  /**
+    @method adapterFor
+    @public
+    @param {String} modelName
+    @return {Adapter}
+  */
+  adapterFor (modelName) {
+    if (!adapters.has(modelName)) {
+      const Adapter = ClassResolver.resolve(&#x27;adapter&#x27;, modelName)
+      adapters.set(modelName, new Adapter(this, this.config.database.connection))
+    }
+    return adapters.get(modelName)
+  }
+
+  /**
+    @method serializerFor
+    @public
+    @param {String} modelName
+    @return {Serializer}
+  */
+  serializerFor (modelName) {
+    if (!serializers.has(modelName)) {
+      const Serializer = ClassResolver.resolve(&#x27;serializer&#x27;, modelName)
+      serializers.set(modelName, new Serializer())
+    }
+    return serializers.get(modelName)
+  }
+
+  /**
+    @method modelFor
+    @public
+    @param {String} modelName
+    @return {Model}
+  */
+  modelFor (modelName) {
+    return Registry.models.get(modelName)
+  }
+
+  /**
+    Finds all records for a given model. Use &#x60;query&#x60; when you need more control over
+    what records are returned.
+    @method findAll
+    @public
+    @param {String} modelName
+    @return {Promise[Array]}
+  */
+  findAll (modelName) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.findAll(Model)
+  }
+
+  /**
+    Finds records of a given model using options.
+
+    Options is an {Object} with the following properties:
+
+    &#x60;include&#x60; - used to include related model records
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {include: &#x27;comments,author&#x27;})
+    &#x60;&#x60;&#x60;
+
+    &#x60;fields&#x60; - used to specify desired attribute fields to be returned in result objects
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {fields: {posts: &#x27;title,description&#x27;}})
+    &#x60;&#x60;&#x60;
+
+    To restrict fields from included relationship models
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {fields: {posts: &#x27;title&#x27;, comments: &#x27;comment&#x27;}})
+    &#x60;&#x60;&#x60;
+
+    &#x60;sort&#x60; - used to sort results by its attributes
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {sort: &#x27;title&#x27;})
+    &#x60;&#x60;&#x60;
+
+    To specify sorting by multiple columns, separate by comma
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {sort: &#x27;title,description&#x27;})
+    &#x60;&#x60;&#x60;
+
+    Sort is ascending by default, use &quot;-&quot; to indicate descending
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {sort: &#x27;-title&#x27;})
+    &#x60;&#x60;&#x60;
+
+    &#x60;page&#x60; - used to paginate results
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {page: {number: 1, size: 20}})
+    &#x60;&#x60;&#x60;
+
+    &#x60;filter&#x60; - used to refine desired results by specified criteria
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {filter: {title: &#x27;my title&#x27;}})
+    &#x60;&#x60;&#x60;
+
+    filter also supports a number of operators prefixed with a $ character
+
+    - &#x60;$or&#x60; - SQL OR
+    - &#x60;$eq&#x60; - SQL =
+    - &#x60;$gt&#x60; - SQL &gt;
+    - &#x60;$gte&#x60; - SQL &gt;=
+    - &#x60;$lt&#x60; - SQL &lt;
+    - &#x60;$lte&#x60; - SQL &lt;=
+    - &#x60;$ne&#x60; - SQL !=
+    - &#x60;$not&#x60; - SQL NOT
+    - &#x60;$between&#x60; - SQL BETWEEN
+    - &#x60;$notbetween&#x60; - SQL NOT BETWEEN
+    - &#x60;$in&#x60; - SQL IN
+    - &#x60;$notin&#x60; SQL NOT IN
+    - &#x60;$like&#x60; SQL LIKE
+    - &#x60;$notlike&#x60; SQL NOT LIKE
+    - &#x60;$ilike&#x60; - SQL NOT ILIKE
+    - &#x60;$overlap&#x60; - SQL &amp;&amp;
+    - &#x60;$contains&#x60; - SQL @&gt;
+    - &#x60;$contained&#x60; - SQL &lt;@
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {filter: {title: {$like: &#x27;%my title%&#x27;}}})
+    &#x60;&#x60;&#x60;
+
+    &#x60;$or&#x60; is a slightly special case. It takes an array of objects to &#x27;Or&#x27; together
+
+    &#x60;&#x60;&#x60;javascript
+    store.query(Post, {filter: {
+      $or: [
+        {id: {$lt: 10}},
+        {id: {$in: [20, 21, 22]}}
+      ]
+    })
+    &#x60;&#x60;&#x60;
+
+    @method query
+    @public
+    @param {String} modelName
+    @param {Object} options
+    @return {Promise[Array]}
+  */
+  query (modelName, options) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.query(Model, options)
+  }
+
+  /**
+    Retrieves a single record for the given model by given id
+    @method findRecord
+    @public
+    @param {String} modelName
+    @param {number} id
+    @return {Promise}
+  */
+  findRecord (modelName, id, options) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.findRecord(Model, id, options)
+  }
+
+  /**
+    Similar to &#x60;query&#x60; except that only a single record is returned
+    @method queryRecord
+    @public
+    @param {String} modelName
+    @param {Object} options See &#x60;query&#x60;
+    @return {Promise}
+  */
+  queryRecord (modelName, options) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.queryRecord(Model, options)
+  }
+
+  /**
+    Creates a new record for a given model using supplied attributes hash
+    @method createRecord
+    @public
+    @param {String} modelName
+    @param {Object} data
+    @return {Promise}
+  */
+  createRecord (modelName, data) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.createRecord(Model, data)
+  }
+
+  /**
+    Updates a record for a given model with given id using a supplied attributes hash
+    @method updateRecord
+    @public
+    @param {String} modelName
+    @param {Number} id
+    @param {Object} data
+    @return {Promise}
+  */
+  updateRecord (modelName, id, data) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.updateRecord(Model, id, data)
+  }
+
+  /**
+    Delete a Model by given id
+    @method deleteRecord
+    @public
+    @param {String} modelName
+    @param {Number} id
+    @return {Promise}
+  */
+  deleteRecord (modelName, id) {
+    const Model = this.modelFor(modelName)
+    const adapter = this.adapterFor(modelName)
+    return adapter.deleteRecord(Model, id)
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>

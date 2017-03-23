@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/classes/model.js - Ash API Framework</title>
+    <meta name="description" content="A Node.js based API framework for Ember.js developers">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/theme.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png?v=2"> 
+    
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">
+            <img width="32" height="32" src="../assets/favicon.png"/>
+            <span>Ash API Framework</span>
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://github.com/ash-framework/core" class="fa fa-github github"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div id="main-wrapper" class="row">
+        <div id="content-wrapper">
+            <ol class="panel-group" id="sidebar" role="tablist" aria-multiselectable="true">
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-search-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-search" aria-expanded="true" aria-controls="collapseOne">
+                        Search
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-search" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-search-heading">
+                        <div class="panel-body">
+                            <div id="api-tabview-filter">
+                                <input type="search" id="api-filter" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                    <li class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="sidebar-version-heading">
+                            <h4 class="panel-title">
+                                <a role="button" href="https://github.com/ash-framework/core/commits/v0.1.4" target="_blank">
+                                  Tag: v0.1.4
+                                </a>
+                            </h4>
+                        </div>
+                    </li>
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-modules-heading">
+                        <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" href="#sidebar-modules" aria-expanded="true" aria-controls="collapseOne">
+                      Modules
+                    </a>
+                  </h4>
+                    </div>
+                    <div id="sidebar-modules" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-modules-heading">
+                        <div class="panel-body">
+                                <ol>
+                                        <li>
+                                            <a href="../modules/Ash.html">Ash</a>
+                                        </li>
+                                </ol>
+                        </div>
+                    </div>
+                </li>
+            
+                <li class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="sidebar-classes-heading">
+                        <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" href="#sidebar-classes" aria-expanded="true" aria-controls="collapseOne">
+                        Classes
+                      </a>
+                    </h4>
+                    </div>
+                    <div id="sidebar-classes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sidebar-classes-heading">
+                        <div class="panel-body">
+                            <ol>
+                                    <li>
+                                        <a href="../classes/Adapter.html">Adapter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Application.html">Application</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Ash.html">Ash</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Base.html">Base</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/ErrorHandler.html">ErrorHandler</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Http.html">Http</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Initializer.html">Initializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Middleware.html">Middleware</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/MiddlewareRouter.html">MiddlewareRouter</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Mixin.html">Mixin</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Model.html">Model</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Route.html">Route</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Router.html">Router</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Serializer.html">Serializer</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Service.html">Service</a>
+                                    </li>
+                                    <li>
+                                        <a href="../classes/Store.html">Store</a>
+                                    </li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <div class="content-container">
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+<div class="page-header">
+    <h1><i class="fa fa-file-code-o" aria-hidden="true"></i> src/classes/model.js File</h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+&#x27;use strict&#x27;
+
+const Base = require(&#x27;./base&#x27;)
+const { pluralize, singularize, dasherize, underscore } = require(&#x27;inflection&#x27;)
+const assert = require(&#x27;assert&#x27;)
+const {get, defaultsDeep} = require(&#x27;lodash&#x27;)
+
+const attributes = new WeakMap()
+
+/**
+  @class Model
+  @extends Base
+  @public
+*/
+module.exports = class Model extends Base {
+  /**
+    @method constructor
+    @constructor
+    @public
+    @param {object} props - properties hash that the model instance should be created with
+  */
+  constructor (props = {}) {
+    super()
+    assert(!Array.isArray(props) &amp;&amp; typeof props === &#x27;object&#x27;,
+      &#x60;Argument to new instance of &#x27;${this.constructor.name}&#x27; should be an Object&#x60;)
+    assert(/^.*Model$/.test(this.constructor.name),
+      &#x27;Model naming must follow the pattern &lt;name&gt;Model eg. filename: post.js, model class name: PostModel&#x27;)
+
+    this.attributes = props
+    this.modelName = this.constructor.modelName
+  }
+
+  /**
+    Provides a copy of the models internal state as a plain javascript object
+    Does not provide relationship data as models. For this you need to use
+    individual relationship getters.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    const model = new PostModel({
+      title: &#x27;My title&#x27;,
+      comments: [
+        {comment: &#x27;This is my comment&#x27;},
+        {comment: &#x27;This is another comment&#x27;}
+      ]
+    })
+
+    model.comments.then(comments =&gt; {
+      // comments are &#x60;CommentModel&#x60; instances
+    })
+
+    // comments are plain javascript objects in an array
+    const comments = model.attributes.comments
+    &#x60;&#x60;&#x60;
+    @property attributes
+    @public
+    @return {Object} - clone of attributes hash
+  */
+  get attributes () {
+    return JSON.parse(JSON.stringify(attributes.get(this)))
+  }
+
+  /**
+    Setter for model instances internal state.
+    Called in model constructor with passed in state data
+
+    Performs validation of incoming data and guards access to internal state.
+    All individual getters and setters go through this setter thereby providing a single
+    entry point for data validation and cleanup
+
+    Internal state is stored as a plain object and can contain nested relationship data
+    Example:
+    For a model
+    &#x60;&#x60;&#x60;javascript
+    class PostModel extends Model {
+      static attributes (attr) {
+        attr(&#x27;title&#x27;, &#x27;string&#x27;)
+      }
+      static relationships (relation) {
+        relation(&#x27;hasMany&#x27;, &#x27;comment&#x27;)
+      }
+    }
+    &#x60;&#x60;&#x60;
+    The following is valid though &#x60;unspecifiedProp&#x60; will be ignored:
+    &#x60;&#x60;&#x60;javascript
+    new PostModel({
+      title: &#x27;My title&#x27;,
+      unspecifiedProp: true,
+      comments: [
+        {comment: &#x27;This is my comment&#x27;},
+        {comment: &#x27;This is another comment&#x27;}
+      ]
+    })
+    &#x60;&#x60;&#x60;
+    The internal state of the model will be:
+    &#x60;&#x60;&#x60;javascript
+    {
+      title: &#x27;My title&#x27;,
+      comments: [
+        {comment: &#x27;This is my comment&#x27;},
+        {comment: &#x27;This is another comment&#x27;}
+      ]
+    }
+    &#x60;&#x60;&#x60;
+    @property attributes
+    @public
+    @param  {Object} props - a hash of keys and values to set as the models internal data
+  */
+  set attributes (props) {
+    // current supported types. Can be extended as needed.
+    const types = {
+      string: (value) =&gt; typeof value !== &#x27;string&#x27;,
+      number: (value) =&gt; typeof value !== &#x27;number&#x27;,
+      date: (value) =&gt; !(value instanceof Date),
+      boolean: (value) =&gt; typeof value !== &#x27;boolean&#x27;
+    }
+
+    // Makes use of attributes definition defined when model is setup in the registry
+    const attributeDefn = get(this, &#x27;constructor.definition.attributes&#x27;, {})
+
+    // creates the attributes hash, uses default values provided when model is defined
+    // merged with any existing stored states
+    const attributesHash = {}
+    Object.keys(attributeDefn).forEach(attr =&gt; {
+      if (attributeDefn[attr].defaultValue) {
+        if (typeof attributeDefn[attr].defaultValue === &#x27;function&#x27;) {
+          attributesHash[attr] = attributeDefn[attr].defaultValue()
+        } else {
+          attributesHash[attr] = attributeDefn[attr].defaultValue
+        }
+      }
+    })
+    defaultsDeep(attributesHash, attributes.get(this))
+
+    // whitelists props to defined attributes
+    // throws error if incorrect data type if provided but ignores
+    // any props that have not been defined
+    Object.keys(attributeDefn).forEach(attr =&gt; {
+      if (props[attr]) {
+        const type = attributeDefn[attr].type
+        if (types[type](props[attr])) {
+          throw new Error(&#x60;Invalid property type specified. Expected ${attr} to be one of ${Object.keys(types)}, instead got ${attributeDefn[attr].type}&#x60;)
+        }
+        attributesHash[attr] = props[attr]
+      }
+    })
+
+    // whitelists relationship props based on models relationships definition
+    // that was setup when model was registered
+    const relationships = get(this, &#x27;constructor.definition.relationships&#x27;, {})
+    Object.keys(relationships).forEach(relationship =&gt; {
+      if (props[relationship]) attributesHash[relationship] = props[relationship]
+    })
+
+    // if primary key field was not defined as part of the attributes whitelist
+    // implicitly define it here
+    if (props[this.constructor.idField]) {
+      attributesHash[this.constructor.idField] = props[this.constructor.idField]
+    }
+
+    // finally set the models internal states with cleaned data
+    attributes.set(this, JSON.parse(JSON.stringify(attributesHash)))
+  }
+
+  /**
+    @property adapter
+    @static
+    @public
+    @return {Adapter} - adapter for model
+  */
+  static get adapter () {
+    return this.store.adapterFor(this.modelName)
+  }
+
+  /**
+    @property serializer
+    @static
+    @public
+    @return {Serializer} - serializer for model
+  */
+  static get serializer () {
+    return this.store.serializerFor(this.modelName)
+  }
+
+  /**
+    Save&#x27;s the model instance
+
+    @method save
+    @public
+    @return {Promise}
+  */
+  save () {
+    return this.constructor.adapter
+      .createRecord(this.constructor, this.attributes)
+  }
+
+  saveAll () {}
+
+  /**
+    Delete the model instance
+    @method delete
+    @public
+    @return {Promise}
+  */
+  delete () {
+    return this.constructor.adapter
+      .deleteRecord(this.constructor, this.id)
+  }
+
+  /**
+    Model attributes definition.
+    This needs to be overridden to define the various
+    attributes the model will have.
+
+    Gets passed a function &#x60;attr&#x60; which should be called
+    multiple times (once for each attribute)
+
+    Example
+    &#x60;&#x60;&#x60;javascript
+    attr(&#x27;title&#x27;, &#x27;string&#x27;)
+    &#x60;&#x60;&#x60;
+
+    To specify a default value, pass an options object with an appropriate
+    default value
+
+    Example
+    &#x60;&#x60;&#x60;javascript
+    attr(&#x27;isAccepted&#x27;, &#x27;boolean&#x27;, {
+      defaultValue: true
+    })
+    &#x60;&#x60;&#x60;
+
+    The default value can also be specified via a function
+
+    Example
+    &#x60;&#x60;&#x60;javascript
+    attr(&#x27;title&#x27;, &#x27;string&#x27;, {
+      defaultValue: function () {
+        return &#x27;default title&#x27;
+      }
+    })
+    &#x60;&#x60;&#x60;
+    @method attributes
+    @static
+    @public
+    @param {Function} attr - function used to define model attributes
+  */
+  static attributes (attr) {
+    // override
+  }
+
+  /**
+    Model relationship definition.
+    This should be overriden to define any relationships to
+    other models that are needed.
+
+    Gets passed a function &#x60;relation&#x60; which should be called multiple times (once for each relationship)
+    &#x60;relation&#x60; has the following signature
+
+    &#x60;&#x60;&#x60;javascript
+    relation(type, modelName, options)
+    &#x60;&#x60;&#x60;
+
+    &#x60;type&#x60; can be either &#x60;belongsTo&#x60; or &#x60;hasMany&#x60;
+    &#x60;modelName&#x60; is a models &#x60;Model.modelName&#x60; property
+    &#x60;options&#x60; is an object which may contain any or all of the keys &#x60;name&#x60;, &#x60;keyFrom&#x60; or &#x60;keyTo&#x60;
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    relationships (relation) {
+      relation(&#x27;hasMany&#x27;, &#x27;comment&#x27;)
+    }
+    &#x60;&#x60;&#x60;
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    relationships (relation) {
+      relation(&#x27;hasMany&#x27;, &#x27;comment&#x27;, {name: &#x27;comments&#x27;, keyFrom: &#x27;id&#x27;, keyTo: &#x27;postId&#x27;})
+    }
+    &#x60;&#x60;&#x60;
+
+    If not specified, &#x60;name&#x60; is a pluralized version of the models name for &#x60;hasMany&#x60; or singular for &#x60;belongsTo&#x60;
+    If not specified, &#x60;keyFrom&#x60; is the models &#x60;idField&#x60; for &#x60;hasMany&#x60; or a concatenation of &#x60;modelName&#x60; and the string &#x27;Id&#x27; for &#x60;belongsTo&#x60;
+    If not specified, &#x60;keyTo&#x60; is a concatenation of the related model&#x27;s &#x60;modelName&#x60; and the string &#x27;Id&#x27; for  for &#x60;hasMany&#x60; or the related models &#x60;idField&#x60; for &#x60;belongsTo&#x60;
+    @method relationships
+    @static
+    @public
+    @param {function} relation
+  */
+  static relationships (relation) {
+    // override
+  }
+
+  /**
+    Model name matching filename (not classname)
+    Used throughout Ash to reference the model
+
+    Example:
+     For a model class named &#x60;MyPostModel&#x60; or &#x60;MyPostsModel&#x60;, &#x60;modelName&#x60; will be &#x60;my-post&#x60;
+
+    @property modelName
+    @static
+    @public
+    @return {string} model name
+  */
+  static get modelName () {
+    const nameWithoutModel = this.name.replace(&#x27;Model&#x27;, &#x27;&#x27;)
+    const nameUnderscored = underscore(nameWithoutModel)
+    const nameDasherized = dasherize(nameUnderscored)
+    return singularize(nameDasherized)
+  }
+
+  /**
+    Table name for model of the form lowercase, pluralized with underscores separating words
+    Calculated from models class name with &#x60;Model&#x60; stripped off the end
+
+    Example:
+     For model MyPostModel, tablename would be my_posts
+
+    @property tableName
+    @static
+    @public
+    @return {string} table name for model
+  */
+  static get tableName () {
+    const nameWithoutModel = this.name.replace(&#x27;Model&#x27;, &#x27;&#x27;)
+    const nameUnderscored = underscore(nameWithoutModel)
+    return pluralize(nameUnderscored)
+  }
+
+  /**
+    Exposes a pluralised version of the models name
+    Matches up with jsonapi specs &#x60;type&#x60; attribute
+
+    Example:
+    for a model &#x60;post&#x60;, type would be &#x60;posts&#x60;
+
+    @property type
+    @static
+    @public
+    @return {string} model type
+  */
+  static get type () {
+    const nameWithoutModel = this.name.replace(&#x27;Model&#x27;, &#x27;&#x27;)
+    const nameUnderscored = underscore(nameWithoutModel)
+    const nameDasherized = dasherize(nameUnderscored)
+    return pluralize(nameDasherized)
+  }
+
+  /**
+    Specifies the name of the models id field.
+
+    By default the name of the models id field is &#x27;id&#x27;
+
+    This method can be overridden to specify a different name to use for the models id
+    field in child classes.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    static get idField () {
+     return &#x27;modelId&#x27;
+    }
+    &#x60;&#x60;&#x60;
+
+    By default id fields are of type &#x27;number&#x27;.
+
+    If another type is desired then a matching named field should be provided in the model attributes hash.
+
+    Example:
+    &#x60;&#x60;&#x60;javascript
+    static get idField () {
+      return &#x27;customIdField&#x27;
+    }
+
+    static attributes (attr) {
+      attr(&#x27;customIdField&#x27;, &#x27;string&#x27;)
+    }
+    &#x60;&#x60;&#x60;
+    @property idField
+    @static
+    @public
+    @return {String} - id field name
+  */
+  static get idField () {
+    return &#x27;id&#x27;
+  }
+
+  /**
+    Assumes the model to be in a new state if the models id is not present in the attributes hash
+    @property isNew
+    @public
+    @return {Boolean} - true if model is considered new (not saved in database)
+  */
+  get isNew () {
+    return !this.attributes[this.constructor.idField]
+  }
+
+  /**
+    @method toJSON
+    @public
+    @return {Object} - plain javascript representation of object (without relationship state)
+  */
+  toJSON () {
+    const relationshipsDefn = get(this, &#x27;constructor.definition.relationships&#x27;, {})
+    const internal = this.attributes
+    const external = {}
+
+    Object.keys(internal).forEach(attr =&gt; {
+      if (!relationshipsDefn[attr]) external[attr] = internal[attr]
+    })
+    return external
+  }
+}
+
+    </pre>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/github-slugger/slugger.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+</body>
+</html>
