@@ -97,6 +97,15 @@
         }
       ],
       "---",
+      [
+        "badge",
+        {
+          "image": "https://badges.gitter.im/Join%20Chat.svg",
+          "url": "https://gitter.im/ash-framework/community",
+          "title": "Join the community chat at https://gitter.im/ash-framework/community",
+          "alt": "Join the community chat at https://gitter.im/ash-framework/community"
+        }
+      ],
       "travisci",
       "npmversion",
       "npmdownloads",
