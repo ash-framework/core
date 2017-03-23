@@ -45,6 +45,8 @@ Get started by installing the cli at [https://github.com/ash-framework/cli](http
 
 ## Developing Ash
 
+[![Join the chat at https://gitter.im/ash-framework/core](https://badges.gitter.im/ash-framework/core.svg)](https://gitter.im/ash-framework/core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Running tests
 
 1. Install jest
