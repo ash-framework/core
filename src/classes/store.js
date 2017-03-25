@@ -4,6 +4,8 @@ const Service = require('./service')
 const Registry = require('./registry')
 const ClassResolver = require('./class-resolver')
 const path = require('path')
+const assert = require('assert')
+const {isPlainObject, isString} = require('lodash')
 
 const adapters = new Map()
 const serializers = new Map()
@@ -31,6 +33,7 @@ module.exports = class Store extends Service {
     @return {Adapter}
   */
   adapterFor (modelName) {
+    assert(isString(modelName), 'First argument to store.adapterFor must be a string')
     if (!adapters.has(modelName)) {
       const Adapter = ClassResolver.resolve('adapter', modelName)
       adapters.set(modelName, new Adapter(this, this.config.database.connection))
@@ -45,6 +48,7 @@ module.exports = class Store extends Service {
     @return {Serializer}
   */
   serializerFor (modelName) {
+    assert(isString(modelName), 'First argument to store.serializerFor must be a string')
     if (!serializers.has(modelName)) {
       const Serializer = ClassResolver.resolve('serializer', modelName)
       serializers.set(modelName, new Serializer())
@@ -59,6 +63,11 @@ module.exports = class Store extends Service {
     @return {Model}
   */
   modelFor (modelName) {
+    assert(isString(modelName), 'First argument to store.modelFor must be a string')
+    assert(
+      Registry.models.has(modelName),
+      `Unable to find model "${modelName}" in registry. Registered models are ${Array.from(Registry.models.keys())}`
+    )
     return Registry.models.get(modelName)
   }
 
@@ -71,6 +80,7 @@ module.exports = class Store extends Service {
     @return {Promise[Array]}
   */
   findAll (modelName) {
+    assert(isString(modelName), 'First argument to store.findAll must be a string')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
     return adapter.findAll(Model)
@@ -172,6 +182,8 @@ module.exports = class Store extends Service {
     @return {Promise[Array]}
   */
   query (modelName, options) {
+    assert(isString(modelName), 'First argument to store.query must be a string')
+    assert(!options || isPlainObject(options), 'Second (optional) argument, "options" to "store.query" must be an object when given')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
     return adapter.query(Model, options)
@@ -186,9 +198,12 @@ module.exports = class Store extends Service {
     @return {Promise}
   */
   findRecord (modelName, id, options) {
+    assert(isString(modelName), 'First argument to store.findRecord must be a string')
+    assert(isFinite(id), 'Second argument to store.findRecord "id" must be a number or numeric string')
+    assert(!options || isPlainObject(options), 'Third (optional) argument, "options" to "store.findRecord" must be an object when given')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
-    return adapter.findRecord(Model, id, options)
+    return adapter.findRecord(Model, parseInt(id, 10), options)
   }
 
   /**
@@ -200,6 +215,8 @@ module.exports = class Store extends Service {
     @return {Promise}
   */
   queryRecord (modelName, options) {
+    assert(isString(modelName), 'First argument to store.queryRecord must be a string')
+    assert(!options || isPlainObject(options), 'Second (optional) argument, "options" to "store.queryRecord" must be an object when given')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
     return adapter.queryRecord(Model, options)
@@ -214,6 +231,8 @@ module.exports = class Store extends Service {
     @return {Promise}
   */
   createRecord (modelName, data) {
+    assert(isString(modelName), 'First argument to store.createRecord must be a string')
+    assert(isPlainObject(data), 'Second argument, "data" to "store.createRecord" must be an object')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
     return adapter.createRecord(Model, data)
@@ -229,9 +248,12 @@ module.exports = class Store extends Service {
     @return {Promise}
   */
   updateRecord (modelName, id, data) {
+    assert(isString(modelName), 'First argument to store.updateRecord must be a string')
+    assert(isFinite(id), 'Second argument to store.updateRecord "id" must be a number or numeric string')
+    assert(isPlainObject(data), 'Third argument, "data" to "store.updateRecord" must be an object')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
-    return adapter.updateRecord(Model, id, data)
+    return adapter.updateRecord(Model, parseInt(id, 10), data)
   }
 
   /**
@@ -243,8 +265,10 @@ module.exports = class Store extends Service {
     @return {Promise}
   */
   deleteRecord (modelName, id) {
+    assert(isString(modelName), 'First argument to store.deleteRecord must be a string')
+    assert(isFinite(id), 'Second argument to store.deleteRecord "id" must be a number or numeric string')
     const Model = this.modelFor(modelName)
     const adapter = this.adapterFor(modelName)
-    return adapter.deleteRecord(Model, id)
+    return adapter.deleteRecord(Model, parseInt(id, 10))
   }
 }
