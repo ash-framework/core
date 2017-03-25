@@ -1,4 +1,4 @@
-/* global describe, it, expect */
+/* global describe, test, expect */
 const Subject = require('../src/classes/initializer')
 
 describe('initializer', () => {

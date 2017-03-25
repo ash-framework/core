@@ -1,4 +1,4 @@
-/* global describe, it, beforeEach, jest, expect */
+/* global describe, it, jest, expect */
 let Subject, classResolverMock, registryMock
 Subject = require('../src/classes/store')
 
@@ -15,7 +15,6 @@ jest.mock('../src/classes/registry', () => {
 })
 
 describe('store', () => {
-
   describe('adapterFor', () => {
     it('should throw if string not given', () => {
       // When
