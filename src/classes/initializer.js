@@ -34,6 +34,6 @@ module.exports = class Initializer extends Base {
     @param {Object} app
   */
   init (app) {
-
+    throw new Error(`Initializer ${this.constructor.name} must override init method. Signature: init (app) {} `)
   }
 }
