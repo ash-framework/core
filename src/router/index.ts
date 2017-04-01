@@ -1,9 +1,9 @@
-const parseRouteObjects = require('ember-route-objects')
-const createExpressRouter = require('express-object-defined-routes')
-const ArgumentError = require('@ash-framework/argument-error')
+import parseRouteObjects from 'ember-route-objects'
+import createExpressRouter from 'express-object-defined-routes'
+import ArgumentError from '@ash-framework/argument-error'
 import addRouteCallbacks from './add-route-callbacks'
 
-module.exports = function (definition, options) {
+export default function (definition, options) {
   if (typeof definition !== 'function') {
     throw new ArgumentError('Router', 'definition',
       `Expected "definition" to be a function but "${typeof definition}" was given`)

@@ -1,6 +1,6 @@
-const isReadableStream = require('./is-stream')
+import { isReadableStream } from './utils'
 
-module.exports = function (model, status, response) {
+export default function (model, status, response) {
   if (isReadableStream(model)) {
     response.status(status)
     model.pipe(response)

@@ -1,6 +1,6 @@
 import * as HttpContext from '@ash-framework/http-context'
-const routeChain = require('./route-chain')
-const routeSuccess = require('./route-success')
+import routeChain from './route-chain'
+import routeSuccess from './route-success'
 
 export default function (Route, routeName = null) {
   return function (request, response, next) {

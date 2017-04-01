@@ -1,7 +1,7 @@
 import createCallback from './create-callback'
 import loadFile from './load-file'
 import * as path from 'path'
-const fileExists = require('./file-exists')
+import fileExists from './file-exists'
 
 const allowedMethods = ['get', 'put', 'post', 'patch', 'delete', 'options', 'head']
 

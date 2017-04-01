@@ -1,5 +1,5 @@
 import * as path from 'path'
-const FileNotFoundError = require('@ash-framework/file-not-found-error')
+import * as FileNotFoundError from '@ash-framework/file-not-found-error'
 
 export default function (name, directory) {
   const filePath = path.join(directory, name)

@@ -1,9 +1,10 @@
-const path = require('path')
-const HttpContext = require('@ash-framework/http-context')
-const Log = require('@ash-framework/log')
+import * as path from 'path'
+import * as HttpContext from '@ash-framework/http-context'
+import * as Log from '@ash-framework/log'
+
 const log = new Log()
 
-module.exports = function (route) {
+export default function (route) {
   function applyMiddleware(middlewareList) {
     if (middlewareList.length < 1) return
     const middlewareName = middlewareList.shift()

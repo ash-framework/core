@@ -1,7 +1,8 @@
-const { STATUS_CODES } = require('http')
+import { STATUS_CODES } from 'http'
+
 const { NODE_ENV } = process.env
 
-module.exports = function (error, httpContext) {
+export default function (error, httpContext) {
   const { response } = httpContext
   const status = error.status || 500
   const body = {
