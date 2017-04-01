@@ -4,23 +4,23 @@
  * @module Ash
  * @main
  */
+import Application from './classes/application'
+import Route from './classes/route'
+import Router from './classes/router'
+import Middleware from './classes/middleware'
+import MiddlewareRouter from './classes/middleware-router'
+import Mixin from './classes/mixin'
+import Initializer from './classes/initializer'
+import ErrorHandler from './classes/error-handler'
+import Service from './classes/service'
+// import * as Model from './classes/model'
+// import * as Adapter from './classes/adapter'
+// import * as Serializer from './classes/serializer'
 
-'use strict'
+const HttpError = require('@ash-framework/http-error')
 
 const Log = require('@ash-framework/log')
-const HttpError = require('@ash-framework/http-error')
-const Application = require('./classes/application')
-const Route = require('./classes/route')
-const Router = require('./classes/router')
-const Middleware = require('./classes/middleware')
-const MiddlewareRouter = require('./classes/middleware-router')
-const Mixin = require('./classes/mixin')
-const Initializer = require('./classes/initializer')
-const ErrorHandler = require('./classes/error-handler')
-const Service = require('./classes/service')
-const Model = require('./classes/model')
-const Adapter = require('./classes/adapter')
-const Serializer = require('./classes/serializer')
+const log = new Log()
 
 /**
  * The top level Ash namespace.
@@ -28,7 +28,7 @@ const Serializer = require('./classes/serializer')
  *
  * @class Ash
  */
-const Ash = {
+export {
   /**
     @property {Route} Route
     @public
@@ -67,7 +67,7 @@ const Ash = {
     @property {Object} log
     @public
   */
-  log: new Log(),
+  log,
 
   /**
     @property {Application} Application
@@ -117,24 +117,6 @@ const Ash = {
     @public
   */
   Service,
-
-  /**
-    @property {Model} Model
-    @public
-  */
-  Model,
-
-  /**
-    @property {Adapter} Adapter
-    @public
-  */
-  Adapter,
-
-  /**
-    @property {Serializer} Serializer
-    @public
-  */
-  Serializer
 }
 
-module.exports = Ash
+export default Application

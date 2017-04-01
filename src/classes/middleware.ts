@@ -1,6 +1,4 @@
-'use strict'
-
-const Http = require('./http')
+import Http from './http'
 
 /**
   `Middleware` in Ash is implemented as a class that has access to the request and the response.
@@ -17,7 +15,7 @@ const Http = require('./http')
   @public
   @extends Http
 */
-module.exports = class Middleware extends Http {
+export default class Middleware extends Http {
   /**
     Registers code to be executed as middleware.
 

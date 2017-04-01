@@ -1,8 +1,7 @@
-'use strict'
+import Http from './http'
+import { singularize } from 'inflection'
 
-const Http = require('./http')
 const middleware = new WeakMap()
-const { singularize } = require('inflection')
 
 /**
   The Ash route class extends the See Http class and so has access
@@ -30,33 +29,34 @@ const { singularize } = require('inflection')
   @extends Http
   @public
 */
-module.exports = class Route extends Http {
+export default class Route extends Http {
   /**
     @method constructor
     @public
     @constructor
   */
-  constructor (context) {
-    super(context)
+  constructor(options) {
+    super(options)
 
-    const mw = []
-    this.constructor.middleware(middleware => mw.push(middleware))
-    middleware.set(this, mw)
+    // const mw = []
+    // this.constructor.middleware(middleware => mw.push(middleware))
+    // middleware.set(this, mw)
   }
 
   /**
     @method hasMiddleware
     @private
   */
-  get hasMiddleware () {
-    return middleware.get(this).length > 0
+  get hasMiddleware() {
+    // return middleware.get(this).length > 0
+    return false
   }
 
   /**
     @method registeredMiddleware
     @private
   */
-  get registeredMiddleware () {
+  get registeredMiddleware() {
     return middleware.get(this)
   }
 
@@ -89,7 +89,7 @@ module.exports = class Route extends Http {
     @public
     @param {Function} register
   */
-  static middleware (register) {
+  static middleware(register) {
 
   }
 
@@ -102,7 +102,7 @@ module.exports = class Route extends Http {
     @method {Function} deserialize
     @public
   */
-  deserialize () {
+  deserialize() {
 
   }
 
@@ -110,7 +110,7 @@ module.exports = class Route extends Http {
     @method beforeModel
     @public
   */
-  beforeModel () {
+  beforeModel() {
 
   }
 
@@ -118,7 +118,7 @@ module.exports = class Route extends Http {
     @method model
     @public
   */
-  model () {
+  model(): any {
     const msg = `Route '${this.constructor.name}': model hook error. You must implement a model hook`
     return Promise.reject(msg)
   }
@@ -128,7 +128,7 @@ module.exports = class Route extends Http {
     @public
     @return {String}
   */
-  static get modelName () {
+  static get modelName() {
     // TODO: harden interface and test
     const routeName = this.name.toLowerCase()
     return singularize(routeName.replace('route', ''))
@@ -140,7 +140,7 @@ module.exports = class Route extends Http {
     @param {Object} model
     @return {any}
   */
-  afterModel (model) {
+  afterModel(model) {
     return model
   }
 
@@ -149,16 +149,16 @@ module.exports = class Route extends Http {
     @public
     @param {Object} model
   */
-  serialize (model) {
-    if (this.store && this.constructor.modelName) {
-      const serializer = this.store.serializerFor(this.constructor.modelName)
-      // TODO: set baseUrl from config or request
-      // const options = {baseUrl: ''}
-      const Model = this.store.modelFor(this.constructor.modelName)
-      if (serializer && Model) {
-        return serializer.serialize(Model, model)
-      }
-    }
+  serialize(model) {
+    // if (this.store && this.constructor.modelName) {
+    //   const serializer = this.store.serializerFor(this.constructor.modelName)
+    //   // TODO: set baseUrl from config or request
+    //   // const options = {baseUrl: ''}
+    //   const Model = this.store.modelFor(this.constructor.modelName)
+    //   if (serializer && Model) {
+    //     return serializer.serialize(Model, model)
+    //   }
+    // }
     return model
   }
 
@@ -168,7 +168,7 @@ module.exports = class Route extends Http {
     @param {Object} error
     @return {any} error
   */
-  error (error) {
+  error(error) {
     return Promise.reject(error)
   }
 

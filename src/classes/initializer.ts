@@ -1,6 +1,6 @@
 'use strict'
 
-const Base = require('./base')
+import Base from './base'
 
 /**
   Provides access to the express app object.
@@ -10,7 +10,7 @@ const Base = require('./base')
   @extends Base
   @public
 */
-module.exports = class Initializer extends Base {
+export default class Initializer extends Base {
   /**
     Override the init method in any initializer to gain
     access to the express app.

@@ -1,35 +1,21 @@
 'use strict'
 
-const Base = require('./base')
-const ErrorHandler = require('./error-handler')
+import Base from './base'
+import ErrorHandler from './error-handler'
+import * as Log from '@ash-framework/log'
+import * as HttpError from '@ash-framework/http-error'
+import { registry, container } from './di'
+// const loadMiddleware = require('../middleware-router')
+
 const createRoutes = require('../router')
-const Log = require('@ash-framework/log')
-const HttpError = require('@ash-framework/http-error')
-const loadMiddleware = require('../middleware-router')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
 const bodyparser = require('body-parser')
-const Registry = require('./registry')
-const ClassResolver = require('./class-resolver')
 
 const _app = new WeakMap()
-
-function loadModels (Registry, modelDir) {
-  const modelFiles = fs.readdirSync(modelDir)
-  const Store = ClassResolver.resolve('store')
-  const store = new Store()
-  modelFiles.forEach(modelFile => {
-    if (modelFile.indexOf('.js') === -1) return
-    const Module = require(modelDir + '/' + modelFile)
-    const Model = (Module.__esModule) ? Module.default : Module
-    Model.store = store
-    Registry.registerModel(Model)
-  })
-  Registry.setupModels()
-}
 
 /**
   Application class used to create a new instance of an Ash application
@@ -39,7 +25,7 @@ function loadModels (Registry, modelDir) {
   @extends Base
   @public
 */
-module.exports = class Application extends Base {
+export default class Application extends Base {
   /**
     ## Starts an Ash application
     Starts application by performing the following operations
@@ -174,11 +160,10 @@ module.exports = class Application extends Base {
     const configModule = require(path.join(process.cwd(), 'config/environment.js'))
     const config = ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
 
-    const middlewareModule = require(path.join(process.cwd(), 'app/middleware.js'))
-    const MiddlewareRouter = (middlewareModule.__esModule) ? middlewareModule.default : middlewareModule
+    // const middlewareModule = container.lookup('middleware-router')
+    // const MiddlewareRouter = (middlewareModule.__esModule) ? middlewareModule.default : middlewareModule
 
-    const routerModule = require(path.join(process.cwd(), 'app/router.js'))
-    const Router = (routerModule.__esModule) ? routerModule.default : routerModule
+    const router = container.lookup('router:main')
 
     const log = new Log()
 
@@ -214,31 +199,26 @@ module.exports = class Application extends Base {
       app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
     }
 
-    const initializerDir = path.join(process.cwd(), 'app/initializers')
-    if (fs.existsSync(initializerDir)) {
-      const initializers = fs.readdirSync(initializerDir).filter(file => file.indexOf('.js') !== -1)
-      if (initializers.length > 0) {
-        log.trace('Boot: loading initializers')
-        initializers.forEach(initializerName => {
-          const Module = require(initializerDir + '/' + initializerName)
-          const Initializer = (Module.__esModule) ? Module.default : Module
-          const initializer = new Initializer()
-          initializer.init(app)
-        })
-      }
-    }
+    // const initializerDir = path.join(process.cwd(), 'app/initializers')
+    // if (fs.existsSync(initializerDir)) {
+    //   const initializers = fs.readdirSync(initializerDir).filter(file => file.indexOf('.js') !== -1)
+    //   if (initializers.length > 0) {
+    //     log.trace('Boot: loading initializers')
+    //     initializers.forEach(initializerName => {
+    //       const Module = require(initializerDir + '/' + initializerName)
+    //       const Initializer = (Module.__esModule) ? Module.default : Module
+    //       const initializer = new Initializer()
+    //       initializer.init(app)
+    //     })
+    //   }
+    // }
 
-    log.trace('Boot: loading models')
-    const modelDir = path.join(process.cwd(), 'app/models')
-    loadModels(Registry, modelDir)
-
-    log.trace('Boot: loading middleware')
-    const middlewareDir = path.join(process.cwd(), 'app/middleware')
-    loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
+    // log.trace('Boot: loading middleware')
+    // const middlewareDir = path.join(process.cwd(), 'app/middleware')
+    // loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
 
     log.trace('Boot: loading routes')
-    const options = {routesDir: path.join(process.cwd(), 'app/routes')}
-    app.use(createRoutes(Router.definition, options))
+    app.use(createRoutes(router.constructor.definition, {container, registry}))
 
     log.trace('Boot: registering 404 handler')
     app.use(function (request, response, next) {

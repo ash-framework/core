@@ -1,6 +1,6 @@
 'use strict'
 
-const Http = require('./http')
+import Http from './http'
 
 /**
   Base error handler for Ash applications. Users can choose to inherit
@@ -23,7 +23,7 @@ const Http = require('./http')
   @public
   @extends Http
 */
-module.exports = class ErrorHandler extends Http {
+export default class ErrorHandler extends Http {
   /**
     Method called by Ash whenever an error occurs. This includes 404 errors
 
@@ -31,7 +31,7 @@ module.exports = class ErrorHandler extends Http {
     @public
     @param {Object} err - error object with properties `status` and `message`
   */
-  error (err) {
+  error (err: any) {
     const status = err.status || 500
     this.response.status(status)
     if (this.accepts('json')) {

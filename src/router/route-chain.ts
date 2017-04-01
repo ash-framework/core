@@ -4,12 +4,12 @@ const Log = require('@ash-framework/log')
 const log = new Log()
 
 module.exports = function (route) {
-  function applyMiddleware (middlewareList) {
+  function applyMiddleware(middlewareList) {
     if (middlewareList.length < 1) return
     const middlewareName = middlewareList.shift()
     const Module = require(path.join(process.cwd(), 'app', 'middleware') + '/' + middlewareName)
     const Middleware = (Module.__esModule) ? Module.default : Module
-    const {request, response} = route
+    const { request, response } = route
     const middleware = new Middleware(new HttpContext(request, response))
     return Promise.resolve()
       .then(() => middleware.register())

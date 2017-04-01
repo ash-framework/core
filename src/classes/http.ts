@@ -1,7 +1,8 @@
 'use strict'
 
-const Base = require('./base')
-const Inject = require('./inject')
+import Base from './base'
+import {Request, Response} from 'express'
+// const Inject = require('./inject')
 
 /**
   Extends the `Base` class to add Http `request` and `response` properties.
@@ -18,7 +19,7 @@ const Inject = require('./inject')
   @extends Base
   @constructor
 */
-module.exports = class Http extends Base {
+export default class Http extends Base {
   /**
     The http request object.
 
@@ -146,11 +147,9 @@ module.exports = class Http extends Base {
     @param {Object} context - object with properties `request` and `response`
     which are the express js request and reponse objects respectively
   */
-  constructor (context) {
-    super(context)
-
-    const {request, response} = context
-    const {body, params, query, headers, method} = request
+  constructor (options) {
+    super(options)
+    const {body, params, query, headers, method} = options.request
 
     this.body = body
     this.params = params
@@ -158,13 +157,22 @@ module.exports = class Http extends Base {
     this.headers = headers
     this.method = method
 
-    this.request = request
-    this.response = response
+    this.request = options.request
+    this.response = options.response
 
-    this.constructor.services(service => {
-      Inject.service(this, service)
-    })
+
+    // this.constructor.services(service => {
+    //   Inject.service(this, service)
+    // })
   }
+
+  body: object
+  params: object
+  query: object
+  headers: object
+  method: string
+  request: Request
+  response: Response
 
   /**
     Used to define which services should be registered on the class.

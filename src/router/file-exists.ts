@@ -1,4 +1,4 @@
-const path = require('path')
+import * as path from 'path'
 const fs = require('fs')
 
 module.exports = function (name, directory) {

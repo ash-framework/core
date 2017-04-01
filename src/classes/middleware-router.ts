@@ -1,19 +1,19 @@
-'use strict'
-
-const Base = require('./base')
+import Base from './base'
 
 /**
   @class MiddlewareRouter
   @extends Base
   @constructor
 */
-module.exports = class MiddlewareRouter extends Base {
+export default class MiddlewareRouter extends Base {
+  static definition: any
+
   /**
     @method map
     @static
     @param {Object} definition
   */
-  static map (definition) {
+  static map (definition: any) {
     this.definition = definition
   }
 }

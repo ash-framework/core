@@ -10,7 +10,7 @@ const Inject = require('./inject')
   @class Base
   @public
 */
-module.exports = class Base {
+export default class Base {
   /**
     Sets up mixins.
     When overriding the constructor, remember to call `super()`
@@ -19,8 +19,12 @@ module.exports = class Base {
     @public
     @constructor
   */
-  constructor () {
-    Inject.mixins(this)
+  constructor (options: object) {
+    // Inject.mixins(this)
+  }
+
+  static create(options: object) {
+    return new this(options)
   }
 
   /**
