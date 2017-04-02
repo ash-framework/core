@@ -5,15 +5,15 @@ import ErrorHandler from './error-handler'
 import * as Log from '@ash-framework/log'
 import * as HttpError from '@ash-framework/http-error'
 import { registry, container } from './di'
+import createRoutes from '../router'
 // const loadMiddleware = require('../middleware-router')
 
-const createRoutes = require('../router')
-const express = require('express')
-const path = require('path')
-const fs = require('fs')
-const cors = require('cors')
-const helmet = require('helmet')
-const bodyparser = require('body-parser')
+import * as express from 'express'
+import * as path from 'path'
+import * as fs from 'fs'
+import * as cors from 'cors'
+import * as helmet from 'helmet'
+import * as bodyparser from 'body-parser'
 
 const _app = new WeakMap()
 
@@ -156,7 +156,7 @@ export default class Application extends Base {
     @public
     @method start
   */
-  static start () {
+  static start() {
     const configModule = require(path.join(process.cwd(), 'config/environment.js'))
     const config = ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
 
@@ -218,7 +218,7 @@ export default class Application extends Base {
     // loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
 
     log.trace('Boot: loading routes')
-    app.use(createRoutes(router.constructor.definition, {container, registry}))
+    app.use(createRoutes(router.constructor.definition, { container, registry }))
 
     log.trace('Boot: registering 404 handler')
     app.use(function (request, response, next) {
@@ -235,9 +235,9 @@ export default class Application extends Base {
       const customErrorHandler = path.join(process.cwd(), 'app') + '/error-handler.js'
       if (fs.existsSync(customErrorHandler)) {
         const ErrorHandler = require(customErrorHandler)
-        errorHandler = new ErrorHandler({request, response})
+        errorHandler = new ErrorHandler({ request, response })
       } else {
-        errorHandler = new ErrorHandler({request, response})
+        errorHandler = new ErrorHandler({ request, response })
       }
       errorHandler.error(err)
     })

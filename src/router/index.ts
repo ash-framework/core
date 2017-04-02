@@ -1,5 +1,5 @@
-import parseRouteObjects from 'ember-route-objects'
-import createExpressRouter from 'express-object-defined-routes'
+import * as parseRouteObjects from 'ember-route-objects'
+import * as createExpressRouter from 'express-object-defined-routes'
 import ArgumentError from '@ash-framework/argument-error'
 import addRouteCallbacks from './add-route-callbacks'
 
