@@ -33,7 +33,7 @@ export default class Initializer extends Base {
     @public
     @param {Object} app
   */
-  init (app) {
+  init(app) {
 
   }
 }

@@ -1,7 +1,7 @@
 'use strict'
 
 import Base from './base'
-import {Request, Response} from 'express'
+import { Request, Response } from 'express'
 // const Inject = require('./inject')
 
 /**
@@ -147,9 +147,9 @@ export default class Http extends Base {
     @param {Object} context - object with properties `request` and `response`
     which are the express js request and reponse objects respectively
   */
-  constructor (options) {
+  constructor(options) {
     super(options)
-    const {body, params, query, headers, method} = options.request
+    const { body, params, query, headers, method } = options.request
 
     this.body = body
     this.params = params
@@ -199,7 +199,7 @@ export default class Http extends Base {
     @static
     @param {Function} register - takes a string name of the service to inject as its only argument.
   */
-  static services (register) {
+  static services(register) {
     register('store')
   }
 
@@ -220,7 +220,7 @@ export default class Http extends Base {
     @return {Mixed} Returns the best match, or if none of the specified content types is acceptable,
     returns false.
   */
-  accepts (types) {
+  accepts(types) {
     return this.request.accepts(types)
   }
 
@@ -244,7 +244,7 @@ export default class Http extends Base {
     @return {Mixed} Returns `true` if the incoming request’s “Content-Type” HTTP header field matches
     the MIME type specified by the type parameter. Returns `false` otherwise.
   */
-  is (type) {
+  is(type) {
     return this.request.is(type)
   }
 }

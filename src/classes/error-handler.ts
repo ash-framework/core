@@ -31,11 +31,11 @@ export default class ErrorHandler extends Http {
     @public
     @param {Object} err - error object with properties `status` and `message`
   */
-  error (err: any) {
+  error(err: any) {
     const status = err.status || 500
     this.response.status(status)
     if (this.accepts('json')) {
-      this.response.send({status, error: err.message})
+      this.response.send({ status, error: err.message })
     } else {
       this.response.send(err.message)
     }

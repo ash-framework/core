@@ -19,7 +19,7 @@ export default class Base {
     @public
     @constructor
   */
-  constructor (options: object) {
+  constructor(options: object) {
     // Inject.mixins(this)
   }
 
@@ -60,5 +60,5 @@ export default class Base {
     @param {Function} register - mixin registration function. Can be called multiple times to register
     additional mixins.
   */
-  static mixins (register) { }
+  static mixins(register) { }
 }

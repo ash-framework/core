@@ -45,7 +45,7 @@ export default class Middleware extends Http {
     @method register
     @public
   */
-  register () {
+  register() {
 
   }
 }

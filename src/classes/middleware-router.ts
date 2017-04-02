@@ -13,7 +13,7 @@ export default class MiddlewareRouter extends Base {
     @static
     @param {Object} definition
   */
-  static map (definition: any) {
+  static map(definition: any) {
     this.definition = definition
   }
 }

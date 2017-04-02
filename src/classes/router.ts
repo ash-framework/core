@@ -14,7 +14,7 @@ export default class Router extends Base {
     @public
     @param {Object} definition
   */
-  static map (definition: any) {
+  static map(definition: any) {
     this.definition = definition
   }
 }
