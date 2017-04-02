@@ -4,9 +4,27 @@ import loadFile from './load-file'
 import fileExists from './file-exists'
 import { Registry, Container } from '@glimmer/di'
 
-const allowedMethods = ['get', 'put', 'post', 'patch', 'delete', 'options', 'head']
+const allowedMethods: Array<string> = ['get', 'put', 'post', 'patch', 'delete', 'options', 'head']
 
-function addRouteCallbacks(routeObjects: Array<any>, options: any) {
+export interface RouteObject {
+  name: string
+  children: Array<RouteObject>
+  path: string
+}
+
+export interface RouteObjectWithCallback {
+  method: string
+  callback: Function
+  name: string
+  path: string
+}
+
+export interface Options {
+  container: Container
+  routesDir: string
+}
+
+export default function addRouteCallbacks(routeObjects: Array<RouteObject>, options: Options): Array<RouteObjectWithCallback> {
   const container = options.container
   const objects = []
   routeObjects.forEach(routeObj => {
@@ -30,7 +48,7 @@ function addRouteCallbacks(routeObjects: Array<any>, options: any) {
       }
       objects.push({
         path: routeObj.path,
-        children: addRouteCallbacks(routeObj.children, path.join(options.routesDir, routeObj.name))
+        children: addRouteCallbacks(routeObj.children, { routesDir: options.routesDir, container })
       })
     } else {
       // explicit routes
@@ -39,7 +57,7 @@ function addRouteCallbacks(routeObjects: Array<any>, options: any) {
         if (Route) {
           objects.push({
             method: method,
-            callback: createCallback(Route),
+            callback: createCallback(Route, routeObj.name),
             name: routeObj.name,
             path: routeObj.path
           })
@@ -49,5 +67,3 @@ function addRouteCallbacks(routeObjects: Array<any>, options: any) {
   })
   return objects
 }
-
-export default addRouteCallbacks

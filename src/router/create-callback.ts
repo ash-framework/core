@@ -1,12 +1,14 @@
 import * as HttpContext from '@ash-framework/http-context'
 import routeChain from './route-chain'
 import routeSuccess from './route-success'
+import { Request, Response } from 'express'
+import { Route } from '../'
 
-export default function (Route, routeName: string = null) {
-  return function (request, response, next) {
+export default function (Route: any, routeName: string) {
+  return function (request: Request, response: Response, next: Function) {
     response.statusCode = null
 
-    const route = Route.create({ request, response })
+    const route: Route = Route.create({ request, response })
     route.routeName = routeName
     routeChain(route)
       .then(model => {
@@ -14,14 +16,11 @@ export default function (Route, routeName: string = null) {
         if (!model) {
           status = 204
         }
-        if (route.method === 'post') {
-          status = 201
-        }
         if (response.statusCode) {
           status = response.statusCode
         }
         routeSuccess(model, status, response)
       })
-      .catch(next)
+      .catch(err => next(err))
   }
 }

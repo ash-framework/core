@@ -128,7 +128,7 @@ export default class Route extends Http {
     @public
     @return {String}
   */
-  static get modelName() {
+  static get modelName(): string {
     // TODO: harden interface and test
     const routeName = this.name.toLowerCase()
     return singularize(routeName.replace('route', ''))
@@ -179,4 +179,5 @@ export default class Route extends Http {
     @property {String} routeName
     @public
   */
+  routeName: string
 }
