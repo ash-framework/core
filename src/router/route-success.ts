@@ -1,17 +1,18 @@
 import { isReadableStream } from './utils'
+import { Response } from 'express'
 
-export default function (model, status, response) {
+export default function (model: any, status: number, response: Response): void {
   if (isReadableStream(model)) {
     response.status(status)
     model.pipe(response)
   } else if (typeof model === 'object') {
     response.status(status)
-    return response.json(model)
+    response.json(model)
   } else if (!model) {
     response.status(status)
-    return response.send(String())
+    response.send(String())
   } else {
     response.status(status)
-    return response.send(String(model))
+    response.send(String(model))
   }
 }

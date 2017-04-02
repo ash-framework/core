@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "inlineSources": true,
@@ -9,7 +9,9 @@
     "declaration": true,
     "newLine": "LF",
     "outDir": "dist",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "include": [
     "src/**/*.ts"

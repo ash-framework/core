@@ -2,7 +2,7 @@ import * as HttpContext from '@ash-framework/http-context'
 import routeChain from './route-chain'
 import routeSuccess from './route-success'
 
-export default function (Route, routeName = null) {
+export default function (Route, routeName: string = null) {
   return function (request, response, next) {
     response.statusCode = null
 
