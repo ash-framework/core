@@ -218,7 +218,7 @@ export default class Application extends Base {
     // loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
 
     log.trace('Boot: loading routes')
-    app.use(createRoutes(router.constructor.definition, { container, registry }))
+    app.use(createRoutes(router.constructor.definition, { container }))
 
     log.trace('Boot: registering 404 handler')
     app.use(function (request, response, next) {

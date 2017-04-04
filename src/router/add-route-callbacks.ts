@@ -21,7 +21,6 @@ export interface RouteObjectWithCallback {
 
 export interface Options {
   container: Container
-  routesDir: string
 }
 
 export default function addRouteCallbacks(routeObjects: Array<RouteObject>, options: Options): Array<RouteObjectWithCallback> {
@@ -48,7 +47,7 @@ export default function addRouteCallbacks(routeObjects: Array<RouteObject>, opti
       }
       objects.push({
         path: routeObj.path,
-        children: addRouteCallbacks(routeObj.children, { routesDir: options.routesDir, container })
+        children: addRouteCallbacks(routeObj.children, { container })
       })
     } else {
       // explicit routes
