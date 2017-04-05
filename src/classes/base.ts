@@ -1,7 +1,3 @@
-'use strict'
-
-const Inject = require('./inject')
-
 /**
   Ash framework base class.
   This class is the base class for all Ash classes.
@@ -19,12 +15,12 @@ export default class Base {
     @public
     @constructor
   */
-  constructor(options: object) {
-    // Inject.mixins(this)
-  }
+  constructor(options: object) {}
 
   static create(options: object) {
-    return new this(options)
+    const instance = new this(options)
+    Object.assign(instance, options)
+    return instance
   }
 
   /**
