@@ -36,19 +36,18 @@ export default class Middleware extends Base {
     Note. Returning a promise from the `register` function causes later middleware or
     the route to wait for the promise to resolve as in the example above.
 
-    @static
     @method register
     @public
   */
-  static register(request: Request, response: Response) {
+  register(request: Request, response: Response) {
 
   }
 }
 
-export function middleware (...middlewareNames: Array<string>): Function {
-  return function (target: {middleware: Array<any>}) {
+export function middleware(...middlewareNames: Array<string>): Function {
+  return function (target: { middleware: Array<any> }) {
     for (const name of middlewareNames) {
-      target.middleware.push(container.lookup(`middleware:${name}`))
+      target.middleware.push(name)
     }
   }
 }

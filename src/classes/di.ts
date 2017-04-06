@@ -186,6 +186,10 @@ class Resolver {
       }
     }
 
+    if (type === 'middleware') {
+      return require(path.join(process.cwd(), 'app', 'middleware', name)).default
+    }
+
     // const Model = require(path.join(process.cwd(), 'app', `${type}s`, `${name}.js`))
     // setupModel(Model)
     // return Model
@@ -196,20 +200,18 @@ const registry = new Registry()
 const resolver = new Resolver()
 const container = new Container(registry, resolver)
 
-// registry.registerOption('model', 'singleton', false)
-// registry.registerOption('service', 'singleton', true)
-// registry.registerOption('mixin', 'singleton', false)
+registry.registerOption('service', 'singleton', true)
+registry.registerOption('mixin', 'singleton', false)
 registry.registerOption('route', 'singleton', false)
-// registry.registerOption('middleware', 'singleton', true)
+registry.registerOption('middleware', 'singleton', false)
+registry.registerOption('router', 'singleton', true)
+// registry.registerOption('model', 'singleton', false)
 // registry.registerOption('store', 'singleton', true)
 // registry.registerOption('adapter', 'singleton', true)
 // registry.registerOption('serializer', 'singleton', true)
-registry.registerOption('router', 'singleton', true)
 // registry.registerOption('middleware-router', 'singleton', true)
 // registry.registerOption('initializer', 'singleton', true)
-// registry.registerOption('base', 'singleton', true)
 // registry.registerOption('application', 'singleton', true)
-// registry.registerOption('http', 'singleton', false)
 
 // define D.I. rules
 // registry.registerInjection('model', 'store', 'store:main')

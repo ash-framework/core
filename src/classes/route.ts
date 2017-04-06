@@ -46,7 +46,7 @@ export default class Route extends Http implements Hooks {
     @public
     @constructor
   */
-  constructor(options: {request: Request, response: Response}) {
+  constructor(options: { request: Request, response: Response }) {
     super(options)
   }
 
@@ -70,15 +70,16 @@ export default class Route extends Http implements Hooks {
     @method hasMiddleware
     @private
   */
-  get hasMiddleware(): boolean {
-    return middleware.get(this).length > 0
+  static get hasMiddleware(): boolean {
+    return middleware.has(this) && middleware.get(this).length > 0
   }
 
   /**
     @property middleware (getter)
     @private
   */
-  get middleware(): Array<string> {
+  static get middleware(): Array<string> {
+    if (!middleware.has(this)) middleware.set(this, [])
     return middleware.get(this)
   }
 
