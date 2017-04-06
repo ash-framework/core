@@ -1,6 +1,7 @@
 'use strict'
 
 import Base from './base'
+import { Application } from 'express'
 
 /**
   Provides access to the express app object.
@@ -33,7 +34,7 @@ export default class Initializer extends Base {
     @public
     @param {Object} app
   */
-  init(app) {
+  init(app: Application) {
 
   }
 }

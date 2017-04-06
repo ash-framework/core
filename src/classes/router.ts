@@ -6,7 +6,7 @@ import Base from './base'
   @public
 */
 export default class Router extends Base {
-  static definition: any
+  static definition: Function
 
   /**
     @method map
@@ -14,7 +14,7 @@ export default class Router extends Base {
     @public
     @param {Object} definition
   */
-  static map(definition: any) {
+  static map(definition: Function) {
     this.definition = definition
   }
 }

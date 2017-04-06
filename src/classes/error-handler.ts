@@ -1,5 +1,3 @@
-'use strict'
-
 import Http from './http'
 
 /**
@@ -31,7 +29,7 @@ export default class ErrorHandler extends Http {
     @public
     @param {Object} err - error object with properties `status` and `message`
   */
-  error(err: any) {
+  error(err: {status: number, message: string}) {
     const status = err.status || 500
     this.response.status(status)
     if (this.accepts('json')) {

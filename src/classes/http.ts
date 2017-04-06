@@ -1,8 +1,5 @@
-'use strict'
-
 import Base from './base'
 import { Request, Response } from 'express'
-// const Inject = require('./inject')
 
 /**
   Extends the `Base` class to add Http `request` and `response` properties.
@@ -28,6 +25,7 @@ export default class Http extends Base {
 
     @property {Object} request
   */
+  request: Request
 
   /**
     The http response object.
@@ -37,6 +35,7 @@ export default class Http extends Base {
 
     @property {Object} response
   */
+  response: Response
 
   /**
     The request body
@@ -44,6 +43,7 @@ export default class Http extends Base {
     Contains key-value pairs of data submitted in the request body
     @property {Object} body
   */
+  body: object
 
   /**
     Named url parameters
@@ -66,6 +66,7 @@ export default class Http extends Base {
 
     @property {Object} params
   */
+  params: object
 
   /**
     This property is an object containing a property for each query
@@ -81,6 +82,7 @@ export default class Http extends Base {
     ```
     @property {Object} query
   */
+  query: object
 
   /**
     The request headers object.
@@ -102,6 +104,7 @@ export default class Http extends Base {
 
     @property {Object} headers
   */
+  headers: object
 
   /**
     Contains a string corresponding to the HTTP method of the
@@ -114,6 +117,7 @@ export default class Http extends Base {
 
     @property {Object} method
   */
+  method: string
 
   /**
     Constructs a new http object.
@@ -147,7 +151,7 @@ export default class Http extends Base {
     @param {Object} context - object with properties `request` and `response`
     which are the express js request and reponse objects respectively
   */
-  constructor(options) {
+  constructor(options: {request: Request, response: Response}) {
     super(options)
     const { body, params, query, headers, method } = options.request
 
@@ -159,48 +163,6 @@ export default class Http extends Base {
 
     this.request = options.request
     this.response = options.response
-
-
-    // this.constructor.services(service => {
-    //   Inject.service(this, service)
-    // })
-  }
-
-  body: object
-  params: object
-  query: object
-  headers: object
-  method: string
-  request: Request
-  response: Response
-
-  /**
-    Used to define which services should be registered on the class.
-
-    Call the `register` function as many times as needed to register services.
-    Services are referenced by their name and will be looked up by the framework
-    and injected onto the instance.
-
-    Example:
-    ```javascript
-    class MyClass extends Http {
-      static services (register) {
-        register('authentication')
-        register('user')
-      }
-    }
-    ```
-
-    In the example above, the `authentication` service will be looked up from the `app/services`
-    directory and injected onto the instance as `this.authentication`. The user service will be
-    injected in the same manor afterwards.
-
-    @method services
-    @static
-    @param {Function} register - takes a string name of the service to inject as its only argument.
-  */
-  static services(register) {
-    register('store')
   }
 
   /**
@@ -216,11 +178,11 @@ export default class Http extends Base {
 
     @method accepts
     @param {Mixed} types - may be a single MIME type string (such as “application/json”),
-    an extension name such as “json”, a comma-delimited list, or an array.
+    an extension name such as “json”, a comma-delimited list.
     @return {Mixed} Returns the best match, or if none of the specified content types is acceptable,
     returns false.
   */
-  accepts(types) {
+  accepts(types: string): string | boolean {
     return this.request.accepts(types)
   }
 
@@ -244,7 +206,7 @@ export default class Http extends Base {
     @return {Mixed} Returns `true` if the incoming request’s “Content-Type” HTTP header field matches
     the MIME type specified by the type parameter. Returns `false` otherwise.
   */
-  is(type) {
+  is(type: string): boolean {
     return this.request.is(type)
   }
 }

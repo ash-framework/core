@@ -2,17 +2,21 @@ import * as path from 'path'
 import * as HttpContext from '@ash-framework/http-context'
 import * as Log from '@ash-framework/log'
 import Route from '../classes/route'
+import Middleware from '../classes/middleware'
+import { container } from '../classes/di'
 
 const log = new Log()
 
 export default function (route: Route): Promise<any> {
-  function applyMiddleware(middlewareList: Array<any>): Promise<any> {
+  function applyMiddleware(middlewareList: Array<string>): Promise<any> {
     if (middlewareList.length < 1) return
-    const middlewareName = middlewareList.shift()
-    const Module = require(path.join(process.cwd(), 'app', 'middleware') + '/' + middlewareName)
-    const Middleware = (Module.__esModule) ? Module.default : Module
+
+    const name = middlewareList.shift()
+
+    const Middleware = container.lookup(`middleware:${name}`)
     const { request, response } = route
     const middleware = new Middleware({ request, response })
+
     return Promise.resolve()
       .then(() => middleware.register())
       .then(() => applyMiddleware(middlewareList))
@@ -23,7 +27,7 @@ export default function (route: Route): Promise<any> {
       log.trace(`Route '${route.constructor.name}': entering route`)
       if (route.hasMiddleware) {
         log.trace(`${route.constructor.name}: running route middleware`)
-        return applyMiddleware(route.registeredMiddleware)
+        return applyMiddleware(route.middleware)
       }
     })
     .then(() => {

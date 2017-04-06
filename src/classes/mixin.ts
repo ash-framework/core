@@ -9,7 +9,7 @@ export default class Mixin extends Base {
 
 }
 
-export function mixin (...classes) {
+export function mixin (...classes: Array<any>) {
   const behaviours = new Map()
   for (const cls of classes) {
     for (const key of Reflect.ownKeys(cls.prototype)) {

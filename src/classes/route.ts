@@ -1,7 +1,18 @@
 import Http from './http'
+import Middleware from './middleware'
 import { singularize } from 'inflection'
+import { Request, Response } from 'express'
 
 const middleware = new WeakMap()
+
+export interface Hooks {
+  deserialize(): Promise<any> | void
+  beforeModel(): Promise<any> | void
+  model(): any
+  afterModel(model: any): any
+  serialize(model: any): any
+  error<T extends Error>(error: T): any
+}
 
 /**
   The Ash route class extends the See Http class and so has access
@@ -29,68 +40,46 @@ const middleware = new WeakMap()
   @extends Http
   @public
 */
-export default class Route extends Http {
+export default class Route extends Http implements Hooks {
   /**
     @method constructor
     @public
     @constructor
   */
-  constructor(options) {
+  constructor(options: {request: Request, response: Response}) {
     super(options)
-
-    // const mw = []
-    // this.constructor.middleware(middleware => mw.push(middleware))
-    // middleware.set(this, mw)
   }
+
+  /**
+    @property modelName
+    @public
+    @return {String}
+  */
+  static modelName: string
+
+  /**
+    The name of the route. This is the same as the name of the route js file (without the .js)
+    and not the name of the exported class. For the name of the class use `this.name`
+
+    @property {String} routeName
+    @public
+  */
+  static routeName: string
 
   /**
     @method hasMiddleware
     @private
   */
-  get hasMiddleware() {
-    // return middleware.get(this).length > 0
-    return false
+  get hasMiddleware(): boolean {
+    return middleware.get(this).length > 0
   }
 
   /**
-    @method registeredMiddleware
+    @property middleware (getter)
     @private
   */
-  get registeredMiddleware() {
+  get middleware(): Array<string> {
     return middleware.get(this)
-  }
-
-  /**
-    Route middleware
-
-    You can use this to register route specific middleware. ie. middleware specified here
-    will only run for this route. You can register the same piece of middleware in multiple
-    routes but you must do so explicitly by registering it in that routes `middleware` method.
-
-    Call `register` with the name of the middleware in the `app/middleware` directory that
-    you want to load. You can call register multiple times to register more than one middleware
-    and middleware will be executed in the order registered.
-
-    Example: registering middleware on a route
-    ```javascript
-
-    // app/routes/my-route.js
-    import Ash from 'ash-core'
-
-    export default class MyRoute extends Ash.Route {
-      static middleware (register) {
-        register('my-middleware')
-      }
-    }
-    ```
-
-    @method middleware
-    @static
-    @public
-    @param {Function} register
-  */
-  static middleware(register) {
-
   }
 
   /**
@@ -118,26 +107,15 @@ export default class Route extends Http {
     @method model
     @public
   */
-  model(): any {
+  model() {
     const msg = `Route '${this.constructor.name}': model hook error. You must implement a model hook`
     return Promise.reject(msg)
   }
 
   /**
-    @property modelName
-    @public
-    @return {String}
-  */
-  static get modelName(): string {
-    // TODO: harden interface and test
-    const routeName = this.name.toLowerCase()
-    return singularize(routeName.replace('route', ''))
-  }
-
-  /**
     @method afterModel
     @public
-    @param {Object} model
+    @param {Mixed} model
     @return {any}
   */
   afterModel(model) {
@@ -147,37 +125,19 @@ export default class Route extends Http {
   /**
     @method serialize
     @public
-    @param {Object} model
+    @param {Mixed} model
   */
   serialize(model) {
-    // if (this.store && this.constructor.modelName) {
-    //   const serializer = this.store.serializerFor(this.constructor.modelName)
-    //   // TODO: set baseUrl from config or request
-    //   // const options = {baseUrl: ''}
-    //   const Model = this.store.modelFor(this.constructor.modelName)
-    //   if (serializer && Model) {
-    //     return serializer.serialize(Model, model)
-    //   }
-    // }
     return model
   }
 
   /**
     @method error
     @public
-    @param {Object} error
+    @param {Error} error
     @return {any} error
   */
-  error(error) {
+  error<T extends Error>(error: T) {
     return Promise.reject(error)
   }
-
-  /**
-    The name of the route. This is the same as the name of the route js file (without the .js)
-    and not the name of the exported class. For the name of the class use `this.name`
-
-    @property {String} routeName
-    @public
-  */
-  routeName: string
 }

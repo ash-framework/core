@@ -9,7 +9,7 @@ export default function (Route: any, routeName: string) {
     response.statusCode = null
 
     const route: Route = Route.create({ request, response })
-    route.routeName = routeName
+    Route.routeName = routeName
     routeChain(route)
       .then(model => {
         let status = 200
