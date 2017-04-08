@@ -71,7 +71,6 @@ describe('module utils', () => {
       }
       class Middleware3 extends Middleware {
         register () {
-          console.log('hi')
           middlewareMock(3)
         }
       }

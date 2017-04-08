@@ -3,6 +3,14 @@
 import Base from './base'
 import { Application } from 'express'
 
+export function initializeWith(...initializerNames: Array<string>): Function {
+  return function (target: { initializers: Array<string> }) {
+    for (const name of initializerNames) {
+      target.initializers.push(name)
+    }
+  }
+}
+
 /**
   Provides access to the express app object.
   This can be used to do any low level express setup.
