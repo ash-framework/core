@@ -1,4 +1,4 @@
-import { isReadableStream } from './utils'
+import { isReadableStream } from '../classes/utils'
 import { Response } from 'express'
 
 export default function (model: any, status: number, response: Response): void {

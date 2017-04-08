@@ -6,7 +6,7 @@ import * as Log from '@ash-framework/log'
 import * as HttpError from '@ash-framework/http-error'
 import { registry, container } from './di'
 import createRoutes from '../router'
-// const loadMiddleware = require('../middleware-router')
+import { runInitializers, runMiddleware } from './utils'
 
 import * as express from 'express'
 import * as path from 'path'
@@ -158,15 +158,11 @@ export default class Application extends Base {
     @public
     @method start
   */
-  static start() {
+  static async start() {
     const configModule = require(path.join(process.cwd(), 'config/environment.js'))
     const config = ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
 
-    // const middlewareModule = container.lookup('middleware-router')
-    // const MiddlewareRouter = (middlewareModule.__esModule) ? middlewareModule.default : middlewareModule
-
     const router = container.lookup('router:main')
-
     const log = new Log()
 
     log.trace('Boot: creating express app instance')
@@ -201,23 +197,15 @@ export default class Application extends Base {
       app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
     }
 
-    // const initializerDir = path.join(process.cwd(), 'app/initializers')
-    // if (fs.existsSync(initializerDir)) {
-    //   const initializers = fs.readdirSync(initializerDir).filter(file => file.indexOf('.js') !== -1)
-    //   if (initializers.length > 0) {
-    //     log.trace('Boot: loading initializers')
-    //     initializers.forEach(initializerName => {
-    //       const Module = require(initializerDir + '/' + initializerName)
-    //       const Initializer = (Module.__esModule) ? Module.default : Module
-    //       const initializer = new Initializer()
-    //       initializer.init(app)
-    //     })
-    //   }
-    // }
+    log.trace('Boot: loading initializers')
+    await runInitializers(this.initializers, app)
 
-    // log.trace('Boot: loading middleware')
-    // const middlewareDir = path.join(process.cwd(), 'app/middleware')
-    // loadMiddleware(MiddlewareRouter.definition, app, middlewareDir)
+    log.trace('Boot: loading middleware')
+    app.use((req, res, next) => {
+      runMiddleware(this.middleware, req, res)
+        .then(() => next())
+        .catch(err => next(err))
+    })
 
     log.trace('Boot: loading routes')
     app.use(createRoutes(router.constructor.definition, { container }))

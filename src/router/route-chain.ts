@@ -3,7 +3,7 @@ import * as HttpContext from '@ash-framework/http-context'
 import * as Log from '@ash-framework/log'
 import Route from '../classes/route'
 import Middleware from '../classes/middleware'
-import { runMiddleware } from './utils'
+import { runMiddleware } from '../classes/utils'
 
 const log = new Log()
 

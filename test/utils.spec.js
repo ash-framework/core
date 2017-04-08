@@ -1,8 +1,12 @@
 /* global describe, it, expect, jest */
 
-import { dasherize } from '../lib/classes/utils'
-import { runMiddleware } from '../lib/router/utils'
+import {
+  dasherize,
+  runMiddleware,
+  runInitializers
+} from '../lib/classes/utils'
 import Middleware from '../lib/classes/middleware'
+import Initializer from '../lib/classes/initializer'
 import { registry, container } from '../lib/classes/di'
 
 container._resolver = null
@@ -83,6 +87,44 @@ describe('module utils', () => {
       return runMiddleware(middlewareList, {}, {}).then(() => {
         // Then
         const mockCalls = middlewareMock.mock.calls
+        expect(mockCalls).toEqual([[1], [2], [3]])
+      })
+    })
+  })
+
+  describe('runInitializers', () => {
+    it('should load and run all initializers in order', () => {
+      // Given
+      const initializerList = [
+        'initializer-1',
+        'initializer-2',
+        'initializer-3'
+      ]
+      const initializerMock = jest.fn()
+      class Initializer1 extends Initializer {
+        init () {
+          initializerMock(1)
+        }
+      }
+      class Initializer2 extends Initializer {
+        init () {
+          initializerMock(2)
+        }
+      }
+      class Initializer3 extends Initializer {
+        init () {
+          initializerMock(3)
+        }
+      }
+
+      // When
+      registry.register('initializer:initializer-1', Initializer1)
+      registry.register('initializer:initializer-2', Initializer2)
+      registry.register('initializer:initializer-3', Initializer3)
+
+      return runInitializers(initializerList, {}, {}).then(() => {
+        // Then
+        const mockCalls = initializerMock.mock.calls
         expect(mockCalls).toEqual([[1], [2], [3]])
       })
     })
