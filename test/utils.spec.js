@@ -74,7 +74,7 @@ describe('module utils', () => {
   })
 
   describe('runMiddleware', () => {
-    it('should load and run all middleware in order', () => {
+    it('should load and run all middleware in order', async () => {
       // Given
       const middlewareList = ['middleware-1', 'middleware-2', 'middleware-3']
       const middlewareMock = jest.fn()
@@ -93,22 +93,21 @@ describe('module utils', () => {
           middlewareMock(3)
         }
       }
-
-      // When
       registry.register('middleware:middleware-1', Middleware1)
       registry.register('middleware:middleware-2', Middleware2)
       registry.register('middleware:middleware-3', Middleware3)
 
-      return runMiddleware(middlewareList, {}, {}).then(() => {
-        // Then
-        const mockCalls = middlewareMock.mock.calls
-        expect(mockCalls).toEqual([[1], [2], [3]])
-      })
+      // When
+      await runMiddleware(middlewareList, {}, {})
+
+      // Then
+      const mockCalls = middlewareMock.mock.calls
+      expect(mockCalls).toEqual([[1], [2], [3]])
     })
   })
 
   describe('runInitializers', () => {
-    it('should load and run all initializers in order', () => {
+    it('should load and run all initializers in order', async () => {
       // Given
       const initializerList = [
         'initializer-1',
@@ -131,17 +130,16 @@ describe('module utils', () => {
           initializerMock(3)
         }
       }
-
-      // When
       registry.register('initializer:initializer-1', Initializer1)
       registry.register('initializer:initializer-2', Initializer2)
       registry.register('initializer:initializer-3', Initializer3)
 
-      return runInitializers(initializerList, {}, {}).then(() => {
-        // Then
-        const mockCalls = initializerMock.mock.calls
-        expect(mockCalls).toEqual([[1], [2], [3]])
-      })
+      // When
+      await runInitializers(initializerList, {}, {})
+
+      // Then
+      const mockCalls = initializerMock.mock.calls
+      expect(mockCalls).toEqual([[1], [2], [3]])
     })
   })
 })
