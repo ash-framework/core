@@ -74,6 +74,17 @@ describe('module utils', () => {
   })
 
   describe('runMiddleware', () => {
+    it('should run ok given an empty middleware array', async () => {
+      // Given
+      const middlewareList = []
+
+      // When
+      const run = await runMiddleware(middlewareList, {}, {})
+
+      // Then
+      return expect(run).toBeFalsy()
+    })
+
     it('should load and run all middleware in order', async () => {
       // Given
       const middlewareList = ['middleware-1', 'middleware-2', 'middleware-3']
@@ -107,6 +118,17 @@ describe('module utils', () => {
   })
 
   describe('runInitializers', () => {
+    it('should run ok given an empty initializers array', async () => {
+      // Given
+      const initializersList = []
+
+      // When
+      const run = await runMiddleware(initializersList, {}, {})
+
+      // Then
+      return expect(run).toBeFalsy()
+    })
+
     it('should load and run all initializers in order', async () => {
       // Given
       const initializerList = [

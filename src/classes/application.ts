@@ -28,6 +28,85 @@ const _app = new WeakMap()
 export default class Application extends Base {
   static initializers: Array<string> = []
   static middleware: Array<string> = []
+  private static _log: Log = null
+  private static _app: express.Application = null
+
+  static get config(): Config {
+    const configModule = require(path.join(process.cwd(), 'config/environment.js'))
+    return ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
+  }
+
+  static get log() {
+    if (!this._log) {
+      this._log = new Log()
+      this._log.trace('Boot: creating application logger instance')
+    }
+    return this._log
+  }
+
+  static get app() {
+    if (!this._app) {
+      this.log.trace('Boot: creating express app instance')
+      this._app = express()
+    }
+    return this._app
+  }
+
+  static setupRoutes() {
+    const router = container.lookup('router:main')
+    this.log.trace('Boot: loading routes')
+    this.app.use(createRoutes(router.constructor.definition, { container }))
+  }
+
+  static initialize(): Promise<void> {
+    this.log.trace('Boot: loading initializers')
+    return runInitializers(this.initializers, this.app)
+  }
+
+  static setupMiddleware() {
+    this.log.trace('Boot: loading middleware')
+    this.app.use((req, res, next) => {
+      runMiddleware(this.middleware, req, res)
+        .then(() => next())
+        .catch(err => next(err))
+    })
+  }
+
+  static setup404Hander() {
+    this.log.trace('Boot: registering 404 handler')
+    this.app.use((request, response, next) => {
+      next(new HttpError(404))
+    })
+  }
+
+  static setupErrorHandler() {
+    this.log.trace('Boot: registering error handler')
+    this.app.use((err, request, response, next) => {
+      this.log.error(err)
+      if (!err.stack) {
+        err = new HttpError(500)
+      }
+      let errorHandler
+      const customErrorHandler = path.join(process.cwd(), 'app') + '/error-handler.js'
+      if (fs.existsSync(customErrorHandler)) {
+        const ErrorHandler = require(customErrorHandler)
+        errorHandler = new ErrorHandler({ request, response })
+      } else {
+        errorHandler = new ErrorHandler({ request, response })
+      }
+      errorHandler.error(err)
+    })
+  }
+
+  static bootApplication() {
+    return new Promise(resolve => {
+      this.app.listen(this.config.port, () => {
+        this.log.trace(`Boot: started on port ${this.config.port}`)
+        resolve()
+      })
+    })
+  }
+
   /**
     ## Starts an Ash application
     Starts application by performing the following operations
@@ -158,82 +237,38 @@ export default class Application extends Base {
     @public
     @method start
   */
-  static async start() {
-    const configModule = require(path.join(process.cwd(), 'config/environment.js'))
-    const config = ((configModule.__esModule) ? configModule.default : configModule)(process.env.NODE_ENV)
+  static async start(): Promise<void> {
+    // log.trace('Boot: loading cors middleware')
+    // if (this.config.cors.preFlight === true) {
+    //   app.options('*', cors(Object.assign({}, this.config.cors)))
+    // }
+    // app.use(cors(Object.assign({}, this.config.cors)))
 
-    const router = container.lookup('router:main')
-    const log = new Log()
+    // if (this.config.helmet === true) {
+    //   log.trace('Boot: loading security middleware')
+    //   app.use(helmet())
+    // }
 
-    log.trace('Boot: creating express app instance')
-    const app = express()
-    _app.set(this, app)
+    // log.trace('Boot: adding body parsing middleware')
+    // const bodyParserOptions = this.config.bodyParser
+    // if (typeof bodyParserOptions.json === 'object') {
+    //   app.use(bodyparser.json(bodyParserOptions.json))
+    // }
+    // if (typeof bodyParserOptions.text === 'object') {
+    //   app.use(bodyparser.text(bodyParserOptions.text))
+    // }
+    // if (typeof bodyParserOptions.raw === 'object') {
+    //   app.use(bodyparser.raw(bodyParserOptions.raw))
+    // }
+    // if (typeof bodyParserOptions.urlencoded === 'object') {
+    //   app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
+    // }
 
-    log.trace('Boot: loading cors middleware')
-    if (typeof config.cors === 'object') {
-      if (config.cors.preFlight === true) {
-        app.options('*', cors(Object.assign({}, config.cors)))
-      }
-      app.use(cors(Object.assign({}, config.cors)))
-    }
-
-    if (config.helmet !== false) {
-      log.trace('Boot: loading security middleware')
-      app.use(helmet())
-    }
-
-    log.trace('Boot: adding body parsing middleware')
-    const bodyParserOptions = config.bodyParser || {}
-    if (typeof bodyParserOptions.json === 'object') {
-      app.use(bodyparser.json(bodyParserOptions.json))
-    }
-    if (typeof bodyParserOptions.text === 'object') {
-      app.use(bodyparser.text(bodyParserOptions.text))
-    }
-    if (typeof bodyParserOptions.raw === 'object') {
-      app.use(bodyparser.raw(bodyParserOptions.raw))
-    }
-    if (typeof bodyParserOptions.urlencoded === 'object') {
-      app.use(bodyparser.urlencoded(bodyParserOptions.urlencoded))
-    }
-
-    log.trace('Boot: loading initializers')
-    await runInitializers(this.initializers, app)
-
-    log.trace('Boot: loading middleware')
-    app.use((req, res, next) => {
-      runMiddleware(this.middleware, req, res)
-        .then(() => next())
-        .catch(err => next(err))
-    })
-
-    log.trace('Boot: loading routes')
-    app.use(createRoutes(router.constructor.definition, { container }))
-
-    log.trace('Boot: registering 404 handler')
-    app.use(function (request, response, next) {
-      next(new HttpError(404))
-    })
-
-    log.trace('Boot: registering error handler')
-    app.use(function (err, request, response, next) {
-      log.error(err)
-      if (!err.stack) {
-        err = new HttpError(500)
-      }
-      let errorHandler
-      const customErrorHandler = path.join(process.cwd(), 'app') + '/error-handler.js'
-      if (fs.existsSync(customErrorHandler)) {
-        const ErrorHandler = require(customErrorHandler)
-        errorHandler = new ErrorHandler({ request, response })
-      } else {
-        errorHandler = new ErrorHandler({ request, response })
-      }
-      errorHandler.error(err)
-    })
-
-    app.listen(config.port, function () {
-      log.trace(`Boot: started on port ${config.port}`)
-    })
+    await this.initialize()
+    this.setupMiddleware()
+    this.setupRoutes()
+    this.setup404Hander()
+    this.setupErrorHandler()
+    await this.bootApplication()
   }
 }

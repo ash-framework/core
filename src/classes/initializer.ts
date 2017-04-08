@@ -3,7 +3,7 @@
 import Base from './base'
 import { Application } from 'express'
 
-export function initializeWith(...initializerNames: Array<string>): Function {
+export function initializer(...initializerNames: Array<string>): Function {
   return function (target: { initializers: Array<string> }) {
     for (const name of initializerNames) {
       target.initializers.push(name)

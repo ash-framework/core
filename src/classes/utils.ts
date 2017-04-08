@@ -11,7 +11,7 @@ export function dasherize(input: string) {
 }
 
 export function runMiddleware(middlewareList: Array<string>, request: Request, response: Response) {
-  if (middlewareList.length < 1) return
+  if (middlewareList.length < 1) return Promise.resolve()
 
   const name: string = middlewareList.shift()
   const middleware: Middleware = container.lookup(`middleware:${name}`)

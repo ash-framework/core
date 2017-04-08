@@ -151,7 +151,7 @@ export default class Http extends Base {
     @param {Object} context - object with properties `request` and `response`
     which are the express js request and reponse objects respectively
   */
-  constructor(options: {request: Request, response: Response}) {
+  constructor(options: { request: Request, response: Response }) {
     super(options)
     const { body, params, query, headers, method } = options.request
 
