@@ -33,7 +33,7 @@
     "version:major": "xyz -i major",
     "readme": "projectz compile",
     "start": "npm run build:live",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
+    "build:live": "nodemon --ext ts --exec ./node_modules/.bin/tsc -i test -i lib",
     "build": "tsc"
   },
   "publishConfig": {
