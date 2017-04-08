@@ -1,9 +1,13 @@
 {
   "sourceMaps": "inline",
-  "presets": [],
   "plugins": [
     "transform-decorators-legacy",
-    ["transform-class-properties", {"spec": false}],
+    [
+      "transform-class-properties",
+      {
+        "spec": false
+      }
+    ],
     "transform-es2015-modules-commonjs"
   ]
 }
