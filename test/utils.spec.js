@@ -3,15 +3,30 @@
 import {
   dasherize,
   runMiddleware,
-  runInitializers
+  runInitializers,
+  isReadableStream
 } from '../lib/classes/utils'
 import Middleware from '../lib/classes/middleware'
 import Initializer from '../lib/classes/initializer'
 import { registry, container } from '../lib/classes/di'
+import { Readable } from 'stream'
 
 container._resolver = null
 
 describe('module utils', () => {
+  describe('isReadableStream', () => {
+    it('should correctly determine if an object is a readable stream', () => {
+      // Given
+      const subject = new Readable()
+
+      // When
+      const checked = isReadableStream(subject)
+
+      // Then
+      expect(checked).toBe(true)
+    })
+  })
+
   describe('dasherize', () => {
     it('should dasherize a camelCased string', () => {
       // Given

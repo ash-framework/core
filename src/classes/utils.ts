@@ -35,6 +35,6 @@ export function runInitializers(initializerList: Array<string>, app: Application
 export function isReadableStream(obj) {
   return obj instanceof Stream &&
     // quick dirty typescript override for usage of private properties
-    typeof ((obj as any)._read === 'function') &&
-    typeof ((obj as any)._readableState === 'object')
+    typeof (obj as any)._read === 'function' &&
+    typeof (obj as any)._readableState === 'object'
 }
