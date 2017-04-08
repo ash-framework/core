@@ -164,7 +164,7 @@ import { Registry, Container } from '@glimmer/di'
 class Resolver {
   identify: any
 
-  retrieve(specifier) {
+  retrieve(specifier: string) {
     let [type, name, verb] = specifier.split(':')
 
     if (type === 'route') {
