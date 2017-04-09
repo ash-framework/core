@@ -86,7 +86,7 @@ export default class Route extends Http implements Hooks {
     @method {Function} deserialize
     @public
   */
-  deserialize() {
+  deserialize(): any {
 
   }
 
@@ -94,7 +94,7 @@ export default class Route extends Http implements Hooks {
     @method beforeModel
     @public
   */
-  beforeModel() {
+  beforeModel(): any {
 
   }
 
@@ -102,7 +102,7 @@ export default class Route extends Http implements Hooks {
     @method model
     @public
   */
-  model() {
+  model(): any {
     const msg = `Route '${this.constructor.name}': model hook error. You must implement a model hook`
     return Promise.reject(msg)
   }
@@ -113,7 +113,7 @@ export default class Route extends Http implements Hooks {
     @param {Mixed} model
     @return {any}
   */
-  afterModel(model) {
+  afterModel(model): any {
     return model
   }
 
@@ -122,7 +122,7 @@ export default class Route extends Http implements Hooks {
     @public
     @param {Mixed} model
   */
-  serialize(model) {
+  serialize(model): any {
     return model
   }
 
@@ -132,7 +132,7 @@ export default class Route extends Http implements Hooks {
     @param {Error} error
     @return {any} error
   */
-  error<T extends Error>(error: T) {
+  error<T extends Error>(error: T): any {
     return Promise.reject(error)
   }
 }
