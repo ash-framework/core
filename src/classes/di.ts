@@ -190,8 +190,12 @@ class Resolver {
       return require(path.join(process.cwd(), 'app', 'middleware', name)).default
     }
 
+    if (type === 'initializer') {
+      return require(path.join(process.cwd(), 'app', 'initializers', name)).default
+    }
+
     if (type === 'service') {
-      return require(path.join(process.cwd(), 'app', 'service', name)).default
+      return require(path.join(process.cwd(), 'app', 'services', name)).default
     }
 
     // const Model = require(path.join(process.cwd(), 'app', `${type}s`, `${name}.js`))
