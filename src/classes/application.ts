@@ -26,6 +26,7 @@ const _app = new WeakMap()
   @public
 */
 export default class Application extends Base {
+  static classType: string = 'application'
   static initializers: Array<string> = []
   static middleware: Array<string> = []
   private static _log: Log = null

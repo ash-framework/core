@@ -7,12 +7,11 @@
 import Application from './classes/application'
 import Route from './classes/route'
 import Router from './classes/router'
-import Middleware from './classes/middleware'
-import MiddlewareRouter from './classes/middleware-router'
-import Mixin from './classes/mixin'
-import Initializer from './classes/initializer'
+import Middleware, { middleware } from './classes/middleware'
+import Mixin, { mixin } from './classes/mixin'
+import Initializer, { initializer } from './classes/initializer'
 import ErrorHandler from './classes/error-handler'
-import Service from './classes/service'
+import Service, { service } from './classes/service'
 // import * as Model from './classes/model'
 // import * as Adapter from './classes/adapter'
 // import * as Serializer from './classes/serializer'
@@ -46,12 +45,6 @@ export {
     @public
   */
   Middleware,
-
-  /**
-    @property {MiddlewareRouter} MiddlewareRouter
-    @public
-  */
-  MiddlewareRouter,
 
   /**
     Instance of the Ash logger. Should be use throughout to log as needed.
@@ -117,6 +110,14 @@ export {
     @public
   */
   Service,
+
+  middleware,
+
+  service,
+
+  initializer,
+
+  mixin
 }
 
 export default Application

@@ -41,6 +41,9 @@ export interface Hooks {
   @public
 */
 export default class Route extends Http implements Hooks {
+  static classType: string = 'route'
+  static middleware: Array<string> = []
+
   /**
     @method constructor
     @public
@@ -71,16 +74,7 @@ export default class Route extends Http implements Hooks {
     @private
   */
   static get hasMiddleware(): boolean {
-    return middleware.has(this) && middleware.get(this).length > 0
-  }
-
-  /**
-    @property middleware (getter)
-    @private
-  */
-  static get middleware(): Array<string> {
-    if (!middleware.has(this)) middleware.set(this, [])
-    return middleware.get(this)
+    return this.middleware.length > 0
   }
 
   /**

@@ -17,6 +17,8 @@ import { Request, Response } from 'express'
   @constructor
 */
 export default class Http extends Base {
+  static classType: string = 'http'
+
   /**
     The http request object.
 

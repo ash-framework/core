@@ -166,41 +166,37 @@ class Resolver {
 
   retrieve(specifier: string) {
     let [type, name, verb] = specifier.split(':')
-
+    let file
     if (type === 'route') {
       if (verb === 'get') {
-        const file = path.join(process.cwd(), 'app', `routes`, `${name}.ts`)
-        if (existsSync(file)) {
-          return require(file).default
+        let filepath = path.join(process.cwd(), 'app', `routes`, `${name}.ts`)
+        if (existsSync(filepath)) {
+          file = require(filepath).default
         }
       }
-      const file = path.join(process.cwd(), 'app', `routes`, `${name}.${verb}.ts`)
-      if (existsSync(file)) {
-        return require(file).default
-      }
-    }
 
-    if (type === 'router') {
+      if (!file) {
+        let filepath = path.join(process.cwd(), 'app', `routes`, `${name}.${verb}.ts`)
+        if (existsSync(filepath)) {
+          file = require(filepath).default
+        }
+      }
+
+    } else if (type === 'router') {
       if (name === 'main') {
-        return require(path.join(process.cwd(), 'app', `router`)).default
+        file = require(path.join(process.cwd(), 'app', `router`)).default
       }
+    } else if (type === 'middleware') {
+      file = require(path.join(process.cwd(), 'app', 'middleware', name)).default
+    } else if (type === 'initializer') {
+      file = require(path.join(process.cwd(), 'app', 'initializers', name)).default
+    } else if (type === 'service') {
+      file = require(path.join(process.cwd(), 'app', 'services', name)).default
+    } else {
+      return
     }
 
-    if (type === 'middleware') {
-      return require(path.join(process.cwd(), 'app', 'middleware', name)).default
-    }
-
-    if (type === 'initializer') {
-      return require(path.join(process.cwd(), 'app', 'initializers', name)).default
-    }
-
-    if (type === 'service') {
-      return require(path.join(process.cwd(), 'app', 'services', name)).default
-    }
-
-    // const Model = require(path.join(process.cwd(), 'app', `${type}s`, `${name}.js`))
-    // setupModel(Model)
-    // return Model
+    return file
   }
 }
 
@@ -213,6 +209,7 @@ registry.registerOption('mixin', 'singleton', false)
 registry.registerOption('route', 'singleton', false)
 registry.registerOption('middleware', 'singleton', false)
 registry.registerOption('router', 'singleton', true)
+registry.registerOption('initializer', 'singleton', true)
 // registry.registerOption('model', 'singleton', false)
 // registry.registerOption('store', 'singleton', true)
 // registry.registerOption('adapter', 'singleton', true)

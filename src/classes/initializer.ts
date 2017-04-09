@@ -20,6 +20,8 @@ export function initializer(...initializerNames: Array<string>): Function {
   @public
 */
 export default class Initializer extends Base {
+  static classType: string = 'initializer'
+
   /**
     Override the init method in any initializer to gain
     access to the express app.

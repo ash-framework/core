@@ -1,6 +1,5 @@
 import Base from './base'
-import { registry } from './di'
-import { dasherize } from './utils'
+import { registry, container } from './di'
 
 /**
   @class Service
@@ -8,14 +7,12 @@ import { dasherize } from './utils'
   @public
 */
 export default class Service extends Base {
-
+  static classType: string = 'service'
 }
 
-export function service (serviceName: string): Function {
+export function service(serviceName: string): Function {
   return function (target: any, property: string) {
-    const parentClassName = dasherize(Object.getPrototypeOf(target.constructor).name)
-    const className = dasherize(target.constructor.name)
-
-    registry.registerInjection(`${parentClassName}:${className}`, property, `service:${serviceName}`)
+    const proto = Object.getPrototypeOf(target.constructor)
+    proto.services.push([serviceName, property])
   }
 }

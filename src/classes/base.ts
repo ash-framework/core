@@ -7,6 +7,9 @@
   @public
 */
 export default class Base {
+  static classType: string = 'base'
+  static services: Array<Array<string>> = []
+
   /**
     Sets up mixins.
     When overriding the constructor, remember to call `super()`
@@ -15,7 +18,7 @@ export default class Base {
     @public
     @constructor
   */
-  constructor(options: object) {}
+  constructor(options: object) { }
 
   static create(options: object) {
     const instance = new this(options)

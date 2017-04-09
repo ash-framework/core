@@ -22,6 +22,8 @@ import Http from './http'
   @extends Http
 */
 export default class ErrorHandler extends Http {
+  static classType: string = 'error-handler'
+
   /**
     Method called by Ash whenever an error occurs. This includes 404 errors
 
@@ -29,7 +31,7 @@ export default class ErrorHandler extends Http {
     @public
     @param {Object} err - error object with properties `status` and `message`
   */
-  error(err: {status: number, message: string}) {
+  error(err: { status: number, message: string }) {
     const status = err.status || 500
     this.response.status(status)
     if (this.accepts('json')) {

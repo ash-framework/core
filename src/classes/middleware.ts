@@ -14,6 +14,8 @@ import { Request, Response } from 'express'
   @extends Http
 */
 export default class Middleware extends Base {
+  static classType: string = 'middleware'
+
   /**
     Registers code to be executed as middleware.
 

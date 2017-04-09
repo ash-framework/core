@@ -4,6 +4,7 @@ import { container } from '../classes/di'
 import { Request, Response, Application } from 'express'
 import Middleware from '../classes/middleware'
 import Initializer from '../classes/initializer'
+import Service from '../classes/service'
 
 export function dasherize(input: string) {
   const classNameUnderscored = underscore(input)
@@ -37,4 +38,13 @@ export function isReadableStream(obj) {
     // quick dirty typescript override for usage of private properties
     typeof (obj as any)._read === 'function' &&
     typeof (obj as any)._readableState === 'object'
+}
+
+export function injectServices(instance, servicesList: Array<Array<string>>) {
+  if (servicesList.length < 1) return
+
+  for (const defn of servicesList) {
+    const service: Service = container.lookup(`service:${defn[0]}`)
+    instance[defn[1]] = service
+  }
 }

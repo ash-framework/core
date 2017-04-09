@@ -6,6 +6,7 @@ import Base from './base'
   @public
 */
 export default class Router extends Base {
+  static classType: string = 'router'
   static definition: Function
 
   /**
