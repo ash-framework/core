@@ -33,26 +33,30 @@ const TYPES = Object.freeze({
   }
 })
 
+export interface File {
+  __esModule?: boolean, default?: any
+}
+
 export class Resolver {
   identify: any
 
-  parseEsModule(file) {
+  parseEsModule(file: File) {
     return (file && file.__esModule) ? file.default : file
   }
 
-  loadFileFor(path) {
+  loadFileFor(path: string): File {
     if (existsSync(path)) {
       return require(path)
     }
     throw new Error(`Resolver unable to resolve file at: ${path}`)
   }
 
-  filepathFor(type, filename) {
+  filepathFor(type: string, filename: string): string {
     if (!filename) return
     return path.join(BASE_PATH, TYPES[type].directory, filename) + '.ts'
   }
 
-  filenameFor(type, name, verb) {
+  filenameFor(type: string, name: string, verb?: string): string {
     if (name === 'main') return TYPES[type].main
 
     if (TYPES[type].verbs && verb) {
@@ -62,20 +66,20 @@ export class Resolver {
     return name
   }
 
-  validateType(type) {
+  validateType(type: string) {
     if (!TYPES[type]) {
       throw new Error(`Type: ${type} is not supported by the resolver.`)
     }
   }
 
-  fallbackFor (type, name, verb) {
+  fallbackFor (type: string, name: string, verb?: string): string {
     if (TYPES[type].verbs && verb === 'get') {
       return name
     }
     return TYPES[type].fallback
   }
 
-  loadFile (type, filename) {
+  loadFile (type: string, filename: string) {
     const filepath = this.filepathFor(type, filename)
     return this.parseEsModule(this.loadFileFor(filepath))
   }
