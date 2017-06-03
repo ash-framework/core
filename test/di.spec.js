@@ -1,0 +1,157 @@
+/* global test, expect, afterEach */
+
+import { resolver } from '../lib/classes/di'
+import * as td from 'testdouble'
+
+afterEach(() => td.reset())
+
+test('.parseEsModule() with es module file object', () => {
+  const file = {
+    __esModule: true,
+    default: {
+      name: 'module'
+    }
+  }
+
+  const result = resolver.parseEsModule(file)
+
+  expect(result.name).toBe('module')
+})
+
+test('.parseEsModule() without es module file object', () => {
+  const file = { name: 'module' }
+
+  const result = resolver.parseEsModule(file)
+
+  expect(result.name).toBe('module')
+})
+
+test('.filepathFor()', () => {
+  const type = 'route'
+  const filename = 'welcome'
+
+  const result = resolver.filepathFor(type, filename)
+
+  expect(result).toMatch('app/routes/welcome.ts')
+})
+
+test('.filepathFor() complex path', () => {
+  const type = 'route'
+  const filename = 'posts/comments'
+
+  const result = resolver.filepathFor(type, filename)
+
+  expect(result).toMatch('app/routes/posts/comments.ts')
+})
+
+test('.filenameFor() posts route', () => {
+  const type = 'route'
+  const name = 'posts'
+
+  const result = resolver.filenameFor(type, name)
+
+  expect(result).toBe('posts')
+})
+
+test('.filenameFor() posts route with get verb', () => {
+  const type = 'route'
+  const name = 'posts'
+  const verb = 'get'
+
+  const result = resolver.filenameFor(type, name, verb)
+
+  expect(result).toBe('posts.get')
+})
+
+test('.filenameFor() posts route with patch verb', () => {
+  const type = 'route'
+  const name = 'posts'
+  const verb = 'patch'
+
+  const result = resolver.filenameFor(type, name, verb)
+
+  expect(result).toBe('posts.patch')
+})
+
+test('.filenameFor() middleware main identifier', () => {
+  const type = 'middleware'
+  const name = 'main'
+
+  const result = resolver.filenameFor(type, name)
+
+  expect(result).toBe('application')
+})
+
+test('.filenameFor() router main identifier', () => {
+  const type = 'router'
+  const name = 'main'
+
+  const result = resolver.filenameFor(type, name)
+
+  expect(result).toBe('router')
+})
+
+test('.fallbackFor() router', () => {
+  const type = 'router'
+
+  const result = resolver.fallbackFor(type)
+
+  expect(result).toBe('router')
+})
+
+test('.fallbackFor() route.get', () => {
+  const type = 'route'
+  const name = 'posts'
+  const verb = 'get'
+
+  const result = resolver.fallbackFor(type, name, verb)
+
+  expect(result).toBe('posts')
+})
+
+test('.fallbackFor() service', () => {
+  const type = 'service'
+  const name = 'auth'
+
+  const result = resolver.fallbackFor(type, name)
+
+  expect(result).toBeFalsy()
+})
+
+test('.fallbackFor() route.patch', () => {
+  const type = 'route'
+  const name = 'posts'
+  const verb = 'patch'
+
+  const result = resolver.fallbackFor(type, name, verb)
+
+  expect(result).toBeFalsy()
+})
+
+test('.retrieve() non es2015 module', () => {
+  const loadFile = td.replace(resolver, 'loadFile')
+  td.when(loadFile(
+    td.matchers.anything(),
+    td.matchers.anything()
+  )).thenReturn({name: 'module'})
+
+  const result = resolver.retrieve('route:post')
+
+  expect(result.name).toBe('module')
+})
+
+test('.retrieve() es2015 module', () => {
+  const loadFile = td.replace(resolver, 'loadFile')
+  td.when(loadFile(
+    td.matchers.anything(),
+    td.matchers.anything()
+  )).thenReturn({__esModule: true, default: {name: 'module'}})
+
+  const result = resolver.retrieve('route:post')
+
+  expect(result.name).toBe('module')
+})
+
+test('.retrieve() throws error for incorrect types', () => {
+  expect(() => resolver.retrieve('fake:thing')).toThrow()
+})

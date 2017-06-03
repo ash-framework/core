@@ -161,42 +161,87 @@ import { Registry, Container } from '@glimmer/di'
 //   }
 // }
 
-class Resolver {
+const BASE_PATH = path.join(process.cwd(), 'app')
+
+const TYPES = Object.freeze({
+  route: {
+    verbs: true,
+    directory: 'routes',
+    main: 'application'
+  },
+  router: {
+    directory: '',
+    main: 'router',
+    fallback: 'router'
+  },
+  middleware: {
+    directory: 'middleware',
+    main: 'application',
+    fallback: 'application'
+  },
+  initializer: {
+    directory: 'initializers',
+    main: 'application',
+    fallback: 'application'
+  },
+  service: {
+    directory: 'services',
+    main: 'application'
+  }
+})
+
+export class Resolver {
   identify: any
 
-  retrieve(specifier: string) {
-    let [type, name, verb] = specifier.split(':')
-    let file
-    if (type === 'route') {
-      if (verb === 'get') {
-        let filepath = path.join(process.cwd(), 'app', `routes`, `${name}.ts`)
-        if (existsSync(filepath)) {
-          file = require(filepath).default
-        }
-      }
+  parseEsModule(file) {
+    return (file && file.__esModule) ? file.default : file
+  }
 
-      if (!file) {
-        let filepath = path.join(process.cwd(), 'app', `routes`, `${name}.${verb}.ts`)
-        if (existsSync(filepath)) {
-          file = require(filepath).default
-        }
-      }
+  loadFile(path, fallbackPath) {
+    if (existsSync(path)) {
+      return require(path)
+    } else if (fallbackPath) {
+      return require(fallbackPath)
+    }
+  }
 
-    } else if (type === 'router') {
-      if (name === 'main') {
-        file = require(path.join(process.cwd(), 'app', `router`)).default
-      }
-    } else if (type === 'middleware') {
-      file = require(path.join(process.cwd(), 'app', 'middleware', name)).default
-    } else if (type === 'initializer') {
-      file = require(path.join(process.cwd(), 'app', 'initializers', name)).default
-    } else if (type === 'service') {
-      file = require(path.join(process.cwd(), 'app', 'services', name)).default
-    } else {
-      return
+  filepathFor(type, filename) {
+    if (!filename) return
+    return path.join(BASE_PATH, TYPES[type].directory, filename) + '.ts'
+  }
+
+  filenameFor(type, name, verb) {
+    if (name === 'main') return TYPES[type].main
+
+    if (TYPES[type].verbs && verb) {
+      return `${name}.${verb}`
     }
 
-    return file
+    return name
+  }
+
+  validateType(type) {
+    if (!TYPES[type]) {
+      throw new Error(`Type: ${type} is not supported by the resolver.`)
+    }
+  }
+
+  fallbackFor (type, name, verb) {
+    if (TYPES[type].verbs && verb === 'get') {
+      return name
+    }
+    return TYPES[type].fallback
+  }
+
+  retrieve(specifier: string) {
+    const [type, name, verb] = specifier.split(':')
+    this.validateType(type)
+    const filename = this.filenameFor(type, name, verb)
+    const filepath = this.filepathFor(type, filename)
+    const fallbackName = this.fallbackFor(type, name, verb)
+    const fallbackPath = this.filepathFor(type, fallbackName)
+    const file = this.loadFile(filepath, fallbackPath)
+    return this.parseEsModule(file)
   }
 }
 
@@ -222,4 +267,4 @@ registry.registerOption('initializer', 'singleton', true)
 // registry.registerInjection('model', 'store', 'store:main')
 // registry.registerInjection('route', 'store', 'store:main')
 
-export { registry, container }
+export { registry, Registry, container, Container, resolver }

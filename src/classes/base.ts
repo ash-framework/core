@@ -1,7 +1,7 @@
 /**
   Ash framework base class.
   This class is the base class for all Ash classes.
-  It adds support for mixins in all child classes.
+  It adds support for services in all child classes.
 
   @class Base
   @public

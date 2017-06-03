@@ -64,6 +64,7 @@
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.28.0",
+    "testdouble": "^3.0.0",
     "ts-node": "^3.0.2",
     "typescript": "^2.2.2",
     "yuidoc-ember-theme": "https://github.com/ash-framework/yuidoc-ember-theme"

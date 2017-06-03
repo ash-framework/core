@@ -16,8 +16,8 @@ describe('module di', () => {
       }
 
       // When
-      registry.register('my-class', MyClass)
-      const myClass = container.lookup('my-class')
+      registry.register('route', MyClass)
+      const myClass = container.lookup('route')
 
       // Then
       expect(myClass.method()).toBeTruthy()
@@ -33,16 +33,22 @@ describe('module di', () => {
         }
       }
       class MyInjection {
+        static create (options) {
+          const instance = new this()
+          Object.assign(this, options)
+          return instance
+        }
+
         method () {
           return true
         }
       }
 
       // When
-      registry.register('my-class', MyClass)
-      registry.register('my-injection', MyInjection)
-      registry.registerInjection('my-class', 'method', 'my-injection')
-      const myClass = container.lookup('my-class')
+      registry.register('route', MyClass)
+      registry.register('service', MyInjection)
+      registry.registerInjection('route', 'method', 'service')
+      const myClass = container.lookup('route')
 
       // Then
       expect(myClass.method()).toBeTruthy()

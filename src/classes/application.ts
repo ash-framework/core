@@ -15,7 +15,17 @@ import * as cors from 'cors'
 import * as helmet from 'helmet'
 import * as bodyparser from 'body-parser'
 
-const _app = new WeakMap()
+export interface Config {
+  cors: { preFlight: boolean }
+  helmet: boolean
+  bodyParser: {
+    json: boolean | {},
+    text: boolean | {},
+    raw: boolean | {},
+    urlencoded: boolean | {}
+  }
+  port: number
+}
 
 /**
   Application class used to create a new instance of an Ash application
