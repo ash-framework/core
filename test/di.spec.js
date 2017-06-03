@@ -129,9 +129,8 @@ test('.fallbackFor() route.patch', () => {
 })
 
 test('.retrieve() non es2015 module', () => {
-  const loadFile = td.replace(resolver, 'loadFile')
-  td.when(loadFile(
-    td.matchers.anything(),
+  const loadFileFor = td.replace(resolver, 'loadFileFor')
+  td.when(loadFileFor(
     td.matchers.anything()
   )).thenReturn({name: 'module'})
 
@@ -141,9 +140,8 @@ test('.retrieve() non es2015 module', () => {
 })
 
 test('.retrieve() es2015 module', () => {
-  const loadFile = td.replace(resolver, 'loadFile')
-  td.when(loadFile(
-    td.matchers.anything(),
+  const loadFileFor = td.replace(resolver, 'loadFileFor')
+  td.when(loadFileFor(
     td.matchers.anything()
   )).thenReturn({__esModule: true, default: {name: 'module'}})
 
@@ -154,4 +152,15 @@ test('.retrieve() es2015 module', () => {
 
 test('.retrieve() throws error for incorrect types', () => {
   expect(() => resolver.retrieve('fake:thing')).toThrow()
+})
+
+test('.retrieve() fallback tried if first call to loadFileFor throws', () => {
+  const loadFileFor = td.replace(resolver, 'loadFileFor')
+  td.when(loadFileFor(td.matchers.anything()), {times: 1})
+    .thenThrow(new Error('boom!'))
+  const fallbackFor = td.replace(resolver, 'fallbackFor')
+
+  resolver.retrieve('router:fake')
+
+  td.verify(fallbackFor('router', 'fake', undefined))
 })

@@ -197,12 +197,11 @@ export class Resolver {
     return (file && file.__esModule) ? file.default : file
   }
 
-  loadFile(path, fallbackPath) {
+  loadFileFor(path) {
     if (existsSync(path)) {
       return require(path)
-    } else if (fallbackPath) {
-      return require(fallbackPath)
     }
+    throw new Error(`Resolver unable to resolve file at: ${path}`)
   }
 
   filepathFor(type, filename) {
@@ -233,15 +232,23 @@ export class Resolver {
     return TYPES[type].fallback
   }
 
+  loadFile (type, filename) {
+    const filepath = this.filepathFor(type, filename)
+    return this.parseEsModule(this.loadFileFor(filepath))
+  }
+
   retrieve(specifier: string) {
     const [type, name, verb] = specifier.split(':')
+
     this.validateType(type)
-    const filename = this.filenameFor(type, name, verb)
-    const filepath = this.filepathFor(type, filename)
-    const fallbackName = this.fallbackFor(type, name, verb)
-    const fallbackPath = this.filepathFor(type, fallbackName)
-    const file = this.loadFile(filepath, fallbackPath)
-    return this.parseEsModule(file)
+
+    try {
+      const filename = this.filenameFor(type, name, verb)
+      return this.loadFile(type, filename)
+    } catch (err) {
+      const filename = this.fallbackFor(type, name, verb)
+      return this.loadFile(type, filename)
+    }
   }
 }
 
