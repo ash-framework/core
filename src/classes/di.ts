@@ -5,6 +5,7 @@ import * as path from 'path'
 import { Registry, Container } from '@glimmer/di'
 
 const BASE_PATH = path.join(process.cwd(), 'app')
+const EXT = '.ts'
 
 const TYPES = Object.freeze({
   route: {
@@ -40,10 +41,22 @@ export interface File {
 export class Resolver {
   identify: any
 
+  /**
+   * Determines if a given required file was an es2015 module and
+   * handles it accordingly
+   * @param {Mixed} file
+   * @return {Mixed}
+   */
   parseEsModule(file: File) {
     return (file && file.__esModule) ? file.default : file
   }
 
+  /**
+   * Loads file at a given path. Throws if file is not found.
+   * @param {String} path
+   * @throws {Error}
+   * @return {Mixed}
+   */
   loadFileFor(path: string): File {
     if (existsSync(path)) {
       return require(path)
@@ -51,11 +64,26 @@ export class Resolver {
     assert(false, `Resolver unable to resolve file at: ${path}`)
   }
 
+  /**
+   * Constructs and returns a filepath for a given class type and
+   * filename. Returns an empty string if a path could not be constructed.
+   * @param {String} type
+   * @param {String} filename
+   * @return {String}
+   */
   filepathFor(type: string, filename: string): string {
     if (!filename) return ''
-    return path.join(BASE_PATH, TYPES[type].directory, filename) + '.ts'
+    return path.join(BASE_PATH, TYPES[type].directory, filename) + EXT
   }
 
+  /**
+   * Constructs and returns a filename for a given class type,
+   * name identifier and optional verb (get, patch, post, delete)
+   * @param {String} type
+   * @param {String} name
+   * @param {String} verb (optional)
+   * @return {String}
+   */
   filenameFor(type: string, name: string, verb?: string): string {
     if (name === 'main') return TYPES[type].main
 
