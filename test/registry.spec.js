@@ -21,8 +21,8 @@ describe('module di', () => {
         td.matchers.anything()
       )).thenReturn(MyClass)
 
-      registry.register('route', MyClass)
-      const myClass = container.lookup('route')
+      registry.register('route:my-class', MyClass)
+      const myClass = container.lookup('route:my-class')
 
       expect(myClass.method()).toBeTruthy()
     })
@@ -51,10 +51,10 @@ describe('module di', () => {
         td.matchers.anything()
       )).thenReturn(MyClass, MyInjection)
 
-      registry.register('route', MyClass)
-      registry.register('service', MyInjection)
-      registry.registerInjection('route', 'method', 'service')
-      const myClass = container.lookup('route')
+      registry.register('route:my-class', MyClass)
+      registry.register('service:my-injection', MyInjection)
+      registry.registerInjection('route:my-class', 'method', 'service:my-injection')
+      const myClass = container.lookup('route:my-class')
 
       expect(myClass.method()).toBeTruthy()
     })

@@ -164,3 +164,62 @@ test('.retrieve() fallback tried if first call to loadFileFor throws', () => {
 
   td.verify(fallbackFor('router', 'fake', undefined))
 })
+
+test('.validateType()', () => {
+  const input = 'fake'
+
+  expect(() => resolver.validateType(input)).toThrow()
+})
+
+test('.validateName()', () => {
+  const input = ''
+
+  expect(() => resolver.validateName(input)).toThrow()
+})
+
+test('.validateVerb() empty is ok', () => {
+  const input = ''
+
+  const result = resolver.validateVerb(input)
+
+  expect(result).toBeFalsy()
+})
+
+test('.validateVerb() get is ok', () => {
+  const input = 'get'
+
+  const result = resolver.validateVerb(input)
+
+  expect(result).toBeFalsy()
+})
+
+test('.validateVerb() patch is ok', () => {
+  const input = 'patch'
+
+  const result = resolver.validateVerb(input)
+
+  expect(result).toBeFalsy()
+})
+
+test('.validateVerb() post is ok', () => {
+  const input = 'post'
+
+  const result = resolver.validateVerb(input)
+
+  expect(result).toBeFalsy()
+})
+
+test('.validateVerb() delete is ok', () => {
+  const input = 'delete'
+
+  const result = resolver.validateVerb(input)
+
+  expect(result).toBeFalsy()
+})
+
+test('.validateVerb() bad input', () => {
+  const input = 'fake'
+
+  expect(() => resolver.validateVerb(input)).toThrow()
+})
+

@@ -48,11 +48,11 @@ export class Resolver {
     if (existsSync(path)) {
       return require(path)
     }
-    throw new Error(`Resolver unable to resolve file at: ${path}`)
+    assert(false, `Resolver unable to resolve file at: ${path}`)
   }
 
   filepathFor(type: string, filename: string): string {
-    if (!filename) return
+    if (!filename) return ''
     return path.join(BASE_PATH, TYPES[type].directory, filename) + '.ts'
   }
 
@@ -67,19 +67,27 @@ export class Resolver {
   }
 
   validateType(type: string) {
-    if (!TYPES[type]) {
-      throw new Error(`Type: ${type} is not supported by the resolver.`)
-    }
+    assert(TYPES[type], `Type: '${type}' is not supported by the resolver.`)
   }
 
-  fallbackFor (type: string, name: string, verb?: string): string {
+  validateName(name: string) {
+    assert(name, `Name: '${name}' must not be empty. Invalid: 'route:' Valid: 'route:my-route'`)
+  }
+
+  validateVerb(verb: string) {
+    if (!verb) return
+    assert(['get', 'patch', 'post', 'delete'].includes(verb),
+      `Verb: '${verb}' must be one of 'post', 'patch', 'delete', 'get'`)
+  }
+
+  fallbackFor(type: string, name: string, verb?: string): string {
     if (TYPES[type].verbs && verb === 'get') {
       return name
     }
     return TYPES[type].fallback
   }
 
-  loadFile (type: string, filename: string) {
+  loadFile(type: string, filename: string) {
     const filepath = this.filepathFor(type, filename)
     return this.parseEsModule(this.loadFileFor(filepath))
   }
@@ -88,13 +96,13 @@ export class Resolver {
     const [type, name, verb] = specifier.split(':')
 
     this.validateType(type)
+    this.validateName(name)
+    this.validateVerb(verb)
 
     try {
-      const filename = this.filenameFor(type, name, verb)
-      return this.loadFile(type, filename)
+      return this.loadFile(type, this.filenameFor(type, name, verb))
     } catch (err) {
-      const filename = this.fallbackFor(type, name, verb)
-      return this.loadFile(type, filename)
+      return this.loadFile(type, this.fallbackFor(type, name, verb))
     }
   }
 }
