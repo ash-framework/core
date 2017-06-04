@@ -6,6 +6,7 @@ import { Registry, Container } from '@glimmer/di'
 
 const BASE_PATH = path.join(process.cwd(), 'app')
 const EXT = '.ts'
+const SUPPORTED_VERBS: Array<string> = ['get', 'put', 'post', 'patch', 'delete', 'options', 'head']
 
 const TYPES = Object.freeze({
   route: {
@@ -104,7 +105,7 @@ export class Resolver {
 
   validateVerb(verb: string) {
     if (!verb) return
-    assert(['get', 'patch', 'post', 'delete'].includes(verb),
+    assert(SUPPORTED_VERBS.includes(verb),
       `Verb: '${verb}' must be one of 'post', 'patch', 'delete', 'get'`)
   }
 
