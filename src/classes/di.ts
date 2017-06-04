@@ -95,20 +95,43 @@ export class Resolver {
     return name
   }
 
+  /**
+   * Validates the 'type' component of a specifier string
+   * @param {String} type
+   * @throws {Error}
+   */
   validateType(type: string) {
     assert(TYPES[type], `Type: '${type}' is not supported by the resolver.`)
   }
 
+  /**
+   * Validates the 'name' component of a specifier string
+   * @param {String} name
+   * @throws {Error}
+   */
   validateName(name: string) {
     assert(name, `Name: '${name}' must not be empty. Invalid: 'route:' Valid: 'route:my-route'`)
   }
 
+  /**
+   * Validates the 'verb' component of a specifier string
+   * @param {String} verb
+   * @throws {Error}
+   */
   validateVerb(verb: string) {
     if (!verb) return
     assert(SUPPORTED_VERBS.includes(verb),
       `Verb: '${verb}' must be one of 'post', 'patch', 'delete', 'get'`)
   }
 
+  /**
+   * Looks up and returns fallback filename for a given 'type', 'name', 'verb'
+   * identifier
+   * @param {String} type
+   * @param {String} name
+   * @param {String} verb
+   * @return {String}
+   */
   fallbackFor(type: string, name: string, verb?: string): string {
     if (TYPES[type].verbs && verb === 'get') {
       return name
@@ -116,11 +139,31 @@ export class Resolver {
     return TYPES[type].fallback
   }
 
+  /**
+   * Attempts to load a file from disk using 'type' and 'filename'
+   * @param {String} type
+   * @param {String} filename
+   * @return {Mixed}
+   */
   loadFile(type: string, filename: string) {
     const filepath = this.filepathFor(type, filename)
     return this.parseEsModule(this.loadFileFor(filepath))
   }
 
+  /**
+   * Accepts a specifier and uses it to load files from disk.
+   * Specifiers are : separated of the form type:name:verb.
+   * 'type' refers to a class type such as 'route' or 'service'
+   * 'verb' refers to an http verb and is optional.
+   * Specifiers get translated into paths on the file system
+   * @example
+   * ```
+   * route:posts:get -> app/routes/posts.get.ts
+   * router:main -> app/router.ts
+   * service:user -> app/services/user.ts
+   * ```
+   * @param {String} specifier
+   */
   retrieve(specifier: string) {
     const [type, name, verb] = specifier.split(':')
 
