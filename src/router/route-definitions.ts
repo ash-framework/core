@@ -4,7 +4,7 @@ import { Registry, Container } from '@glimmer/di'
 import { find } from 'lodash'
 
 const SUPPORTED_METHODS: Array<string> = ['get', 'put', 'post', 'patch', 'delete', 'options', 'head']
-const IMPLICIT_ROUTE_NAME = 'index'
+const IMPLICIT_ROUTE_NAME: string = 'index'
 
 export interface RouteObject {
   name: string
@@ -26,16 +26,37 @@ export interface RouteBranch {
 }
 
 export class RouteDefinitions {
+  /**
+   * @property {Container} container
+   * @private
+   */
   container: Container
 
+  /**
+   * @constructor
+   * @param container
+   */
   constructor (container: Container) {
     this.container = container
   }
 
+  /**
+   * @static
+   * @param {Container} container
+   * @return {RouteDefinitions}
+   */
   static create (container: Container) {
     return new this(container)
   }
 
+  /**
+   * Produces a route definition for a route object with no children
+   * (which is therefore considered a leaf rather than a branch)
+   * @param {String} name
+   * @param {String} method
+   * @param {String} path
+   * @return {RouteDefinition}
+   */
   definitionForLeaf (name: string, method: string, path: string): RouteDefinition {
     const Route = this.container.factoryFor(`route:${name}:${method.toLowerCase()}`)
     if (Route) {
@@ -44,30 +65,69 @@ export class RouteDefinitions {
     }
   }
 
-  defintionForBranch (path: string, children: Array<RouteObject>) {
+  /**
+   * Produces a route definition for a route object with children
+   * (which is threrfore considered a branch rather than a leaf)
+   * @param {String} path
+   * @param {RouteObject[]} children
+   * @return {RouteBranch}
+   */
+  defintionForBranch (path: string, children: Array<RouteObject>): RouteBranch {
     return {
-      path: path,
+      path,
       children: this.buildDefinitions(children)
     }
   }
 
+  /**
+   * Finds a route object in the given route objects immediate children matched by
+   * name if one exists.
+   * @param {RouteObject} routeObject
+   * @return {RouteObject}
+   */
   findMatchingChild (routeObject: RouteObject): RouteObject {
     return find(routeObject.children, ['name', routeObject.name])
   }
 
+  /**
+   * Determines if a given route object has a child route object that shares
+   * both the same name and route path
+   * @param {RouteObject} routeObject
+   * @return {boolean}
+   */
   hasMatchingChild (routeObject: RouteObject): boolean {
     const matchingChild: RouteObject = this.findMatchingChild(routeObject)
     return matchingChild.path === '/'
   }
 
+  /**
+   * Determines if the given route object has children
+   * @param {RouteObject} routeObject
+   * @return {boolean}
+   */
   hasChildren (routeObject: RouteObject): boolean {
     return routeObject.children.length > 0
   }
 
+  /**
+   * Determines if the given route object's name property matches
+   * the IMPLICIT_ROUTE_NAME. Route objects that match are not of
+   * interest to Ash
+   * @param {RouteObject} routeObject
+   * @return {boolean}
+   */
   isImplicitRoute (routeObject: RouteObject): boolean {
     return routeObject.name === IMPLICIT_ROUTE_NAME
   }
 
+  /**
+   * Produces a definition array suitable to be used with:
+   * https://www.npmjs.com/package/express-object-defined-routes
+   * from an array of route objects produced by
+   * https://www.npmjs.com/package/ember-route-objects
+   * @param {RouteObject[]} routeObject
+   * @return {Array<RouteDefinition | RouteBranch>}
+   */
   buildDefinitions (routeObjects: Array<RouteObject>): Array<RouteDefinition | RouteBranch> {
     const definitions: Array<RouteDefinition | RouteBranch> = []
     for (const routeObj of routeObjects) {
