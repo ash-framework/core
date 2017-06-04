@@ -131,7 +131,13 @@ export class Resolver {
     try {
       return this.loadFile(type, this.filenameFor(type, name, verb))
     } catch (err) {
-      return this.loadFile(type, this.fallbackFor(type, name, verb))
+      try {
+        return this.loadFile(type, this.fallbackFor(type, name, verb))
+      } catch (err) {
+        // Only throw if a fallback file was specified.
+        // Anything else should fall through with empty return
+        if (TYPES[type].fallback) throw err
+      }
     }
   }
 }
