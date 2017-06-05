@@ -137,7 +137,7 @@ export class RouteDefinitions {
         if (!this.hasMatchingChild(routeObj)) {
           // implicit routes
           for (const method of SUPPORTED_METHODS) {
-            const routeDefinition = this.definitionForLeaf(path.join(name, IMPLICIT_ROUTE_NAME), method, routeObj.path)
+            const routeDefinition = this.definitionForLeaf(path.join(routeObj.name, IMPLICIT_ROUTE_NAME), method, routeObj.path)
             if (routeDefinition) definitions.push(routeDefinition)
           }
         }
