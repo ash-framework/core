@@ -72,10 +72,10 @@ export class RouteDefinitions {
    * @param {RouteObject[]} children
    * @return {RouteBranch}
    */
-  defintionForBranch (path: string, children: Array<RouteObject>): RouteBranch {
+  defintionForBranch (name: string, path: string, children: Array<RouteObject>): RouteBranch {
     return {
       path,
-      children: this.buildDefinitions(children)
+      children: this.buildDefinitions(name, children)
     }
   }
 
@@ -128,7 +128,7 @@ export class RouteDefinitions {
    * @param {RouteObject[]} routeObject
    * @return {Array<RouteDefinition | RouteBranch>}
    */
-  buildDefinitions (routeObjects: Array<RouteObject>): Array<RouteDefinition | RouteBranch> {
+  buildDefinitions (name: string = '', routeObjects: Array<RouteObject>): Array<RouteDefinition | RouteBranch> {
     const definitions: Array<RouteDefinition | RouteBranch> = []
     for (const routeObj of routeObjects) {
       if (this.isImplicitRoute(routeObj)) continue
@@ -137,16 +137,16 @@ export class RouteDefinitions {
         if (!this.hasMatchingChild(routeObj)) {
           // implicit routes
           for (const method of SUPPORTED_METHODS) {
-            const routeDefinition = this.definitionForLeaf(IMPLICIT_ROUTE_NAME, method, routeObj.path)
+            const routeDefinition = this.definitionForLeaf(path.join(name, IMPLICIT_ROUTE_NAME), method, routeObj.path)
             if (routeDefinition) definitions.push(routeDefinition)
           }
         }
 
-        definitions.push(this.defintionForBranch(routeObj.path, routeObj.children))
+        definitions.push(this.defintionForBranch(path.join(name, routeObj.name), routeObj.path, routeObj.children))
       } else {
         // explicit routes
         for (const method of SUPPORTED_METHODS) {
-          const routeDefinition = this.definitionForLeaf(routeObj.name, method, routeObj.path)
+          const routeDefinition = this.definitionForLeaf(path.join(name, routeObj.name), method, routeObj.path)
           if (routeDefinition) definitions.push(routeDefinition)
         }
       }

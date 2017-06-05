@@ -12,7 +12,7 @@ export default function (definition: Function, options: Options) {
   let routeObjects = parseRouteObjects(definition)
 
   const routeDefinitions = RouteDefinitions.create(options.container)
-  const definitions = routeDefinitions.buildDefinitions(routeObjects)
+  const definitions = routeDefinitions.buildDefinitions('', routeObjects)
 
   // return an express router that can be mounted using expresses app.use
   return createExpressRouter(definitions)
