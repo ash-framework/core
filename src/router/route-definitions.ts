@@ -97,7 +97,7 @@ export class RouteDefinitions {
    */
   hasMatchingChild (routeObject: RouteObject): boolean {
     const matchingChild: RouteObject = this.findMatchingChild(routeObject)
-    return matchingChild.path === '/'
+    return matchingChild && matchingChild.path === '/'
   }
 
   /**
