@@ -45,7 +45,7 @@ export default class Http extends Base {
     Contains key-value pairs of data submitted in the request body
     @property {Object} body
   */
-  body: object
+  body: any
 
   /**
     Named url parameters
@@ -68,7 +68,7 @@ export default class Http extends Base {
 
     @property {Object} params
   */
-  params: object
+  params: any
 
   /**
     This property is an object containing a property for each query
@@ -84,7 +84,7 @@ export default class Http extends Base {
     ```
     @property {Object} query
   */
-  query: object
+  query: any
 
   /**
     The request headers object.
@@ -106,7 +106,7 @@ export default class Http extends Base {
 
     @property {Object} headers
   */
-  headers: object
+  headers: any
 
   /**
     Contains a string corresponding to the HTTP method of the
